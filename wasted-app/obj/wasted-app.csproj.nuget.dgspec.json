@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\_Files\\Uni\\3_kursas\\PSI 1\\se-wasted-app\\wasted-app\\wasted-app\\wasted-app.csproj": {}
+    "C:\\_Files\\Uni\\3_kursas\\PSI 1\\se-wasted-app\\wasted-app\\wasted-app.csproj": {}
   },
   "projects": {
-    "C:\\_Files\\Uni\\3_kursas\\PSI 1\\se-wasted-app\\wasted-app\\wasted-app\\wasted-app.csproj": {
+    "C:\\_Files\\Uni\\3_kursas\\PSI 1\\se-wasted-app\\wasted-app\\wasted-app.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\_Files\\Uni\\3_kursas\\PSI 1\\se-wasted-app\\wasted-app\\wasted-app\\wasted-app.csproj",
+        "projectUniqueName": "C:\\_Files\\Uni\\3_kursas\\PSI 1\\se-wasted-app\\wasted-app\\wasted-app.csproj",
         "projectName": "wasted-app",
-        "projectPath": "C:\\_Files\\Uni\\3_kursas\\PSI 1\\se-wasted-app\\wasted-app\\wasted-app\\wasted-app.csproj",
+        "projectPath": "C:\\_Files\\Uni\\3_kursas\\PSI 1\\se-wasted-app\\wasted-app\\wasted-app.csproj",
         "packagesPath": "C:\\Users\\Donatas\\.nuget\\packages\\",
-        "outputPath": "C:\\_Files\\Uni\\3_kursas\\PSI 1\\se-wasted-app\\wasted-app\\wasted-app\\obj\\",
+        "outputPath": "C:\\_Files\\Uni\\3_kursas\\PSI 1\\se-wasted-app\\wasted-app\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Donatas\\AppData\\Roaming\\NuGet\\NuGet.Config",
