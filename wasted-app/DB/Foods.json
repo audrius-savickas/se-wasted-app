@@ -1,0 +1,13 @@
+﻿{
+  [
+    {
+      "idFood": "0",
+      "name": "Saltibarsciai",
+      "isReserved": "false",
+      "price": "4,25",
+      "createdAt": "09/13/2021 9:47:00 PM",
+      "idTypeOfFood": "2",
+      "idRestaurant":  "0"
+    }
+  ]
+}
