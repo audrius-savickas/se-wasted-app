@@ -17,5 +17,26 @@ namespace wasted_app
             InitializeComponent();
         }
 
+        private void logInButton_Click(object sender, EventArgs e)
+        {
+
+            //Place holder until validation funcions are made
+            if (userNameTextBox.Text == "admin" && passwordTextBox.Text == "admin")
+            {
+                MessageBox.Show("Successfuly loged in!");
+            }
+
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            //Place holder until scene changing is working
+            MessageBox.Show("Went back!");
+        }
+
+        private void passwordTextBox_TextChanged(object sender, EventArgs e)
+        {
+            passwordTextBox.PasswordChar = '*';
+        }
     }
 }

@@ -54,6 +54,7 @@ namespace wasted_app
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(100, 22);
             this.passwordTextBox.TabIndex = 1;
+            this.passwordTextBox.TextChanged += new System.EventHandler(this.passwordTextBox_TextChanged);
             // 
             // userNameLabel
             // 
@@ -86,6 +87,7 @@ namespace wasted_app
             this.logInButton.TabIndex = 4;
             this.logInButton.Text = "Log In";
             this.logInButton.UseVisualStyleBackColor = true;
+            this.logInButton.Click += new System.EventHandler(this.logInButton_Click);
             // 
             // BackButton
             // 
@@ -96,6 +98,7 @@ namespace wasted_app
             this.BackButton.TabIndex = 5;
             this.BackButton.Text = "Back";
             this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // Form1
             // 
