@@ -20,10 +20,15 @@ namespace wasted_app
         private void logInButton_Click(object sender, EventArgs e)
         {
 
-            //Place holder until validation funcions are made
+            //Place holder until validation functions are made
             if (userNameTextBox.Text == "admin" && passwordTextBox.Text == "admin")
             {
                 MessageBox.Show("Successfuly loged in!");
+                
+            }
+            else
+            {
+                MessageBox.Show("Wrong username or password!");
             }
 
         }
