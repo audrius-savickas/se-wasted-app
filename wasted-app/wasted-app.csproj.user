@@ -4,8 +4,8 @@
     <Compile Update="InitialScreen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="RestaurantListScreen.cs">
-      <SubType>Form</SubType>
+    <Compile Update="UserControl1.cs">
+      <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
 </Project>

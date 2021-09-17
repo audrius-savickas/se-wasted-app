@@ -16,4 +16,4 @@ C:\_Files\Uni\3_kursas\PSI 1\se-wasted-app\wasted-app\obj\Debug\net5.0-windows\r
 C:\_Files\Uni\3_kursas\PSI 1\se-wasted-app\wasted-app\obj\Debug\net5.0-windows\wasted-app.pdb
 C:\_Files\Uni\3_kursas\PSI 1\se-wasted-app\wasted-app\obj\Debug\net5.0-windows\wasted-app.genruntimeconfig.cache
 C:\_Files\Uni\3_kursas\PSI 1\se-wasted-app\wasted-app\obj\Debug\net5.0-windows\wasted_app.InitialScreen.resources
-C:\_Files\Uni\3_kursas\PSI 1\se-wasted-app\wasted-app\obj\Debug\net5.0-windows\wasted_app.RestaurantListScreen.resources
+C:\_Files\Uni\3_kursas\PSI 1\se-wasted-app\wasted-app\obj\Debug\net5.0-windows\wasted_app.UserControl1.resources

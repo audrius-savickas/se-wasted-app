@@ -17,7 +17,7 @@ namespace wasted_app
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new InitialScreen());
+            Application.Run(new MainForm());
         }
     }
 }
