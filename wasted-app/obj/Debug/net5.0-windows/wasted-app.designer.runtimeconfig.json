@@ -6,8 +6,8 @@
       "version": "5.0.0"
     },
     "additionalProbingPaths": [
-      "C:\\Users\\Donatas\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Donatas\\.nuget\\packages"
+      "C:\\Users\\dosip\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\dosip\\.nuget\\packages"
     ],
     "configProperties": {
       "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true

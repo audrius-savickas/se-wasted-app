@@ -8,26 +8,27 @@
     "net5.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Donatas\\.nuget\\packages\\": {}
+    "C:\\Users\\dosip\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\_Files\\Uni\\3_kursas\\PSI 1\\se-wasted-app\\wasted-app\\wasted-app\\wasted-app.csproj",
+      "projectUniqueName": "C:\\Users\\dosip\\Source\\Repos\\se-wasted-app\\wasted-app\\wasted-app.csproj",
       "projectName": "wasted-app",
-      "projectPath": "C:\\_Files\\Uni\\3_kursas\\PSI 1\\se-wasted-app\\wasted-app\\wasted-app\\wasted-app.csproj",
-      "packagesPath": "C:\\Users\\Donatas\\.nuget\\packages\\",
-      "outputPath": "C:\\_Files\\Uni\\3_kursas\\PSI 1\\se-wasted-app\\wasted-app\\wasted-app\\obj\\",
+      "projectPath": "C:\\Users\\dosip\\Source\\Repos\\se-wasted-app\\wasted-app\\wasted-app.csproj",
+      "packagesPath": "C:\\Users\\dosip\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dosip\\Source\\Repos\\se-wasted-app\\wasted-app\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Donatas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dosip\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0-windows7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0-windows7.0": {
@@ -62,7 +63,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }
