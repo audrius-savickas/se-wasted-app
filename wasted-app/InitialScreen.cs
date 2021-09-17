@@ -27,5 +27,13 @@ namespace wasted_app
             frm.ShowDialog();
             this.Close();
         }
+
+        private void restaurantButton_Click(object sender, EventArgs e)
+        {
+            var restaurantRegistration = new RestaurantRegistrationScreen();
+            this.Hide();
+            restaurantRegistration.ShowDialog();
+            this.Close();
+        }
     }
 }

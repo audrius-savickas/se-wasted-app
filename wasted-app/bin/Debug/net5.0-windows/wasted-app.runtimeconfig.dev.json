@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\Donatas\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Donatas\\.nuget\\packages"
+      "C:\\Users\\umara\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\umara\\.nuget\\packages"
     ]
   }
 }
