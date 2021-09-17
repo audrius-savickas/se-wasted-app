@@ -43,5 +43,10 @@ namespace wasted_app
         {
             passwordTextBox.PasswordChar = '*';
         }
+
+        private void showPasswordButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

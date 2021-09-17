@@ -35,6 +35,7 @@ namespace wasted_app
             this.passwordLabel = new System.Windows.Forms.Label();
             this.logInButton = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
+            this.showPasswordButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // userNameTextBox
@@ -100,11 +101,22 @@ namespace wasted_app
             this.BackButton.UseVisualStyleBackColor = true;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
+            // showPasswordButton
+            // 
+            this.showPasswordButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.showPasswordButton.Location = new System.Drawing.Point(455, 210);
+            this.showPasswordButton.Name = "showPasswordButton";
+            this.showPasswordButton.Size = new System.Drawing.Size(19, 22);
+            this.showPasswordButton.TabIndex = 6;
+            this.showPasswordButton.UseVisualStyleBackColor = true;
+            this.showPasswordButton.Click += new System.EventHandler(this.showPasswordButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.showPasswordButton);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.logInButton);
             this.Controls.Add(this.passwordLabel);
@@ -126,6 +138,7 @@ namespace wasted_app
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Button logInButton;
         private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Button showPasswordButton;
     }
 }
 
