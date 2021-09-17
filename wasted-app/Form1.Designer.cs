@@ -109,7 +109,8 @@ namespace wasted_app
             this.showPasswordButton.Size = new System.Drawing.Size(19, 22);
             this.showPasswordButton.TabIndex = 6;
             this.showPasswordButton.UseVisualStyleBackColor = true;
-            this.showPasswordButton.Click += new System.EventHandler(this.showPasswordButton_Click);
+            this.showPasswordButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.showPasswordButton_MouseDown);
+            this.showPasswordButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.showPasswordButton_MouseUp);
             // 
             // Form1
             // 
