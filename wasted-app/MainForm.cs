@@ -31,5 +31,19 @@ namespace wasted_app
             }
 
         }
+
+        private void restaurantButton_Click(object sender, EventArgs e)
+        {
+            if (!panel.Controls.Contains(RestaurantLogInControl.Instance))
+            {
+                panel.Controls.Add(RestaurantLogInControl.Instance);
+                RestaurantLogInControl.Instance.Dock = DockStyle.Fill;
+                RestaurantLogInControl.Instance.BringToFront();
+            }
+            else
+            {
+                RestaurantLogInControl.Instance.BringToFront();
+            }
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace wasted_app
 {
-    partial class RestaurantListControl
+    partial class RestaurantLogInControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,33 +29,32 @@ namespace wasted_app
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.signUpButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // signUpButton
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(313, 145);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Restaurant List";
+            this.signUpButton.Location = new System.Drawing.Point(233, 252);
+            this.signUpButton.Name = "signUpButton";
+            this.signUpButton.Size = new System.Drawing.Size(75, 23);
+            this.signUpButton.TabIndex = 0;
+            this.signUpButton.Text = "Sign Up";
+            this.signUpButton.UseVisualStyleBackColor = true;
+            this.signUpButton.Click += new System.EventHandler(this.signUpButton_Click);
             // 
-            // RestaurantListControl
+            // RestaurantLogInControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "RestaurantListControl";
-            this.Size = new System.Drawing.Size(700, 338);
+            this.Controls.Add(this.signUpButton);
+            this.Name = "RestaurantLogInControl";
+            this.Size = new System.Drawing.Size(566, 385);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button signUpButton;
     }
 }
