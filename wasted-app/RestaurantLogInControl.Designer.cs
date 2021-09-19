@@ -34,9 +34,11 @@ namespace wasted_app
             // 
             // signUpButton
             // 
-            this.signUpButton.Location = new System.Drawing.Point(233, 252);
+            this.signUpButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.signUpButton.Location = new System.Drawing.Point(266, 336);
+            this.signUpButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.signUpButton.Name = "signUpButton";
-            this.signUpButton.Size = new System.Drawing.Size(75, 23);
+            this.signUpButton.Size = new System.Drawing.Size(86, 31);
             this.signUpButton.TabIndex = 0;
             this.signUpButton.Text = "Sign Up";
             this.signUpButton.UseVisualStyleBackColor = true;
@@ -44,11 +46,12 @@ namespace wasted_app
             // 
             // RestaurantLogInControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.signUpButton);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "RestaurantLogInControl";
-            this.Size = new System.Drawing.Size(566, 385);
+            this.Size = new System.Drawing.Size(647, 513);
             this.ResumeLayout(false);
 
         }
