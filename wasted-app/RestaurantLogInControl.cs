@@ -34,7 +34,7 @@ namespace wasted_app
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            //todo
+            MainForm.mainForm.panel.Controls.Remove(_instance);
         }
 
         private void logInButton_Click(object sender, EventArgs e)

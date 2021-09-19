@@ -12,9 +12,11 @@ namespace wasted_app
 {
     public partial class MainForm : Form
     {
+        public static MainForm mainForm;
         public MainForm()
         {
             InitializeComponent();
+            mainForm = this;
         }
 
         private void UserButton_Click(object sender, EventArgs e)

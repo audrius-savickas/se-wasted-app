@@ -61,9 +61,11 @@ namespace wasted_app
             // 
             // panel
             // 
+            this.panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel.Controls.Add(this.userButton);
             this.panel.Controls.Add(this.restaurantButton);
-            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel.Location = new System.Drawing.Point(0, 0);
             this.panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel.Name = "panel";
@@ -88,7 +90,7 @@ namespace wasted_app
 
         private System.Windows.Forms.Button userButton;
         private System.Windows.Forms.Button restaurantButton;
-        private System.Windows.Forms.Panel panel;
+        public System.Windows.Forms.Panel panel;
     }
 }
 
