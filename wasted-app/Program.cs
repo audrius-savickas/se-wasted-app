@@ -17,7 +17,11 @@ namespace wasted_app
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+<<<<<<< HEAD
             Application.Run(new InitialScreen());
+=======
+            Application.Run(new MainForm());
+>>>>>>> LoginScreen
         }
     }
 }

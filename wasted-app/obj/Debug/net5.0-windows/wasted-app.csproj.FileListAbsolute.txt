@@ -37,3 +37,6 @@ H:\University\3 semestras\PSI\se-wasted-app\wasted-app\obj\Debug\net5.0-windows\
 H:\University\3 semestras\PSI\se-wasted-app\wasted-app\obj\Debug\net5.0-windows\wasted-app.pdb
 H:\University\3 semestras\PSI\se-wasted-app\wasted-app\obj\Debug\net5.0-windows\wasted-app.genruntimeconfig.cache
 H:\University\3 semestras\PSI\se-wasted-app\wasted-app\obj\Debug\net5.0-windows\wasted_app.RestaurantRegistrationScreen.resources
+H:\University\3 semestras\PSI\se-wasted-app\wasted-app\obj\Debug\net5.0-windows\wasted_app.MainForm.resources
+H:\University\3 semestras\PSI\se-wasted-app\wasted-app\obj\Debug\net5.0-windows\wasted_app.RestaurantListControl.resources
+H:\University\3 semestras\PSI\se-wasted-app\wasted-app\obj\Debug\net5.0-windows\wasted_app.RestaurantLogInControl.resources
