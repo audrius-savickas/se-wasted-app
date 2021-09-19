@@ -36,6 +36,7 @@ namespace wasted_app
         {
             if (!panel.Controls.Contains(RestaurantLogInControl.Instance))
             {
+                RestaurantLogInControl.SetPanel(panel);
                 panel.Controls.Add(RestaurantLogInControl.Instance);
                 RestaurantLogInControl.Instance.Dock = DockStyle.Fill;
                 RestaurantLogInControl.Instance.BringToFront();

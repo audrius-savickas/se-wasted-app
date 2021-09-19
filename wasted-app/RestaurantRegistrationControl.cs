@@ -7,25 +7,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace wasted_app
 {
-    public partial class RestaurantRegistrationScreen : Form
+    public partial class RestaurantRegistrationControl : UserControl
     {
+        private static RestaurantRegistrationControl _instance;
         private int minimumPasswordLength = 8;
         private bool showPassword = false;
-        public RestaurantRegistrationScreen()
+        public static RestaurantRegistrationControl Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new RestaurantRegistrationControl();
+                return _instance;
+            }
+        }
+        public RestaurantRegistrationControl()
         {
             InitializeComponent();
         }
 
         private void usernameInput_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
         {
 
         }
