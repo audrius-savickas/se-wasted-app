@@ -37,6 +37,7 @@ namespace wasted_app
             this.backButton = new System.Windows.Forms.Button();
             this.logInButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.showPasswordButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // signUpButton
@@ -111,10 +112,21 @@ namespace wasted_app
             this.label1.TabIndex = 7;
             this.label1.Text = "Don\'t have an account yet?";
             // 
+            // showPasswordButton
+            // 
+            this.showPasswordButton.Location = new System.Drawing.Point(398, 164);
+            this.showPasswordButton.Name = "showPasswordButton";
+            this.showPasswordButton.Size = new System.Drawing.Size(24, 23);
+            this.showPasswordButton.TabIndex = 8;
+            this.showPasswordButton.UseVisualStyleBackColor = true;
+            this.showPasswordButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.showPasswordButton_MouseDown);
+            this.showPasswordButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.showPasswordButton_MouseUp);
+            // 
             // RestaurantLogInControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.showPasswordButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.logInButton);
             this.Controls.Add(this.backButton);
@@ -140,5 +152,6 @@ namespace wasted_app
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Button logInButton;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button showPasswordButton;
     }
 }

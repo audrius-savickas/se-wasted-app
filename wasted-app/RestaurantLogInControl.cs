@@ -54,5 +54,15 @@ namespace wasted_app
         {
             passwordTextBox.PasswordChar = '*';
         }
+
+        private void showPasswordButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            passwordTextBox.PasswordChar = '\0';
+        }
+
+        private void showPasswordButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            passwordTextBox.PasswordChar = '*';
+        }
     }
 }
