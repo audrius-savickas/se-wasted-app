@@ -35,6 +35,7 @@ namespace wasted_app
             this.usernameLabel = new System.Windows.Forms.Label();
             this.passwordInput = new System.Windows.Forms.TextBox();
             this.usernameInput = new System.Windows.Forms.TextBox();
+            this.passwordError = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // showPasswordCheckbox
@@ -85,9 +86,9 @@ namespace wasted_app
             this.passwordInput.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.passwordInput.Location = new System.Drawing.Point(378, 325);
             this.passwordInput.Name = "passwordInput";
-            this.passwordInput.PasswordChar = '*';
             this.passwordInput.Size = new System.Drawing.Size(266, 27);
             this.passwordInput.TabIndex = 9;
+            this.passwordInput.UseSystemPasswordChar = true;
             this.passwordInput.TextChanged += new System.EventHandler(this.passwordInput_TextChanged);
             // 
             // usernameInput
@@ -99,10 +100,19 @@ namespace wasted_app
             this.usernameInput.TabIndex = 8;
             this.usernameInput.TextChanged += new System.EventHandler(this.usernameInput_TextChanged);
             // 
+            // passwordError
+            // 
+            this.passwordError.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.passwordError.Location = new System.Drawing.Point(139, 329);
+            this.passwordError.Name = "passwordError";
+            this.passwordError.Size = new System.Drawing.Size(231, 263);
+            this.passwordError.TabIndex = 14;
+            // 
             // RestaurantRegistrationControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.passwordError);
             this.Controls.Add(this.showPasswordCheckbox);
             this.Controls.Add(this.registerButton);
             this.Controls.Add(this.passwordLabel);
@@ -124,5 +134,6 @@ namespace wasted_app
         private System.Windows.Forms.Label usernameLabel;
         private System.Windows.Forms.TextBox passwordInput;
         private System.Windows.Forms.TextBox usernameInput;
+        private System.Windows.Forms.Label passwordError;
     }
 }

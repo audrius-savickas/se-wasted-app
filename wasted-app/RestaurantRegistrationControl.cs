@@ -38,9 +38,15 @@ namespace wasted_app
         {
             var username = usernameInput.Text;
             var password = passwordInput.Text;
-            if (validateUsernamePassword(username, password))
+            String error = validateUsernamePassword(username, password);
+            if (error == "")
             {
+                passwordError.Text = "";
                 MessageBox.Show("Registered successfully");
+            }
+            else
+            {
+                passwordError.Text = error;
             }
         }
 
@@ -61,18 +67,17 @@ namespace wasted_app
             showPassword = !showPassword;
             if (showPassword)
             {
-                passwordInput.PasswordChar = '\0';
+                passwordInput.UseSystemPasswordChar = false;
             }
             else
             {
-                passwordInput.PasswordChar = '*';
+                passwordInput.UseSystemPasswordChar = true;
             }
         }
 
-        private bool validateUsernamePassword(string username, string password)
+        private String validateUsernamePassword(string username, string password)
         {
-            // Some outside validation code
-            return true;
+            return Validator.validatePassword(password);
         }
     }
 }
