@@ -79,5 +79,10 @@ namespace wasted_app
         {
             return Validator.validatePassword(password);
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            MainForm.mainForm.panel.Controls.Remove(_instance);
+        }
     }
 }

@@ -36,13 +36,14 @@ namespace wasted_app
             this.passwordInput = new System.Windows.Forms.TextBox();
             this.usernameInput = new System.Windows.Forms.TextBox();
             this.passwordError = new System.Windows.Forms.Label();
+            this.backButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // showPasswordCheckbox
             // 
             this.showPasswordCheckbox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.showPasswordCheckbox.AutoSize = true;
-            this.showPasswordCheckbox.Location = new System.Drawing.Point(650, 325);
+            this.showPasswordCheckbox.Location = new System.Drawing.Point(549, 271);
             this.showPasswordCheckbox.Name = "showPasswordCheckbox";
             this.showPasswordCheckbox.Size = new System.Drawing.Size(134, 24);
             this.showPasswordCheckbox.TabIndex = 13;
@@ -53,7 +54,7 @@ namespace wasted_app
             // registerButton
             // 
             this.registerButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.registerButton.Location = new System.Drawing.Point(454, 384);
+            this.registerButton.Location = new System.Drawing.Point(353, 330);
             this.registerButton.Name = "registerButton";
             this.registerButton.Size = new System.Drawing.Size(94, 29);
             this.registerButton.TabIndex = 12;
@@ -65,7 +66,7 @@ namespace wasted_app
             // 
             this.passwordLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Location = new System.Drawing.Point(378, 302);
+            this.passwordLabel.Location = new System.Drawing.Point(277, 248);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(73, 20);
             this.passwordLabel.TabIndex = 11;
@@ -75,7 +76,7 @@ namespace wasted_app
             // 
             this.usernameLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.usernameLabel.AutoSize = true;
-            this.usernameLabel.Location = new System.Drawing.Point(378, 228);
+            this.usernameLabel.Location = new System.Drawing.Point(277, 174);
             this.usernameLabel.Name = "usernameLabel";
             this.usernameLabel.Size = new System.Drawing.Size(78, 20);
             this.usernameLabel.TabIndex = 10;
@@ -84,7 +85,7 @@ namespace wasted_app
             // passwordInput
             // 
             this.passwordInput.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.passwordInput.Location = new System.Drawing.Point(378, 325);
+            this.passwordInput.Location = new System.Drawing.Point(277, 271);
             this.passwordInput.Name = "passwordInput";
             this.passwordInput.Size = new System.Drawing.Size(266, 27);
             this.passwordInput.TabIndex = 9;
@@ -94,7 +95,7 @@ namespace wasted_app
             // usernameInput
             // 
             this.usernameInput.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.usernameInput.Location = new System.Drawing.Point(378, 251);
+            this.usernameInput.Location = new System.Drawing.Point(277, 197);
             this.usernameInput.Name = "usernameInput";
             this.usernameInput.Size = new System.Drawing.Size(266, 27);
             this.usernameInput.TabIndex = 8;
@@ -103,15 +104,27 @@ namespace wasted_app
             // passwordError
             // 
             this.passwordError.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.passwordError.Location = new System.Drawing.Point(139, 329);
+            this.passwordError.Location = new System.Drawing.Point(38, 275);
             this.passwordError.Name = "passwordError";
             this.passwordError.Size = new System.Drawing.Size(231, 263);
             this.passwordError.TabIndex = 14;
+            // 
+            // backButton
+            // 
+            this.backButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.backButton.Location = new System.Drawing.Point(17, 483);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(94, 29);
+            this.backButton.TabIndex = 15;
+            this.backButton.Text = "Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // RestaurantRegistrationControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.backButton);
             this.Controls.Add(this.passwordError);
             this.Controls.Add(this.showPasswordCheckbox);
             this.Controls.Add(this.registerButton);
@@ -120,7 +133,7 @@ namespace wasted_app
             this.Controls.Add(this.passwordInput);
             this.Controls.Add(this.usernameInput);
             this.Name = "RestaurantRegistrationControl";
-            this.Size = new System.Drawing.Size(1061, 635);
+            this.Size = new System.Drawing.Size(858, 527);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,5 +148,6 @@ namespace wasted_app
         private System.Windows.Forms.TextBox passwordInput;
         private System.Windows.Forms.TextBox usernameInput;
         private System.Windows.Forms.Label passwordError;
+        private System.Windows.Forms.Button backButton;
     }
 }
