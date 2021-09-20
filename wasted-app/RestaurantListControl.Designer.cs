@@ -35,19 +35,20 @@ namespace wasted_app
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(358, 193);
+            this.label1.Location = new System.Drawing.Point(313, 145);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 20);
+            this.label1.Size = new System.Drawing.Size(84, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Restaurant List";
             // 
             // RestaurantListControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "RestaurantListControl";
-            this.Size = new System.Drawing.Size(800, 450);
+            this.Size = new System.Drawing.Size(700, 338);
             this.ResumeLayout(false);
             this.PerformLayout();
 
