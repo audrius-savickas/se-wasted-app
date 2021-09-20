@@ -13,7 +13,6 @@ namespace wasted_app
     public partial class RestaurantLogInControl : UserControl
     {
         private static RestaurantLogInControl _instance;
-        private static Panel panel;
         public static RestaurantLogInControl Instance
         {
             get
@@ -28,16 +27,11 @@ namespace wasted_app
             InitializeComponent();
         }
 
-        public static void SetPanel(Panel mainPanel)
-        {
-            panel = mainPanel;
-        }
-
         private void signUpButton_Click(object sender, EventArgs e)
         {
-            if (!panel.Controls.Contains(RestaurantRegistrationControl.Instance))
+            if (!MainForm.mainForm.panel.Controls.Contains(RestaurantRegistrationControl.Instance))
             {
-                panel.Controls.Add(RestaurantRegistrationControl.Instance);
+                MainForm.mainForm.panel.Controls.Add(RestaurantRegistrationControl.Instance);
                 RestaurantRegistrationControl.Instance.Dock = DockStyle.Fill;
                 RestaurantRegistrationControl.Instance.BringToFront();
             }

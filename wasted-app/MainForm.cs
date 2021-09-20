@@ -12,9 +12,11 @@ namespace wasted_app
 {
     public partial class MainForm : Form
     {
+        public static MainForm mainForm;
         public MainForm()
         {
             InitializeComponent();
+            mainForm = this;
         }
 
         private void UserButton_Click(object sender, EventArgs e)
@@ -36,7 +38,6 @@ namespace wasted_app
         {
             if (!panel.Controls.Contains(RestaurantLogInControl.Instance))
             {
-                RestaurantLogInControl.SetPanel(panel);
                 panel.Controls.Add(RestaurantLogInControl.Instance);
                 RestaurantLogInControl.Instance.Dock = DockStyle.Fill;
                 RestaurantLogInControl.Instance.BringToFront();

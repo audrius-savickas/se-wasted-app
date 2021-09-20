@@ -88,7 +88,7 @@ namespace wasted_app
 
         private System.Windows.Forms.Button userButton;
         private System.Windows.Forms.Button restaurantButton;
-        private System.Windows.Forms.Panel panel;
+        public System.Windows.Forms.Panel panel;
     }
 }
 
