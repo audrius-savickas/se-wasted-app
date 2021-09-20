@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace wasted_app
 {
@@ -11,19 +12,24 @@ namespace wasted_app
         public static String validatePassword(String password)
         {
             String error = "";
+            var hasNumber = new Regex(@"[0-9]+");
+            var hasLetter = new Regex(@"[a-zA-Z]+");
+            var hasSpecialCharacter = new Regex(@"[!@#$%^&*_-]+");
+
+
             if (password.Length < 8)
             {
                 error += "• Password should be at least 8 characters long\n";
             }
-            if (!password.Any(c => char.IsLetter(c)))
+            if (!hasLetter.IsMatch(password))
             {
                 error += "• Password should contain at least 1 letter\n";
             }
-            if (!password.Any(c => !char.IsLetterOrDigit(c) && !char.IsControl(c)))
+            if (!hasSpecialCharacter.IsMatch(password))
             {
                 error += "• Password should contain at least 1 special character\n";
             }
-            if (!password.Any(c => char.IsDigit(c)))
+            if (!hasNumber.IsMatch(password))
             {
                 error += "• Password should contain at least 1 digit";
             }
