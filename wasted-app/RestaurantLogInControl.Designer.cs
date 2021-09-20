@@ -144,6 +144,7 @@ namespace wasted_app
             this.Controls.Add(this.passwordLabel);
             this.Controls.Add(this.usernameLabel);
             this.Controls.Add(this.signUpButton);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "RestaurantLogInControl";
             this.Size = new System.Drawing.Size(700, 338);
             this.ResumeLayout(false);

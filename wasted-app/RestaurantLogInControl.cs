@@ -29,7 +29,16 @@ namespace wasted_app
 
         private void signUpButton_Click(object sender, EventArgs e)
         {
-
+            if (!MainForm.mainForm.panel.Controls.Contains(RestaurantRegistrationControl.Instance))
+            {
+                MainForm.mainForm.panel.Controls.Add(RestaurantRegistrationControl.Instance);
+                RestaurantRegistrationControl.Instance.Dock = DockStyle.Fill;
+                RestaurantRegistrationControl.Instance.BringToFront();
+            }
+            else
+            {
+                RestaurantRegistrationControl.Instance.BringToFront();
+            }
         }
 
         private void backButton_Click(object sender, EventArgs e)
