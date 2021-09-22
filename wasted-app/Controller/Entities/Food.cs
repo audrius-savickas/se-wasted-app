@@ -10,7 +10,7 @@ namespace console_wasted_app.Controller.Entities
         public decimal Price { get; set; }
         public DateTime CreatedAt { get; set; }
         public string IdRestaurant { get; set; }
-        public IList<string> ArrIdTypesOfFood { get; set; }
+        public string IdTypeOfFood { get; set; }
 
         public Food
         (
@@ -18,7 +18,7 @@ namespace console_wasted_app.Controller.Entities
             string name,
             decimal price,
             string idRestaurant,
-            List<string> arrIdTypesOfFood,
+            string idTypeOfFood,
             DateTime? createdAt = null
         )
             : base(id, name)
@@ -26,24 +26,15 @@ namespace console_wasted_app.Controller.Entities
             Price = price;
             CreatedAt = createdAt ?? DateTime.Now;
             IdRestaurant = idRestaurant;
-            ArrIdTypesOfFood = arrIdTypesOfFood;
+            IdTypeOfFood = idTypeOfFood;
         }
 
         public Food(JsonElement json) : base(json)
         {
             Price = json.GetProperty("price").GetDecimal();
             CreatedAt = DateTime.Parse(json.GetProperty("createdAt").GetString());
+            IdTypeOfFood = json.GetProperty("idTypeOfFood").GetString();
             IdRestaurant = json.GetProperty("idRestaurant").GetString();
-        }
-
-        public void AddTypeOfFood(string id)
-        {
-            ArrIdTypesOfFood.Add(id);
-        }
-
-        public void DeleteTypeOfFood(string id)
-        {
-            ArrIdTypesOfFood.Remove(id);
         }
     }
 }
