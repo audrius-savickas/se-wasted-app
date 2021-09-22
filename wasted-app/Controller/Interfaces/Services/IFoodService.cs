@@ -4,9 +4,14 @@ using console_wasted_app.Controller.Entities;
 
 namespace console_wasted_app.Controller.Interfaces
 {
-    public interface IFoodService : IBaseService<Food>
+    public interface IFoodService
     {
-        public Restaurant GetRestaurant();
-        public IEnumerable<TypeOfFood> GetTypesOfFood();
+        Food GetFoodById(string id);
+        IEnumerable<Food> GetAllFood();
+        void RegisterFood(string idRestaurant, Food food);
+        void UpdateFood(Food updatedFood);
+        void DeleteFood(string id);
+        public Restaurant GetRestaurantOfFood(string idFood);
+        public IEnumerable<TypeOfFood> GetTypesOfFood(string id);
     }
 }

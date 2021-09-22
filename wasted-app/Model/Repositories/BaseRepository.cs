@@ -7,7 +7,7 @@ using wasted_app.Controller.Entities;
 
 namespace console_wasted_app.Model.Repositories
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
+    public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         private readonly FileStream database;
 
@@ -32,7 +32,7 @@ namespace console_wasted_app.Model.Repositories
             using var sr = new StreamReader(this.database, System.Text.Encoding.UTF8);
 
             string jsonAsString = sr.ReadToEnd();
-
+            
             using (JsonDocument document = JsonDocument.Parse(jsonAsString))
             {
                 JsonElement root = document.RootElement;
@@ -41,7 +41,7 @@ namespace console_wasted_app.Model.Repositories
                 while (iterator.MoveNext())
                 {
                     JsonElement json = iterator.Current;
-                    T element = new T().FromJson(json);
+                    T element = (T)Activator.CreateInstance(typeof(T), json);
                     all.Add(element);
                 }
             }
