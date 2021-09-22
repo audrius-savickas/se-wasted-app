@@ -23,6 +23,6 @@ for unclassified meals.
 ## Entity-Relationship Diagram
 A restaurant can register and login to the app with its email and password. Then, it can upload food, which will be visible to the users. 
 A food can only exists if the restaurant uploaded it, and can only be owned by a restaurant.
-A meal can have multiple types of food, but should have at least one to allow the users filter the food.
+A meal has one type of food to allow the user filter.
 
 ![E-R diagram](E-R.drawio.png)
