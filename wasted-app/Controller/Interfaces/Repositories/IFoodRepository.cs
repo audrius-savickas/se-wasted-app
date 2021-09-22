@@ -7,7 +7,7 @@ namespace console_wasted_app.Model.Interfaces
 {
     public interface IFoodRepository : IBaseRepository<Food>
     {
-        public Restaurant GetRestaurant();
-        public IEnumerable<TypeOfFood> GetTypesOfFood();
+        public Restaurant GetRestaurant(int id);
+        public IEnumerable<TypeOfFood> GetTypesOfFood(int id);
     }
 }

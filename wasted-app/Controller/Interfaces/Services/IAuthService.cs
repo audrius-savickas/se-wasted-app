@@ -7,6 +7,7 @@ namespace console_wasted_app.Controller.Interfaces.Services
     {
         public bool Login(Credentials creds);
         public bool Register(Credentials creds);
-        public bool ChangePass(Mail email, Password newPassword);
+        public void ChangePass(Mail email, Password newPassword);
+        public void DeleteAccount(Credentials creds);
     }
 }
