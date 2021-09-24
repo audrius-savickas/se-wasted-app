@@ -36,17 +36,17 @@ namespace console_wasted_app.Controller.Services
 
         public Restaurant GetRestaurantOfFood(string idFood)
         {
-            throw new System.NotImplementedException();
+            return _foodRepository.GetRestaurant(idFood);
         }
 
-        public IEnumerable<TypeOfFood> GetTypesOfFood(string id)
+        public TypeOfFood GetTypeOfFood(string id)
         {
-            throw new System.NotImplementedException();
+            return _foodRepository.GetTypeOfFood(id);
         }
 
-        public void RegisterFood(string idRestaurant, Food food)
+        public void RegisterFood(Food food)
         {
-            throw new System.NotImplementedException();
+            _foodRepository.Add(food);
         }
     }
 }
