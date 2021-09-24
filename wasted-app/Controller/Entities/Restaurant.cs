@@ -19,12 +19,12 @@ namespace console_wasted_app.Controller.Entities
         public Restaurant(JsonElement json) : base(json)
         {
             Coords = new Coords(
-                json.GetProperty("latitude").GetDecimal(),
-                json.GetProperty("altitude").GetDecimal()
+                json.GetProperty("Latitude").GetDecimal(),
+                json.GetProperty("Altitude").GetDecimal()
             );
             Credentials = new Credentials(
-                json.GetProperty("mail").GetString(),
-                json.GetProperty("password").GetString()
+                json.GetProperty("Mail").GetString(),
+                json.GetProperty("Password").GetString()
             );
         }
     }

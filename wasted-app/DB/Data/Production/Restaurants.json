@@ -1,0 +1,18 @@
+﻿[
+    {
+      "Id": "0",
+      "Name": "Etno Varas",
+      "Latitude": 54.687157,
+      "Altitude": 25.2796521,
+      "Mail": "etno@mail.com",
+      "Password": "etno"
+    },
+    {
+      "Id": "1",
+      "Name": "McDonalds",
+      "Latitude": 53.687157,
+      "Altitude": 26.2796521,
+      "Mail": "mc@donalds.lt",
+      "Password": "mcdonalds"
+    }
+]
