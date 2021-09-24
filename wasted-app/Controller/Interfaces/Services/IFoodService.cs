@@ -8,10 +8,10 @@ namespace console_wasted_app.Controller.Interfaces
     {
         Food GetFoodById(string id);
         IEnumerable<Food> GetAllFood();
-        void RegisterFood(string idRestaurant, Food food);
+        void RegisterFood(Food food);
         void UpdateFood(Food updatedFood);
         void DeleteFood(string id);
         public Restaurant GetRestaurantOfFood(string idFood);
-        public IEnumerable<TypeOfFood> GetTypesOfFood(string id);
+        public TypeOfFood GetTypeOfFood(string id);
     }
 }
