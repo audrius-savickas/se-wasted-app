@@ -15,8 +15,8 @@ namespace wasted_app.Controller.Entities
 
         public BaseEntity(JsonElement json)
         {
-            Id = json.GetProperty("id").GetString();
-            Name = json.GetProperty("name").GetString();
+            Id = json.GetProperty("Id").GetString();
+            Name = json.GetProperty("Name").GetString();
         }
     }
 }
