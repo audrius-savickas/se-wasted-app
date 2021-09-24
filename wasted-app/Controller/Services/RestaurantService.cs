@@ -6,7 +6,7 @@ using console_wasted_app.Model.Interfaces;
 
 namespace console_wasted_app.Controller.Services
 {
-    public class RestaurantService : IRestaurantService, IAuthService
+    public class RestaurantService : IRestaurantService
     {
         private readonly IRestaurantRepository _restaurantRepository;
 
@@ -17,12 +17,17 @@ namespace console_wasted_app.Controller.Services
 
         public void ChangePass(Mail email, Password newPassword)
         {
-            throw new System.NotImplementedException();
+            Restaurant restaurant = GetByMail(email);
+            Credentials creds = restaurant.Credentials;
+            creds.Password = newPassword;
+
+            _restaurantRepository.Update(restaurant);
         }
 
         public void DeleteAccount(Credentials creds)
         {
-            throw new System.NotImplementedException();
+            Restaurant restaurant = GetByMail(creds.Mail);
+            _restaurantRepository.Delete(restaurant.Id);
         }
 
         public IEnumerable<Restaurant> GetAllRestaurants()
@@ -30,24 +35,32 @@ namespace console_wasted_app.Controller.Services
             return _restaurantRepository.GetAll();
         }
 
+        public Restaurant GetByMail(Mail email)
+        {
+            return _restaurantRepository.GetByMail(email);
+        }
+
         public Restaurant GetRestaurantById(string id)
         {
             return _restaurantRepository.GetById(id);
         }
 
-        public IEnumerable<Restaurant> GetRestaurantsNear(Coords coords, int amount = 10)
+        public IEnumerable<Restaurant> GetRestaurantsNear(Coords coords)
         {
-            return _restaurantRepository.GetRestaurantsNear(coords, amount);
+            return _restaurantRepository.GetRestaurantsNear(coords);
         }
 
         public bool Login(Credentials creds)
         {
-            throw new System.NotImplementedException();
+            Restaurant restaurant = GetByMail(creds.Mail);
+            return restaurant.Credentials.Equals(creds);
         }
 
-        public bool Register(Credentials creds)
+        public bool Register(Credentials creds, Restaurant restaurant)
         {
-            throw new System.NotImplementedException();
+            restaurant.Credentials = creds;
+            _restaurantRepository.Add(restaurant);
+            return true;
         }
 
         public void UpdateRestaurant(Restaurant restaurant)
