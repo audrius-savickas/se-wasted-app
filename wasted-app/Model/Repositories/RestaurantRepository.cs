@@ -16,7 +16,7 @@ namespace console_wasted_app.Model.Repositories
         public Restaurant GetByMail(Mail mail)
         {
             List<Restaurant> all = GetAll().ToList();
-            Restaurant restaurant = all.FirstOrDefault(r => r.Credentials.Mail == mail);
+            Restaurant restaurant = all.FirstOrDefault(r => r.Credentials.Mail.Value == mail.Value);
             return restaurant;
         }
 
