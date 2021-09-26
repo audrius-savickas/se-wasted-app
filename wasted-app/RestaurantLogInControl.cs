@@ -13,6 +13,7 @@ namespace wasted_app
     public partial class RestaurantLogInControl : UserControl
     {
         private static RestaurantLogInControl _instance;
+
         public static RestaurantLogInControl Instance
         {
             get
@@ -49,7 +50,7 @@ namespace wasted_app
         private void logInButton_Click(object sender, EventArgs e)
         {
             //Place holder: needs credentials validation funcion
-            if (usernameTextBox.Text == "admin" && passwordTextBox.Text == "admin")
+            if (mailTextBox.Text == "admin" && passwordTextBox.Text == "admin")
             {
                 MessageBox.Show("Successfuly loged in!");
             }
@@ -61,17 +62,68 @@ namespace wasted_app
 
         private void passwordTextBox_TextChanged(object sender, EventArgs e)
         {
-            passwordTextBox.PasswordChar = '*';
+            if (passwordTextBox.Text != "Password")
+            {
+                passwordTextBox.UseSystemPasswordChar = true;
+            }
+            else
+            {
+                passwordTextBox.UseSystemPasswordChar = false;
+            }
         }
 
         private void showPasswordButton_MouseDown(object sender, MouseEventArgs e)
         {
-            passwordTextBox.PasswordChar = '\0';
+            if (passwordTextBox.Text != "Password")
+            {
+                passwordTextBox.UseSystemPasswordChar = false;
+            }
         }
 
         private void showPasswordButton_MouseUp(object sender, MouseEventArgs e)
         {
-            passwordTextBox.PasswordChar = '*';
+            if (passwordTextBox.Text != "Password")
+            {
+                passwordTextBox.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void textBoxGotFocus(string placeHolderText, TextBox textBox)
+        {
+            if (textBox.Text == placeHolderText)
+            {
+                textBox.Text = "";
+                textBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void textBoxLostFocus(string placeHolderText, TextBox textBox)
+        {
+            if (textBox.Text == "")
+            {
+                textBox.Text = placeHolderText;
+                textBox.ForeColor = Color.Gray;
+            }
+        }
+
+        private void mailTextBox_Leave(object sender, EventArgs e)
+        {
+            textBoxLostFocus("Mail", mailTextBox);
+        }
+
+        private void mailTextBox_Enter(object sender, EventArgs e)
+        {
+            textBoxGotFocus("Mail", mailTextBox);
+        }
+
+        private void passwordTextBox_Enter(object sender, EventArgs e)
+        {
+            textBoxGotFocus("Password", passwordTextBox);
+        }
+
+        private void passwordTextBox_Leave(object sender, EventArgs e)
+        {
+            textBoxLostFocus("Password", passwordTextBox);
         }
     }
 }
