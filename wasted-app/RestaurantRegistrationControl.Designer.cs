@@ -82,8 +82,8 @@ namespace wasted_app
             // 
             // passwordError
             // 
-            this.passwordError.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.passwordError.Location = new System.Drawing.Point(8, 178);
+            this.passwordError.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.passwordError.Location = new System.Drawing.Point(28, 58);
             this.passwordError.Name = "passwordError";
             this.passwordError.Size = new System.Drawing.Size(202, 197);
             this.passwordError.TabIndex = 14;
@@ -102,6 +102,7 @@ namespace wasted_app
             // 
             // longitudeTextBox
             // 
+            this.longitudeTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.longitudeTextBox.ForeColor = System.Drawing.Color.Gray;
             this.longitudeTextBox.Location = new System.Drawing.Point(294, 113);
             this.longitudeTextBox.Name = "longitudeTextBox";
@@ -113,6 +114,7 @@ namespace wasted_app
             // 
             // mailTextBox
             // 
+            this.mailTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.mailTextBox.ForeColor = System.Drawing.Color.Gray;
             this.mailTextBox.Location = new System.Drawing.Point(294, 142);
             this.mailTextBox.Name = "mailTextBox";
@@ -124,6 +126,7 @@ namespace wasted_app
             // 
             // passwordTextBox
             // 
+            this.passwordTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.passwordTextBox.ForeColor = System.Drawing.Color.Gray;
             this.passwordTextBox.Location = new System.Drawing.Point(294, 171);
             this.passwordTextBox.Name = "passwordTextBox";
@@ -136,6 +139,7 @@ namespace wasted_app
             // 
             // repeatPasswordTextBox
             // 
+            this.repeatPasswordTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.repeatPasswordTextBox.ForeColor = System.Drawing.Color.Gray;
             this.repeatPasswordTextBox.Location = new System.Drawing.Point(294, 200);
             this.repeatPasswordTextBox.Name = "repeatPasswordTextBox";
@@ -148,6 +152,7 @@ namespace wasted_app
             // 
             // showRepeatPasswordButton
             // 
+            this.showRepeatPasswordButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.showRepeatPasswordButton.Location = new System.Drawing.Point(400, 200);
             this.showRepeatPasswordButton.Name = "showRepeatPasswordButton";
             this.showRepeatPasswordButton.Size = new System.Drawing.Size(24, 23);
@@ -158,6 +163,7 @@ namespace wasted_app
             // 
             // showPasswordButton
             // 
+            this.showPasswordButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.showPasswordButton.Location = new System.Drawing.Point(400, 171);
             this.showPasswordButton.Name = "showPasswordButton";
             this.showPasswordButton.Size = new System.Drawing.Size(24, 23);
