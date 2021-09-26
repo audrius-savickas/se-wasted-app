@@ -1,4 +1,6 @@
-﻿using System;
+﻿using console_wasted_app.Controller;
+using console_wasted_app.Controller.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,15 +40,20 @@ namespace wasted_app
         {
             var username = usernameInput.Text;
             var password = passwordInput.Text;
-            String error = validateUsernamePassword(username, password);
-            if (error == "")
+            String credentialError = getValidationError(username, password);
+
+            if (credentialError == "")
             {
-                passwordError.Text = "";
+                this.passwordError.Text = "";
+                ServicesController controller = ServicesController.Instance;
+                Credentials creds = new Credentials(username, password);
+                controller.RestaurantService.Register(creds, new Restaurant("aa", "Hello World", new Coords(10, 20), new Credentials()));
                 MessageBox.Show("Registered successfully");
+                goBack();
             }
             else
             {
-                passwordError.Text = error;
+                this.passwordError.Text = credentialError;
             }
         }
 
@@ -75,12 +82,17 @@ namespace wasted_app
             }
         }
 
-        private String validateUsernamePassword(string username, string password)
+        private String getValidationError(string username, string password)
         {
-            return Validator.validatePassword(password);
+            return Validator.validateEmail(username) + Validator.validatePassword(password);
         }
 
         private void backButton_Click(object sender, EventArgs e)
+        {
+            goBack();        
+        }
+
+        private void goBack()
         {
             MainForm.mainForm.panel.Controls.Remove(_instance);
         }
