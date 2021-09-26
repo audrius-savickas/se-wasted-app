@@ -29,81 +29,56 @@ namespace wasted_app
         /// </summary>
         private void InitializeComponent()
         {
-            this.showPasswordCheckbox = new System.Windows.Forms.CheckBox();
             this.registerButton = new System.Windows.Forms.Button();
-            this.passwordLabel = new System.Windows.Forms.Label();
-            this.mailLabel = new System.Windows.Forms.Label();
-            this.passwordInput = new System.Windows.Forms.TextBox();
-            this.usernameInput = new System.Windows.Forms.TextBox();
+            this.latitudeTextBox = new System.Windows.Forms.TextBox();
+            this.restaurantNameTextBox = new System.Windows.Forms.TextBox();
             this.passwordError = new System.Windows.Forms.Label();
             this.backButton = new System.Windows.Forms.Button();
+            this.longitudeTextBox = new System.Windows.Forms.TextBox();
+            this.mailTextBox = new System.Windows.Forms.TextBox();
+            this.passwordTextBox = new System.Windows.Forms.TextBox();
+            this.repeatPasswordTextBox = new System.Windows.Forms.TextBox();
+            this.showRepeatPasswordButton = new System.Windows.Forms.Button();
+            this.showPasswordButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // showPasswordCheckbox
-            // 
-            this.showPasswordCheckbox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.showPasswordCheckbox.AutoSize = true;
-            this.showPasswordCheckbox.Location = new System.Drawing.Point(455, 175);
-            this.showPasswordCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.showPasswordCheckbox.Name = "showPasswordCheckbox";
-            this.showPasswordCheckbox.Size = new System.Drawing.Size(108, 19);
-            this.showPasswordCheckbox.TabIndex = 13;
-            this.showPasswordCheckbox.Text = "Show password";
-            this.showPasswordCheckbox.UseVisualStyleBackColor = true;
-            this.showPasswordCheckbox.CheckedChanged += new System.EventHandler(this.showPasswordCheckbox_CheckedChanged);
             // 
             // registerButton
             // 
             this.registerButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.registerButton.Location = new System.Drawing.Point(284, 220);
+            this.registerButton.Location = new System.Drawing.Point(294, 228);
             this.registerButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.registerButton.Name = "registerButton";
-            this.registerButton.Size = new System.Drawing.Size(82, 22);
+            this.registerButton.Size = new System.Drawing.Size(100, 24);
             this.registerButton.TabIndex = 12;
             this.registerButton.Text = "Register";
             this.registerButton.UseVisualStyleBackColor = true;
             this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
             // 
-            // passwordLabel
+            // latitudeTextBox
             // 
-            this.passwordLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Location = new System.Drawing.Point(217, 158);
-            this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Size = new System.Drawing.Size(57, 15);
-            this.passwordLabel.TabIndex = 11;
-            this.passwordLabel.Text = "Password";
+            this.latitudeTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.latitudeTextBox.ForeColor = System.Drawing.Color.Gray;
+            this.latitudeTextBox.Location = new System.Drawing.Point(294, 85);
+            this.latitudeTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.latitudeTextBox.Name = "latitudeTextBox";
+            this.latitudeTextBox.Size = new System.Drawing.Size(100, 23);
+            this.latitudeTextBox.TabIndex = 9;
+            this.latitudeTextBox.Text = "Latitude";
+            this.latitudeTextBox.Enter += new System.EventHandler(this.latitudeTextBox_Enter);
+            this.latitudeTextBox.Leave += new System.EventHandler(this.latitudeTextBox_Leave);
             // 
-            // mailLabel
+            // restaurantNameTextBox
             // 
-            this.mailLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.mailLabel.AutoSize = true;
-            this.mailLabel.Location = new System.Drawing.Point(217, 102);
-            this.mailLabel.Name = "mailLabel";
-            this.mailLabel.Size = new System.Drawing.Size(30, 15);
-            this.mailLabel.TabIndex = 10;
-            this.mailLabel.Text = "Mail";
-            // 
-            // passwordInput
-            // 
-            this.passwordInput.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.passwordInput.Location = new System.Drawing.Point(217, 175);
-            this.passwordInput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.passwordInput.Name = "passwordInput";
-            this.passwordInput.Size = new System.Drawing.Size(100, 23);
-            this.passwordInput.TabIndex = 9;
-            this.passwordInput.UseSystemPasswordChar = true;
-            this.passwordInput.TextChanged += new System.EventHandler(this.passwordInput_TextChanged);
-            // 
-            // usernameInput
-            // 
-            this.usernameInput.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.usernameInput.Location = new System.Drawing.Point(217, 120);
-            this.usernameInput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.usernameInput.Name = "usernameInput";
-            this.usernameInput.Size = new System.Drawing.Size(100, 23);
-            this.usernameInput.TabIndex = 8;
-            this.usernameInput.TextChanged += new System.EventHandler(this.usernameInput_TextChanged);
+            this.restaurantNameTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.restaurantNameTextBox.ForeColor = System.Drawing.Color.Gray;
+            this.restaurantNameTextBox.Location = new System.Drawing.Point(294, 58);
+            this.restaurantNameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.restaurantNameTextBox.Name = "restaurantNameTextBox";
+            this.restaurantNameTextBox.Size = new System.Drawing.Size(100, 23);
+            this.restaurantNameTextBox.TabIndex = 8;
+            this.restaurantNameTextBox.Text = "Restaurant Name";
+            this.restaurantNameTextBox.Enter += new System.EventHandler(this.restaurantNameTextBox_Enter);
+            this.restaurantNameTextBox.Leave += new System.EventHandler(this.restaurantNameTextBox_Leave);
             // 
             // passwordError
             // 
@@ -125,18 +100,87 @@ namespace wasted_app
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
+            // longitudeTextBox
+            // 
+            this.longitudeTextBox.ForeColor = System.Drawing.Color.Gray;
+            this.longitudeTextBox.Location = new System.Drawing.Point(294, 113);
+            this.longitudeTextBox.Name = "longitudeTextBox";
+            this.longitudeTextBox.Size = new System.Drawing.Size(100, 23);
+            this.longitudeTextBox.TabIndex = 16;
+            this.longitudeTextBox.Text = "Longitude";
+            this.longitudeTextBox.Enter += new System.EventHandler(this.longitudeTextBox_Enter);
+            this.longitudeTextBox.Leave += new System.EventHandler(this.longitudeTextBox_Leave);
+            // 
+            // mailTextBox
+            // 
+            this.mailTextBox.ForeColor = System.Drawing.Color.Gray;
+            this.mailTextBox.Location = new System.Drawing.Point(294, 142);
+            this.mailTextBox.Name = "mailTextBox";
+            this.mailTextBox.Size = new System.Drawing.Size(100, 23);
+            this.mailTextBox.TabIndex = 17;
+            this.mailTextBox.Text = "Mail";
+            this.mailTextBox.Enter += new System.EventHandler(this.mailTextBox_Enter);
+            this.mailTextBox.Leave += new System.EventHandler(this.mailTextBox_Leave);
+            // 
+            // passwordTextBox
+            // 
+            this.passwordTextBox.ForeColor = System.Drawing.Color.Gray;
+            this.passwordTextBox.Location = new System.Drawing.Point(294, 171);
+            this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.Size = new System.Drawing.Size(100, 23);
+            this.passwordTextBox.TabIndex = 18;
+            this.passwordTextBox.Text = "Password";
+            this.passwordTextBox.TextChanged += new System.EventHandler(this.passwordTextBox_TextChanged);
+            this.passwordTextBox.Enter += new System.EventHandler(this.passwordTextBox_Enter);
+            this.passwordTextBox.Leave += new System.EventHandler(this.passwordTextBox_Leave);
+            // 
+            // repeatPasswordTextBox
+            // 
+            this.repeatPasswordTextBox.ForeColor = System.Drawing.Color.Gray;
+            this.repeatPasswordTextBox.Location = new System.Drawing.Point(294, 200);
+            this.repeatPasswordTextBox.Name = "repeatPasswordTextBox";
+            this.repeatPasswordTextBox.Size = new System.Drawing.Size(100, 23);
+            this.repeatPasswordTextBox.TabIndex = 19;
+            this.repeatPasswordTextBox.Text = "Repeat Password";
+            this.repeatPasswordTextBox.TextChanged += new System.EventHandler(this.repeatPasswordTextBox_TextChanged);
+            this.repeatPasswordTextBox.Enter += new System.EventHandler(this.repeatPasswordTextBox_Enter);
+            this.repeatPasswordTextBox.Leave += new System.EventHandler(this.repeatPasswordTextBox_Leave);
+            // 
+            // showRepeatPasswordButton
+            // 
+            this.showRepeatPasswordButton.Location = new System.Drawing.Point(400, 200);
+            this.showRepeatPasswordButton.Name = "showRepeatPasswordButton";
+            this.showRepeatPasswordButton.Size = new System.Drawing.Size(24, 23);
+            this.showRepeatPasswordButton.TabIndex = 20;
+            this.showRepeatPasswordButton.UseVisualStyleBackColor = true;
+            this.showRepeatPasswordButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.showRepeatPasswordButton_MouseDown);
+            this.showRepeatPasswordButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.showRepeatPasswordButton_MouseUp);
+            // 
+            // showPasswordButton
+            // 
+            this.showPasswordButton.Location = new System.Drawing.Point(400, 171);
+            this.showPasswordButton.Name = "showPasswordButton";
+            this.showPasswordButton.Size = new System.Drawing.Size(24, 23);
+            this.showPasswordButton.TabIndex = 21;
+            this.showPasswordButton.UseVisualStyleBackColor = true;
+            this.showPasswordButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.showPasswordButton_MouseDown);
+            this.showPasswordButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.showPasswordButton_MouseUp);
+            // 
             // RestaurantRegistrationControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.showPasswordButton);
+            this.Controls.Add(this.showRepeatPasswordButton);
+            this.Controls.Add(this.repeatPasswordTextBox);
+            this.Controls.Add(this.passwordTextBox);
+            this.Controls.Add(this.mailTextBox);
+            this.Controls.Add(this.longitudeTextBox);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.passwordError);
-            this.Controls.Add(this.showPasswordCheckbox);
             this.Controls.Add(this.registerButton);
-            this.Controls.Add(this.passwordLabel);
-            this.Controls.Add(this.mailLabel);
-            this.Controls.Add(this.passwordInput);
-            this.Controls.Add(this.usernameInput);
+            this.Controls.Add(this.latitudeTextBox);
+            this.Controls.Add(this.restaurantNameTextBox);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "RestaurantRegistrationControl";
             this.Size = new System.Drawing.Size(700, 338);
@@ -146,14 +190,16 @@ namespace wasted_app
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox showPasswordCheckbox;
         private System.Windows.Forms.Button registerButton;
-        private System.Windows.Forms.Label passwordLabel;
-        private System.Windows.Forms.Label mailLabel;
-        private System.Windows.Forms.TextBox passwordInput;
-        private System.Windows.Forms.TextBox usernameInput;
+        private System.Windows.Forms.TextBox latitudeTextBox;
+        private System.Windows.Forms.TextBox restaurantNameTextBox;
         private System.Windows.Forms.Label passwordError;
         private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.TextBox longitudeTextBox;
+        private System.Windows.Forms.TextBox mailTextBox;
+        private System.Windows.Forms.TextBox passwordTextBox;
+        private System.Windows.Forms.TextBox repeatPasswordTextBox;
+        private System.Windows.Forms.Button showRepeatPasswordButton;
+        private System.Windows.Forms.Button showPasswordButton;
     }
 }

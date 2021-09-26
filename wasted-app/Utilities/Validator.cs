@@ -9,6 +9,7 @@ namespace wasted_app
 {
     class Validator
     {
+        private static int minimumPasswordLength = 8;
         public static String validatePassword(String password)
         {
             String error = "";
@@ -17,7 +18,7 @@ namespace wasted_app
             var hasSpecialCharacter = new Regex(@"[!@#$%^&*_-]+");
 
 
-            if (password.Length < 8)
+            if (password.Length < minimumPasswordLength)
             {
                 error += "• Password should be at least 8 characters long\n";
             }
