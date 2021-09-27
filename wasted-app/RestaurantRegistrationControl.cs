@@ -40,21 +40,36 @@ namespace wasted_app
             else return false;
         }
 
+        private void clearAllTextBoxes()
+        {
+            restaurantNameTextBox.Text = "";
+            latitudeTextBox.Text = "";
+            longitudeTextBox.Text = "";
+            mailTextBox.Text = "";
+            passwordTextBox.Text = "";
+            repeatPasswordTextBox.Text = "";
+        }
+
         private void registerButton_Click(object sender, EventArgs e)
         {
             if(passwordTextBox.Text == repeatPasswordTextBox.Text && checkIfTextBoxesAreFull())
             {
                 var mail = mailTextBox.Text;
                 var password = passwordTextBox.Text;
-                String error = validateUsernamePassword(mail, password);
-                if (error == "")
+                String credentialError = getValidationError(mail, password);
+                if (credentialError == "")
                 {
                     passwordError.Text = "";
+                    ServicesController controller = ServicesController.Instance;
+                    Credentials creds = new Credentials(mail, password);
+                    controller.RestaurantService.Register(creds, new Restaurant("todo", restaurantNameTextBox.Text, new Coords(Convert.ToDecimal(latitudeTextBox.Text), Convert.ToDecimal(longitudeTextBox.Text)), new Credentials()));
                     MessageBox.Show("Registered successfully");
+                    goBack();
+                    clearAllTextBoxes();
                 }
                 else
                 {
-                    passwordError.Text = error;
+                    passwordError.Text = credentialError;
                 }
             }
             else if(!checkIfTextBoxesAreFull())
@@ -68,9 +83,9 @@ namespace wasted_app
             
         }
 
-        private String validateUsernamePassword(string username, string password)
+        private String getValidationError(string username, string password)
         {
-            return Validator.validatePassword(password);
+            return Validator.validateEmail(username) + Validator.validatePassword(password);
         }
 
         private void textBoxGotFocus(string placeHolderText, TextBox textBox)
@@ -152,7 +167,7 @@ namespace wasted_app
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            MainForm.mainForm.panel.Controls.Remove(_instance);
+            goBack();
         }
 
         private void passwordTextBox_TextChanged(object sender, EventArgs e)
@@ -209,6 +224,11 @@ namespace wasted_app
             {
                 repeatPasswordTextBox.UseSystemPasswordChar = false;
             }
+        }
+
+        private void goBack()
+        {
+            MainForm.mainForm.panel.Controls.Remove(_instance);
         }
     }
 }
