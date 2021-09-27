@@ -33,7 +33,7 @@ namespace wasted_app
 
         public void AddAllRestaurants()
         {
-            ServicesController controller = new ServicesController();
+            ServicesController controller = ServicesController.Instance;
             var restaurants = controller.RestaurantService.GetAllRestaurants();
 
             foreach (var r in restaurants)
