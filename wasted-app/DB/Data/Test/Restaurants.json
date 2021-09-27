@@ -1,19 +1,27 @@
 [
   {
     "Coords": {
-      "Latitude": 54.687157,
-      "Longitude": 25.2796521
+      "Longitude": 25.2796521,
+      "Latitude": 54.687157
     },
     "Credentials": {
-      "Mail": {
-        "Value": "etno@mail.com"
-
-      },
-      "Password": {
-        "Value": "etno"
-      }
+      "Mail": { "Value": "etno@mail.com" },
+      "Password": { "Value": "etno" }
     },
     "Id": "0",
     "Name": "Etno Varas"
+  },
+  {
+    "Coords": {
+      "Longitude": 123,
+      "Latitude": 233
+    },
+    "Credentials": {
+      "Mail": { "Value": "etno@mail.com" },
+      "Password": 
+      { "Value": "qwerty123!" }
+    },
+    "Id": "aa",
+    "Name": "asd"
   }
 ]
