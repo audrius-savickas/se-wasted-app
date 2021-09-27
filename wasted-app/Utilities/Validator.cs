@@ -10,6 +10,7 @@ namespace wasted_app
 {
     class Validator
     {
+        private static int minimumPasswordLength = 8;
         public static String validatePassword(String password)
         {
             string error = "";
