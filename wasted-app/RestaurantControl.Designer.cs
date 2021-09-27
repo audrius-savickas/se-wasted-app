@@ -1,7 +1,7 @@
 ﻿
 namespace wasted_app
 {
-    partial class RestaurntControl
+    partial class RestaurantControl
     {
         /// <summary> 
         /// Required designer variable.

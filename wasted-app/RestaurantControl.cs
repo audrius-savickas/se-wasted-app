@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace wasted_app
 {
-    public partial class RestaurntControl : UserControl
+    public partial class RestaurantControl : UserControl
     {
-        public RestaurntControl()
+        public RestaurantControl()
         {
             InitializeComponent();
         }
 
-        public RestaurntControl(String name) : this ()
+        public RestaurantControl(String name) : this ()
         {
             nameButton.Text = name;
         }

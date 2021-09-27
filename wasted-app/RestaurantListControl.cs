@@ -44,14 +44,14 @@ namespace wasted_app
 
             for (int i = 1; i <= 10; i++)
             {
-                restaurantPanel.Controls.Add(new RestaurntControl(i.ToString()));
+                restaurantPanel.Controls.Add(new RestaurantControl(i.ToString()));
             }
             
         }
 
         private void AddRestaurnt(Restaurant restaurant)
         {
-            var control = new RestaurntControl(restaurant.Name);
+            var control = new RestaurantControl(restaurant.Name);
             restaurantPanel.Controls.Add(control);
         }
 
