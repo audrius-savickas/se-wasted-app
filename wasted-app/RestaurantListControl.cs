@@ -1,4 +1,6 @@
-﻿using System;
+﻿using console_wasted_app.Controller;
+using console_wasted_app.Controller.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,6 +27,30 @@ namespace wasted_app
         public RestaurantListControl()
         {
             InitializeComponent();
+
+            AddAllRestaurants();
+        }
+
+        public void AddAllRestaurants()
+        {
+            ServicesController controller = new ServicesController();
+            var restaurants = controller.RestaurantService.GetAllRestaurants();
+
+            foreach (var r in restaurants)
+            {
+                AddRestaurnt(r);
+            }
+        }
+
+        private void AddRestaurnt(Restaurant restaurant)
+        {
+            var control = new RestaurntControl(restaurant.Name);
+            restaurantPanel.Controls.Add(control);
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            MainForm.mainForm.panel.Controls.Remove(_instance);
         }
     }
 }

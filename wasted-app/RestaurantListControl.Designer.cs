@@ -29,33 +29,82 @@ namespace wasted_app
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.filterButton = new System.Windows.Forms.Button();
+            this.sortButton = new System.Windows.Forms.Button();
+            this.backButton = new System.Windows.Forms.Button();
+            this.restaurantPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // panel1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(313, 145);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Restaurant List";
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panel1.Controls.Add(this.filterButton);
+            this.panel1.Controls.Add(this.sortButton);
+            this.panel1.Controls.Add(this.backButton);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(263, 451);
+            this.panel1.TabIndex = 0;
+            // 
+            // filterButton
+            // 
+            this.filterButton.Location = new System.Drawing.Point(90, 71);
+            this.filterButton.Name = "filterButton";
+            this.filterButton.Size = new System.Drawing.Size(94, 29);
+            this.filterButton.TabIndex = 2;
+            this.filterButton.Text = "Filter";
+            this.filterButton.UseVisualStyleBackColor = true;
+            // 
+            // sortButton
+            // 
+            this.sortButton.Location = new System.Drawing.Point(90, 36);
+            this.sortButton.Name = "sortButton";
+            this.sortButton.Size = new System.Drawing.Size(94, 29);
+            this.sortButton.TabIndex = 1;
+            this.sortButton.Text = "Sort";
+            this.sortButton.UseVisualStyleBackColor = true;
+            // 
+            // backButton
+            // 
+            this.backButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.backButton.Location = new System.Drawing.Point(166, 419);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(94, 29);
+            this.backButton.TabIndex = 0;
+            this.backButton.Text = "Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
+            // restaurantPanel
+            // 
+            this.restaurantPanel.Location = new System.Drawing.Point(266, 0);
+            this.restaurantPanel.Name = "restaurantPanel";
+            this.restaurantPanel.Size = new System.Drawing.Size(534, 451);
+            this.restaurantPanel.TabIndex = 1;
             // 
             // RestaurantListControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Controls.Add(this.restaurantPanel);
+            this.Controls.Add(this.panel1);
             this.Name = "RestaurantListControl";
-            this.Size = new System.Drawing.Size(700, 338);
+            this.Size = new System.Drawing.Size(800, 451);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button filterButton;
+        private System.Windows.Forms.Button sortButton;
+        private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.FlowLayoutPanel restaurantPanel;
     }
 }
