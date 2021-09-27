@@ -24,7 +24,7 @@ namespace console_wasted_app.Controller
             }
         }
 
-        public ServicesController()
+        private ServicesController()
         {
             // Set up database
             DBConfiguration dbConfig = DBConfiguration.Instance;
