@@ -17,10 +17,11 @@ namespace wasted_app
             InitializeComponent();
         }
 
-        public FoodControl(String name, String type) : this ()
+        public FoodControl(String name, String type, String price) : this ()
         {
             foodNameLabel.Text = name;
             foodTypeLabel.Text = type;
+            priceLabel.Text = "$" + price;
         }
     }
 }

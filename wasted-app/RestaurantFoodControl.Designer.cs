@@ -34,6 +34,7 @@ namespace wasted_app
             this.sortButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
             this.foodPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.addFoodButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,6 +43,7 @@ namespace wasted_app
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.panel1.Controls.Add(this.addFoodButton);
             this.panel1.Controls.Add(this.filterButton);
             this.panel1.Controls.Add(this.sortButton);
             this.panel1.Controls.Add(this.backButton);
@@ -90,6 +92,15 @@ namespace wasted_app
             this.foodPanel.Size = new System.Drawing.Size(534, 451);
             this.foodPanel.TabIndex = 1;
             // 
+            // addFoodButton
+            // 
+            this.addFoodButton.Location = new System.Drawing.Point(62, 208);
+            this.addFoodButton.Name = "addFoodButton";
+            this.addFoodButton.Size = new System.Drawing.Size(147, 40);
+            this.addFoodButton.TabIndex = 3;
+            this.addFoodButton.Text = "Add new food";
+            this.addFoodButton.UseVisualStyleBackColor = true;
+            // 
             // RestaurantFoodControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -110,5 +121,6 @@ namespace wasted_app
         private System.Windows.Forms.Button sortButton;
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.FlowLayoutPanel foodPanel;
+        private System.Windows.Forms.Button addFoodButton;
     }
 }
