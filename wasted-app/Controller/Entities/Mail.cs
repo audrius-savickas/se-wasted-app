@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace console_wasted_app.Controller.Entities
 {
     public class Mail
@@ -8,6 +10,15 @@ namespace console_wasted_app.Controller.Entities
         public Mail(string value)
         {
             this.Value = value;
+        }
+
+        public static bool Validate(string email)
+        {
+            if (email == null || !(new EmailAddressAttribute().IsValid(email)))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

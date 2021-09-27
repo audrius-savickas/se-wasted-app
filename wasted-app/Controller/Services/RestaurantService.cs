@@ -53,7 +53,7 @@ namespace console_wasted_app.Controller.Services
         public bool Login(Credentials creds)
         {
             Restaurant restaurant = GetByMail(creds.Mail);
-            return restaurant.Credentials.Equals(creds);
+            return restaurant != null && restaurant.Credentials.Mail.Value == creds.Mail.Value && restaurant.Credentials.Password.Value == creds.Password.Value;
         }
 
         public bool Register(Credentials creds, Restaurant restaurant)

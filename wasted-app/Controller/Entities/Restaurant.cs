@@ -20,8 +20,8 @@ namespace console_wasted_app.Controller.Entities
         {
             JsonElement coordsJson = json.GetProperty("Coords");
             Coords = new Coords(
-                coordsJson.GetProperty("Latitude").GetDecimal(),
-                coordsJson.GetProperty("Altitude").GetDecimal()
+                coordsJson.GetProperty("Longitude").GetDecimal(),
+                coordsJson.GetProperty("Latitude").GetDecimal()
             );
 
             JsonElement credsJson = json.GetProperty("Credentials");
