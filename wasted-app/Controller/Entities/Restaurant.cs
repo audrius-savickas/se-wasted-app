@@ -18,14 +18,25 @@ namespace console_wasted_app.Controller.Entities
 
         public Restaurant(JsonElement json) : base(json)
         {
+            JsonElement coordsJson = json.GetProperty("Coords");
             Coords = new Coords(
-                json.GetProperty("latitude").GetDecimal(),
-                json.GetProperty("altitude").GetDecimal()
+                coordsJson.GetProperty("Longitude").GetDecimal(),
+                coordsJson.GetProperty("Latitude").GetDecimal()
             );
+
+            JsonElement credsJson = json.GetProperty("Credentials");
+            JsonElement mailJson = credsJson.GetProperty("Mail");
+            JsonElement passwordJson = credsJson.GetProperty("Password");
+
             Credentials = new Credentials(
-                json.GetProperty("mail").GetString(),
-                json.GetProperty("password").GetString()
+                mailJson.GetProperty("Value").GetString(),
+                passwordJson.GetProperty("Value").GetString()
             );
+        }
+
+        public bool IsNear(Coords coords)
+        {
+            return Coords.IsNear(coords);
         }
     }
 }

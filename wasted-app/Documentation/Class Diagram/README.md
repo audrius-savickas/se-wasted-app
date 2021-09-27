@@ -16,7 +16,7 @@ The idea is to use the MVC pattern.
             * Restaurant.cs: represents the restaurant entity.
             * TypeOfFood.cs: represents a type of food, which will be useful to filter the meals in the app.
         * Others: used by the objects from above.
-            * Coords.cs: stores the latitude and altitude of an ubication.
+            * Coords.cs: stores the longitude and latitude of an ubication.
             * Credentials.cs: stores the mail and password.
             * Mail.cs: represents an email. It should have methods to validate the user's input.
             * Password.cs: represents a password. It should have methods to validate the user's input.

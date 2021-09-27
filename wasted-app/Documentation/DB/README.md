@@ -8,8 +8,8 @@ for unclassified meals.
 * Restaurants: represents the restaurants registered in the app.
     * idRestaurant: identifier.
     * name: name of the restaurant.
+    * longitude: longitude of the restaurant's ubication.
     * latitude: latitude of the restaurant's ubication.
-    * altitude: altitude of the restaurant's ubication.
     * password: password for the login. It can be changed and it will be encrypted.
     * mail: mail to identify the user.
 * Foods: represents the shipments. A restaurant can upload a new meal (food) so that a user can see the restaurant's ubication and pick it up. 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using console_wasted_app.Controller;
+using console_wasted_app.Controller.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

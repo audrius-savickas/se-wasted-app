@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using console_wasted_app.Controller.Entities;
 
 namespace wasted_app
 {
@@ -12,29 +13,35 @@ namespace wasted_app
         private static int minimumPasswordLength = 8;
         public static String validatePassword(String password)
         {
-            String error = "";
-            var hasNumber = new Regex(@"[0-9]+");
-            var hasLetter = new Regex(@"[a-zA-Z]+");
-            var hasSpecialCharacter = new Regex(@"[!@#$%^&*_-]+");
+            string error = "";
 
-
-            if (password.Length < minimumPasswordLength)
+            if (!Password.ValidateLength(password))
             {
                 error += "• Password should be at least 8 characters long\n";
             }
-            if (!hasLetter.IsMatch(password))
+            if (!Password.ValidateLetter(password))
             {
                 error += "• Password should contain at least 1 letter\n";
             }
-            if (!hasSpecialCharacter.IsMatch(password))
+            if (!Password.ValidateSpecial(password))
             {
                 error += "• Password should contain at least 1 special character\n";
             }
-            if (!hasNumber.IsMatch(password))
+            if (!Password.ValidateNumber(password))
             {
                 error += "• Password should contain at least 1 digit";
             }
+
             return error;
+        }
+
+        public static String validateEmail(String email)
+        {
+            if (!Mail.Validate(email))
+            {
+                return "• Invalid email\n";
+            }
+            return "";
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿{
   "baseDirectory": [
     "DB",
-    "Data"
+    "Data",
+    "Test"
   ],
     "suffix":  ".json",
     "foods": "Foods",

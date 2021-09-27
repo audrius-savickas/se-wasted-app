@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using System.Text.Json;
 using console_wasted_app.Controller.Interfaces;
 using wasted_app.Controller.Entities;
@@ -9,30 +9,32 @@ namespace console_wasted_app.Model.Repositories
 {
     public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
-        private readonly FileStream database;
+        private readonly string _pathToDatabase;
 
         public BaseRepository(String pathToDatabase)
         {
-            this.database = new FileStream(pathToDatabase, FileMode.Open, FileAccess.ReadWrite);
+            _pathToDatabase = pathToDatabase;
         }
 
         public void Add(T entity)
         {
-            throw new NotImplementedException();
+            List<T> all = GetAll().ToList();
+            all.Add(entity);
+            WriteAllToFile(all);
         }
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            List<T> all = GetAll().ToList();
+            all.Remove(all.Find(x => x.Id == id));
+            WriteAllToFile(all);
         }
 
         public IEnumerable<T> GetAll()
         {
             List<T> all = new List<T>();
-            using var sr = new StreamReader(this.database, System.Text.Encoding.UTF8);
-
-            string jsonAsString = sr.ReadToEnd();
-            
+            string jsonAsString = System.IO.File.ReadAllText(_pathToDatabase);
+                 
             using (JsonDocument document = JsonDocument.Parse(jsonAsString))
             {
                 JsonElement root = document.RootElement;
@@ -51,12 +53,27 @@ namespace console_wasted_app.Model.Repositories
 
         public T GetById(string id)
         {
-            throw new NotImplementedException();
+            IEnumerable<T> all = GetAll();
+            T entity = all.FirstOrDefault(x => x.Id == id);
+            return entity;
         }
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            List<T> all = GetAll().ToList();
+
+            // Update
+            int indexOfEntity = all.FindIndex(0, t => t.Id == entity.Id);
+            all[indexOfEntity] = entity;
+
+            WriteAllToFile(all);
         }
+
+        private void WriteAllToFile(IEnumerable<T> all)
+        {
+            string jsonString = JsonSerializer.Serialize(all);
+            System.IO.File.WriteAllText(_pathToDatabase, jsonString);
+        }
+
     }
 }

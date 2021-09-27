@@ -31,10 +31,10 @@ namespace console_wasted_app.Controller.Entities
 
         public Food(JsonElement json) : base(json)
         {
-            Price = json.GetProperty("price").GetDecimal();
-            CreatedAt = DateTime.Parse(json.GetProperty("createdAt").GetString());
-            IdTypeOfFood = json.GetProperty("idTypeOfFood").GetString();
-            IdRestaurant = json.GetProperty("idRestaurant").GetString();
+            Price = json.GetProperty("Price").GetDecimal();
+            CreatedAt = DateTime.Parse(json.GetProperty("CreatedAt").GetString());
+            IdTypeOfFood = json.GetProperty("IdTypeOfFood").GetString();
+            IdRestaurant = json.GetProperty("IdRestaurant").GetString();
         }
     }
 }

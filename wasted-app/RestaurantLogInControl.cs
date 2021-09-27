@@ -1,4 +1,6 @@
-﻿using System;
+﻿using console_wasted_app.Controller;
+using console_wasted_app.Controller.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -49,10 +51,11 @@ namespace wasted_app
 
         private void logInButton_Click(object sender, EventArgs e)
         {
-            //Place holder: needs credentials validation funcion
-            if (mailTextBox.Text == "admin" && passwordTextBox.Text == "admin")
+            ServicesController controller = ServicesController.Instance;
+            Credentials creds = new Credentials(mailTextBox.Text, passwordTextBox.Text);
+            if (controller.RestaurantService.Login(creds))
             {
-                MessageBox.Show("Successfuly loged in!");
+                MessageBox.Show("Successfully logged in!");
             }
             else
             {
