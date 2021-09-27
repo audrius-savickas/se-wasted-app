@@ -70,7 +70,7 @@ namespace wasted_app
             // 
             // backButton
             // 
-            this.backButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.backButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.backButton.Location = new System.Drawing.Point(166, 419);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(94, 29);
