@@ -81,6 +81,10 @@ namespace wasted_app
             // 
             // restaurantPanel
             // 
+            this.restaurantPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.restaurantPanel.AutoScroll = true;
             this.restaurantPanel.Location = new System.Drawing.Point(266, 0);
             this.restaurantPanel.Name = "restaurantPanel";
             this.restaurantPanel.Size = new System.Drawing.Size(534, 451);

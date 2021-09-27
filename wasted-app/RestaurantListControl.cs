@@ -40,6 +40,13 @@ namespace wasted_app
             {
                 AddRestaurnt(r);
             }
+
+
+            for (int i = 1; i <= 10; i++)
+            {
+                restaurantPanel.Controls.Add(new RestaurntControl(i.ToString()));
+            }
+            
         }
 
         private void AddRestaurnt(Restaurant restaurant)
