@@ -55,7 +55,11 @@ namespace wasted_app
             Credentials creds = new Credentials(mailTextBox.Text, passwordTextBox.Text);
             if (controller.RestaurantService.Login(creds))
             {
-                MessageBox.Show("Successfully logged in!");
+                Restaurant restaurant = ServicesController.Instance.RestaurantService.GetByMail(new Mail(mailTextBox.Text));
+                RestaurantFoodControl restaurantFoodScreen = new RestaurantFoodControl(restaurant);
+                MainForm.mainForm.panel.Controls.Add(restaurantFoodScreen);
+                restaurantFoodScreen.Dock = DockStyle.Fill;
+                restaurantFoodScreen.BringToFront();
             }
             else
             {
