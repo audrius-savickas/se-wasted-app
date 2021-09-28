@@ -1,4 +1,5 @@
-﻿using System;
+﻿using console_wasted_app.Controller.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,14 +13,24 @@ namespace wasted_app
 {
     public partial class RestaurantControl : UserControl
     {
+        private Restaurant _restaurant;
         public RestaurantControl()
         {
             InitializeComponent();
         }
 
-        public RestaurantControl(String name) : this ()
+        public RestaurantControl(Restaurant restaurant) : this ()
         {
-            nameButton.Text = name;
+            _restaurant = restaurant;
+            nameButton.Text = _restaurant.Name;
+        }
+
+        private void RestaurantControl_Click(object sender, EventArgs e)
+        {
+            RestaurantViewFoodControl restaurantViewFoodScreen = new RestaurantViewFoodControl(_restaurant);
+            MainForm.mainForm.panel.Controls.Add(restaurantViewFoodScreen);
+            restaurantViewFoodScreen.Dock = DockStyle.Fill;
+            restaurantViewFoodScreen.BringToFront();
         }
     }
 }

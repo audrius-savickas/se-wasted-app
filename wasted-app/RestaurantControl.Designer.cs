@@ -64,7 +64,7 @@ namespace wasted_app
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // RestaurntControl
+            // RestaurantControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -72,8 +72,9 @@ namespace wasted_app
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.addressButton);
             this.Controls.Add(this.nameButton);
-            this.Name = "RestaurntControl";
+            this.Name = "RestaurantControl";
             this.Size = new System.Drawing.Size(433, 97);
+            this.Click += new System.EventHandler(this.RestaurantControl_Click);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

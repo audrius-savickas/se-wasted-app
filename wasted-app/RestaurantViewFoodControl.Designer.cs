@@ -30,9 +30,10 @@ namespace wasted_app
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.backButton = new System.Windows.Forms.Button();
             this.filterButton = new System.Windows.Forms.Button();
             this.sortButton = new System.Windows.Forms.Button();
-            this.backButton = new System.Windows.Forms.Button();
+            this.foodPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +49,17 @@ namespace wasted_app
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(263, 451);
             this.panel1.TabIndex = 0;
+            // 
+            // backButton
+            // 
+            this.backButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.backButton.Location = new System.Drawing.Point(166, 419);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(94, 29);
+            this.backButton.TabIndex = 5;
+            this.backButton.Text = "Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // filterButton
             // 
@@ -67,22 +79,24 @@ namespace wasted_app
             this.sortButton.Text = "Sort";
             this.sortButton.UseVisualStyleBackColor = true;
             // 
-            // backButton
+            // foodPanel
             // 
-            this.backButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.backButton.Location = new System.Drawing.Point(166, 419);
-            this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(94, 29);
-            this.backButton.TabIndex = 5;
-            this.backButton.Text = "Back";
-            this.backButton.UseVisualStyleBackColor = true;
+            this.foodPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.foodPanel.AutoScroll = true;
+            this.foodPanel.Location = new System.Drawing.Point(266, 0);
+            this.foodPanel.Name = "foodPanel";
+            this.foodPanel.Size = new System.Drawing.Size(534, 451);
+            this.foodPanel.TabIndex = 2;
             // 
-            // FoodViewControl
+            // RestaurantViewFoodControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.foodPanel);
             this.Controls.Add(this.panel1);
-            this.Name = "FoodViewControl";
+            this.Name = "RestaurantViewFoodControl";
             this.Size = new System.Drawing.Size(800, 451);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -95,5 +109,6 @@ namespace wasted_app
         private System.Windows.Forms.Button filterButton;
         private System.Windows.Forms.Button sortButton;
         private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.FlowLayoutPanel foodPanel;
     }
 }
