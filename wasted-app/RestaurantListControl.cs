@@ -38,20 +38,13 @@ namespace wasted_app
 
             foreach (var r in restaurants)
             {
-                AddRestaurnt(r);
+                AddRestaurant(r);
             }
-
-
-            for (int i = 1; i <= 10; i++)
-            {
-                restaurantPanel.Controls.Add(new RestaurantControl(i.ToString()));
-            }
-            
         }
 
-        private void AddRestaurnt(Restaurant restaurant)
+        private void AddRestaurant(Restaurant restaurant)
         {
-            var control = new RestaurantControl(restaurant.Name);
+            var control = new RestaurantControl(restaurant);
             restaurantPanel.Controls.Add(control);
         }
 
