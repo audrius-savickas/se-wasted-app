@@ -8,7 +8,11 @@
         "Name":"Fast food"
     },
     {
-        "Id":"2",
-        "Name":"Traditional food"
+      "Id": "2",
+      "Name": "Traditional food"
+    },
+    {
+      "Id": "3",
+      "Name": "Drink"
     }
 ]
