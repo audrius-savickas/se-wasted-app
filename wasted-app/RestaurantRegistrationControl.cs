@@ -40,7 +40,7 @@ namespace wasted_app
             else return false;
         }
 
-        private void clearAllTextBoxes()
+        private void resetTextBoxes()
         {
             restaurantNameTextBox.Text = "";
             latitudeTextBox.Text = "";
@@ -48,6 +48,12 @@ namespace wasted_app
             mailTextBox.Text = "";
             passwordTextBox.Text = "";
             repeatPasswordTextBox.Text = "";
+            textBoxLostFocus("Restaurant name", restaurantNameTextBox);
+            textBoxLostFocus("Latitude", latitudeTextBox);
+            textBoxLostFocus("Longitude", longitudeTextBox);
+            textBoxLostFocus("Mail", mailTextBox);
+            textBoxLostFocus("Password", passwordTextBox);
+            textBoxLostFocus("Repeat Password", repeatPasswordTextBox);
         }
 
         private void registerButton_Click(object sender, EventArgs e)
@@ -65,7 +71,7 @@ namespace wasted_app
                     controller.RestaurantService.Register(creds, new Restaurant("todo", restaurantNameTextBox.Text, new Coords(Convert.ToDecimal(latitudeTextBox.Text), Convert.ToDecimal(longitudeTextBox.Text)), new Credentials()));
                     MessageBox.Show("Registered successfully");
                     goBack();
-                    clearAllTextBoxes();
+                    resetTextBoxes();
                 }
                 else
                 {
