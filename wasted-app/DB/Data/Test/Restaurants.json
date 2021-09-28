@@ -20,7 +20,7 @@
       "Mail": { "Value": "mcdonalds@mail.com" },
       "Password": { "Value": "asdf123!" }
     },
-    "Id": "todo",
+    "Id": "1",
     "Name": "mcdonalds"
   },
   {
@@ -32,7 +32,7 @@
       "Mail": { "Value": "KFC@mail.com" },
       "Password": { "Value": "qwerty123!" }
     },
-    "Id": "todo",
+    "Id": "2",
     "Name": "KFC"
   },
   {
@@ -44,7 +44,7 @@
       "Mail": { "Value": "VeroCafe@gmail.com" },
       "Password": { "Value": "veroCafe123!" }
     },
-    "Id": "todo",
+    "Id": "3",
     "Name": "Vero Cafe"
   },
   {
@@ -56,7 +56,7 @@
       "Mail": { "Value": "coffee@gmail.com" },
       "Password": { "Value": "IlikeCoffee1@" }
     },
-    "Id": "todo",
+    "Id": "4",
     "Name": "Caffeine"
   },
   {
@@ -68,7 +68,7 @@
       "Mail": { "Value": "pizza@pizzaMail.co.uk" },
       "Password": { "Value": "mamamia@!1" }
     },
-    "Id": "todo",
+    "Id": "5",
     "Name": "PasT\u0105"
   },
   {
@@ -80,7 +80,7 @@
       "Mail": { "Value": "kebabai@kebabai.lt" },
       "Password": { "Value": "ILOVEKEBAB69!" }
     },
-    "Id": "todo",
+    "Id": "6",
     "Name": "JAMMI"
   },
   {
@@ -92,7 +92,7 @@
       "Mail": { "Value": "beer@mail.lt" },
       "Password": { "Value": "AlausDangujeNera@1" }
     },
-    "Id": "todo",
+    "Id": "7",
     "Name": "Busi Tre\u010Dias"
   }
 ]
