@@ -60,22 +60,31 @@ namespace wasted_app
         {
             if(passwordTextBox.Text == repeatPasswordTextBox.Text && checkIfTextBoxesAreFull())
             {
+                ServicesController controller = ServicesController.Instance;
                 var mail = mailTextBox.Text;
                 var password = passwordTextBox.Text;
-                String credentialError = getValidationError(mail, password);
-                if (credentialError == "")
+                Mail testMail = new Mail(mail);
+                Restaurant restaurant = controller.RestaurantService.GetByMail(testMail);
+                if(restaurant == null)
                 {
-                    passwordError.Text = "";
-                    ServicesController controller = ServicesController.Instance;
-                    Credentials creds = new Credentials(mail, password);
-                    controller.RestaurantService.Register(creds, new Restaurant("todo", restaurantNameTextBox.Text, new Coords(Convert.ToDecimal(latitudeTextBox.Text), Convert.ToDecimal(longitudeTextBox.Text)), new Credentials()));
-                    MessageBox.Show("Registered successfully");
-                    goBack();
-                    resetTextBoxes();
+                    String credentialError = getValidationError(mail, password);
+                    if (credentialError == "")
+                    {
+                        passwordError.Text = "";
+                        Credentials creds = new Credentials(mail, password);
+                        controller.RestaurantService.Register(creds, new Restaurant("todo", restaurantNameTextBox.Text, new Coords(Convert.ToDecimal(latitudeTextBox.Text), Convert.ToDecimal(longitudeTextBox.Text)), new Credentials()));
+                        MessageBox.Show("Registered successfully");
+                        goBack();
+                        resetTextBoxes();
+                    }
+                    else
+                    {
+                        passwordError.Text = credentialError;
+                    }
                 }
                 else
                 {
-                    passwordError.Text = credentialError;
+                    passwordError.Text = "• There is an account already registered on this mail";
                 }
             }
             else if(!checkIfTextBoxesAreFull())
