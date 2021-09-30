@@ -9,7 +9,6 @@ namespace wasted_app
     public partial class RestaurantRegistrationControl : UserControl
     {
         private static RestaurantRegistrationControl _instance;
-        private readonly bool showPassword = false;
         public static RestaurantRegistrationControl Instance
         {
             get
@@ -60,25 +59,33 @@ namespace wasted_app
         {
             if (passwordTextBox.Text == repeatPasswordTextBox.Text && CheckIfTextBoxesAreFull())
             {
+                ServicesController controller = ServicesController.Instance;
                 var mail = mailTextBox.Text;
                 var password = passwordTextBox.Text;
-                var credentialError = GetValidationError(mail, password);
-                if (credentialError == "")
+                var restaurant = controller.RestaurantService.GetByMail(new Mail(mail));
+                if (restaurant == null)
                 {
-                    passwordError.Text = "";
-                    var controller = ServicesController.Instance;
-                    var creds = new Credentials(mail, password);
-                    controller.RestaurantService.Register(creds, new Restaurant("todo", restaurantNameTextBox.Text, new Coords(Convert.ToDecimal(latitudeTextBox.Text), Convert.ToDecimal(longitudeTextBox.Text)), new Credentials()));
-                    MessageBox.Show("Registered successfully");
-                    GoBack();
-                    ResetTextBoxes();
+                    String credentialError = GetValidationError(mail, password);
+                    if (credentialError == "")
+                    {
+                        passwordError.Text = "";
+                        Credentials creds = new Credentials(mail, password);
+                        controller.RestaurantService.Register(creds, new Restaurant("todo", restaurantNameTextBox.Text, new Coords(Convert.ToDecimal(latitudeTextBox.Text), Convert.ToDecimal(longitudeTextBox.Text)), new Credentials()));
+                        MessageBox.Show("Registered successfully");
+                        GoBack();
+                        ResetTextBoxes();
+                    }
+                    else
+                    {
+                        passwordError.Text = credentialError;
+                    }
                 }
                 else
                 {
-                    passwordError.Text = credentialError;
+                    passwordError.Text = "• There is already an account registered on this mail";
                 }
             }
-            else if (!CheckIfTextBoxesAreFull())
+            else if(!CheckIfTextBoxesAreFull())
             {
                 passwordError.Text = "• All fields must be filled";
             }
@@ -89,12 +96,12 @@ namespace wasted_app
 
         }
 
-        private string GetValidationError(string username, string password)
+        private static String GetValidationError(string username, string password)
         {
             return Validator.ValidateEmail(username) + Validator.ValidatePassword(password);
         }
 
-        private void TextBoxGotFocus(string placeHolderText, TextBox textBox)
+        private static void TextBoxGotFocus(string placeHolderText, TextBox textBox)
         {
             if (textBox.Text == placeHolderText)
             {
@@ -103,7 +110,7 @@ namespace wasted_app
             }
         }
 
-        private void TextBoxLostFocus(string placeHolderText, TextBox textBox)
+        private static void TextBoxLostFocus(string placeHolderText, TextBox textBox)
         {
             if (textBox.Text == "")
             {
@@ -234,7 +241,7 @@ namespace wasted_app
 
         private void GoBack()
         {
-            MainForm.mainForm.panel.Controls.Remove(_instance);
+            MainForm.mainForm.panel.Controls.Remove(this);
         }
     }
 }
