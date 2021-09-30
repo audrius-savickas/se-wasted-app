@@ -18,32 +18,32 @@ namespace console_wasted_app.Model.Repositories
 
         public void Add(T entity)
         {
-            var all = GetAll().ToList();
+            List<T> all = GetAll().ToList();
             all.Add(entity);
             WriteAllToFile(all);
         }
 
         public void Delete(string id)
         {
-            var all = GetAll().ToList();
+            List<T> all = GetAll().ToList();
             all.Remove(all.Find(x => x.Id == id));
             WriteAllToFile(all);
         }
 
         public IEnumerable<T> GetAll()
         {
-            var all = new List<T>();
-            var jsonAsString = System.IO.File.ReadAllText(_pathToDatabase);
+            List<T> all = new List<T>();
+            string jsonAsString = System.IO.File.ReadAllText(_pathToDatabase);
 
-            using (var document = JsonDocument.Parse(jsonAsString))
+            using (JsonDocument document = JsonDocument.Parse(jsonAsString))
             {
-                var root = document.RootElement;
-                var iterator = root.EnumerateArray();
+                JsonElement root = document.RootElement;
+                JsonElement.ArrayEnumerator iterator = root.EnumerateArray();
 
                 while (iterator.MoveNext())
                 {
-                    var json = iterator.Current;
-                    var element = (T)Activator.CreateInstance(typeof(T), json);
+                    JsonElement json = iterator.Current;
+                    T element = (T)Activator.CreateInstance(typeof(T), json);
                     all.Add(element);
                 }
             }
@@ -53,17 +53,17 @@ namespace console_wasted_app.Model.Repositories
 
         public T GetById(string id)
         {
-            var all = GetAll();
-            var entity = all.FirstOrDefault(x => x.Id == id);
+            IEnumerable<T> all = GetAll();
+            T entity = all.FirstOrDefault(x => x.Id == id);
             return entity;
         }
 
         public void Update(T entity)
         {
-            var all = GetAll().ToList();
+            List<T> all = GetAll().ToList();
 
             // Update
-            var indexOfEntity = all.FindIndex(0, t => t.Id == entity.Id);
+            int indexOfEntity = all.FindIndex(0, t => t.Id == entity.Id);
             all[indexOfEntity] = entity;
 
             WriteAllToFile(all);
@@ -71,7 +71,7 @@ namespace console_wasted_app.Model.Repositories
 
         private void WriteAllToFile(IEnumerable<T> all)
         {
-            var jsonString = JsonSerializer.Serialize(all);
+            string jsonString = JsonSerializer.Serialize(all);
             System.IO.File.WriteAllText(_pathToDatabase, jsonString);
         }
 

@@ -26,14 +26,14 @@ namespace console_wasted_app.Model.Data
         {
             UpdateInitialPathname();
 
-            var configurationFilePathname = GetNameConfigurationFile();
-            using (var r = new StreamReader(configurationFilePathname))
+            string configurationFilePathname = GetNameConfigurationFile();
+            using (StreamReader r = new StreamReader(configurationFilePathname))
             {
-                var jsonAsString = r.ReadToEnd();
+                string jsonAsString = r.ReadToEnd();
 
-                using (var document = JsonDocument.Parse(jsonAsString))
+                using (JsonDocument document = JsonDocument.Parse(jsonAsString))
                 {
-                    var pathnameToDataDirectory = GetPathnameToDataDirectory(document);
+                    List<string> pathnameToDataDirectory = GetPathnameToDataDirectory(document);
 
                     PathToDataDirectory = Path.Combine(pathnameToDataDirectory.ToArray());
 
@@ -45,8 +45,8 @@ namespace console_wasted_app.Model.Data
 
         private void UpdateInitialPathname()
         {
-            var assemblyDirectory = System.IO.Directory.GetCurrentDirectory();
-            var initialDirectory = Directory
+            string assemblyDirectory = System.IO.Directory.GetCurrentDirectory();
+            DirectoryInfo initialDirectory = Directory
                 .GetParent(assemblyDirectory)
                 .Parent
                 .Parent;
@@ -55,10 +55,10 @@ namespace console_wasted_app.Model.Data
 
         private void UpdatePathsToDataFiles(JsonDocument document)
         {
-            var suffix = document.RootElement.GetProperty("suffix").GetString();
-            var foodsFile = document.RootElement.GetProperty("foods").GetString() + suffix;
-            var restaurantsFile = document.RootElement.GetProperty("restaurants").GetString() + suffix;
-            var typesOfFoodFile = document.RootElement.GetProperty("typesOfFood").GetString() + suffix;
+            string suffix = document.RootElement.GetProperty("suffix").GetString();
+            string foodsFile = document.RootElement.GetProperty("foods").GetString() + suffix;
+            string restaurantsFile = document.RootElement.GetProperty("restaurants").GetString() + suffix;
+            string typesOfFoodFile = document.RootElement.GetProperty("typesOfFood").GetString() + suffix;
 
             PathToFoodsFile = Path.Combine(PathToDataDirectory, foodsFile);
             PathToRestaurantsFile = Path.Combine(PathToDataDirectory, restaurantsFile);
@@ -67,25 +67,25 @@ namespace console_wasted_app.Model.Data
 
         private string GetNameConfigurationFile()
         {
-            var configurationFileName = Path.Combine("DB", "Configuration", "DBAsFile.json");
-            var configurationFilePathname = Path.Combine(InitialPathname, configurationFileName);
+            string configurationFileName = Path.Combine("DB", "Configuration", "DBAsFile.json");
+            string configurationFilePathname = Path.Combine(InitialPathname, configurationFileName);
 
             return configurationFilePathname;
         }
 
         private List<string> GetPathnameToDataDirectory(JsonDocument document)
         {
-            var root = document.RootElement;
-            var baseDirectory = root.GetProperty("baseDirectory");
-            var toDataDirectoryIterator = baseDirectory.EnumerateArray();
-            var pathnameToDataDirectory = new List<string>
+            JsonElement root = document.RootElement;
+            JsonElement baseDirectory = root.GetProperty("baseDirectory");
+            JsonElement.ArrayEnumerator toDataDirectoryIterator = baseDirectory.EnumerateArray();
+            List<string> pathnameToDataDirectory = new List<string>
             {
                 InitialPathname
             };
 
             while (toDataDirectoryIterator.MoveNext())
             {
-                var to = toDataDirectoryIterator.Current;
+                JsonElement to = toDataDirectoryIterator.Current;
                 pathnameToDataDirectory.Add(to.GetString());
             }
 

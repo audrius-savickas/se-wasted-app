@@ -16,8 +16,8 @@ namespace console_wasted_app.Controller.Services
 
         public void ChangePass(Mail email, Password newPassword)
         {
-            var restaurant = GetByMail(email);
-            var creds = restaurant.Credentials;
+            Restaurant restaurant = GetByMail(email);
+            Credentials creds = restaurant.Credentials;
             creds.Password = newPassword;
 
             _restaurantRepository.Update(restaurant);
@@ -25,7 +25,7 @@ namespace console_wasted_app.Controller.Services
 
         public void DeleteAccount(Credentials creds)
         {
-            var restaurant = GetByMail(creds.Mail);
+            Restaurant restaurant = GetByMail(creds.Mail);
             _restaurantRepository.Delete(restaurant.Id);
         }
 
@@ -51,7 +51,7 @@ namespace console_wasted_app.Controller.Services
 
         public bool Login(Credentials creds)
         {
-            var restaurant = GetByMail(creds.Mail);
+            Restaurant restaurant = GetByMail(creds.Mail);
             return restaurant != null && restaurant.Credentials.Mail.Value == creds.Mail.Value && restaurant.Credentials.Password.Value == creds.Password.Value;
         }
 

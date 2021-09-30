@@ -17,15 +17,15 @@ namespace console_wasted_app.Controller.Entities
 
         public Restaurant(JsonElement json) : base(json)
         {
-            var coordsJson = json.GetProperty("Coords");
+            JsonElement coordsJson = json.GetProperty("Coords");
             Coords = new Coords(
                 coordsJson.GetProperty("Longitude").GetDecimal(),
                 coordsJson.GetProperty("Latitude").GetDecimal()
             );
 
-            var credsJson = json.GetProperty("Credentials");
-            var mailJson = credsJson.GetProperty("Mail");
-            var passwordJson = credsJson.GetProperty("Password");
+            JsonElement credsJson = json.GetProperty("Credentials");
+            JsonElement mailJson = credsJson.GetProperty("Mail");
+            JsonElement passwordJson = credsJson.GetProperty("Password");
 
             Credentials = new Credentials(
                 mailJson.GetProperty("Value").GetString(),
