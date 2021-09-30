@@ -5,7 +5,7 @@ namespace wasted_app
     internal class Validator
     {
         private static readonly int minimumPasswordLength = 8;
-        public static string validatePassword(string password)
+        public static string ValidatePassword(string password)
         {
             var error = "";
 
@@ -29,7 +29,7 @@ namespace wasted_app
             return error;
         }
 
-        public static string validateEmail(string email)
+        public static string ValidateEmail(string email)
         {
             if (!Mail.Validate(email))
             {

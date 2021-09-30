@@ -58,8 +58,8 @@ namespace wasted_app
             this.mailTextBox.Size = new System.Drawing.Size(100, 23);
             this.mailTextBox.TabIndex = 3;
             this.mailTextBox.Text = "Mail";
-            this.mailTextBox.Enter += new System.EventHandler(this.mailTextBox_Enter);
-            this.mailTextBox.Leave += new System.EventHandler(this.mailTextBox_Leave);
+            this.mailTextBox.Enter += new System.EventHandler(this.MailTextBox_Enter);
+            this.mailTextBox.Leave += new System.EventHandler(this.MailTextBox_Leave);
             // 
             // passwordTextBox
             // 
@@ -70,9 +70,9 @@ namespace wasted_app
             this.passwordTextBox.Size = new System.Drawing.Size(100, 23);
             this.passwordTextBox.TabIndex = 4;
             this.passwordTextBox.Text = "Password";
-            this.passwordTextBox.TextChanged += new System.EventHandler(this.passwordTextBox_TextChanged);
-            this.passwordTextBox.Enter += new System.EventHandler(this.passwordTextBox_Enter);
-            this.passwordTextBox.Leave += new System.EventHandler(this.passwordTextBox_Leave);
+            this.passwordTextBox.TextChanged += new System.EventHandler(this.PasswordTextBox_TextChanged);
+            this.passwordTextBox.Enter += new System.EventHandler(this.PasswordTextBox_Enter);
+            this.passwordTextBox.Leave += new System.EventHandler(this.PasswordTextBox_Leave);
             // 
             // backButton
             // 
@@ -84,7 +84,7 @@ namespace wasted_app
             this.backButton.TabIndex = 5;
             this.backButton.Text = "Back";
             this.backButton.UseVisualStyleBackColor = true;
-            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            this.backButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // logInButton
             // 
@@ -95,7 +95,7 @@ namespace wasted_app
             this.logInButton.TabIndex = 6;
             this.logInButton.Text = "Log In";
             this.logInButton.UseVisualStyleBackColor = true;
-            this.logInButton.Click += new System.EventHandler(this.logInButton_Click);
+            this.logInButton.Click += new System.EventHandler(this.LogInButton_Click);
             // 
             // label1
             // 
@@ -115,8 +115,8 @@ namespace wasted_app
             this.showPasswordButton.Size = new System.Drawing.Size(24, 23);
             this.showPasswordButton.TabIndex = 8;
             this.showPasswordButton.UseVisualStyleBackColor = true;
-            this.showPasswordButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.showPasswordButton_MouseDown);
-            this.showPasswordButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.showPasswordButton_MouseUp);
+            this.showPasswordButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ShowPasswordButton_MouseDown);
+            this.showPasswordButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ShowPasswordButton_MouseUp);
             // 
             // RestaurantLogInControl
             // 

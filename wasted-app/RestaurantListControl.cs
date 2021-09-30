@@ -44,7 +44,7 @@ namespace wasted_app
             restaurantPanel.Controls.Add(control);
         }
 
-        private void backButton_Click(object sender, EventArgs e)
+        private void BackButton_Click(object sender, EventArgs e)
         {
             MainForm.mainForm.panel.Controls.Remove(_instance);
         }

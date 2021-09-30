@@ -27,7 +27,7 @@ namespace wasted_app
 
         }
 
-        private void restaurantButton_Click(object sender, EventArgs e)
+        private void RestaurantButton_Click(object sender, EventArgs e)
         {
             if (!panel.Controls.Contains(RestaurantLogInControl.Instance))
             {

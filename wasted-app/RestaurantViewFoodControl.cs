@@ -9,31 +9,31 @@ namespace wasted_app
     public partial class RestaurantViewFoodControl : UserControl
     {
         private Restaurant LoggedRestaurant { get; set; }
-        private IEnumerable<Food> foods { get; set; }
+        private IEnumerable<Food> Foods { get; set; }
 
         public RestaurantViewFoodControl(Restaurant restaurant)
         {
             InitializeComponent();
             LoggedRestaurant = restaurant;
-            getRestaurantFoodItems();
-            listRestaurantFoodItems();
+            GetRestaurantFoodItems();
+            ListRestaurantFoodItems();
         }
 
-        private void getRestaurantFoodItems()
+        private void GetRestaurantFoodItems()
         {
-            foods = FoodUtilities.GetFoodByRestaurantId(LoggedRestaurant.Id);
+            Foods = FoodUtilities.GetFoodByRestaurantId(LoggedRestaurant.Id);
         }
 
-        private void listRestaurantFoodItems()
+        private void ListRestaurantFoodItems()
         {
-            foreach (var food in foods)
+            foreach (var food in Foods)
             {
                 var foodItem = new FoodControl(food.Name, FoodUtilities.GetFoodTypeName(food.IdTypeOfFood), food.Price.ToString("0.00"));
                 foodPanel.Controls.Add(foodItem);
             }
         }
 
-        private void backButton_Click(object sender, EventArgs e)
+        private void BackButton_Click(object sender, EventArgs e)
         {
             MainForm.mainForm.panel.Controls.Remove(this);
         }

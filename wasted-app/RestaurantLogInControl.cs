@@ -41,12 +41,12 @@ namespace wasted_app
             }
         }
 
-        private void backButton_Click(object sender, EventArgs e)
+        private void BackButton_Click(object sender, EventArgs e)
         {
             MainForm.mainForm.panel.Controls.Remove(_instance);
         }
 
-        private void logInButton_Click(object sender, EventArgs e)
+        private void LogInButton_Click(object sender, EventArgs e)
         {
             var controller = ServicesController.Instance;
             var creds = new Credentials(mailTextBox.Text, passwordTextBox.Text);
@@ -64,7 +64,7 @@ namespace wasted_app
             }
         }
 
-        private void passwordTextBox_TextChanged(object sender, EventArgs e)
+        private void PasswordTextBox_TextChanged(object sender, EventArgs e)
         {
             if (passwordTextBox.Text != "Password")
             {
@@ -76,7 +76,7 @@ namespace wasted_app
             }
         }
 
-        private void showPasswordButton_MouseDown(object sender, MouseEventArgs e)
+        private void ShowPasswordButton_MouseDown(object sender, MouseEventArgs e)
         {
             if (passwordTextBox.Text != "Password")
             {
@@ -84,7 +84,7 @@ namespace wasted_app
             }
         }
 
-        private void showPasswordButton_MouseUp(object sender, MouseEventArgs e)
+        private void ShowPasswordButton_MouseUp(object sender, MouseEventArgs e)
         {
             if (passwordTextBox.Text != "Password")
             {
@@ -92,7 +92,7 @@ namespace wasted_app
             }
         }
 
-        private void textBoxGotFocus(string placeHolderText, TextBox textBox)
+        private void TextBoxGotFocus(string placeHolderText, TextBox textBox)
         {
             if (textBox.Text == placeHolderText)
             {
@@ -101,7 +101,7 @@ namespace wasted_app
             }
         }
 
-        private void textBoxLostFocus(string placeHolderText, TextBox textBox)
+        private void TextBoxLostFocus(string placeHolderText, TextBox textBox)
         {
             if (textBox.Text == "")
             {
@@ -110,24 +110,24 @@ namespace wasted_app
             }
         }
 
-        private void mailTextBox_Leave(object sender, EventArgs e)
+        private void MailTextBox_Leave(object sender, EventArgs e)
         {
-            textBoxLostFocus("Mail", mailTextBox);
+            TextBoxLostFocus("Mail", mailTextBox);
         }
 
-        private void mailTextBox_Enter(object sender, EventArgs e)
+        private void MailTextBox_Enter(object sender, EventArgs e)
         {
-            textBoxGotFocus("Mail", mailTextBox);
+            TextBoxGotFocus("Mail", mailTextBox);
         }
 
-        private void passwordTextBox_Enter(object sender, EventArgs e)
+        private void PasswordTextBox_Enter(object sender, EventArgs e)
         {
-            textBoxGotFocus("Password", passwordTextBox);
+            TextBoxGotFocus("Password", passwordTextBox);
         }
 
-        private void passwordTextBox_Leave(object sender, EventArgs e)
+        private void PasswordTextBox_Leave(object sender, EventArgs e)
         {
-            textBoxLostFocus("Password", passwordTextBox);
+            TextBoxLostFocus("Password", passwordTextBox);
         }
     }
 }
