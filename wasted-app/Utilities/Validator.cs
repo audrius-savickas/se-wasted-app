@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
-using console_wasted_app.Controller.Entities;
+﻿using console_wasted_app.Controller.Entities;
 
 namespace wasted_app
 {
-    class Validator
+    internal class Validator
     {
-        private static int minimumPasswordLength = 8;
-        public static String validatePassword(String password)
+        private static readonly int minimumPasswordLength = 8;
+        public static string validatePassword(string password)
         {
             string error = "";
 
@@ -35,7 +29,7 @@ namespace wasted_app
             return error;
         }
 
-        public static String validateEmail(String email)
+        public static string validateEmail(string email)
         {
             if (!Mail.Validate(email))
             {

@@ -1,13 +1,7 @@
 ﻿using console_wasted_app.Controller;
 using console_wasted_app.Controller.Entities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace wasted_app
@@ -15,13 +9,16 @@ namespace wasted_app
     public partial class RestaurantRegistrationControl : UserControl
     {
         private static RestaurantRegistrationControl _instance;
-        private bool showPassword = false;
+        private readonly bool showPassword = false;
         public static RestaurantRegistrationControl Instance
         {
             get
             {
                 if (_instance == null)
+                {
                     _instance = new RestaurantRegistrationControl();
+                }
+
                 return _instance;
             }
         }
@@ -37,7 +34,10 @@ namespace wasted_app
             {
                 return true;
             }
-            else return false;
+            else
+            {
+                return false;
+            }
         }
 
         private void resetTextBoxes()
@@ -58,11 +58,11 @@ namespace wasted_app
 
         private void registerButton_Click(object sender, EventArgs e)
         {
-            if(passwordTextBox.Text == repeatPasswordTextBox.Text && checkIfTextBoxesAreFull())
+            if (passwordTextBox.Text == repeatPasswordTextBox.Text && checkIfTextBoxesAreFull())
             {
                 var mail = mailTextBox.Text;
                 var password = passwordTextBox.Text;
-                String credentialError = getValidationError(mail, password);
+                string credentialError = getValidationError(mail, password);
                 if (credentialError == "")
                 {
                     passwordError.Text = "";
@@ -78,18 +78,18 @@ namespace wasted_app
                     passwordError.Text = credentialError;
                 }
             }
-            else if(!checkIfTextBoxesAreFull())
+            else if (!checkIfTextBoxesAreFull())
             {
                 passwordError.Text = "• All fields must be filled";
             }
-            else 
+            else
             {
                 passwordError.Text = "• Passwords don't match";
             }
-            
+
         }
 
-        private String getValidationError(string username, string password)
+        private string getValidationError(string username, string password)
         {
             return Validator.validateEmail(username) + Validator.validatePassword(password);
         }

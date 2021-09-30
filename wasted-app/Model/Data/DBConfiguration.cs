@@ -4,7 +4,7 @@ using System.IO;
 using System.Text.Json;
 namespace console_wasted_app.Model.Data
 {
-    sealed class DBConfiguration
+    internal sealed class DBConfiguration
     {
         private static readonly Lazy<DBConfiguration> _instance
             = new Lazy<DBConfiguration>(() => new DBConfiguration());
@@ -15,36 +15,30 @@ namespace console_wasted_app.Model.Data
         public string PathToRestaurantsFile { get; set; }
         public string PathToTypesOfFoodFile { get; set; }
 
-        public static DBConfiguration Instance
-        {
-            get
-            {
-                return _instance.Value;
-            }
-        }
+        public static DBConfiguration Instance => _instance.Value;
 
         private DBConfiguration()
         {
-            this.Initialize();
+            Initialize();
         }
 
         private void Initialize()
         {
-            this.UpdateInitialPathname();
+            UpdateInitialPathname();
 
-            string configurationFilePathname = this.GetNameConfigurationFile();
+            string configurationFilePathname = GetNameConfigurationFile();
             using (StreamReader r = new StreamReader(configurationFilePathname))
             {
                 string jsonAsString = r.ReadToEnd();
 
                 using (JsonDocument document = JsonDocument.Parse(jsonAsString))
                 {
-                    List<string> pathnameToDataDirectory = this.GetPathnameToDataDirectory(document);
+                    List<string> pathnameToDataDirectory = GetPathnameToDataDirectory(document);
 
-                    this.PathToDataDirectory = Path.Combine((string[])pathnameToDataDirectory.ToArray());
+                    PathToDataDirectory = Path.Combine(pathnameToDataDirectory.ToArray());
 
                     // Get the path to every data file
-                    this.UpdatePathsToDataFiles(document);
+                    UpdatePathsToDataFiles(document);
                 }
             }
         }
@@ -56,25 +50,25 @@ namespace console_wasted_app.Model.Data
                 .GetParent(assemblyDirectory)
                 .Parent
                 .Parent;
-            this.InitialPathname = initialDirectory.FullName;
+            InitialPathname = initialDirectory.FullName;
         }
 
-        private void UpdatePathsToDataFiles( JsonDocument document )
+        private void UpdatePathsToDataFiles(JsonDocument document)
         {
             string suffix = document.RootElement.GetProperty("suffix").GetString();
             string foodsFile = document.RootElement.GetProperty("foods").GetString() + suffix;
             string restaurantsFile = document.RootElement.GetProperty("restaurants").GetString() + suffix;
             string typesOfFoodFile = document.RootElement.GetProperty("typesOfFood").GetString() + suffix;
 
-            this.PathToFoodsFile = Path.Combine(this.PathToDataDirectory, foodsFile);
-            this.PathToRestaurantsFile = Path.Combine(this.PathToDataDirectory, restaurantsFile);
-            this.PathToTypesOfFoodFile = Path.Combine(this.PathToDataDirectory, typesOfFoodFile);
+            PathToFoodsFile = Path.Combine(PathToDataDirectory, foodsFile);
+            PathToRestaurantsFile = Path.Combine(PathToDataDirectory, restaurantsFile);
+            PathToTypesOfFoodFile = Path.Combine(PathToDataDirectory, typesOfFoodFile);
         }
 
         private string GetNameConfigurationFile()
         {
             string configurationFileName = Path.Combine("DB", "Configuration", "DBAsFile.json");
-            string configurationFilePathname = Path.Combine(this.InitialPathname, configurationFileName);
+            string configurationFilePathname = Path.Combine(InitialPathname, configurationFileName);
 
             return configurationFilePathname;
         }
@@ -84,8 +78,10 @@ namespace console_wasted_app.Model.Data
             JsonElement root = document.RootElement;
             JsonElement baseDirectory = root.GetProperty("baseDirectory");
             JsonElement.ArrayEnumerator toDataDirectoryIterator = baseDirectory.EnumerateArray();
-            List<string> pathnameToDataDirectory = new List<string>();
-            pathnameToDataDirectory.Add(this.InitialPathname);
+            List<string> pathnameToDataDirectory = new List<string>
+            {
+                InitialPathname
+            };
 
             while (toDataDirectoryIterator.MoveNext())
             {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using wasted_app.Controller.Entities;
 
 namespace console_wasted_app.Controller.Interfaces
