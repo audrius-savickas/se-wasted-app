@@ -13,12 +13,8 @@ namespace console_wasted_app.Controller.Entities
 
         public static bool ValidateLength(string password)
         {
-            if (password.Length < 8)
-            {
-                return false;
-            }
-
-            return true;
+            return password.Length >= 8;
+            
         }
 
         public static bool ValidateLetter(string password)
