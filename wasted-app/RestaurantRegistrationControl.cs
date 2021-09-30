@@ -15,7 +15,6 @@ namespace wasted_app
     public partial class RestaurantRegistrationControl : UserControl
     {
         private static RestaurantRegistrationControl _instance;
-        private bool showPassword = false;
         public static RestaurantRegistrationControl Instance
         {
             get
@@ -30,7 +29,7 @@ namespace wasted_app
             InitializeComponent();
         }
 
-        private bool checkIfTextBoxesAreFull()
+        private bool CheckIfTextBoxesAreFull()
         {
             if (restaurantNameTextBox.Text != "Restaurant Name" && latitudeTextBox.Text != "Latitude" && longitudeTextBox.Text != "Longitude"
                 && mailTextBox.Text != "Mail")
@@ -40,7 +39,7 @@ namespace wasted_app
             else return false;
         }
 
-        private void resetTextBoxes()
+        private void ResetTextBoxes()
         {
             restaurantNameTextBox.Text = "";
             latitudeTextBox.Text = "";
@@ -48,34 +47,33 @@ namespace wasted_app
             mailTextBox.Text = "";
             passwordTextBox.Text = "";
             repeatPasswordTextBox.Text = "";
-            textBoxLostFocus("Restaurant name", restaurantNameTextBox);
-            textBoxLostFocus("Latitude", latitudeTextBox);
-            textBoxLostFocus("Longitude", longitudeTextBox);
-            textBoxLostFocus("Mail", mailTextBox);
-            textBoxLostFocus("Password", passwordTextBox);
-            textBoxLostFocus("Repeat Password", repeatPasswordTextBox);
+            TextBoxLostFocus("Restaurant name", restaurantNameTextBox);
+            TextBoxLostFocus("Latitude", latitudeTextBox);
+            TextBoxLostFocus("Longitude", longitudeTextBox);
+            TextBoxLostFocus("Mail", mailTextBox);
+            TextBoxLostFocus("Password", passwordTextBox);
+            TextBoxLostFocus("Repeat Password", repeatPasswordTextBox);
         }
 
         private void registerButton_Click(object sender, EventArgs e)
         {
-            if(passwordTextBox.Text == repeatPasswordTextBox.Text && checkIfTextBoxesAreFull())
+            if(passwordTextBox.Text == repeatPasswordTextBox.Text && CheckIfTextBoxesAreFull())
             {
                 ServicesController controller = ServicesController.Instance;
                 var mail = mailTextBox.Text;
                 var password = passwordTextBox.Text;
-                Mail testMail = new Mail(mail);
-                Restaurant restaurant = controller.RestaurantService.GetByMail(testMail);
-                if(restaurant == null)
+                var restaurant = controller.RestaurantService.GetByMail(new Mail(mail));
+                if (restaurant == null)
                 {
-                    String credentialError = getValidationError(mail, password);
+                    String credentialError = GetValidationError(mail, password);
                     if (credentialError == "")
                     {
                         passwordError.Text = "";
                         Credentials creds = new Credentials(mail, password);
                         controller.RestaurantService.Register(creds, new Restaurant("todo", restaurantNameTextBox.Text, new Coords(Convert.ToDecimal(latitudeTextBox.Text), Convert.ToDecimal(longitudeTextBox.Text)), new Credentials()));
                         MessageBox.Show("Registered successfully");
-                        goBack();
-                        resetTextBoxes();
+                        GoBack();
+                        ResetTextBoxes();
                     }
                     else
                     {
@@ -84,10 +82,10 @@ namespace wasted_app
                 }
                 else
                 {
-                    passwordError.Text = "• There is an account already registered on this mail";
+                    passwordError.Text = "• There is already an account registered on this mail";
                 }
             }
-            else if(!checkIfTextBoxesAreFull())
+            else if(!CheckIfTextBoxesAreFull())
             {
                 passwordError.Text = "• All fields must be filled";
             }
@@ -98,12 +96,12 @@ namespace wasted_app
             
         }
 
-        private String getValidationError(string username, string password)
+        private static String GetValidationError(string username, string password)
         {
             return Validator.validateEmail(username) + Validator.validatePassword(password);
         }
 
-        private void textBoxGotFocus(string placeHolderText, TextBox textBox)
+        private static void TextBoxGotFocus(string placeHolderText, TextBox textBox)
         {
             if (textBox.Text == placeHolderText)
             {
@@ -112,7 +110,7 @@ namespace wasted_app
             }
         }
 
-        private void textBoxLostFocus(string placeHolderText, TextBox textBox)
+        private static void TextBoxLostFocus(string placeHolderText, TextBox textBox)
         {
             if (textBox.Text == "")
             {
@@ -123,66 +121,66 @@ namespace wasted_app
 
         private void restaurantNameTextBox_Enter(object sender, EventArgs e)
         {
-            textBoxGotFocus("Restaurant Name", restaurantNameTextBox);
+            TextBoxGotFocus("Restaurant Name", restaurantNameTextBox);
         }
 
         private void restaurantNameTextBox_Leave(object sender, EventArgs e)
         {
-            textBoxLostFocus("Restaurant Name", restaurantNameTextBox);
+            TextBoxLostFocus("Restaurant Name", restaurantNameTextBox);
         }
         private void latitudeTextBox_Enter(object sender, EventArgs e)
         {
-            textBoxGotFocus("Latitude", latitudeTextBox);
+            TextBoxGotFocus("Latitude", latitudeTextBox);
         }
 
         private void latitudeTextBox_Leave(object sender, EventArgs e)
         {
-            textBoxLostFocus("Latitude", latitudeTextBox);
+            TextBoxLostFocus("Latitude", latitudeTextBox);
         }
 
         private void longitudeTextBox_Enter(object sender, EventArgs e)
         {
-            textBoxGotFocus("Longitude", longitudeTextBox);
+            TextBoxGotFocus("Longitude", longitudeTextBox);
         }
 
         private void longitudeTextBox_Leave(object sender, EventArgs e)
         {
-            textBoxLostFocus("Longitude", longitudeTextBox);
+            TextBoxLostFocus("Longitude", longitudeTextBox);
         }
 
         private void mailTextBox_Enter(object sender, EventArgs e)
         {
-            textBoxGotFocus("Mail", mailTextBox);
+            TextBoxGotFocus("Mail", mailTextBox);
         }
 
         private void mailTextBox_Leave(object sender, EventArgs e)
         {
-            textBoxLostFocus("Mail", mailTextBox);
+            TextBoxLostFocus("Mail", mailTextBox);
         }
 
         private void passwordTextBox_Enter(object sender, EventArgs e)
         {
-            textBoxGotFocus("Password", passwordTextBox);
+            TextBoxGotFocus("Password", passwordTextBox);
         }
 
         private void passwordTextBox_Leave(object sender, EventArgs e)
         {
-            textBoxLostFocus("Password", passwordTextBox);
+            TextBoxLostFocus("Password", passwordTextBox);
         }
 
         private void repeatPasswordTextBox_Enter(object sender, EventArgs e)
         {
-            textBoxGotFocus("Repeat Password", repeatPasswordTextBox);
+            TextBoxGotFocus("Repeat Password", repeatPasswordTextBox);
         }
 
         private void repeatPasswordTextBox_Leave(object sender, EventArgs e)
         {
-            textBoxLostFocus("Repeat Password", repeatPasswordTextBox);
+            TextBoxLostFocus("Repeat Password", repeatPasswordTextBox);
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            goBack();
+            GoBack();
         }
 
         private void passwordTextBox_TextChanged(object sender, EventArgs e)
@@ -241,9 +239,9 @@ namespace wasted_app
             }
         }
 
-        private void goBack()
+        private void GoBack()
         {
-            MainForm.mainForm.panel.Controls.Remove(_instance);
+            MainForm.mainForm.panel.Controls.Remove(this);
         }
     }
 }
