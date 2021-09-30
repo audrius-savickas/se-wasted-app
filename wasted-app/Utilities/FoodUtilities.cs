@@ -9,7 +9,7 @@ namespace wasted_app.Utilities
         public static IEnumerable<Food> GetFoodByRestaurantId(string restaurantId)
         {
             var allFood = ServicesController.Instance.FoodService.GetAllFood();
-            List<Food> restaurantFood = new();
+            var restaurantFood = new List<Food>();
 
             foreach (var food in allFood)
             {
