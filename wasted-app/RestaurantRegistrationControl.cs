@@ -62,12 +62,12 @@ namespace wasted_app
             {
                 var mail = mailTextBox.Text;
                 var password = passwordTextBox.Text;
-                string credentialError = getValidationError(mail, password);
+                var credentialError = getValidationError(mail, password);
                 if (credentialError == "")
                 {
                     passwordError.Text = "";
-                    ServicesController controller = ServicesController.Instance;
-                    Credentials creds = new Credentials(mail, password);
+                    var controller = ServicesController.Instance;
+                    var creds = new Credentials(mail, password);
                     controller.RestaurantService.Register(creds, new Restaurant("todo", restaurantNameTextBox.Text, new Coords(Convert.ToDecimal(latitudeTextBox.Text), Convert.ToDecimal(longitudeTextBox.Text)), new Credentials()));
                     MessageBox.Show("Registered successfully");
                     goBack();

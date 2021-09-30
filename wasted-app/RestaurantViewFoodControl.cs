@@ -28,7 +28,7 @@ namespace wasted_app
         {
             foreach (var food in foods)
             {
-                FoodControl foodItem = new FoodControl(food.Name, FoodUtilities.GetFoodTypeName(food.IdTypeOfFood), food.Price.ToString("0.00"));
+                var foodItem = new FoodControl(food.Name, FoodUtilities.GetFoodTypeName(food.IdTypeOfFood), food.Price.ToString("0.00"));
                 foodPanel.Controls.Add(foodItem);
             }
         }

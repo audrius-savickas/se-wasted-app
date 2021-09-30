@@ -8,7 +8,7 @@ namespace wasted_app.Utilities
     {
         public static IEnumerable<Food> GetFoodByRestaurantId(string restaurantId)
         {
-            IEnumerable<Food> allFood = ServicesController.Instance.FoodService.GetAllFood();
+            var allFood = ServicesController.Instance.FoodService.GetAllFood();
             List<Food> restaurantFood = new();
 
             foreach (var food in allFood)
@@ -23,7 +23,7 @@ namespace wasted_app.Utilities
 
         public static string GetFoodTypeName(string typeId)
         {
-            TypeOfFood foodType = ServicesController.Instance.TypeOfFoodService.GetByTypeOfFoodId(typeId);
+            var foodType = ServicesController.Instance.TypeOfFoodService.GetByTypeOfFoodId(typeId);
             return foodType.Name;
         }
     }

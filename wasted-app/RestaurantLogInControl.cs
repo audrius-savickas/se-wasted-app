@@ -48,12 +48,12 @@ namespace wasted_app
 
         private void logInButton_Click(object sender, EventArgs e)
         {
-            ServicesController controller = ServicesController.Instance;
-            Credentials creds = new Credentials(mailTextBox.Text, passwordTextBox.Text);
+            var controller = ServicesController.Instance;
+            var creds = new Credentials(mailTextBox.Text, passwordTextBox.Text);
             if (controller.RestaurantService.Login(creds))
             {
-                Restaurant restaurant = ServicesController.Instance.RestaurantService.GetByMail(new Mail(mailTextBox.Text));
-                RestaurantFoodControl restaurantFoodScreen = new RestaurantFoodControl(restaurant);
+                var restaurant = ServicesController.Instance.RestaurantService.GetByMail(new Mail(mailTextBox.Text));
+                var restaurantFoodScreen = new RestaurantFoodControl(restaurant);
                 MainForm.mainForm.panel.Controls.Add(restaurantFoodScreen);
                 restaurantFoodScreen.Dock = DockStyle.Fill;
                 restaurantFoodScreen.BringToFront();

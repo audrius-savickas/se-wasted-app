@@ -21,7 +21,7 @@ namespace console_wasted_app.Controller
         private ServicesController()
         {
             // Set up database
-            DBConfiguration dbConfig = DBConfiguration.Instance;
+            var dbConfig = DBConfiguration.Instance;
 
             IFoodRepository foodRepository
                 = new FoodRepository(dbConfig.PathToFoodsFile);

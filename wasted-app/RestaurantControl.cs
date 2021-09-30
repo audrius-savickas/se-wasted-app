@@ -20,7 +20,7 @@ namespace wasted_app
 
         private void RestaurantControl_Click(object sender, EventArgs e)
         {
-            RestaurantViewFoodControl restaurantViewFoodScreen = new RestaurantViewFoodControl(_restaurant);
+            var restaurantViewFoodScreen = new RestaurantViewFoodControl(_restaurant);
             MainForm.mainForm.panel.Controls.Add(restaurantViewFoodScreen);
             restaurantViewFoodScreen.Dock = DockStyle.Fill;
             restaurantViewFoodScreen.BringToFront();

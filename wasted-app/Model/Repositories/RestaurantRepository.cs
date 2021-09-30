@@ -13,15 +13,15 @@ namespace console_wasted_app.Model.Repositories
 
         public Restaurant GetByMail(Mail mail)
         {
-            List<Restaurant> all = GetAll().ToList();
-            Restaurant restaurant = all.FirstOrDefault(r => r.Credentials.Mail.Value == mail.Value);
+            var all = GetAll().ToList();
+            var restaurant = all.FirstOrDefault(r => r.Credentials.Mail.Value == mail.Value);
             return restaurant;
         }
 
         public IEnumerable<Restaurant> GetRestaurantsNear(Coords coords)
         {
-            List<Restaurant> all = GetAll().ToList();
-            List<Restaurant> restaurantsNear = all.FindAll(
+            var all = GetAll().ToList();
+            var restaurantsNear = all.FindAll(
                 r => r.IsNear(coords)
             );
             return restaurantsNear;

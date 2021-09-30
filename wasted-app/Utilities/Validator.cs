@@ -7,7 +7,7 @@ namespace wasted_app
         private static readonly int minimumPasswordLength = 8;
         public static string validatePassword(string password)
         {
-            string error = "";
+            var error = "";
 
             if (!Password.ValidateLength(password))
             {
