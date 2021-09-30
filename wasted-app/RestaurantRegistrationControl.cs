@@ -65,7 +65,7 @@ namespace wasted_app
                 var restaurant = controller.RestaurantService.GetByMail(new Mail(mail));
                 if (restaurant == null)
                 {
-                    String credentialError = GetValidationError(mail, password);
+                    var credentialError = GetValidationError(mail, password);
                     if (credentialError == "")
                     {
                         passwordError.Text = "";
@@ -96,7 +96,7 @@ namespace wasted_app
 
         }
 
-        private static String GetValidationError(string username, string password)
+        private static string GetValidationError(string username, string password)
         {
             return Validator.ValidateEmail(username) + Validator.ValidatePassword(password);
         }
