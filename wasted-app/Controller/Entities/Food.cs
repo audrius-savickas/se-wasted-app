@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text.Json;
 using wasted_app.Controller.Entities;
 
 namespace console_wasted_app.Controller.Entities
 {
-    public class Food : BaseEntity
+    public class Food : BaseEntity, ICloneable
     {
         public decimal Price { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -35,6 +34,18 @@ namespace console_wasted_app.Controller.Entities
             CreatedAt = DateTime.Parse(json.GetProperty("CreatedAt").GetString());
             IdTypeOfFood = json.GetProperty("IdTypeOfFood").GetString();
             IdRestaurant = json.GetProperty("IdRestaurant").GetString();
+        }
+
+        public object Clone()
+        {
+            return new Food(
+                Id,
+                Name,
+                Price,
+                IdRestaurant,
+                IdTypeOfFood,
+                CreatedAt
+            );
         }
     }
 }
