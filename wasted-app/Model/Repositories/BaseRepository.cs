@@ -1,8 +1,8 @@
-﻿using System;
+﻿using console_wasted_app.Controller.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-using console_wasted_app.Controller.Interfaces;
 using wasted_app.Controller.Entities;
 
 namespace console_wasted_app.Model.Repositories
@@ -11,7 +11,7 @@ namespace console_wasted_app.Model.Repositories
     {
         private readonly string _pathToDatabase;
 
-        public BaseRepository(String pathToDatabase)
+        public BaseRepository(string pathToDatabase)
         {
             _pathToDatabase = pathToDatabase;
         }
@@ -34,7 +34,7 @@ namespace console_wasted_app.Model.Repositories
         {
             List<T> all = new List<T>();
             string jsonAsString = System.IO.File.ReadAllText(_pathToDatabase);
-                 
+
             using (JsonDocument document = JsonDocument.Parse(jsonAsString))
             {
                 JsonElement root = document.RootElement;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace console_wasted_app.Controller.Entities
 {
@@ -9,7 +8,7 @@ namespace console_wasted_app.Controller.Entities
 
         public Mail(string value)
         {
-            this.Value = value;
+            Value = value;
         }
 
         public static bool Validate(string email)

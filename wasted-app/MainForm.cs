@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace wasted_app
@@ -26,7 +19,7 @@ namespace wasted_app
                 panel.Controls.Add(RestaurantListControl.Instance);
                 RestaurantListControl.Instance.Dock = DockStyle.Fill;
                 RestaurantListControl.Instance.BringToFront();
-            } 
+            }
             else
             {
                 RestaurantListControl.Instance.BringToFront();
@@ -34,7 +27,7 @@ namespace wasted_app
 
         }
 
-        private void restaurantButton_Click(object sender, EventArgs e)
+        private void RestaurantButton_Click(object sender, EventArgs e)
         {
             if (!panel.Controls.Contains(RestaurantLogInControl.Instance))
             {

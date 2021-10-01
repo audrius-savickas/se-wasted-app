@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace console_wasted_app.Controller.Entities
 {
@@ -7,15 +6,15 @@ namespace console_wasted_app.Controller.Entities
     {
         public string Value { get; set; }
 
-        public Password( string value )
+        public Password(string value)
         {
-            this.Value = value;
+            Value = value;
         }
 
         public static bool ValidateLength(string password)
         {
-            if (password.Length < 8) return false;
-            return true;
+            return password.Length >= 8;
+            
         }
 
         public static bool ValidateLetter(string password)
@@ -35,7 +34,7 @@ namespace console_wasted_app.Controller.Entities
 
             if (!hasNumber.IsMatch(password))
             {
-                return false;            
+                return false;
             }
             return true;
         }

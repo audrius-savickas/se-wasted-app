@@ -1,13 +1,6 @@
 ﻿using console_wasted_app.Controller;
 using console_wasted_app.Controller.Entities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace wasted_app
@@ -20,7 +13,10 @@ namespace wasted_app
             get
             {
                 if (_instance == null)
+                {
                     _instance = new RestaurantListControl();
+                }
+
                 return _instance;
             }
         }
@@ -33,7 +29,7 @@ namespace wasted_app
 
         public void AddAllRestaurants()
         {
-            ServicesController controller = ServicesController.Instance;
+            var controller = ServicesController.Instance;
             var restaurants = controller.RestaurantService.GetAllRestaurants();
 
             foreach (var r in restaurants)
@@ -48,7 +44,7 @@ namespace wasted_app
             restaurantPanel.Controls.Add(control);
         }
 
-        private void backButton_Click(object sender, EventArgs e)
+        private void BackButton_Click(object sender, EventArgs e)
         {
             MainForm.mainForm.panel.Controls.Remove(_instance);
         }

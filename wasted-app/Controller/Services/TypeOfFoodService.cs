@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using console_wasted_app.Controller.Entities;
+﻿using console_wasted_app.Controller.Entities;
 using console_wasted_app.Controller.Interfaces;
 using console_wasted_app.Model.Interfaces;
+using System.Collections.Generic;
 
 namespace console_wasted_app.Controller.Services
 {
@@ -9,7 +9,8 @@ namespace console_wasted_app.Controller.Services
     {
         private readonly ITypeOfFoodRepository _typeOfFoodRepository;
 
-        public TypeOfFoodService(ITypeOfFoodRepository typeOfFoodRepository) {
+        public TypeOfFoodService(ITypeOfFoodRepository typeOfFoodRepository)
+        {
             _typeOfFoodRepository = typeOfFoodRepository;
         }
 

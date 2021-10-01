@@ -1,5 +1,4 @@
-﻿using System;
-namespace console_wasted_app.Model.Services
+﻿namespace console_wasted_app.Model.Services
 {
     public class PasswordService
     {
