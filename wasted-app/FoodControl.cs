@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace wasted_app
 {
@@ -17,7 +9,7 @@ namespace wasted_app
             InitializeComponent();
         }
 
-        public FoodControl(String name, String type, String price) : this ()
+        public FoodControl(string name, string type, string price) : this()
         {
             foodNameLabel.Text = name;
             foodTypeLabel.Text = type;
