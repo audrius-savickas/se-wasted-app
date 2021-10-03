@@ -31,7 +31,7 @@ namespace console_wasted_app.Controller
                 = new TypeOfFoodRepository(dbConfig.PathToTypesOfFoodFile);
 
             // Set up services
-            FoodService = new FoodService(foodRepository);
+            FoodService = new FoodService(foodRepository, restRepository);
             RestaurantService = new RestaurantService(restRepository);
             TypeOfFoodService = new TypeOfFoodService(typeRepository);
         }
