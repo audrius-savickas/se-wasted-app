@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using console_wasted_app.Controller.DTOs;
-using console_wasted_app.Controller.Entities;
+﻿using console_wasted_app.Controller.Entities;
+using System.Collections.Generic;
 
 namespace console_wasted_app.Controller.Interfaces
 {
@@ -11,7 +10,7 @@ namespace console_wasted_app.Controller.Interfaces
         void RegisterFood(Food food);
         void UpdateFood(Food updatedFood);
         void DeleteFood(string id);
-        RestaurantDto GetRestaurantOfFood(string idFood);
-        TypeOfFood GetTypeOfFood(string id);
+        public Restaurant GetRestaurantOfFood(string idFood);
+        public TypeOfFood GetTypeOfFood(string id);
     }
 }
