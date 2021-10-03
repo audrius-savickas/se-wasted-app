@@ -1,1 +1,91 @@
-[{"Price":9.25,"CreatedAt":"2008-06-12T00:00:00","IdRestaurant":"0","IdTypeOfFood":"2","Id":"0","Name":"Saltibarsciai"},{"Price":13.00,"CreatedAt":"2008-06-12T00:00:00","IdRestaurant":"0","IdTypeOfFood":"2","Id":"1","Name":"Cepelinai"},{"Price":10.69,"CreatedAt":"2008-06-12T00:00:00","IdRestaurant":"0","IdTypeOfFood":"0","Id":"2","Name":"Kijevo kotletas"},{"Price":11.00,"CreatedAt":"2008-06-12T00:00:00","IdRestaurant":"0","IdTypeOfFood":"0","Id":"3","Name":"Zemaiciu blynai"},{"Price":4.00,"CreatedAt":"2008-06-12T00:00:00","IdRestaurant":"0","IdTypeOfFood":"3","Id":"4","Name":"Dark Beer"},{"Price":3.00,"CreatedAt":"2008-06-12T00:00:00","IdRestaurant":"0","IdTypeOfFood":"3","Id":"5","Name":"Light Beer"},{"Price":6.00,"CreatedAt":"2008-06-12T00:00:00","IdRestaurant":"2","IdTypeOfFood":"1","Id":"6","Name":"Fried Chicken"},{"Price":2.00,"CreatedAt":"2008-06-12T00:00:00","IdRestaurant":"2","IdTypeOfFood":"3","Id":"7","Name":"CocaCola"},{"Price":5.00,"CreatedAt":"2008-06-12T00:00:00","IdRestaurant":"2","IdTypeOfFood":"1","Id":"8","Name":"Chicken Burger"},{"Price":2.00,"CreatedAt":"2008-06-12T00:00:00","IdRestaurant":"2","IdTypeOfFood":"3","Id":"9","Name":"Sprite"},{"Price":4.00,"CreatedAt":"2008-06-12T00:00:00","IdRestaurant":"2","IdTypeOfFood":"1","Id":"10","Name":"Chicken Wrap"},{"Price":1251,"CreatedAt":"2021-10-03T19:57:26.6787681+03:00","IdRestaurant":"0","IdTypeOfFood":"2","Id":"11","Name":"Nice Food"},{"Price":1121,"CreatedAt":"2021-10-03T19:59:10.4072933+03:00","IdRestaurant":"0","IdTypeOfFood":"0","Id":"12","Name":"Better Food"},{"Price":1232,"CreatedAt":"2021-10-03T20:05:00.3479825+03:00","IdRestaurant":"0","IdTypeOfFood":"1","Id":"13","Name":"asd"},{"Price":1521,"CreatedAt":"2021-10-03T20:06:22.0228139+03:00","IdRestaurant":"0","IdTypeOfFood":"1","Id":"14","Name":"lmaoo"},{"Price":1,"CreatedAt":"2021-10-03T20:07:10.2478179+03:00","IdRestaurant":"0","IdTypeOfFood":"1","Id":"15","Name":"asd"}]
+[
+    {
+        
+        "Price": 9.25,
+        "CreatedAt": "2008-06-12T00:00:00",
+        "IdRestaurant": "0",
+        "IdTypeOfFood": "2",
+        "Id": "0",
+        "Name": "Saltibarsciai"
+    },
+    {
+        "Price": 13.00,
+        "CreatedAt": "2008-06-12T00:00:00",
+        "IdRestaurant": "0",
+        "IdTypeOfFood": "2",
+        "Id": "1",
+        "Name": "Cepelinai"
+    },
+    {
+        "Price": 10.69,
+        "CreatedAt": "2008-06-12T00:00:00",
+        "IdRestaurant": "0",
+        "IdTypeOfFood": "0",
+        "Id": "2",
+        "Name": "Kijevo kotletas"
+    },
+    {
+        "Price": 11.00,
+        "CreatedAt": "2008-06-12T00:00:00",
+        "IdRestaurant": "0",
+        "IdTypeOfFood": "0",
+        "Id": "3",
+        "Name": "Zemaiciu blynai"
+    },
+    {
+        "Price": 4.00,
+        "CreatedAt": "2008-06-12T00:00:00",
+        "IdRestaurant": "0",
+        "IdTypeOfFood": "3",
+        "Id": "4",
+        "Name": "Dark Beer"
+    },
+    {
+        "Price": 3.00,
+        "CreatedAt": "2008-06-12T00:00:00",
+        "IdRestaurant": "0",
+        "IdTypeOfFood": "3",
+        "Id": "5",
+        "Name": "Light Beer"
+    },
+    {
+        "Price": 6.00,
+        "CreatedAt": "2008-06-12T00:00:00",
+        "IdRestaurant": "2",
+        "IdTypeOfFood": "1",
+        "Id": "6",
+        "Name": "Fried Chicken"
+    },
+    {
+        "Price": 2.00,
+        "CreatedAt": "2008-06-12T00:00:00",
+        "IdRestaurant": "2",
+        "IdTypeOfFood": "3",
+        "Id": "7",
+        "Name": "CocaCola"
+    },
+    {
+        "Price": 5.00,
+        "CreatedAt": "2008-06-12T00:00:00",
+        "IdRestaurant": "2",
+        "IdTypeOfFood": "1",
+        "Id": "8",
+        "Name": "Chicken Burger"
+    },
+    {
+        "Price": 2.00,
+        "CreatedAt": "2008-06-12T00:00:00",
+        "IdRestaurant": "2",
+        "IdTypeOfFood": "3",
+        "Id": "9",
+        "Name": "Sprite"
+    },
+    {
+        "Price": 4.00,
+        "CreatedAt": "2008-06-12T00:00:00",
+        "IdRestaurant": "2",
+        "IdTypeOfFood": "1",
+        "Id": "10",
+        "Name": "Chicken Wrap"
+    }
+]
