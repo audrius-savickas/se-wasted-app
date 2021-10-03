@@ -31,7 +31,7 @@ namespace wasted_app
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.SortComboBox = new System.Windows.Forms.ComboBox();
             this.backButton = new System.Windows.Forms.Button();
             this.foodPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
@@ -43,7 +43,7 @@ namespace wasted_app
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.SortComboBox);
             this.panel1.Controls.Add(this.backButton);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -59,17 +59,18 @@ namespace wasted_app
             this.label1.TabIndex = 7;
             this.label1.Text = "Sort by:";
             // 
-            // comboBox1
+            // SortComboBox
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.SortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SortComboBox.FormattingEnabled = true;
+            this.SortComboBox.Items.AddRange(new object[] {
             "Price",
             "Date added"});
-            this.comboBox1.Location = new System.Drawing.Point(60, 110);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(151, 28);
-            this.comboBox1.TabIndex = 6;
+            this.SortComboBox.Location = new System.Drawing.Point(60, 110);
+            this.SortComboBox.Name = "SortComboBox";
+            this.SortComboBox.Size = new System.Drawing.Size(151, 28);
+            this.SortComboBox.TabIndex = 6;
+            this.SortComboBox.SelectedIndexChanged += new System.EventHandler(this.SortComboBox_SelectedIndexChanged);
             // 
             // backButton
             // 
@@ -113,6 +114,6 @@ namespace wasted_app
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.FlowLayoutPanel foodPanel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox SortComboBox;
     }
 }
