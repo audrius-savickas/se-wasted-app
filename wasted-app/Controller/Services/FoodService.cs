@@ -4,7 +4,6 @@ using console_wasted_app.Controller.DTOs;
 using console_wasted_app.Controller.Entities;
 using console_wasted_app.Controller.Interfaces;
 using console_wasted_app.Model.Interfaces;
-using System.Collections.Generic;
 
 namespace console_wasted_app.Controller.Services
 {
