@@ -41,6 +41,7 @@ namespace wasted_app
 
         private void ResetTextBoxes()
         {
+            passwordError.Text = "";
             restaurantNameTextBox.Text = "";
             latitudeTextBox.Text = "";
             longitudeTextBox.Text = "";
@@ -60,29 +61,16 @@ namespace wasted_app
             if (passwordTextBox.Text == repeatPasswordTextBox.Text && CheckIfTextBoxesAreFull())
             {
                 ServicesController controller = ServicesController.Instance;
-                var mail = mailTextBox.Text;
-                var password = passwordTextBox.Text;
-                var restaurant = controller.RestaurantService.GetByMail(new Mail(mail));
-                if (restaurant == null)
+                try 
                 {
-                    var credentialError = GetValidationError(mail, password);
-                    if (credentialError == "")
-                    {
-                        passwordError.Text = "";
-                        Credentials creds = new Credentials(mail, password);
-                        controller.RestaurantService.Register(creds, new Restaurant("todo", restaurantNameTextBox.Text, new Coords(Convert.ToDecimal(latitudeTextBox.Text), Convert.ToDecimal(longitudeTextBox.Text)), new Credentials()));
-                        MessageBox.Show("Registered successfully");
-                        GoBack();
-                        ResetTextBoxes();
-                    }
-                    else
-                    {
-                        passwordError.Text = credentialError;
-                    }
+                    controller.RestaurantService.Register(new Credentials(mailTextBox.Text, passwordTextBox.Text), new Restaurant("todo", restaurantNameTextBox.Text, new Coords(Convert.ToDecimal(latitudeTextBox.Text), Convert.ToDecimal(longitudeTextBox.Text)), new Credentials()));
+                    MessageBox.Show("Registered successfully");
+                    GoBack();
+                    ResetTextBoxes();
                 }
-                else
+                catch( Exception exeption)
                 {
-                    passwordError.Text = "• There is already an account registered on this mail";
+                    passwordError.Text = exeption.Message;
                 }
             }
             else if(!CheckIfTextBoxesAreFull())
