@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using console_wasted_app.Controller.DTOs;
-using console_wasted_app.Controller.Entities;
+﻿using console_wasted_app.Controller.Entities;
 using console_wasted_app.Controller.Interfaces;
 using console_wasted_app.Model.Interfaces;
 using System.Collections.Generic;
@@ -19,7 +16,7 @@ namespace console_wasted_app.Controller.Services
 
         public void ChangePass(Mail email, Password newPassword)
         {
-            Restaurant restaurant = _restaurantRepository.GetByMail(email);
+            Restaurant restaurant = GetByMail(email);
             Credentials creds = restaurant.Credentials;
             creds.Password = newPassword;
 
@@ -28,41 +25,58 @@ namespace console_wasted_app.Controller.Services
 
         public void DeleteAccount(Credentials creds)
         {
-            Restaurant restaurant = _restaurantRepository.GetByMail(creds.Mail);
+            Restaurant restaurant = GetByMail(creds.Mail);
             _restaurantRepository.Delete(restaurant.Id);
         }
 
-        public IEnumerable<RestaurantDto> GetAllRestaurants()
+        public IEnumerable<Restaurant> GetAllRestaurants()
         {
-            return _restaurantRepository
-                    .GetAll()
-                    .Select(r => RestaurantDto.FromEntity(r));
+            return _restaurantRepository.GetAll();
         }
 
-        public RestaurantDto GetRestaurantById(string id)
+        public Restaurant GetByMail(Mail email)
         {
-            Restaurant restaurant = _restaurantRepository.GetById(id);
-            return RestaurantDto.FromEntity(restaurant);
+            return _restaurantRepository.GetByMail(email);
         }
 
-        public IEnumerable<RestaurantDto> GetRestaurantsNear(Coords coords)
+        public Restaurant GetRestaurantById(string id)
         {
-            return _restaurantRepository
-                    .GetRestaurantsNear(coords)
-                    .Select(r => RestaurantDto.FromEntity(r));
+            return _restaurantRepository.GetById(id);
+        }
+
+        public IEnumerable<Restaurant> GetRestaurantsNear(Coords coords)
+        {
+            return _restaurantRepository.GetRestaurantsNear(coords);
         }
 
         public bool Login(Credentials creds)
         {
-            Restaurant restaurant = _restaurantRepository.GetByMail(creds.Mail);
+            Restaurant restaurant = GetByMail(creds.Mail);
             return restaurant != null && restaurant.Credentials.Mail.Value == creds.Mail.Value && restaurant.Credentials.Password.Value == creds.Password.Value;
         }
 
         public bool Register(Credentials creds, Restaurant restaurant)
         {
-            restaurant.Credentials = creds;
-            _restaurantRepository.Add(restaurant);
-            return true;
+            ServicesController controller = ServicesController.Instance;
+            Restaurant validateRestaurant = controller.RestaurantService.GetByMail(new Mail(creds.Mail.Value));
+            if (validateRestaurant == null)
+            {
+                string error = wasted_app.Validator.ValidateEmail(creds.Mail.Value) + wasted_app.Validator.ValidatePassword(creds.Password.Value);
+                if (error == "")
+                {
+                    restaurant.Credentials = creds;
+                    _restaurantRepository.Add(restaurant);
+                    return true;
+                }
+                else
+                {
+                    throw new System.Exception(error);
+                }
+            }
+            else
+            {
+                throw new System.Exception("• There is already an account registered on this mail");
+            }
         }
 
         public void UpdateRestaurant(Restaurant restaurant)

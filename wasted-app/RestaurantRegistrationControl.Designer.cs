@@ -65,6 +65,7 @@ namespace wasted_app
             this.latitudeTextBox.TabIndex = 9;
             this.latitudeTextBox.Text = "Latitude";
             this.latitudeTextBox.Enter += new System.EventHandler(this.LatitudeTextBox_Enter);
+            this.latitudeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LatitudeTextBox_KeyPress);
             this.latitudeTextBox.Leave += new System.EventHandler(this.LatitudeTextBox_Leave);
             // 
             // restaurantNameTextBox
@@ -110,6 +111,7 @@ namespace wasted_app
             this.longitudeTextBox.TabIndex = 16;
             this.longitudeTextBox.Text = "Longitude";
             this.longitudeTextBox.Enter += new System.EventHandler(this.LongitudeTextBox_Enter);
+            this.longitudeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LongitudeTextBox_KeyPress);
             this.longitudeTextBox.Leave += new System.EventHandler(this.LongitudeTextBox_Leave);
             // 
             // mailTextBox

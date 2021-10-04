@@ -41,6 +41,7 @@ namespace wasted_app
 
         private void ResetTextBoxes()
         {
+            passwordError.Text = "";
             restaurantNameTextBox.Text = "";
             latitudeTextBox.Text = "";
             longitudeTextBox.Text = "";
@@ -62,27 +63,22 @@ namespace wasted_app
                 ServicesController controller = ServicesController.Instance;
                 var mail = mailTextBox.Text;
                 var password = passwordTextBox.Text;
-                var restaurant = controller.RestaurantService.GetByMail(new Mail(mail));
-                if (restaurant == null)
+                var restaurantName = restaurantNameTextBox.Text;
+                var latitude = Convert.ToDecimal(latitudeTextBox.Text);
+                var longitude = Convert.ToDecimal(longitudeTextBox.Text);
+                var creds = new Credentials(mail, password);
+                var restaurant = new Restaurant("todo", restaurantName, new Coords(latitude, longitude), new Credentials());
+
+                try 
                 {
-                    var credentialError = GetValidationError(mail, password);
-                    if (credentialError == "")
-                    {
-                        passwordError.Text = "";
-                        Credentials creds = new Credentials(mail, password);
-                        controller.RestaurantService.Register(creds, new Restaurant("todo", restaurantNameTextBox.Text, new Coords(Convert.ToDecimal(latitudeTextBox.Text), Convert.ToDecimal(longitudeTextBox.Text)), new Credentials()));
-                        MessageBox.Show("Registered successfully");
-                        GoBack();
-                        ResetTextBoxes();
-                    }
-                    else
-                    {
-                        passwordError.Text = credentialError;
-                    }
+                    controller.RestaurantService.Register(creds, restaurant);
+                    MessageBox.Show("Registered successfully");
+                    GoBack();
+                    ResetTextBoxes();
                 }
-                else
+                catch( Exception exeption)
                 {
-                    passwordError.Text = "• There is already an account registered on this mail";
+                    passwordError.Text = exeption.Message;
                 }
             }
             else if(!CheckIfTextBoxesAreFull())
@@ -242,6 +238,31 @@ namespace wasted_app
         private void GoBack()
         {
             MainForm.mainForm.panel.Controls.Remove(this);
+        }
+
+        private static bool HandleDecimalInputs(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                return true;
+            }
+
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void LatitudeTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = HandleDecimalInputs(sender, e);
+        }
+
+        private void LongitudeTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = HandleDecimalInputs(sender, e);
         }
     }
 }
