@@ -41,11 +41,11 @@ namespace wasted_app
             this.foodTypeLabel = new System.Windows.Forms.Label();
             this.foodNameLabel = new System.Windows.Forms.Label();
             this.addFoodButton = new System.Windows.Forms.Button();
-            this.filterButton = new System.Windows.Forms.Button();
-            this.sortButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
             this.foodPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.SortComboBox = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.settingsPanel.SuspendLayout();
             this.addFoodPanel.SuspendLayout();
             this.SuspendLayout();
@@ -55,10 +55,10 @@ namespace wasted_app
             this.settingsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.settingsPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.settingsPanel.Controls.Add(this.label1);
+            this.settingsPanel.Controls.Add(this.SortComboBox);
             this.settingsPanel.Controls.Add(this.addFoodPanel);
             this.settingsPanel.Controls.Add(this.addFoodButton);
-            this.settingsPanel.Controls.Add(this.filterButton);
-            this.settingsPanel.Controls.Add(this.sortButton);
             this.settingsPanel.Controls.Add(this.backButton);
             this.settingsPanel.Location = new System.Drawing.Point(0, 0);
             this.settingsPanel.Name = "settingsPanel";
@@ -167,24 +167,6 @@ namespace wasted_app
             this.addFoodButton.UseVisualStyleBackColor = true;
             this.addFoodButton.Click += new System.EventHandler(this.AddFoodButton_Click);
             // 
-            // filterButton
-            // 
-            this.filterButton.Location = new System.Drawing.Point(90, 71);
-            this.filterButton.Name = "filterButton";
-            this.filterButton.Size = new System.Drawing.Size(94, 29);
-            this.filterButton.TabIndex = 2;
-            this.filterButton.Text = "Filter";
-            this.filterButton.UseVisualStyleBackColor = true;
-            // 
-            // sortButton
-            // 
-            this.sortButton.Location = new System.Drawing.Point(90, 36);
-            this.sortButton.Name = "sortButton";
-            this.sortButton.Size = new System.Drawing.Size(94, 29);
-            this.sortButton.TabIndex = 1;
-            this.sortButton.Text = "Sort";
-            this.sortButton.UseVisualStyleBackColor = true;
-            // 
             // backButton
             // 
             this.backButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -213,6 +195,28 @@ namespace wasted_app
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // SortComboBox
+            // 
+            this.SortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SortComboBox.FormattingEnabled = true;
+            this.SortComboBox.Items.AddRange(new object[] {
+            "Price",
+            "Date added"});
+            this.SortComboBox.Location = new System.Drawing.Point(60, 110);
+            this.SortComboBox.Name = "SortComboBox";
+            this.SortComboBox.Size = new System.Drawing.Size(151, 28);
+            this.SortComboBox.TabIndex = 7;
+            this.SortComboBox.SelectedIndexChanged += new System.EventHandler(this.SortComboBox_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(60, 87);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 20);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Sort by:";
+            // 
             // RestaurantFoodControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -222,6 +226,7 @@ namespace wasted_app
             this.Name = "RestaurantFoodControl";
             this.Size = new System.Drawing.Size(800, 451);
             this.settingsPanel.ResumeLayout(false);
+            this.settingsPanel.PerformLayout();
             this.addFoodPanel.ResumeLayout(false);
             this.addFoodPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -231,8 +236,6 @@ namespace wasted_app
         #endregion
 
         private System.Windows.Forms.Panel settingsPanel;
-        private System.Windows.Forms.Button filterButton;
-        private System.Windows.Forms.Button sortButton;
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.FlowLayoutPanel foodPanel;
         private System.Windows.Forms.Button addFoodButton;
@@ -246,5 +249,7 @@ namespace wasted_app
         private System.Windows.Forms.Label foodNameLabel;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button addFoodConfirmButton;
+        private System.Windows.Forms.ComboBox SortComboBox;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -19,6 +19,7 @@ namespace wasted_app
             InitializeComponent();
             InitializeComboBoxItems();
             GetRestaurantFoodItems();
+            SortFoodByDate();
             ListRestaurantFoodItems(Foods);
         }
 
@@ -44,6 +45,16 @@ namespace wasted_app
             {
                 typeComboBox.Items.Add(foodTypeName);
             }
+        }
+
+        private void SortFoodByPrice()
+        {
+            Foods = Foods.SortByPrice();
+        }
+
+        private void SortFoodByDate()
+        {
+            Foods = Foods.SortByNew();
         }
 
         private void BackButton_Click(object sender, EventArgs e)
@@ -79,6 +90,21 @@ namespace wasted_app
         private void PriceInput_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '.';
+        }
+
+        private void SortComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foodPanel.Controls.Clear();
+            GetRestaurantFoodItems();
+            if (SortComboBox.SelectedIndex == 0)
+            {
+                SortFoodByPrice();
+            }
+            else
+            {
+                SortFoodByDate();
+            }
+            ListRestaurantFoodItems(Foods);
         }
     }
 }
