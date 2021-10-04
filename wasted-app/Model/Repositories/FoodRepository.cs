@@ -11,17 +11,6 @@ namespace console_wasted_app.Model.Repositories
         {
         }
 
-        public Restaurant GetRestaurant(string id)
-        {
-            Food food = GetById(id);
-            string idRestaurant = food.IdRestaurant;
-
-            ServicesController servicesController = ServicesController.Instance;
-            IRestaurantService restaurantService = servicesController.RestaurantService;
-
-            return restaurantService.GetRestaurantById(idRestaurant);
-        }
-
         public TypeOfFood GetTypeOfFood(string id)
         {
             Food food = GetById(id);
