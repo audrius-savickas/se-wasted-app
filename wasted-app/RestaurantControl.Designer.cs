@@ -31,8 +31,6 @@ namespace wasted_app
         {
             this.nameButton = new System.Windows.Forms.Label();
             this.addressButton = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // nameButton
@@ -54,28 +52,16 @@ namespace wasted_app
             this.addressButton.TabIndex = 1;
             this.addressButton.Text = "Address";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::wasted_app.Properties.Resources.McDonalds5;
-            this.pictureBox1.Location = new System.Drawing.Point(308, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(125, 97);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            // 
             // RestaurantControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.addressButton);
             this.Controls.Add(this.nameButton);
             this.Name = "RestaurantControl";
             this.Size = new System.Drawing.Size(433, 97);
             this.Click += new System.EventHandler(this.RestaurantControl_Click);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -85,6 +71,5 @@ namespace wasted_app
 
         private System.Windows.Forms.Label nameButton;
         private System.Windows.Forms.Label addressButton;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
