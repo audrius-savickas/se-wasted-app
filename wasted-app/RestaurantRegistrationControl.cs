@@ -239,5 +239,30 @@ namespace wasted_app
         {
             MainForm.mainForm.panel.Controls.Remove(this);
         }
+
+        private static bool HandleDecimalInputs(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                return true;
+            }
+
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void LatitudeTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = HandleDecimalInputs(sender, e);
+        }
+
+        private void LongitudeTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = HandleDecimalInputs(sender, e);
+        }
     }
 }
