@@ -52,7 +52,7 @@ namespace wasted_app
             var creds = new Credentials(mailTextBox.Text, passwordTextBox.Text);
             if (controller.RestaurantService.Login(creds))
             {
-                var restaurant = ServicesController.Instance.RestaurantService.GetByMail(new Mail(mailTextBox.Text));
+                var restaurant = ServicesController.Instance.RestaurantService.GetRestaurantDtoFromMail(new Mail(mailTextBox.Text));
                 var restaurantFoodScreen = new RestaurantFoodControl(restaurant);
                 MainForm.mainForm.panel.Controls.Add(restaurantFoodScreen);
                 restaurantFoodScreen.Dock = DockStyle.Fill;
