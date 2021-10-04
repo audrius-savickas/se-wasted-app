@@ -1,4 +1,5 @@
-﻿using console_wasted_app.Controller.Entities;
+﻿using console_wasted_app.Controller.DTOs;
+using console_wasted_app.Controller.Entities;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -8,10 +9,10 @@ namespace wasted_app
 {
     public partial class RestaurantViewFoodControl : UserControl
     {
-        private Restaurant LoggedRestaurant { get; set; }
+        private RestaurantDto LoggedRestaurant { get; set; }
         private IEnumerable<Food> Foods { get; set; }
 
-        public RestaurantViewFoodControl(Restaurant restaurant)
+        public RestaurantViewFoodControl(RestaurantDto restaurant)
         {
             InitializeComponent();
             LoggedRestaurant = restaurant;

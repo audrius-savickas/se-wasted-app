@@ -1,4 +1,5 @@
 ﻿using console_wasted_app.Controller;
+using console_wasted_app.Controller.DTOs;
 using console_wasted_app.Controller.Entities;
 using System;
 using System.Windows.Forms;
@@ -38,7 +39,7 @@ namespace wasted_app
             }
         }
 
-        private void AddRestaurant(Restaurant restaurant)
+        private void AddRestaurant(RestaurantDto restaurant)
         {
             var control = new RestaurantControl(restaurant);
             restaurantPanel.Controls.Add(control);

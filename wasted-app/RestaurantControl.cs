@@ -1,4 +1,5 @@
-﻿using console_wasted_app.Controller.Entities;
+﻿using console_wasted_app.Controller.DTOs;
+using console_wasted_app.Controller.Entities;
 using System;
 using System.Windows.Forms;
 
@@ -6,13 +7,13 @@ namespace wasted_app
 {
     public partial class RestaurantControl : UserControl
     {
-        private readonly Restaurant _restaurant;
+        private readonly RestaurantDto _restaurant;
         public RestaurantControl()
         {
             InitializeComponent();
         }
 
-        public RestaurantControl(Restaurant restaurant) : this()
+        public RestaurantControl(RestaurantDto restaurant) : this()
         {
             _restaurant = restaurant;
             nameButton.Text = _restaurant.Name;

@@ -1,4 +1,5 @@
 ﻿using console_wasted_app.Controller;
+using console_wasted_app.Controller.DTOs;
 using console_wasted_app.Controller.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,10 @@ namespace wasted_app
 {
     public partial class RestaurantFoodControl : UserControl
     {
-        private Restaurant LoggedRestaurant { get; set; }
+        private RestaurantDto LoggedRestaurant { get; set; }
         private IEnumerable<Food> Foods { get; set; }
         private readonly ServicesController services = ServicesController.Instance;
-        public RestaurantFoodControl(Restaurant restaurant)
+        public RestaurantFoodControl(RestaurantDto restaurant)
         {
             LoggedRestaurant = restaurant;
             InitializeComponent();
