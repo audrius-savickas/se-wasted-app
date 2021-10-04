@@ -16,7 +16,7 @@ namespace wasted_app
             InitializeComponent();
             LoggedRestaurant = restaurant;
             GetRestaurantFoodItems();
-            Foods = Foods.SortByNew();
+            SortFoodByDate();
             ListRestaurantFoodItems();
         }
 
@@ -34,6 +34,16 @@ namespace wasted_app
             }
         }
 
+        private void SortFoodByPrice()
+        {
+            Foods = Foods.SortByPrice();
+        }
+
+        private void SortFoodByDate()
+        {
+            Foods = Foods.SortByNew();
+        }
+
 
         private void BackButton_Click(object sender, EventArgs e)
         {
@@ -46,11 +56,11 @@ namespace wasted_app
             GetRestaurantFoodItems();
             if (SortComboBox.SelectedIndex == 0)
             {
-                Foods = Foods.SortByPrice();
+                SortFoodByPrice();
             }
             else
             {
-                Foods = Foods.SortByNew();
+                SortFoodByDate();
             }
             ListRestaurantFoodItems();
         }
