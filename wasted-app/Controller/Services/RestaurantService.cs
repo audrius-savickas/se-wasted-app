@@ -65,9 +65,7 @@ namespace console_wasted_app.Controller.Services
 
         public bool Register(Credentials creds, Restaurant restaurant)
         {
-            ServicesController controller = ServicesController.Instance;
-            
-            if (controller.RestaurantService.Login(creds))
+            if (_restaurantRepository.GetByMail(creds.Mail) == null)
             {
                 string error = wasted_app.Validator.ValidateEmail(creds.Mail.Value) + wasted_app.Validator.ValidatePassword(creds.Password.Value);
                 if (error == "")
