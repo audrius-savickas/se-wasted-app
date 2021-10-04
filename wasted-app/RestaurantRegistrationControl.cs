@@ -61,9 +61,17 @@ namespace wasted_app
             if (passwordTextBox.Text == repeatPasswordTextBox.Text && CheckIfTextBoxesAreFull())
             {
                 ServicesController controller = ServicesController.Instance;
+                var mail = mailTextBox.Text;
+                var password = passwordTextBox.Text;
+                var restaurantName = restaurantNameTextBox.Text;
+                var latitude = Convert.ToDecimal(latitudeTextBox.Text);
+                var longitude = Convert.ToDecimal(longitudeTextBox.Text);
+                var creds = new Credentials(mail, password);
+                var restaurant = new Restaurant("todo", restaurantName, new Coords(latitude, longitude), new Credentials());
+
                 try 
                 {
-                    controller.RestaurantService.Register(new Credentials(mailTextBox.Text, passwordTextBox.Text), new Restaurant("todo", restaurantNameTextBox.Text, new Coords(Convert.ToDecimal(latitudeTextBox.Text), Convert.ToDecimal(longitudeTextBox.Text)), new Credentials()));
+                    controller.RestaurantService.Register(creds, restaurant);
                     MessageBox.Show("Registered successfully");
                     GoBack();
                     ResetTextBoxes();
