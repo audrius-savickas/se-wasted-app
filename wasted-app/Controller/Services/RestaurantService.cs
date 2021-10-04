@@ -25,6 +25,11 @@ namespace console_wasted_app.Controller.Services
 
             _restaurantRepository.Update(restaurant);
         }
+        
+        public RestaurantDto GetRestaurantDtoFromMail(Mail mail)
+        {
+            return RestaurantDto.FromEntity(_restaurantRepository.GetByMail(mail));
+        }
 
         public void DeleteAccount(Credentials creds)
         {
