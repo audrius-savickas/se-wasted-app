@@ -12,6 +12,7 @@ namespace console_wasted_app.Controller.Interfaces
         IEnumerable<RestaurantDto> GetAllRestaurants();
         void UpdateRestaurant(Restaurant restaurant);
         IEnumerable<RestaurantDto> GetRestaurantsNear(Coords coords);
+        RestaurantDto GetRestaurantDtoFromMail(Mail mail);
     }
 }
 
