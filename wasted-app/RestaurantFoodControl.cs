@@ -4,6 +4,7 @@ using console_wasted_app.Controller.Entities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 using wasted_app.Utilities;
 
@@ -32,9 +33,23 @@ namespace wasted_app
         private void ListRestaurantFoodItems(IEnumerable <Food> foods)
         {
             foodPanel.Controls.Clear();
-            foreach (var food in Foods)
+            var foodTypes = services.TypeOfFoodService.GetAllTypesOfFood();
+            var foodListItems = foods.GroupJoin(
+                foodTypes,
+                food => food.IdTypeOfFood,
+                type => type.Id,
+                (food, typesCollection) =>
+                    new
+                    FoodListItem(
+                        food.Name,
+                        typesCollection.First().Name,
+                        food.Price.ToString()
+                    )
+            );
+
+            foreach (var food in foodListItems)
             {
-                var foodItem = new FoodControl(food.Name, FoodUtilities.GetFoodTypeNameById(food.IdTypeOfFood), food.Price.ToString("0.00"));
+                var foodItem = new FoodControl(food);
                 foodPanel.Controls.Add(foodItem);
             }
         }

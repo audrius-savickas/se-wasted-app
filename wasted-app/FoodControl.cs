@@ -9,11 +9,24 @@ namespace wasted_app
             InitializeComponent();
         }
 
-        public FoodControl(string name, string type, string price) : this()
+        public FoodControl(FoodListItem item) : this()
         {
-            foodNameLabel.Text = name;
-            foodTypeLabel.Text = type;
-            priceLabel.Text = "$" + price;
+            foodNameLabel.Text = item.Name;
+            foodTypeLabel.Text = item.Type;
+            priceLabel.Text = "$" + item.Price;
+        }
+    }
+
+    public class FoodListItem
+    {
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public string Price { get; set; }
+        public FoodListItem(string name, string type, string price)
+        {
+            Name = name;
+            Type = type;
+            Price = price;
         }
     }
 }
