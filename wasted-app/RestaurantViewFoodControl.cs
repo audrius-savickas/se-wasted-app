@@ -1,13 +1,7 @@
-﻿using console_wasted_app.Controller;
+﻿using console_wasted_app.Controller.DTOs;
 using console_wasted_app.Controller.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using wasted_app.Utilities;
 
@@ -15,34 +9,61 @@ namespace wasted_app
 {
     public partial class RestaurantViewFoodControl : UserControl
     {
-        private Restaurant LoggedRestaurant { get; set; }
-        private IEnumerable<Food> foods { get; set; }
-        
-        public RestaurantViewFoodControl(Restaurant restaurant)
+        private RestaurantDto LoggedRestaurant { get; set; }
+        private IEnumerable<Food> Foods { get; set; }
+
+        public RestaurantViewFoodControl(RestaurantDto restaurant)
         {
             InitializeComponent();
             LoggedRestaurant = restaurant;
-            getRestaurantFoodItems();
-            listRestaurantFoodItems();
+            GetRestaurantFoodItems();
+            SortFoodByDate();
+            ListRestaurantFoodItems();
         }
 
-        private void getRestaurantFoodItems()
+        private void GetRestaurantFoodItems()
         {
-            foods = FoodUtilities.GetFoodByRestaurantId(LoggedRestaurant.Id);
+            Foods = FoodUtilities.GetFoodByRestaurantId(LoggedRestaurant.Id);
         }
 
-        private void listRestaurantFoodItems()
+        private void ListRestaurantFoodItems()
         {
-            foreach (var food in foods)
+            foreach (var food in Foods)
             {
-                FoodControl foodItem = new FoodControl(food.Name, FoodUtilities.GetFoodTypeName(food.IdTypeOfFood), food.Price.ToString("0.00"));
+                var foodItem = new FoodControl(new FoodListItem(food.Name, FoodUtilities.GetFoodTypeNameById(food.IdTypeOfFood), food.Price.ToString("0.00")));
                 foodPanel.Controls.Add(foodItem);
             }
         }
 
-        private void backButton_Click(object sender, EventArgs e)
+        private void SortFoodByPrice()
+        {
+            Foods = Foods.SortByPrice();
+        }
+
+        private void SortFoodByDate()
+        {
+            Foods = Foods.SortByNew();
+        }
+
+
+        private void BackButton_Click(object sender, EventArgs e)
         {
             MainForm.mainForm.panel.Controls.Remove(this);
+        }
+
+        private void SortComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foodPanel.Controls.Clear();
+            GetRestaurantFoodItems();
+            if (SortComboBox.SelectedIndex == 0)
+            {
+                SortFoodByPrice();
+            }
+            else
+            {
+                SortFoodByDate();
+            }
+            ListRestaurantFoodItems();
         }
     }
 }

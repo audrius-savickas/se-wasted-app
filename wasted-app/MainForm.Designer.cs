@@ -57,7 +57,7 @@ namespace wasted_app
             this.restaurantButton.TabIndex = 1;
             this.restaurantButton.Text = "Restaurant";
             this.restaurantButton.UseVisualStyleBackColor = true;
-            this.restaurantButton.Click += new System.EventHandler(this.restaurantButton_Click);
+            this.restaurantButton.Click += new System.EventHandler(this.RestaurantButton_Click);
             // 
             // panel
             // 

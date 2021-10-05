@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Linq;
+using console_wasted_app.Controller.DTOs;
 using console_wasted_app.Controller.Entities;
 using console_wasted_app.Controller.Interfaces;
 using console_wasted_app.Model.Interfaces;
@@ -8,10 +10,16 @@ namespace console_wasted_app.Controller.Services
     public class FoodService : IFoodService
     {
         private readonly IFoodRepository _foodRepository;
+        private readonly IRestaurantRepository _restaurantRepository;
 
-        public FoodService (IFoodRepository foodRepository)
+        public FoodService
+        (
+            IFoodRepository foodRepository,
+            IRestaurantRepository restaurantRepository
+        )
         {
             _foodRepository = foodRepository;
+            _restaurantRepository = restaurantRepository;
         }
 
         public void DeleteFood(string id)
@@ -21,7 +29,7 @@ namespace console_wasted_app.Controller.Services
 
         public IEnumerable<Food> GetAllFood()
         {
-            return _foodRepository.GetAll();
+            return _foodRepository.GetAll().ToList();
         }
 
         public Food GetFoodById(string id)
@@ -34,9 +42,14 @@ namespace console_wasted_app.Controller.Services
             _foodRepository.Update(updatedFood);
         }
 
-        public Restaurant GetRestaurantOfFood(string idFood)
+        public RestaurantDto GetRestaurantOfFood(string idFood)
         {
-            return _foodRepository.GetRestaurant(idFood);
+            Food food = GetFoodById(idFood);
+            string idRestaurant = food.IdRestaurant;
+            Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
+
+            return RestaurantDto.FromEntity(restaurant);
+
         }
 
         public TypeOfFood GetTypeOfFood(string id)

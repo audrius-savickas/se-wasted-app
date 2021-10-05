@@ -1,5 +1,4 @@
-﻿using System;
-using console_wasted_app.Controller.Entities;
+﻿using console_wasted_app.Controller.Entities;
 
 namespace console_wasted_app.Controller.Interfaces.Services
 {
@@ -9,6 +8,5 @@ namespace console_wasted_app.Controller.Interfaces.Services
         public bool Register(Credentials creds, T obj);
         public void ChangePass(Mail email, Password newPassword);
         public void DeleteAccount(Credentials creds);
-        public T GetByMail(Mail email);
     }
 }

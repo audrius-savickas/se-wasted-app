@@ -1,9 +1,9 @@
-﻿using System;
-using console_wasted_app.Controller.Interfaces;
+﻿using console_wasted_app.Controller.Interfaces;
 using console_wasted_app.Controller.Services;
 using console_wasted_app.Model.Data;
 using console_wasted_app.Model.Interfaces;
 using console_wasted_app.Model.Repositories;
+using System;
 
 namespace console_wasted_app.Controller
 {
@@ -16,13 +16,7 @@ namespace console_wasted_app.Controller
         public readonly IRestaurantService RestaurantService;
         public readonly ITypeOfFoodService TypeOfFoodService;
 
-        public static ServicesController Instance
-        {
-            get
-            {
-                return _instance.Value;
-            }
-        }
+        public static ServicesController Instance => _instance.Value;
 
         private ServicesController()
         {
@@ -37,9 +31,9 @@ namespace console_wasted_app.Controller
                 = new TypeOfFoodRepository(dbConfig.PathToTypesOfFoodFile);
 
             // Set up services
-            this.FoodService = new FoodService(foodRepository);
-            this.RestaurantService = new RestaurantService(restRepository);
-            this.TypeOfFoodService = new TypeOfFoodService(typeRepository);
+            FoodService = new FoodService(foodRepository, restRepository);
+            RestaurantService = new RestaurantService(restRepository);
+            TypeOfFoodService = new TypeOfFoodService(typeRepository);
         }
 
     }

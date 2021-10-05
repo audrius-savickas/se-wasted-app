@@ -1,13 +1,7 @@
 ﻿using console_wasted_app.Controller;
 using console_wasted_app.Controller.Entities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace wasted_app
@@ -20,7 +14,10 @@ namespace wasted_app
             get
             {
                 if (_instance == null)
+                {
                     _instance = new RestaurantRegistrationControl();
+                }
+
                 return _instance;
             }
         }
@@ -36,18 +33,22 @@ namespace wasted_app
             {
                 return true;
             }
-            else return false;
+            else
+            {
+                return false;
+            }
         }
 
         private void ResetTextBoxes()
         {
+            passwordError.Text = "";
             restaurantNameTextBox.Text = "";
             latitudeTextBox.Text = "";
             longitudeTextBox.Text = "";
             mailTextBox.Text = "";
             passwordTextBox.Text = "";
             repeatPasswordTextBox.Text = "";
-            TextBoxLostFocus("Restaurant name", restaurantNameTextBox);
+            TextBoxLostFocus("Restaurant Name", restaurantNameTextBox);
             TextBoxLostFocus("Latitude", latitudeTextBox);
             TextBoxLostFocus("Longitude", longitudeTextBox);
             TextBoxLostFocus("Mail", mailTextBox);
@@ -55,50 +56,45 @@ namespace wasted_app
             TextBoxLostFocus("Repeat Password", repeatPasswordTextBox);
         }
 
-        private void registerButton_Click(object sender, EventArgs e)
+        private void RegisterButton_Click(object sender, EventArgs e)
         {
-            if(passwordTextBox.Text == repeatPasswordTextBox.Text && CheckIfTextBoxesAreFull())
+            if (passwordTextBox.Text == repeatPasswordTextBox.Text && CheckIfTextBoxesAreFull())
             {
                 ServicesController controller = ServicesController.Instance;
                 var mail = mailTextBox.Text;
                 var password = passwordTextBox.Text;
-                var restaurant = controller.RestaurantService.GetByMail(new Mail(mail));
-                if (restaurant == null)
+                var restaurantName = restaurantNameTextBox.Text;
+                var latitude = Convert.ToDecimal(latitudeTextBox.Text);
+                var longitude = Convert.ToDecimal(longitudeTextBox.Text);
+                var creds = new Credentials(mail, password);
+                var restaurant = new Restaurant("todo", restaurantName, new Coords(latitude, longitude), new Credentials());
+
+                try 
                 {
-                    String credentialError = GetValidationError(mail, password);
-                    if (credentialError == "")
-                    {
-                        passwordError.Text = "";
-                        Credentials creds = new Credentials(mail, password);
-                        controller.RestaurantService.Register(creds, new Restaurant("todo", restaurantNameTextBox.Text, new Coords(Convert.ToDecimal(latitudeTextBox.Text), Convert.ToDecimal(longitudeTextBox.Text)), new Credentials()));
-                        MessageBox.Show("Registered successfully");
-                        GoBack();
-                        ResetTextBoxes();
-                    }
-                    else
-                    {
-                        passwordError.Text = credentialError;
-                    }
+                    controller.RestaurantService.Register(creds, restaurant);
+                    MessageBox.Show("Registered successfully");
+                    GoBack();
+                    ResetTextBoxes();
                 }
-                else
+                catch( Exception exeption)
                 {
-                    passwordError.Text = "• There is already an account registered on this mail";
+                    passwordError.Text = exeption.Message;
                 }
             }
             else if(!CheckIfTextBoxesAreFull())
             {
                 passwordError.Text = "• All fields must be filled";
             }
-            else 
+            else
             {
                 passwordError.Text = "• Passwords don't match";
             }
-            
+
         }
 
-        private static String GetValidationError(string username, string password)
+        private static string GetValidationError(string username, string password)
         {
-            return Validator.validateEmail(username) + Validator.validatePassword(password);
+            return Validator.ValidateEmail(username) + Validator.ValidatePassword(password);
         }
 
         private static void TextBoxGotFocus(string placeHolderText, TextBox textBox)
@@ -119,71 +115,72 @@ namespace wasted_app
             }
         }
 
-        private void restaurantNameTextBox_Enter(object sender, EventArgs e)
+        private void RestaurantNameTextBox_Enter(object sender, EventArgs e)
         {
             TextBoxGotFocus("Restaurant Name", restaurantNameTextBox);
         }
 
-        private void restaurantNameTextBox_Leave(object sender, EventArgs e)
+        private void RestaurantNameTextBox_Leave(object sender, EventArgs e)
         {
             TextBoxLostFocus("Restaurant Name", restaurantNameTextBox);
         }
-        private void latitudeTextBox_Enter(object sender, EventArgs e)
+        private void LatitudeTextBox_Enter(object sender, EventArgs e)
         {
             TextBoxGotFocus("Latitude", latitudeTextBox);
         }
 
-        private void latitudeTextBox_Leave(object sender, EventArgs e)
+        private void LatitudeTextBox_Leave(object sender, EventArgs e)
         {
             TextBoxLostFocus("Latitude", latitudeTextBox);
         }
 
-        private void longitudeTextBox_Enter(object sender, EventArgs e)
+        private void LongitudeTextBox_Enter(object sender, EventArgs e)
         {
             TextBoxGotFocus("Longitude", longitudeTextBox);
         }
 
-        private void longitudeTextBox_Leave(object sender, EventArgs e)
+        private void LongitudeTextBox_Leave(object sender, EventArgs e)
         {
             TextBoxLostFocus("Longitude", longitudeTextBox);
         }
 
-        private void mailTextBox_Enter(object sender, EventArgs e)
+        private void MailTextBox_Enter(object sender, EventArgs e)
         {
             TextBoxGotFocus("Mail", mailTextBox);
         }
 
-        private void mailTextBox_Leave(object sender, EventArgs e)
+        private void MailTextBox_Leave(object sender, EventArgs e)
         {
             TextBoxLostFocus("Mail", mailTextBox);
         }
 
-        private void passwordTextBox_Enter(object sender, EventArgs e)
+        private void PasswordTextBox_Enter(object sender, EventArgs e)
         {
             TextBoxGotFocus("Password", passwordTextBox);
         }
 
-        private void passwordTextBox_Leave(object sender, EventArgs e)
+        private void PasswordTextBox_Leave(object sender, EventArgs e)
         {
             TextBoxLostFocus("Password", passwordTextBox);
         }
 
-        private void repeatPasswordTextBox_Enter(object sender, EventArgs e)
+        private void RepeatPasswordTextBox_Enter(object sender, EventArgs e)
         {
             TextBoxGotFocus("Repeat Password", repeatPasswordTextBox);
         }
 
-        private void repeatPasswordTextBox_Leave(object sender, EventArgs e)
+        private void RepeatPasswordTextBox_Leave(object sender, EventArgs e)
         {
             TextBoxLostFocus("Repeat Password", repeatPasswordTextBox);
         }
 
-        private void backButton_Click(object sender, EventArgs e)
+        private void BackButton_Click(object sender, EventArgs e)
         {
             GoBack();
+            ResetTextBoxes();
         }
 
-        private void passwordTextBox_TextChanged(object sender, EventArgs e)
+        private void PasswordTextBox_TextChanged(object sender, EventArgs e)
         {
             if (passwordTextBox.Text != "Password")
             {
@@ -195,7 +192,7 @@ namespace wasted_app
             }
         }
 
-        private void repeatPasswordTextBox_TextChanged(object sender, EventArgs e)
+        private void RepeatPasswordTextBox_TextChanged(object sender, EventArgs e)
         {
             if (repeatPasswordTextBox.Text != "Repeat Password")
             {
@@ -207,7 +204,7 @@ namespace wasted_app
             }
         }
 
-        private void showPasswordButton_MouseUp(object sender, MouseEventArgs e)
+        private void ShowPasswordButton_MouseUp(object sender, MouseEventArgs e)
         {
             if (passwordTextBox.Text != "Password")
             {
@@ -215,7 +212,7 @@ namespace wasted_app
             }
         }
 
-        private void showPasswordButton_MouseDown(object sender, MouseEventArgs e)
+        private void ShowPasswordButton_MouseDown(object sender, MouseEventArgs e)
         {
             if (passwordTextBox.Text != "Password")
             {
@@ -223,7 +220,7 @@ namespace wasted_app
             }
         }
 
-        private void showRepeatPasswordButton_MouseUp(object sender, MouseEventArgs e)
+        private void ShowRepeatPasswordButton_MouseUp(object sender, MouseEventArgs e)
         {
             if (repeatPasswordTextBox.Text != "Repeat Password")
             {
@@ -231,7 +228,7 @@ namespace wasted_app
             }
         }
 
-        private void showRepeatPasswordButton_MouseDown(object sender, MouseEventArgs e)
+        private void ShowRepeatPasswordButton_MouseDown(object sender, MouseEventArgs e)
         {
             if (repeatPasswordTextBox.Text != "Repeat Password")
             {
@@ -242,6 +239,31 @@ namespace wasted_app
         private void GoBack()
         {
             MainForm.mainForm.panel.Controls.Remove(this);
+        }
+
+        private static bool HandleDecimalInputs(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                return true;
+            }
+
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void LatitudeTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = HandleDecimalInputs(sender, e);
+        }
+
+        private void LongitudeTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = HandleDecimalInputs(sender, e);
         }
     }
 }

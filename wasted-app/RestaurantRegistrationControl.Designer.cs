@@ -52,7 +52,7 @@ namespace wasted_app
             this.registerButton.TabIndex = 12;
             this.registerButton.Text = "Register";
             this.registerButton.UseVisualStyleBackColor = true;
-            this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
+            this.registerButton.Click += new System.EventHandler(this.RegisterButton_Click);
             // 
             // latitudeTextBox
             // 
@@ -64,8 +64,9 @@ namespace wasted_app
             this.latitudeTextBox.Size = new System.Drawing.Size(100, 23);
             this.latitudeTextBox.TabIndex = 9;
             this.latitudeTextBox.Text = "Latitude";
-            this.latitudeTextBox.Enter += new System.EventHandler(this.latitudeTextBox_Enter);
-            this.latitudeTextBox.Leave += new System.EventHandler(this.latitudeTextBox_Leave);
+            this.latitudeTextBox.Enter += new System.EventHandler(this.LatitudeTextBox_Enter);
+            this.latitudeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LatitudeTextBox_KeyPress);
+            this.latitudeTextBox.Leave += new System.EventHandler(this.LatitudeTextBox_Leave);
             // 
             // restaurantNameTextBox
             // 
@@ -77,8 +78,8 @@ namespace wasted_app
             this.restaurantNameTextBox.Size = new System.Drawing.Size(100, 23);
             this.restaurantNameTextBox.TabIndex = 8;
             this.restaurantNameTextBox.Text = "Restaurant Name";
-            this.restaurantNameTextBox.Enter += new System.EventHandler(this.restaurantNameTextBox_Enter);
-            this.restaurantNameTextBox.Leave += new System.EventHandler(this.restaurantNameTextBox_Leave);
+            this.restaurantNameTextBox.Enter += new System.EventHandler(this.RestaurantNameTextBox_Enter);
+            this.restaurantNameTextBox.Leave += new System.EventHandler(this.RestaurantNameTextBox_Leave);
             // 
             // passwordError
             // 
@@ -98,7 +99,7 @@ namespace wasted_app
             this.backButton.TabIndex = 15;
             this.backButton.Text = "Back";
             this.backButton.UseVisualStyleBackColor = true;
-            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            this.backButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // longitudeTextBox
             // 
@@ -109,8 +110,9 @@ namespace wasted_app
             this.longitudeTextBox.Size = new System.Drawing.Size(100, 23);
             this.longitudeTextBox.TabIndex = 16;
             this.longitudeTextBox.Text = "Longitude";
-            this.longitudeTextBox.Enter += new System.EventHandler(this.longitudeTextBox_Enter);
-            this.longitudeTextBox.Leave += new System.EventHandler(this.longitudeTextBox_Leave);
+            this.longitudeTextBox.Enter += new System.EventHandler(this.LongitudeTextBox_Enter);
+            this.longitudeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LongitudeTextBox_KeyPress);
+            this.longitudeTextBox.Leave += new System.EventHandler(this.LongitudeTextBox_Leave);
             // 
             // mailTextBox
             // 
@@ -121,8 +123,8 @@ namespace wasted_app
             this.mailTextBox.Size = new System.Drawing.Size(100, 23);
             this.mailTextBox.TabIndex = 17;
             this.mailTextBox.Text = "Mail";
-            this.mailTextBox.Enter += new System.EventHandler(this.mailTextBox_Enter);
-            this.mailTextBox.Leave += new System.EventHandler(this.mailTextBox_Leave);
+            this.mailTextBox.Enter += new System.EventHandler(this.MailTextBox_Enter);
+            this.mailTextBox.Leave += new System.EventHandler(this.MailTextBox_Leave);
             // 
             // passwordTextBox
             // 
@@ -133,9 +135,9 @@ namespace wasted_app
             this.passwordTextBox.Size = new System.Drawing.Size(100, 23);
             this.passwordTextBox.TabIndex = 18;
             this.passwordTextBox.Text = "Password";
-            this.passwordTextBox.TextChanged += new System.EventHandler(this.passwordTextBox_TextChanged);
-            this.passwordTextBox.Enter += new System.EventHandler(this.passwordTextBox_Enter);
-            this.passwordTextBox.Leave += new System.EventHandler(this.passwordTextBox_Leave);
+            this.passwordTextBox.TextChanged += new System.EventHandler(this.PasswordTextBox_TextChanged);
+            this.passwordTextBox.Enter += new System.EventHandler(this.PasswordTextBox_Enter);
+            this.passwordTextBox.Leave += new System.EventHandler(this.PasswordTextBox_Leave);
             // 
             // repeatPasswordTextBox
             // 
@@ -146,9 +148,9 @@ namespace wasted_app
             this.repeatPasswordTextBox.Size = new System.Drawing.Size(100, 23);
             this.repeatPasswordTextBox.TabIndex = 19;
             this.repeatPasswordTextBox.Text = "Repeat Password";
-            this.repeatPasswordTextBox.TextChanged += new System.EventHandler(this.repeatPasswordTextBox_TextChanged);
-            this.repeatPasswordTextBox.Enter += new System.EventHandler(this.repeatPasswordTextBox_Enter);
-            this.repeatPasswordTextBox.Leave += new System.EventHandler(this.repeatPasswordTextBox_Leave);
+            this.repeatPasswordTextBox.TextChanged += new System.EventHandler(this.RepeatPasswordTextBox_TextChanged);
+            this.repeatPasswordTextBox.Enter += new System.EventHandler(this.RepeatPasswordTextBox_Enter);
+            this.repeatPasswordTextBox.Leave += new System.EventHandler(this.RepeatPasswordTextBox_Leave);
             // 
             // showRepeatPasswordButton
             // 
@@ -158,8 +160,8 @@ namespace wasted_app
             this.showRepeatPasswordButton.Size = new System.Drawing.Size(24, 23);
             this.showRepeatPasswordButton.TabIndex = 20;
             this.showRepeatPasswordButton.UseVisualStyleBackColor = true;
-            this.showRepeatPasswordButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.showRepeatPasswordButton_MouseDown);
-            this.showRepeatPasswordButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.showRepeatPasswordButton_MouseUp);
+            this.showRepeatPasswordButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ShowRepeatPasswordButton_MouseDown);
+            this.showRepeatPasswordButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ShowRepeatPasswordButton_MouseUp);
             // 
             // showPasswordButton
             // 
@@ -169,8 +171,8 @@ namespace wasted_app
             this.showPasswordButton.Size = new System.Drawing.Size(24, 23);
             this.showPasswordButton.TabIndex = 21;
             this.showPasswordButton.UseVisualStyleBackColor = true;
-            this.showPasswordButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.showPasswordButton_MouseDown);
-            this.showPasswordButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.showPasswordButton_MouseUp);
+            this.showPasswordButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ShowPasswordButton_MouseDown);
+            this.showPasswordButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ShowPasswordButton_MouseUp);
             // 
             // RestaurantRegistrationControl
             // 

@@ -52,6 +52,7 @@ namespace wasted_app
             // 
             // filterButton
             // 
+            this.filterButton.Enabled = false;
             this.filterButton.Location = new System.Drawing.Point(90, 71);
             this.filterButton.Name = "filterButton";
             this.filterButton.Size = new System.Drawing.Size(94, 29);
@@ -61,6 +62,7 @@ namespace wasted_app
             // 
             // sortButton
             // 
+            this.sortButton.Enabled = false;
             this.sortButton.Location = new System.Drawing.Point(90, 36);
             this.sortButton.Name = "sortButton";
             this.sortButton.Size = new System.Drawing.Size(94, 29);
@@ -77,7 +79,7 @@ namespace wasted_app
             this.backButton.TabIndex = 0;
             this.backButton.Text = "Back";
             this.backButton.UseVisualStyleBackColor = true;
-            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            this.backButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // restaurantPanel
             // 

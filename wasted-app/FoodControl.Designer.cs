@@ -81,9 +81,7 @@ namespace wasted_app
 
         #endregion
 
-        private System.Windows.Forms.Label nameButton;
         private System.Windows.Forms.Label foodTypeLabel;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label foodNameLabel;
         private System.Windows.Forms.Label priceLabel;
     }
