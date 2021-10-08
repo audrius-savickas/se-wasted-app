@@ -92,11 +92,6 @@ namespace wasted_app
 
         }
 
-        private static string GetValidationError(string username, string password)
-        {
-            return Validator.ValidateEmail(username) + Validator.ValidatePassword(password);
-        }
-
         private static void TextBoxGotFocus(string placeHolderText, TextBox textBox)
         {
             if (textBox.Text == placeHolderText)

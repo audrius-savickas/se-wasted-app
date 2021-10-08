@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace wasted_app.Utilities
 {
-    internal class FoodUtilities
+    public class FoodUtilities
     {
         private static ServicesController servicesController = ServicesController.Instance;
         public static IEnumerable<Food> GetFoodByRestaurantId(string restaurantId)

@@ -1,8 +1,8 @@
 ﻿{
   "baseDirectory": [
-    "DB",
-    "Data",
-    "Test"
+    "wasted-app-backend/DB",
+    "wasted-app-backend/Data",
+    "wasted-app-backend/Test"
   ],
     "suffix":  ".json",
     "foods": "Foods",
