@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
-    <RootNamespace>wasted_app</RootNamespace>
+    <RootNamespace>frontend</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
@@ -11,10 +11,12 @@
     <Compile Remove="Constants\**" />
     <EmbeddedResource Remove="Constants\**" />
     <None Remove="Constants\**" />
+    <None Remove="Utilities\" />
+    <None Remove="Resources\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\wasted-app-backend\wasted-app-backend.csproj" />
+    <ProjectReference Include="..\backend\backend.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,4 +28,8 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Utilities\" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
 </Project> 
