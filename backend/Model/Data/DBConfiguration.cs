@@ -50,8 +50,9 @@ namespace backend.Model.Data
             DirectoryInfo initialDirectory = Directory
                 .GetParent(assemblyDirectory)
                 .Parent
+                .Parent
                 .Parent;
-            InitialPathname = initialDirectory.FullName;
+            InitialPathname = Path.Combine(initialDirectory.FullName, "backend");
             Debug.WriteLine(InitialPathname);
         }
 
