@@ -1,6 +1,6 @@
-﻿using console_wasted_app.Controller.Entities;
+﻿using backend.Controller.Entities;
 
-namespace console_wasted_app.Controller.Interfaces.Services
+namespace backend.Controller.Interfaces.Services
 {
     public interface IAuthService<T>
     {

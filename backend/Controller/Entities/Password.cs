@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace console_wasted_app.Controller.Entities
+namespace backend.Controller.Entities
 {
     public class Password
     {

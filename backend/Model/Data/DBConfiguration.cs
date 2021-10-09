@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
-namespace console_wasted_app.Model.Data
+namespace backend.Model.Data
 {
     internal sealed class DBConfiguration
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace console_wasted_app.Controller.DTOs
+namespace backend.Controller.DTOs
 {
     public abstract class BaseDto
     {

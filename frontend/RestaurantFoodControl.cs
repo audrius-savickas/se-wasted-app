@@ -1,6 +1,6 @@
-﻿using console_wasted_app.Controller;
-using console_wasted_app.Controller.DTOs;
-using console_wasted_app.Controller.Entities;
+﻿using backend.Controller;
+using backend.Controller.DTOs;
+using backend.Controller.Entities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

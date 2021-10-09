@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using console_wasted_app.Controller.DTOs;
-using console_wasted_app.Controller.Entities;
-using console_wasted_app.Controller.Interfaces.Services;
-using System.Collections.Generic;
+using backend.Controller.DTOs;
+using backend.Controller.Entities;
+using backend.Controller.Interfaces.Services;
 
-namespace console_wasted_app.Controller.Interfaces
+namespace backend.Controller.Interfaces
 {
     public interface IRestaurantService : IAuthService<Restaurant>
     {

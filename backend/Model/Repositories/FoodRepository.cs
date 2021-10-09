@@ -1,9 +1,9 @@
-﻿using console_wasted_app.Controller;
-using console_wasted_app.Controller.Entities;
-using console_wasted_app.Controller.Interfaces;
-using console_wasted_app.Model.Interfaces;
+﻿using backend.Controller;
+using backend.Controller.Entities;
+using backend.Controller.Interfaces;
+using backend.Model.Interfaces;
 
-namespace console_wasted_app.Model.Repositories
+namespace backend.Model.Repositories
 {
     public class FoodRepository : BaseRepository<Food>, IFoodRepository
     {

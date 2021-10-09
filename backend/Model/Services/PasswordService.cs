@@ -1,4 +1,4 @@
-﻿namespace console_wasted_app.Model.Services
+﻿namespace backend.Model.Services
 {
     public class PasswordService
     {

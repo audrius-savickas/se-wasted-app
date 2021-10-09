@@ -1,9 +1,21 @@
-﻿namespace console_wasted_app
+﻿using backend.Controller;
+using System;
+
+namespace backend
 {
     class Program
     {
-        private static void Main(string[] args)
+        static void Main(string[] args)
         {
+            var servicesController = ServicesController.Instance;
+
+            var restaurantService = servicesController.RestaurantService;
+            var restaurants = restaurantService.GetAllRestaurants();
+
+            foreach ( var r in restaurants )
+            {
+                Console.WriteLine(r.Name);
+            }
         }
     }
 }

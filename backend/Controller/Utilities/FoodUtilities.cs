@@ -1,4 +1,8 @@
-﻿namespace wasted_app.Utilities
+﻿using backend.Controller;
+using backend.Controller.Entities;
+using System.Collections.Generic;
+
+namespace backend.Controller.Utilities
 {
     public class FoodUtilities
     {

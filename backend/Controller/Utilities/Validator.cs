@@ -1,6 +1,6 @@
 ﻿using backend.Controller.Entities;
 
-namespace wasted_app
+namespace backend.Controller.Utilities
 {
     internal class Validator
     {

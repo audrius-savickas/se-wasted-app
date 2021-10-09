@@ -1,8 +1,8 @@
-﻿using console_wasted_app.Controller.Entities;
-using console_wasted_app.Controller.Interfaces;
+﻿using backend.Controller.Entities;
+using backend.Controller.Interfaces;
 using System.Collections.Generic;
 
-namespace console_wasted_app.Model.Interfaces
+namespace backend.Model.Interfaces
 {
     public interface IRestaurantRepository : IBaseRepository<Restaurant>
     {

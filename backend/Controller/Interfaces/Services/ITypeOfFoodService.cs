@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using console_wasted_app.Controller.Entities;
+﻿using System.Collections.Generic;
+using backend.Controller.Entities;
 
-namespace console_wasted_app.Controller.Interfaces
+namespace backend.Controller.Interfaces
 {
     public interface ITypeOfFoodService
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using wasted_app.Controller.Entities;
 
-namespace console_wasted_app.Controller.Interfaces
+namespace backend.Controller.Interfaces
 {
     public interface IBaseRepository<T> where T : BaseEntity
     {

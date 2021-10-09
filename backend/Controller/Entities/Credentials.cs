@@ -1,4 +1,4 @@
-﻿namespace console_wasted_app.Controller.Entities
+﻿namespace backend.Controller.Entities
 {
     public struct Credentials
     {

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using console_wasted_app.Controller.DTOs;
-using console_wasted_app.Controller.Entities;
-using console_wasted_app.Controller.Interfaces;
-using console_wasted_app.Model.Interfaces;
-using System.Collections.Generic;
+using backend.Controller.DTOs;
+using backend.Controller.Entities;
+using backend.Controller.Interfaces;
+using backend.Model.Interfaces;
+using backend.Controller.Utilities;
 
-namespace console_wasted_app.Controller.Services
+namespace backend.Controller.Services
 {
     public class RestaurantService : IRestaurantService
     {
@@ -69,7 +69,7 @@ namespace console_wasted_app.Controller.Services
             
             if (controller.RestaurantService.Login(creds))
             {
-                string error = wasted_app.Validator.ValidateEmail(creds.Mail.Value) + wasted_app.Validator.ValidatePassword(creds.Password.Value);
+                string error = Validator.ValidateEmail(creds.Mail.Value) + Validator.ValidatePassword(creds.Password.Value);
                 if (error == "")
                 {
                     restaurant.Credentials = creds;

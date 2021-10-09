@@ -1,11 +1,11 @@
-﻿using console_wasted_app.Controller.Interfaces;
+﻿using backend.Controller.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using wasted_app.Controller.Entities;
 
-namespace console_wasted_app.Model.Repositories
+namespace backend.Model.Repositories
 {
     public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {

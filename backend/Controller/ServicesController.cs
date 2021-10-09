@@ -1,11 +1,11 @@
-﻿using console_wasted_app.Controller.Interfaces;
-using console_wasted_app.Controller.Services;
-using console_wasted_app.Model.Data;
-using console_wasted_app.Model.Interfaces;
-using console_wasted_app.Model.Repositories;
+﻿using backend.Controller.Interfaces;
+using backend.Controller.Services;
+using backend.Model.Data;
+using backend.Model.Interfaces;
+using backend.Model.Repositories;
 using System;
 
-namespace console_wasted_app.Controller
+namespace backend.Controller
 {
     public sealed class ServicesController
     {

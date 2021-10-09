@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using console_wasted_app.Controller.Comparers.Food;
+using backend.Controller.Comparers.Food;
 
-namespace console_wasted_app.Controller.Entities
+namespace backend.Controller.Entities
 {
     public static class ListOfFood
     {
