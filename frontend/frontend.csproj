@@ -30,6 +30,5 @@
 
   <ItemGroup>
     <Folder Include="Utilities\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
 </Project> 
