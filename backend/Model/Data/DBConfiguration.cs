@@ -53,7 +53,6 @@ namespace backend.Model.Data
                 .Parent
                 .Parent;
             InitialPathname = Path.Combine(initialDirectory.FullName, "backend");
-            Debug.WriteLine(InitialPathname);
         }
 
         private void UpdatePathsToDataFiles(JsonDocument document)
