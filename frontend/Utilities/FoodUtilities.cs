@@ -1,6 +1,7 @@
 ﻿using backend.Controller;
 using backend.Controller.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace wasted_app.Utilities
 {
@@ -10,16 +11,10 @@ namespace wasted_app.Utilities
         public static IEnumerable<Food> GetFoodByRestaurantId(string restaurantId)
         {
             var allFood = servicesController.FoodService.GetAllFood();
-            var restaurantFood = new List<Food>();
 
-            foreach (var food in allFood)
-            {
-                if (food.IdRestaurant == restaurantId)
-                {
-                    restaurantFood.Add(food);
-                }
-            }
-            return restaurantFood;
+            return (from food in allFood
+                    where food.IdRestaurant == restaurantId
+                    select food).ToList();
         }
 
         public static string GetFoodTypeNameById(string typeId)
@@ -44,12 +39,9 @@ namespace wasted_app.Utilities
         public static List<string> GetAllFoodTypesNames()
         {
             var foodTypes = servicesController.TypeOfFoodService.GetAllTypesOfFood();
-            var foodTypesNames = new List<string>();
-            foreach (var foodType in foodTypes)
-            {
-                foodTypesNames.Add(foodType.Name);
-            }
-            return foodTypesNames;
+
+            return (from foodType in foodTypes
+                    select foodType.Name).ToList();
         }
 
         public static string GetFirstAvailableFoodId()
