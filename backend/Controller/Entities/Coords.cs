@@ -41,7 +41,6 @@ namespace backend.Controller.Entities
 
         public bool IsCloser(Coords others, Distances distance)
         {
-            Console.WriteLine(HaversineDistanceKM(others));
             return (HaversineDistanceKM(others) <= (double)distance);
         }
     }
