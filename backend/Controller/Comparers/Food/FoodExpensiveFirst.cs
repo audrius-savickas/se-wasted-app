@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace console_wasted_app.Controller.Comparers.Food
+namespace backend.Controller.Comparers.Food
 {
     public class FoodExpensiveFirst : IComparer<Entities.Food>
     {
