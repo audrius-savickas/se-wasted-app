@@ -27,7 +27,7 @@ namespace wasted_app
             InitializeComponent();
         }
 
-        private void signUpButton_Click(object sender, EventArgs e)
+        private void SignUpButton_Click(object sender, EventArgs e)
         {
             if (!MainForm.mainForm.panel.Controls.Contains(RestaurantRegistrationControl.Instance))
             {

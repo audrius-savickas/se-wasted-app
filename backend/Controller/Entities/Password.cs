@@ -4,6 +4,7 @@ namespace backend.Controller.Entities
 {
     public class Password
     {
+        private static readonly int minimumPasswordLength = 8;
         public string Value { get; set; }
 
         public Password(string value)
@@ -13,8 +14,7 @@ namespace backend.Controller.Entities
 
         public static bool ValidateLength(string password)
         {
-            return password.Length >= 8;
-            
+            return password.Length >= minimumPasswordLength;
         }
 
         public static bool ValidateLetter(string password)
