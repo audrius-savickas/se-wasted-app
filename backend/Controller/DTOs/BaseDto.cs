@@ -1,7 +1,7 @@
 ﻿using System;
 namespace backend.Controller.DTOs
 {
-    public abstract class BaseDto
+    public abstract class BaseDto : IEquatable<BaseDto>
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -10,6 +10,11 @@ namespace backend.Controller.DTOs
         {
             Id = id;
             Name = name;
+        }
+
+        public bool Equals(BaseDto other)
+        {
+            return Id == other.Id;
         }
     }
 }
