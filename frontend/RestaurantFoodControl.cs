@@ -33,9 +33,6 @@ namespace wasted_app
         private void ListRestaurantFoodItems(IEnumerable <Food> foods)
         {
             foodPanel.Controls.Clear();
-
-            // Join vs GroupJoin explanation
-            // https://stackoverflow.com/questions/15595289/linq-to-entities-join-vs-groupjoin
             
             var foodTypes = services.TypeOfFoodService.GetAllTypesOfFood();
             var foodListItems = from food in foods
