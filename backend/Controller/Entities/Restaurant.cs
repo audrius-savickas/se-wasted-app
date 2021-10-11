@@ -35,7 +35,12 @@ namespace backend.Controller.Entities
 
         public bool IsNear(Coords coords)
         {
-            return Coords.IsNear(coords);
+            return Coords.IsCloser(coords, Distances.NEAR);
+        }
+
+        public bool IsCloser(Coords coords, Distances distance)
+        {
+            return Coords.IsCloser(coords, distance);
         }
     }
 }
