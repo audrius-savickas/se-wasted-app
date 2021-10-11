@@ -47,7 +47,7 @@ namespace wasted_app
             this.signUpButton.TabIndex = 0;
             this.signUpButton.Text = "Sign Up";
             this.signUpButton.UseVisualStyleBackColor = true;
-            this.signUpButton.Click += new System.EventHandler(this.signUpButton_Click);
+            this.signUpButton.Click += new System.EventHandler(this.SignUpButton_Click);
             // 
             // mailTextBox
             // 
