@@ -32,22 +32,8 @@ namespace backend.Model.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            List<T> all = new List<T>();
             string jsonAsString = System.IO.File.ReadAllText(_pathToDatabase);
-
-            using (JsonDocument document = JsonDocument.Parse(jsonAsString))
-            {
-                JsonElement root = document.RootElement;
-                JsonElement.ArrayEnumerator iterator = root.EnumerateArray();
-
-                while (iterator.MoveNext())
-                {
-                    JsonElement json = iterator.Current;
-                    T element = (T)Activator.CreateInstance(typeof(T), json);
-                    all.Add(element);
-                }
-            }
-
+            List<T> all = JsonSerializer.Deserialize<List<T>>(jsonAsString);
             return all;
         }
 

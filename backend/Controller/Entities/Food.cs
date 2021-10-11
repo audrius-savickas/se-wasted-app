@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.Json;
 using wasted_app.Controller.Entities;
 
 namespace backend.Controller.Entities
@@ -10,6 +9,8 @@ namespace backend.Controller.Entities
         public DateTime CreatedAt { get; set; }
         public string IdRestaurant { get; set; }
         public string IdTypeOfFood { get; set; }
+
+        public Food() : base() { }
 
         public Food
         (
@@ -26,14 +27,6 @@ namespace backend.Controller.Entities
             CreatedAt = createdAt ?? DateTime.Now;
             IdRestaurant = idRestaurant;
             IdTypeOfFood = idTypeOfFood;
-        }
-
-        public Food(JsonElement json) : base(json)
-        {
-            Price = json.GetProperty("Price").GetDecimal();
-            CreatedAt = DateTime.Parse(json.GetProperty("CreatedAt").GetString());
-            IdTypeOfFood = json.GetProperty("IdTypeOfFood").GetString();
-            IdRestaurant = json.GetProperty("IdRestaurant").GetString();
         }
     }
 }
