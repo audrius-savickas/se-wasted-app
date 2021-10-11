@@ -33,19 +33,20 @@ namespace wasted_app
         private void ListRestaurantFoodItems(IEnumerable <Food> foods)
         {
             foodPanel.Controls.Clear();
+
+            // Join vs GroupJoin explanation
+            // https://stackoverflow.com/questions/15595289/linq-to-entities-join-vs-groupjoin
+            
             var foodTypes = services.TypeOfFoodService.GetAllTypesOfFood();
-            var foodListItems = foods.GroupJoin(
-                foodTypes,
-                food => food.IdTypeOfFood,
-                type => type.Id,
-                (food, typesCollection) =>
-                    new
-                    FoodListItem(
-                        food.Name,
-                        typesCollection.First().Name,
-                        food.Price.ToString()
-                    )
-            );
+            var foodListItems = from food in foods
+                                 join type in foodTypes
+                                 on food.IdTypeOfFood equals type.Id
+                                 into foodGroup
+                                 select new FoodListItem(
+                                        food.Name,
+                                        foodGroup.First().Name,
+                                        food.Price.ToString()
+                                     );
 
             foreach (var food in foodListItems)
             {
