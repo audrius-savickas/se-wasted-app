@@ -48,7 +48,7 @@ namespace wasted_app
             mailTextBox.Text = "";
             passwordTextBox.Text = "";
             repeatPasswordTextBox.Text = "";
-            TextBoxLostFocus("Restaurant name", restaurantNameTextBox);
+            TextBoxLostFocus("Restaurant Name", restaurantNameTextBox);
             TextBoxLostFocus("Latitude", latitudeTextBox);
             TextBoxLostFocus("Longitude", longitudeTextBox);
             TextBoxLostFocus("Mail", mailTextBox);
@@ -172,6 +172,7 @@ namespace wasted_app
         private void BackButton_Click(object sender, EventArgs e)
         {
             GoBack();
+            ResetTextBoxes();
         }
 
         private void PasswordTextBox_TextChanged(object sender, EventArgs e)

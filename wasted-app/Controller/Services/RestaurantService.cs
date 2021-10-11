@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using backend.Controller.DTOs;
-using backend.Controller.Entities;
-using backend.Controller.Interfaces;
-using backend.Model.Interfaces;
-using backend.Controller.Utilities;
+using console_wasted_app.Controller.DTOs;
+using console_wasted_app.Controller.Entities;
+using console_wasted_app.Controller.Interfaces;
+using console_wasted_app.Model.Interfaces;
+using System.Collections.Generic;
 
-namespace backend.Controller.Services
+namespace console_wasted_app.Controller.Services
 {
     public class RestaurantService : IRestaurantService
     {
@@ -65,11 +65,9 @@ namespace backend.Controller.Services
 
         public bool Register(Credentials creds, Restaurant restaurant)
         {
-            ServicesController controller = ServicesController.Instance;
-            
-            if (controller.RestaurantService.Login(creds))
+            if (_restaurantRepository.GetByMail(creds.Mail) == null)
             {
-                string error = Validator.ValidateEmail(creds.Mail.Value) + Validator.ValidatePassword(creds.Password.Value);
+                string error = wasted_app.Validator.ValidateEmail(creds.Mail.Value) + wasted_app.Validator.ValidatePassword(creds.Password.Value);
                 if (error == "")
                 {
                     restaurant.Credentials = creds;
