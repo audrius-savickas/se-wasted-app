@@ -1,6 +1,8 @@
+﻿using System;
+
 ﻿namespace wasted_app.Controller.Entities
 {
-    public abstract class BaseEntity
+    public abstract class BaseEntity : IEquatable<BaseEntity>
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -11,6 +13,11 @@
         {
             Id = id;
             Name = name;
+        }
+
+        public bool Equals(BaseEntity other)
+        {
+            return Id == other.Id;
         }
     }
 }
