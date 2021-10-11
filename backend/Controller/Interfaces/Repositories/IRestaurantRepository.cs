@@ -8,5 +8,6 @@ namespace backend.Model.Interfaces
     {
         public IEnumerable<Restaurant> GetRestaurantsNear(Coords coords);
         public Restaurant GetByMail(Mail mail);
+        public IEnumerable<Restaurant> GetAllRestaurantsCloserThan(Coords coords, Distances distance);
     }
 }
