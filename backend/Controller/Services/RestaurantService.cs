@@ -89,5 +89,12 @@ namespace backend.Controller.Services
         {
             _restaurantRepository.Update(restaurant);
         }
+
+        public IEnumerable<RestaurantDto> GetAllRestaurantsCloserThan(Coords coords, Distances distance)
+        {
+            return _restaurantRepository
+                    .GetAllRestaurantsCloserThan(coords, distance)
+                    .Select(r => RestaurantDto.FromEntity(r));
+        }
     }
 }
