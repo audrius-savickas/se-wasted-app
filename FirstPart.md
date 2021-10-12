@@ -13,7 +13,7 @@
 
 2. Property (standard, indexed, auto-implemented) usage in struct and class.
 
-	• We primarily used auto-implemented properties because it is easier than writing them manually. There are lots of examples throughout the code like Credetials.cs.\
+	• We primarily used auto-implemented properties because it is easier than writing them manually. There are lots of examples throughout the code like Credentials.cs.\
 	• We didn't use indexed properties.
 
 3. Named and optional argument usage.
@@ -31,7 +31,7 @@
 
 6. Generic type usage.
 
-	• Generic type usage can be found in in the interface IBaseRepository.cs or IAuthService.cs.
+	• Generic type usage can be found in the interface IBaseRepository.cs or IAuthService.cs.
 
 7. Regex.
 
