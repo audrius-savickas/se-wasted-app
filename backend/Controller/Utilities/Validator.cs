@@ -4,7 +4,6 @@ namespace backend.Controller.Utilities
 {
     internal class Validator
     {
-        private static readonly int minimumPasswordLength = 8;
         public static string ValidatePassword(string password)
         {
             var error = "";

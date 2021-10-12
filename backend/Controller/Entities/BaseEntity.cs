@@ -1,11 +1,13 @@
-﻿using System.Text.Json;
+﻿using System;
 
-namespace wasted_app.Controller.Entities
+﻿namespace wasted_app.Controller.Entities
 {
-    public abstract class BaseEntity
+    public abstract class BaseEntity : IEquatable<BaseEntity>
     {
         public string Id { get; set; }
         public string Name { get; set; }
+
+        public BaseEntity () { }
 
         public BaseEntity(string id, string name)
         {
@@ -13,10 +15,9 @@ namespace wasted_app.Controller.Entities
             Name = name;
         }
 
-        public BaseEntity(JsonElement json)
+        public bool Equals(BaseEntity other)
         {
-            Id = json.GetProperty("Id").GetString();
-            Name = json.GetProperty("Name").GetString();
+            return Id == other.Id;
         }
     }
 }

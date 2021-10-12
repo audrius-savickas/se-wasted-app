@@ -65,9 +65,7 @@ namespace backend.Controller.Services
 
         public bool Register(Credentials creds, Restaurant restaurant)
         {
-            ServicesController controller = ServicesController.Instance;
-            
-            if (controller.RestaurantService.Login(creds))
+            if (_restaurantRepository.GetByMail(creds.Mail) == null)
             {
                 string error = Validator.ValidateEmail(creds.Mail.Value) + Validator.ValidatePassword(creds.Password.Value);
                 if (error == "")
