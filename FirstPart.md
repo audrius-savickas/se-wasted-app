@@ -9,7 +9,7 @@
 1. Creating and using your own class, struct and enum (with flag(s), preferably).
 
 	• Coords.cs - struct
-	• Distances.cs - enum
+	• Distances.cs - enum 
 
 2. Property (standard, indexed, auto-implemented) usage in struct and class.
 
@@ -27,7 +27,7 @@
 
 5. Reading from file.
 
-	• Reading from file can be seen in BaseRepository.cs in line 35.
+	• Reading from file can be seen in BaseRepository.cs on line 35.
 
 6. Generic type usage.
 
@@ -39,16 +39,16 @@
 
 8. Widening and narrowing type conversions.
 
-	• Narrowing and widening type conversions can be found in the Coords.cs class.
+	• Narrowing and widening type conversions can be found in the CoordsHelper.cs class narrowing on line 16 and widening on line 37.
 
 9. Putting data to collection, iterating through it the right way.
 
-	• 
+	• Collections are used and iterated in FoodUtilities.cs for example line 28.
 
 10. LINQ to Objects usage (methods and queries), including groupJoin.
 
-	• 
+	• Query can be found in RestaurantFoodControl.cs on line 37 LINQ usage can be found in FoodUtilities.cs line 15 and 43.
 
 11. Implementing some of the standard .NET interfaces (IEnumerable, IComparable, IComparer, IEquatable, IEnumerator, etc.)
 
-	• We implement IComparer in FoodCheaperFirst.cs so we could compare and sort out own objects and IEquatable in BaseDto so we could find if a list contains our object.
+	• We implement IComparer in FoodCheaperFirst.cs so we could compare and sort out own objects and IEquatable in BaseDto.cs so we could find if a list contains our object.
