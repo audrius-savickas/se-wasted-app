@@ -8,17 +8,17 @@
 
 1. Creating and using your own class, struct and enum (with flag(s), preferably).
 
-	• Coords.cs - struct
+	• Coords.cs - struct\
 	• Distances.cs - enum 
 
 2. Property (standard, indexed, auto-implemented) usage in struct and class.
 
-	• We primarily used auto-implemented properties because it is easier than writing them manually. There are lots of examples throughout the code like Credetials.cs.
+	• We primarily used auto-implemented properties because it is easier than writing them manually. There are lots of examples throughout the code like Credetials.cs.\
 	• We didn't use indexed properties.
 
 3. Named and optional argument usage.
 
-	• Optional argument usage can be found in Food.cs we can give an optional argument date but if it is not provided then the current date is used.
+	• Optional argument usage can be found in Food.cs we can give an optional argument date but if it is not provided then the current date is used.\
 	• We didn't use named arguments because there is not a lot of optional arguments in our classes therefore there is no need for named argument usage.
 	
 4. Extension method usage.
