@@ -11,15 +11,5 @@ namespace backend.Controller.Entities
             Longitude = longitude;
             Latitude = latitude;
         }
-
-        private decimal ManhattanDistance(Coords others)
-        {
-            return Math.Abs(Longitude - others.Longitude) + Math.Abs(Latitude - others.Latitude);
-        }
-
-        public bool IsNear(Coords others)
-        {
-            return (ManhattanDistance(others) <= (decimal)Distances.NEAR);
-        }
     }
 }

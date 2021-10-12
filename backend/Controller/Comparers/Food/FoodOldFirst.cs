@@ -2,14 +2,14 @@
 
 namespace backend.Controller.Comparers.Food
 {
-    public class FoodCheaperFirst : IComparer<Entities.Food>
+    public class FoodOldFirst : IComparer<Entities.Food>
     {
-        public FoodCheaperFirst()
+        public FoodOldFirst()
         { }
 
         public int Compare(Entities.Food x, Entities.Food y)
         {
-            return x.Price.CompareTo(y.Price);
+            return -x.CreatedAt.CompareTo(y.CreatedAt);
         }
     }
 }

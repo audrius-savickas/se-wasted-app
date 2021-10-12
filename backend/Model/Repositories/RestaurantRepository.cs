@@ -11,6 +11,15 @@ namespace backend.Model.Repositories
         {
         }
 
+        public IEnumerable<Restaurant> GetAllRestaurantsCloserThan(Coords coords, Distances distance)
+        {
+            List<Restaurant> all = GetAll().ToList();
+            List<Restaurant> restaurantsCloser = all.FindAll(
+                r => r.IsCloser(coords, distance)
+            );
+            return restaurantsCloser;
+        }
+
         public Restaurant GetByMail(Mail mail)
         {
             List<Restaurant> all = GetAll().ToList();
@@ -20,11 +29,7 @@ namespace backend.Model.Repositories
 
         public IEnumerable<Restaurant> GetRestaurantsNear(Coords coords)
         {
-            List<Restaurant> all = GetAll().ToList();
-            List<Restaurant> restaurantsNear = all.FindAll(
-                r => r.IsNear(coords)
-            );
-            return restaurantsNear;
+            return GetAllRestaurantsCloserThan(coords, Distances.NEAR);
         }
     }
 }

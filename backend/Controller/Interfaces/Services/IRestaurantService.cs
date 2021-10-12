@@ -12,6 +12,7 @@ namespace backend.Controller.Interfaces
         void UpdateRestaurant(Restaurant restaurant);
         IEnumerable<RestaurantDto> GetRestaurantsNear(Coords coords);
         RestaurantDto GetRestaurantDtoFromMail(Mail mail);
+        IEnumerable<RestaurantDto> GetAllRestaurantsCloserThan(Coords coords, Distances distance);
     }
 }
 
