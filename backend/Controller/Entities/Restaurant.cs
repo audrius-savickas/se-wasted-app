@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using backend.Controller.Helpers;
+using System.Text.Json;
 using wasted_app.Controller.Entities;
 
 namespace backend.Controller.Entities
@@ -35,12 +36,12 @@ namespace backend.Controller.Entities
 
         public bool IsNear(Coords coords)
         {
-            return Coords.IsCloser(coords, Distances.NEAR);
+            return IsCloser(coords, Distances.NEAR);
         }
 
         public bool IsCloser(Coords coords, Distances distance)
         {
-            return Coords.IsCloser(coords, distance);
+            return CoordsHelper.IsCloser(Coords, coords, distance);
         }
     }
 }
