@@ -17,7 +17,7 @@ In order to run the mobile application, we need to setup some tools first. The i
 2. Clone this repository.
 3. `cd se-wasted-app/frontend/wasted-app` to navigate to frontend source directory.
 4. `npm install` to install the dependencies to your local `node_modules` directory.
-5. `npm run start` to open Expo server, from where you can launch the application on a simulator or your physical device.
+5. `npm run start` to open Expo server, from where you can launch the application on a simulator or your physical device.<br>If your browser doesn't automatically open, find the Dev tools URL in the console (something like `Developer tools running on http://localhost:19002`) and open it in your browser.
 
 ## Backend
 
