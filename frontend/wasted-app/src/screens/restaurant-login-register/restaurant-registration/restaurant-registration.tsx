@@ -89,6 +89,7 @@ export const RestaurantRegistration = ({route, navigation}: restaurantRegistrati
               rightButtonProps={{iconSource: Assets.icons.search}}
               onChangeText={setLocation}
             />
+            {/* TODO: implement location picking */}
           </View>
         </View>
         <Button bg-blue40 label="Register" onPress={finishRegistration} />
