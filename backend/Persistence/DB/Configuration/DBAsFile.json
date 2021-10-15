@@ -1,0 +1,11 @@
+﻿{
+  "baseDirectory": [
+    "DB",
+    "Data",
+    "Test"
+  ],
+    "suffix":  ".json",
+    "foods": "Foods",
+    "restaurants": "Restaurants",
+    "typesOfFood": "TypesOfFood"
+}

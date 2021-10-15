@@ -1,0 +1,98 @@
+[
+  {
+    "Coords": {
+      "Longitude": 25.2796521,
+      "Latitude": 54.687157
+    },
+    "Credentials": {
+      "Mail": { "Value": "etno@mail.com" },
+      "Password": { "Value": "etno" }
+    },
+    "Id": "0",
+    "Name": "Etno Varas"
+  },
+  {
+    "Coords": {
+      "Longitude": 50,
+      "Latitude": 50
+    },
+    "Credentials": {
+      "Mail": { "Value": "mcdonalds@mail.com" },
+      "Password": { "Value": "asdf123!" }
+    },
+    "Id": "1",
+    "Name": "mcdonalds"
+  },
+  {
+    "Coords": {
+      "Longitude": 69.245,
+      "Latitude": 4.20
+    },
+    "Credentials": {
+      "Mail": { "Value": "KFC@mail.com" },
+      "Password": { "Value": "qwerty123!" }
+    },
+    "Id": "2",
+    "Name": "KFC"
+  },
+  {
+    "Coords": {
+      "Longitude": 789.123,
+      "Latitude": 123.789
+    },
+    "Credentials": {
+      "Mail": { "Value": "VeroCafe@gmail.com" },
+      "Password": { "Value": "veroCafe123!" }
+    },
+    "Id": "3",
+    "Name": "Vero Cafe"
+  },
+  {
+    "Coords": {
+      "Longitude": 456,
+      "Latitude": 654
+    },
+    "Credentials": {
+      "Mail": { "Value": "coffee@gmail.com" },
+      "Password": { "Value": "IlikeCoffee1@" }
+    },
+    "Id": "4",
+    "Name": "Caffeine"
+  },
+  {
+    "Coords": {
+      "Longitude": 123456789,
+      "Latitude": 987654321
+    },
+    "Credentials": {
+      "Mail": { "Value": "pizza@pizzaMail.co.uk" },
+      "Password": { "Value": "mamamia@!1" }
+    },
+    "Id": "5",
+    "Name": "PasT\u0105"
+  },
+  {
+    "Coords": {
+      "Longitude": 78954,
+      "Latitude": 65478
+    },
+    "Credentials": {
+      "Mail": { "Value": "kebabai@kebabai.lt" },
+      "Password": { "Value": "ILOVEKEBAB69!" }
+    },
+    "Id": "6",
+    "Name": "JAMMI"
+  },
+  {
+    "Coords": {
+      "Longitude": 80085,
+      "Latitude": 65421
+    },
+    "Credentials": {
+      "Mail": { "Value": "beer@mail.lt" },
+      "Password": { "Value": "AlausDangujeNera@1" }
+    },
+    "Id": "7",
+    "Name": "Busi Tre\u010Dias"
+  }
+]
