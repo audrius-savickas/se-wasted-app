@@ -5,13 +5,17 @@ namespace Domain.Entities
     public class Restaurant : BaseEntity
     {
         public Coords Coords { get; set; }
+
+        public string Address { get; set; }
+
         public Credentials Credentials { get; set; }
 
         public Restaurant() : base() { }
 
-        public Restaurant(string id, string name, Coords coords, Credentials creds)
+        public Restaurant(string id, string name, string address, Coords coords, Credentials creds)
             : base(id, name)
         {
+            Address = address;
             Coords = coords;
             Credentials = creds;
         }
