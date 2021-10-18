@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
+using Persistence;
+using Persistence.Interfaces;
+using Persistence.Repositories;
+using Services.Interfaces;
+using Services.Services;
 
 namespace WebApi
 {
@@ -18,12 +21,29 @@ namespace WebApi
 
         public IConfiguration Configuration { get; }
 
+        private void ConfigureDatabase(IServiceCollection services)
+        {
+
+            services.AddScoped<IFoodRepository,FoodRepository>( _ =>
+                new FoodRepository(DBConfiguration.Instance.PathToFoodsFile)
+            );
+            services.AddScoped<IRestaurantRepository, RestaurantRepository>(_ =>
+                new RestaurantRepository(DBConfiguration.Instance.PathToRestaurantsFile)
+            );
+            services.AddScoped<ITypeOfFoodRepository, TypeOfFoodRepository>(_ =>
+                new TypeOfFoodRepository(DBConfiguration.Instance.PathToTypesOfFoodFile)
+            );
+            //services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAdB2C"));
+            ConfigureDatabase(services);
+
+            services.AddTransient<IRestaurantService, RestaurantService>();
+            services.AddTransient<IFoodService, FoodService>();
+            services.AddTransient<ITypeOfFoodService, TypeOfFoodService>();
 
             services.AddSwaggerGen(c =>
             {
@@ -58,7 +78,6 @@ namespace WebApi
 
             app.UseRouting();
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
