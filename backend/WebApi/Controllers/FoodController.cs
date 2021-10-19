@@ -25,12 +25,12 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Food>))]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public IActionResult GetAllFood()
         {
             var foods = _foodService.GetAllFood();
+            foods ??= new List<Food>();
 
-            return foods != null ? Ok(foods) : NotFound();
+            return Ok(foods);
         }
 
         /// <summary>
