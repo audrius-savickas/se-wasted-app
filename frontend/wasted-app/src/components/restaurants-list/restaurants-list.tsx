@@ -1,19 +1,17 @@
 import React from "react"
-import {Text, View} from "react-native-ui-lib"
+import {FlatList, ListRenderItemInfo} from "react-native"
 import {RestaurantItem} from "../restaurant-item/"
 
 export const RestaurantsList = () => {
   const restaurants = [
-    {id: 0, name: "Etno dvaras"},
-    {id: 1, name: "KFC"},
-    {id: 2, name: "McDonalds"}
+    {id: 0, name: "Etno dvaras", address: "Vilnius, Lithuania"},
+    {id: 1, name: "KFC", address: "Kaunas, Lithuania"},
+    {id: 2, name: "McDonalds", address: "Klaipeda, Lithuania"}
   ]
 
-  return (
-    <View>
-      {restaurants.map((restaurant, index) => (
-        <RestaurantItem key={index} name={restaurant.name} id={restaurant.id} />
-      ))}
-    </View>
-  )
+  const renderItem = ({item}: ListRenderItemInfo<{id: number; name: string; address: string}>) => {
+    return <RestaurantItem name={item.name} id={item.id} address={item.address} />
+  }
+
+  return <FlatList renderItem={renderItem} data={restaurants} />
 }
