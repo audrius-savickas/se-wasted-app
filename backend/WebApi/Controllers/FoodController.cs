@@ -47,7 +47,7 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Retrieve restaurnt to which food item belongs
+        /// Retrieve restaurnat to which food item belongs
         /// </summary>
         /// <returns></returns>
         [HttpGet("{id}/restaurant")]
