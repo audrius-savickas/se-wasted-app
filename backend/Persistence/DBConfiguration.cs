@@ -28,6 +28,7 @@ namespace Persistence
             UpdateInitialPathname();
 
             string configurationFilePathname = GetNameConfigurationFile();
+
             using (StreamReader r = new StreamReader(configurationFilePathname))
             {
                 string jsonAsString = r.ReadToEnd();
@@ -47,12 +48,9 @@ namespace Persistence
         private void UpdateInitialPathname()
         {
             string assemblyDirectory = Directory.GetCurrentDirectory();
-            string baseDirectory = Directory
-                .GetParent(assemblyDirectory)
-                .Parent
-                .Parent
-                .Parent
-                .FullName;
+
+            int backendPosition = assemblyDirectory.IndexOf("backend", 0);
+            string baseDirectory = assemblyDirectory.Substring(0, backendPosition + "backend".Length);
             InitialPathname = Path.Combine(baseDirectory, "Persistence");
         }
 

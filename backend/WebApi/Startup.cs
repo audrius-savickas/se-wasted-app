@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Web;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
+using Persistence;
+using Persistence.Interfaces;
+using Persistence.Repositories;
+using Services.Interfaces;
+using Services.Services;
 
 namespace WebApi
 {
@@ -25,11 +21,38 @@ namespace WebApi
 
         public IConfiguration Configuration { get; }
 
+        private void ConfigureDatabase(IServiceCollection services)
+        {
+
+            services.AddScoped<IFoodRepository,FoodRepository>( _ =>
+                new FoodRepository(DBConfiguration.Instance.PathToFoodsFile)
+            );
+            services.AddScoped<IRestaurantRepository, RestaurantRepository>(_ =>
+                new RestaurantRepository(DBConfiguration.Instance.PathToRestaurantsFile)
+            );
+            services.AddScoped<ITypeOfFoodRepository, TypeOfFoodRepository>(_ =>
+                new TypeOfFoodRepository(DBConfiguration.Instance.PathToTypesOfFoodFile)
+            );
+            //services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAdB2C"));
+            ConfigureDatabase(services);
+
+            services.AddTransient<IRestaurantService, RestaurantService>();
+            services.AddTransient<IFoodService, FoodService>();
+            services.AddTransient<ITypeOfFoodService, TypeOfFoodService>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc
+                (
+                    "v1",
+                    new OpenApiInfo { Title = "Wasted API", Version = "v1" }
+                );
+            });
 
             services.AddControllers();
         }
@@ -40,13 +63,21 @@ namespace WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => {
+                    c.SwaggerEndpoint
+                    (
+                        "/swagger/v1/swagger.json",
+                        "Wasted API v1"
+                    );
+                    c.RoutePrefix = string.Empty;
+                });
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
