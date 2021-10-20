@@ -1,1 +1,1 @@
-export const WASTED_SERVER_URL = "https://localhost:2318/api"
+export const WASTED_SERVER_URL = "http://localhost:44395/api"

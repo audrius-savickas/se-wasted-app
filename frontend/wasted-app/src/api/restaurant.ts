@@ -1,12 +1,13 @@
+import {Restaurant} from "./interfaces"
 import {WASTED_SERVER_URL} from "./urls"
 
-export const getAllRestaurants = async () => {
+export const getAllRestaurants = async (): Promise<Restaurant[]> => {
   try {
     const response = await fetch(`${WASTED_SERVER_URL}/Restaurant`)
-    console.log(response)
     const data = await response.json()
-    console.log(data)
+    return data
   } catch (error) {
     console.error(error)
+    return []
   }
 }

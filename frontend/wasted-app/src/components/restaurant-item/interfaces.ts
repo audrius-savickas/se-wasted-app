@@ -1,5 +1,5 @@
 export interface RestaurantItemProps {
   name: string
-  id: number
+  id: string
   address?: string
 }
