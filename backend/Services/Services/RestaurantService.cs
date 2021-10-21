@@ -6,6 +6,7 @@ using Persistence.Interfaces;
 using Services.Interfaces;
 using Domain.Helpers;
 using Contracts.DTOs;
+using System;
 
 namespace Services.Services
 {
@@ -64,16 +65,26 @@ namespace Services.Services
             return restaurant != null && restaurant.Credentials.Mail.Value == creds.Mail.Value && restaurant.Credentials.Password.Value == creds.Password.Value;
         }
 
-        public bool Register(Credentials creds, Restaurant restaurant)
+        public string Register(Credentials creds, RestaurantDto restaurantDto)
         {
             if (_restaurantRepository.GetByMail(creds.Mail) == null)
             {
                 string error = Validator.ValidateEmail(creds.Mail.Value) + Validator.ValidatePassword(creds.Password.Value);
                 if (error == "")
                 {
-                    restaurant.Credentials = creds;
+                    string id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+
+                    Restaurant restaurant = new Restaurant
+                    {
+                        Id = id,
+                        Name = restaurantDto.Name,
+                        Address = restaurantDto.Address,
+                        Coords = restaurantDto.Coords,
+                        Credentials = creds
+                    };
+
                     _restaurantRepository.Add(restaurant);
-                    return true;
+                    return id;
                 }
                 else
                 {
@@ -88,6 +99,9 @@ namespace Services.Services
 
         public void UpdateRestaurant(Restaurant restaurant)
         {
+            Restaurant restaurantDB = _restaurantRepository.GetById(restaurant.Id);
+            restaurant.Credentials = restaurantDB.Credentials;
+
             _restaurantRepository.Update(restaurant);
         }
 
