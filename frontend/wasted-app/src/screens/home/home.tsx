@@ -11,7 +11,14 @@ export const Home = ({navigation}: homeScreenProp) => {
       <Text cyan10 text30BO marginB-s6>
         Wasted App
       </Text>
-      <Button margin-s2 black bg-white label={"User"} outlineColor={Colors.black} />
+      <Button
+        margin-s2
+        black
+        bg-white
+        label={"User"}
+        outlineColor={Colors.black}
+        onPress={() => navigation.navigate("RestaurantList")}
+      />
       <Button
         black
         bg-white
