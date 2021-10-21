@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    public struct Credentials
+    public class Credentials
     {
         public Mail Mail { get; set; }
         public Password Password { get; set; }
