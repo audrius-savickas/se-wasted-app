@@ -1,4 +1,5 @@
 ﻿using Contracts.DTOs;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using System.Collections.Generic;
@@ -22,13 +23,87 @@ namespace WebApi.Controllers
         /// Retrieve all restaurants
         /// </summary>
         /// <returns></returns>
-        [HttpGet(Name = nameof(GetAllRestaurants))]
+        [HttpGet(Name = nameof(GetAll))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<RestaurantDto>))]
-        public IActionResult GetAllRestaurants()
+        public IActionResult GetAll()
         {
             var restaurants = _restaurantService.GetAllRestaurants();
 
             return Ok(restaurants);
+        }
+
+        /// <summary>
+        /// Retrieve a single restaurant
+        /// </summary>
+        /// <param name="id">Identifies uniquely the restaurant</param>
+        /// <returns></returns>
+        [HttpGet("{id}", Name = nameof(GetById))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RestaurantDto))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult GetById(string id)
+        {
+            var restaurant = _restaurantService.GetRestaurantById(id);
+
+            return (restaurant != null) ? Ok(restaurant) : NotFound();
+        }
+
+        /// <summary>
+        /// Register a new restaurant in the application
+        /// </summary>
+        /// <param name="creds">Credentials of the restaurant</param>
+        /// <param name="restaurantDto">Representation of the restaurant</param>
+        /// <returns>id, which is the Identifier for the new restaurant</returns>
+        [HttpPost(Name = nameof(Post))]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
+        public IActionResult Post([FromQuery] Credentials creds, [FromBody] RestaurantDto restaurantDto)
+        {
+            try
+            {
+                string id = _restaurantService.Register(creds, restaurantDto);
+                return CreatedAtAction(nameof(Post), new { id });
+            }
+            catch (System.Exception exception)
+            {
+                return Forbid(exception.Message);
+            }
+        }
+
+        /// <summary>
+        /// Update a restaurant. Cannot update creds.
+        /// </summary>
+        /// <param name="id">Identifies uniquely the restaurant</param>
+        /// <param name="restaurantDto">Representation of the restaurant</param>
+        /// <returns></returns>
+        [HttpPut("{id}", Name = nameof(Put))]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public IActionResult Put(string id, [FromBody] RestaurantDto restaurantDto)
+        {
+            var restaurant = new Restaurant
+            {
+                Id = id,
+                Name = restaurantDto.Name,
+                Address = restaurantDto.Address,
+                Coords = restaurantDto.Coords,
+                Credentials = new Credentials()
+            };
+
+            _restaurantService.UpdateRestaurant(restaurant);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Delete an existing account
+        /// </summary>
+        /// <param name="creds">Credentials of the restaurant</param>
+        /// <returns></returns>
+        [HttpDelete]
+        public IActionResult Delete([FromQuery] Credentials creds)
+        {
+            _restaurantService.DeleteAccount(creds);
+
+            return Ok();
         }
     }
 }
