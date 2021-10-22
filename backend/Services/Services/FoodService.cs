@@ -72,10 +72,18 @@ namespace Services.Services
         public TypeOfFood GetTypeOfFood(string id)
         {
             Food food = GetFoodById(id);
-            string idTypeOfFood = food.IdTypeOfFood;
-            TypeOfFood typeOfFood = _typeOfFoodRepository.GetById(idTypeOfFood);
+            if (food == null)
+            {
+                throw new System.Exception("Bad food id.");
+            }
+            else
+            {
+                string idTypeOfFood = food.IdTypeOfFood;
+                TypeOfFood typeOfFood = _typeOfFoodRepository.GetById(idTypeOfFood);
 
-            return typeOfFood;
+                return typeOfFood;
+            }
+            
         }
 
         public void RegisterFood(Food food)
