@@ -25,9 +25,17 @@ namespace Services.Services
             _typeOfFoodRepository = typeOfFoodRepository;
         }
 
-        public void DeleteFood(string id)
+        public void DeleteFood(string idFood, string idRestaurant)
         {
-            _foodRepository.Delete(id);
+            if (GetRestaurantOfFood(idFood).Id == idRestaurant)
+            {
+                _foodRepository.Delete(idFood);
+            }
+            else
+            {
+                throw new System.Exception("Restaurant can't access this food");
+            }
+            
         }
 
         public IEnumerable<Food> GetAllFood()
