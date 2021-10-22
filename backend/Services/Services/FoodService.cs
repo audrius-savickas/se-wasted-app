@@ -33,7 +33,7 @@ namespace Services.Services
             }
             else
             {
-                throw new System.Exception("Restaurant can't access this food");
+                throw new System.Exception("Restaurant can't access this food.");
             }
             
         }
@@ -56,11 +56,17 @@ namespace Services.Services
         public RestaurantDto GetRestaurantOfFood(string idFood)
         {
             Food food = GetFoodById(idFood);
-            string idRestaurant = food.IdRestaurant;
-            Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
+            if(food == null)
+            {
+                throw new System.Exception("Bad food id.");
+            }
+            else
+            {
+                string idRestaurant = food.IdRestaurant;
+                Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
 
-            return RestaurantDto.FromEntity(restaurant);
-
+                return RestaurantDto.FromEntity(restaurant);
+            }
         }
 
         public TypeOfFood GetTypeOfFood(string id)
