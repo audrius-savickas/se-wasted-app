@@ -18,9 +18,9 @@ namespace Services.Services
             _restaurantRepository = restaurantRepository;
         }
         
-        public void ChangePass(Mail email, Password newPassword)
+        public void ChangePass(Mail mail, Password newPassword)
         {
-            Restaurant restaurant = _restaurantRepository.GetByMail(email);
+            Restaurant restaurant = _restaurantRepository.GetByMail(mail);
             if(restaurant == null)
             {
                 throw new System.Exception("Invalid email.");
@@ -70,9 +70,9 @@ namespace Services.Services
                     .Select(r => RestaurantDto.FromEntity(r));
         }
         
-        public RestaurantDto GetRestaurantById(string id)
+        public RestaurantDto GetRestaurantById(string idRestaurant)
         {
-            Restaurant restaurant = _restaurantRepository.GetById(id);
+            Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
             if (restaurant == null)
             {
                 throw new System.Exception("Invalid id.");
@@ -115,7 +115,7 @@ namespace Services.Services
             }
             else
             {
-                throw new System.Exception("There is already an account registered on this mail");
+                throw new System.Exception("There is already an account registered on this mail.");
             }
         }
 
