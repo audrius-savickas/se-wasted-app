@@ -58,7 +58,7 @@ namespace Services.Services
             Food food = GetFoodById(idFood);
             if(food == null)
             {
-                throw new System.Exception("Bad food id.");
+                throw new System.Exception("Invalid id.");
             }
             else
             {
@@ -74,7 +74,7 @@ namespace Services.Services
             Food food = GetFoodById(id);
             if (food == null)
             {
-                throw new System.Exception("Bad food id.");
+                throw new System.Exception("Invalid id.");
             }
             else
             {

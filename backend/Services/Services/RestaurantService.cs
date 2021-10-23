@@ -23,7 +23,7 @@ namespace Services.Services
             Restaurant restaurant = _restaurantRepository.GetByMail(email);
             if(restaurant == null)
             {
-                throw new System.Exception("Invalid email");
+                throw new System.Exception("Invalid email.");
             }
             else
             {
@@ -40,7 +40,7 @@ namespace Services.Services
             Restaurant restaurant = _restaurantRepository.GetByMail(mail);
             if(restaurant == null)
             {
-                throw new System.Exception("Invalid email");
+                throw new System.Exception("Invalid email.");
             }
             else
             {
@@ -54,7 +54,7 @@ namespace Services.Services
             Restaurant restaurant = _restaurantRepository.GetByMail(creds.Mail);
             if (restaurant == null)
             {
-                throw new System.Exception("Invalid credentials");
+                throw new System.Exception("Invalid credentials.");
             }
             else
             {
@@ -75,7 +75,7 @@ namespace Services.Services
             Restaurant restaurant = _restaurantRepository.GetById(id);
             if (restaurant == null)
             {
-                throw new System.Exception("Invalid id");
+                throw new System.Exception("Invalid id.");
             }
             else
             {
@@ -115,7 +115,7 @@ namespace Services.Services
             }
             else
             {
-                throw new System.Exception("• There is already an account registered on this mail");
+                throw new System.Exception("There is already an account registered on this mail");
             }
         }
 
