@@ -37,7 +37,16 @@ namespace Services.Services
         
         public RestaurantDto GetRestaurantDtoFromMail(Mail mail)
         {
-            return RestaurantDto.FromEntity(_restaurantRepository.GetByMail(mail));
+            Restaurant restaurant = _restaurantRepository.GetByMail(mail);
+            if(restaurant == null)
+            {
+                throw new System.Exception("Invalid email");
+            }
+            else
+            {
+                return RestaurantDto.FromEntity(restaurant);
+            }
+            
         }
         //needs
         public void DeleteAccount(Credentials creds)
