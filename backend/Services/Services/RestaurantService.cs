@@ -21,17 +21,25 @@ namespace Services.Services
         public void ChangePass(Mail email, Password newPassword)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(email);
-            Credentials creds = restaurant.Credentials;
-            creds.Password = newPassword;
-
-            _restaurantRepository.Update(restaurant);
+            if(restaurant == null)
+            {
+                throw new System.Exception("Invalid email");
+            }
+            else
+            {
+                Credentials creds = restaurant.Credentials;
+                creds.Password = newPassword;
+                _restaurantRepository.Update(restaurant);
+            }
+            
+            
         }
         
         public RestaurantDto GetRestaurantDtoFromMail(Mail mail)
         {
             return RestaurantDto.FromEntity(_restaurantRepository.GetByMail(mail));
         }
-
+        //needs
         public void DeleteAccount(Credentials creds)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(creds.Mail);
@@ -44,7 +52,7 @@ namespace Services.Services
                     .GetAll()
                     .Select(r => RestaurantDto.FromEntity(r));
         }
-
+        //needs
         public RestaurantDto GetRestaurantById(string id)
         {
             Restaurant restaurant = _restaurantRepository.GetById(id);
