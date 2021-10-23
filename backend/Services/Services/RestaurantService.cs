@@ -69,11 +69,19 @@ namespace Services.Services
                     .GetAll()
                     .Select(r => RestaurantDto.FromEntity(r));
         }
-        //needs
+        
         public RestaurantDto GetRestaurantById(string id)
         {
             Restaurant restaurant = _restaurantRepository.GetById(id);
-            return RestaurantDto.FromEntity(restaurant);
+            if (restaurant == null)
+            {
+                throw new System.Exception("Invalid id");
+            }
+            else
+            {
+                return RestaurantDto.FromEntity(restaurant);
+            }
+            
         }
 
         public IEnumerable<RestaurantDto> GetRestaurantsNear(Coords coords)
