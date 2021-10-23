@@ -33,7 +33,7 @@ namespace Services.Services
             }
             else
             {
-                throw new System.Exception("Restaurant can't access this food.");
+                throw new System.Exception("Restaurant can't access given food.");
             }
             
         }
@@ -43,9 +43,9 @@ namespace Services.Services
             return _foodRepository.GetAll().ToList();
         }
 
-        public Food GetFoodById(string id)
+        public Food GetFoodById(string idFood)
         {
-            return _foodRepository.GetById(id);
+            return _foodRepository.GetById(idFood);
         }
 
         public void UpdateFood(Food updatedFood)
@@ -69,9 +69,9 @@ namespace Services.Services
             }
         }
 
-        public TypeOfFood GetTypeOfFood(string id)
+        public TypeOfFood GetTypeOfFood(string idFood)
         {
-            Food food = GetFoodById(id);
+            Food food = GetFoodById(idFood);
             if (food == null)
             {
                 throw new System.Exception("Invalid id.");
