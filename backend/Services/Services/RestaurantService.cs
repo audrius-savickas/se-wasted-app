@@ -17,7 +17,7 @@ namespace Services.Services
         {
             _restaurantRepository = restaurantRepository;
         }
-
+        
         public void ChangePass(Mail email, Password newPassword)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(email);
@@ -48,11 +48,19 @@ namespace Services.Services
             }
             
         }
-        //needs
+        
         public void DeleteAccount(Credentials creds)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(creds.Mail);
-            _restaurantRepository.Delete(restaurant.Id);
+            if (restaurant == null)
+            {
+                throw new System.Exception("Invalid credentials");
+            }
+            else
+            {
+                _restaurantRepository.Delete(restaurant.Id);
+            }
+            
         }
 
         public IEnumerable<RestaurantDto> GetAllRestaurants()
