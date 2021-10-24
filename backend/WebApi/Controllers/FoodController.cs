@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Net;
 
@@ -81,7 +82,7 @@ namespace WebApi.Controllers
                 var type = _foodService.GetTypeOfFood(id);
                 return Ok(type);
             } 
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
                 return NotFound(exception.Message);
             }
@@ -100,9 +101,36 @@ namespace WebApi.Controllers
                 string id = _foodService.RegisterFood(food);
                 return CreatedAtAction(nameof(RegisterFood), new { id });
             }
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
                 return BadRequest(exception.Message);
+            }
+        }
+
+        /// <summary>
+        /// Delete a food item
+        /// </summary>
+        [HttpDelete("{id}", Name = nameof(DeleteFood))]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult DeleteFood(string id, [FromQuery] string restaurantId)
+        {
+            try
+            {
+                if (_foodService.GetFoodById(id) == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    _foodService.DeleteFood(id, restaurantId);
+                    return Ok();
+                }
+            }
+            catch (Exception exception)
+            {
+                return Unauthorized(exception.Message);
             }
         }
     }
