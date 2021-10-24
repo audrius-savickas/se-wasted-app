@@ -94,7 +94,7 @@ namespace Services.Services
         public bool Login(Credentials creds)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(creds.Mail);
-            return restaurant != null && restaurant.Credentials.Mail.Value == creds.Mail.Value && restaurant.Credentials.Password.Value == creds.Password.Value;
+            return restaurant != null && restaurant.Credentials.Mail.Value == creds.Mail.Value && PasswordHasher.Verify(creds.Password.Value, restaurant.Credentials.Password.Value);
         }
 
         public bool Register(Credentials creds, Restaurant restaurant)
@@ -104,7 +104,7 @@ namespace Services.Services
                 string error = Validator.ValidateEmail(creds.Mail.Value) + Validator.ValidatePassword(creds.Password.Value);
                 if (error == "")
                 {
-                    restaurant.Credentials = creds;
+                    restaurant.Credentials = new Credentials(creds.Mail.Value, PasswordHasher.Hash(creds.Password.Value));
                     _restaurantRepository.Add(restaurant);
                     return true;
                 }

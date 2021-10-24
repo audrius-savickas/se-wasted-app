@@ -2,6 +2,8 @@
 using Persistence;
 using Persistence.Repositories;
 using Services.Services;
+using Domain.Entities;
+using Domain.Helpers;
 
 namespace ConsoleApp
 {
