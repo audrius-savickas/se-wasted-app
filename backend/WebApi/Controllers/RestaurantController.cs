@@ -99,11 +99,18 @@ namespace WebApi.Controllers
         /// <param name="creds">Credentials of the restaurant</param>
         /// <returns></returns>
         [HttpDelete]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         public IActionResult Delete([FromQuery] Credentials creds)
         {
-            _restaurantService.DeleteAccount(creds);
-
-            return Ok();
+            try
+            {
+                _restaurantService.DeleteAccount(creds);
+                return Ok();
+            } catch (System.Exception exception)
+            {
+                return Unauthorized(exception.Message);
+            }
         }
     }
 }
