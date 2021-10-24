@@ -25,9 +25,17 @@ namespace Services.Services
             _typeOfFoodRepository = typeOfFoodRepository;
         }
 
-        public void DeleteFood(string id)
+        public void DeleteFood(string idFood, string idRestaurant)
         {
-            _foodRepository.Delete(id);
+            if (GetRestaurantOfFood(idFood).Id == idRestaurant)
+            {
+                _foodRepository.Delete(idFood);
+            }
+            else
+            {
+                throw new System.Exception("Restaurant can't access given food.");
+            }
+            
         }
 
         public IEnumerable<Food> GetAllFood()
@@ -35,9 +43,9 @@ namespace Services.Services
             return _foodRepository.GetAll().ToList();
         }
 
-        public Food GetFoodById(string id)
+        public Food GetFoodById(string idFood)
         {
-            return _foodRepository.GetById(id);
+            return _foodRepository.GetById(idFood);
         }
 
         public void UpdateFood(Food updatedFood)
@@ -48,20 +56,34 @@ namespace Services.Services
         public RestaurantDto GetRestaurantOfFood(string idFood)
         {
             Food food = GetFoodById(idFood);
-            string idRestaurant = food.IdRestaurant;
-            Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
+            if(food == null)
+            {
+                throw new System.Exception("Invalid id.");
+            }
+            else
+            {
+                string idRestaurant = food.IdRestaurant;
+                Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
 
-            return RestaurantDto.FromEntity(restaurant);
-
+                return RestaurantDto.FromEntity(restaurant);
+            }
         }
 
-        public TypeOfFood GetTypeOfFood(string id)
+        public TypeOfFood GetTypeOfFood(string idFood)
         {
-            Food food = GetFoodById(id);
-            string idTypeOfFood = food.IdTypeOfFood;
-            TypeOfFood typeOfFood = _typeOfFoodRepository.GetById(idTypeOfFood);
+            Food food = GetFoodById(idFood);
+            if (food == null)
+            {
+                throw new System.Exception("Invalid id.");
+            }
+            else
+            {
+                string idTypeOfFood = food.IdTypeOfFood;
+                TypeOfFood typeOfFood = _typeOfFoodRepository.GetById(idTypeOfFood);
 
-            return typeOfFood;
+                return typeOfFood;
+            }
+            
         }
 
         public void RegisterFood(Food food)
