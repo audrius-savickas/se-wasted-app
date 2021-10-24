@@ -56,14 +56,14 @@ namespace WebApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public IActionResult GetRestaurant(string id)
         {
-            if (_foodService.GetFoodById(id) == null)
-            {
-                return NotFound();
-            }
-            else
+            try
             {
                 var restaurant = _foodService.GetRestaurantOfFood(id);
                 return Ok(restaurant);
+            }
+            catch
+            {
+                return NotFound();
             }
         }
 
@@ -76,14 +76,14 @@ namespace WebApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public IActionResult GetType(string id)
         {
-            if (_foodService.GetFoodById(id) == null)
-            {
-                return NotFound();
-            }
-            else
+            try
             {
                 var type = _foodService.GetTypeOfFood(id);
                 return Ok(type);
+            } 
+            catch (System.Exception exception)
+            {
+                return NotFound(exception.Message);
             }
         }
     }
