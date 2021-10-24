@@ -1,6 +1,7 @@
 import {NativeStackScreenProps} from "@react-navigation/native-stack"
 import React, {useEffect, useState} from "react"
-import {Button, Colors, Text, TextField, View} from "react-native-ui-lib"
+import {Assets, Button, Colors, Text, TextField, View} from "react-native-ui-lib"
+import {convertPassword} from "../../utils/credentials"
 import {RootStackParamList} from "../RootStackParamsList"
 
 type restaurantLoginProps = NativeStackScreenProps<RootStackParamList, "RestaurantLoginRegistration">
@@ -59,8 +60,9 @@ export const RestaurantLoginRegistration = ({navigation}: restaurantLoginProps) 
             autoCapitalize="none"
             underlineColor={Colors.blue60}
             placeholder="password"
-            value={password}
+            value={convertPassword(password)}
             error={(passwordBlur && passwordError) || ""}
+            rightIconSource={Assets.icons.search}
             onChangeText={setPassword}
             onBlur={onBlurPassword}
           />

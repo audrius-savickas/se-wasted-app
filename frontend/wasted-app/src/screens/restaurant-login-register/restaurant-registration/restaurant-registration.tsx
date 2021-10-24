@@ -2,6 +2,7 @@ import {NativeStackScreenProps} from "@react-navigation/native-stack"
 import React, {useState} from "react"
 import {ScrollView, StyleSheet} from "react-native"
 import {Assets, Button, Card, Colors, Text, TextField, View} from "react-native-ui-lib"
+import {convertPassword} from "../../../utils/credentials"
 import {RootStackParamList} from "../../RootStackParamsList"
 
 type restaurantRegistrationProps = NativeStackScreenProps<RootStackParamList, "RestaurantRegistration">
@@ -12,13 +13,6 @@ export const RestaurantRegistration = ({route, navigation}: restaurantRegistrati
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [location, setLocation] = useState("")
-
-  const convertPassword = (password: string) => {
-    return password
-      .split("")
-      .map((char: string) => "*")
-      .join("")
-  }
 
   const finishRegistration = () => {
     if (password !== confirmPassword) {
