@@ -1,11 +1,14 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Domain.Entities
 {
-    public class Password
+    public class Password : IEquatable<Password>
     {
         private static readonly int minimumPasswordLength = 8;
         public string Value { get; set; }
+
+        public Password () { }
 
         public Password(string value)
         {
@@ -50,5 +53,10 @@ namespace Domain.Entities
             return true;
         }
 
+        public virtual bool Equals(Password other)
+        {
+            if (other == null) return false;
+            return Value.CompareTo(other.Value) == 0;
+        }
     }
 }
