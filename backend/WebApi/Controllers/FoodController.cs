@@ -133,5 +133,26 @@ namespace WebApi.Controllers
                 return Unauthorized(exception.Message);
             }
         }
+
+        // TODO: Check if restaurant id and typeOfFood id is valid.
+        /// <summary>
+        /// Update a food item
+        /// </summary>
+        [HttpPut("{id}", Name = nameof(UpdateFood))]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult UpdateFood(string id, [FromBody] Food updatedFood)
+        {
+            try
+            {
+                updatedFood.Id = id;  // Only care about id provided in url, not in body.
+                _foodService.UpdateFood(updatedFood);
+                return Ok();
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
     }
 }

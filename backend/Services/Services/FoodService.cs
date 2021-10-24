@@ -51,6 +51,11 @@ namespace Services.Services
 
         public void UpdateFood(Food updatedFood)
         {
+            if (GetFoodById(updatedFood.Id) == null)
+            {
+                throw new Exception("Invalid id.");
+            }
+
             _foodRepository.Update(updatedFood);
         }
 
@@ -59,7 +64,7 @@ namespace Services.Services
             Food food = GetFoodById(idFood);
             if(food == null)
             {
-                throw new System.Exception("Invalid id.");
+                throw new Exception("Invalid id.");
             }
             else
             {
@@ -75,7 +80,7 @@ namespace Services.Services
             Food food = GetFoodById(idFood);
             if (food == null)
             {
-                throw new System.Exception("Invalid id.");
+                throw new Exception("Invalid id.");
             }
             else
             {
