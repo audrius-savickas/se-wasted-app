@@ -1,28 +1,27 @@
 import React from "react"
 import {StyleSheet} from "react-native"
 import {Colors, ListItem, Text, TouchableOpacity, View} from "react-native-ui-lib"
-import {RestaurantItemProps} from "./interfaces"
+import {FoodItemProps} from "./interfaces"
 
-export const RestaurantItem = ({name, id, address, onPress}: RestaurantItemProps) => {
+export const FoodItem = ({id, name, price}: FoodItemProps) => {
   return (
     <ListItem height={100}>
       <TouchableOpacity
         flex
         style={{
-          borderBottomColor: Colors.black,
-          borderBottomWidth: StyleSheet.hairlineWidth
+          borderTopColor: Colors.black,
+          borderTopWidth: StyleSheet.hairlineWidth
         }}
-        onPress={onPress}
       >
         <View flex row marginH-s4>
-          <ListItem.Part left marginR-s4>
+          <ListItem.Part left marginR-s6>
             <Text text60L>{id}</Text>
           </ListItem.Part>
           <ListItem.Part middle>
             <Text text50L>{name}</Text>
           </ListItem.Part>
-          <ListItem.Part right>
-            <Text text60L>{address}</Text>
+          <ListItem.Part right marginL-s4>
+            <Text text60L>${price}</Text>
           </ListItem.Part>
         </View>
       </TouchableOpacity>

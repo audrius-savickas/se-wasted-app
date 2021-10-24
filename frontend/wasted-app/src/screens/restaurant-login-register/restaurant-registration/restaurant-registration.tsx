@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from "@react-navigation/native-stack"
 import React, {useState} from "react"
-import {ScrollView, StyleSheet} from "react-native"
+import {ScrollView} from "react-native"
 import {Assets, Button, Card, Colors, Text, TextField, View} from "react-native-ui-lib"
 import {convertPassword} from "../../../utils/credentials"
 import {RootStackParamList} from "../../RootStackParamsList"
