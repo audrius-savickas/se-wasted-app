@@ -10,3 +10,8 @@ export interface Food {
   name: string
   price: string
 }
+
+export interface FoodType {
+  id: string
+  name: string
+}
