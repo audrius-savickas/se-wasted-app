@@ -86,5 +86,24 @@ namespace WebApi.Controllers
                 return NotFound(exception.Message);
             }
         }
+
+        /// <summary>
+        /// Register a new Food item
+        /// </summary>
+        [HttpPost(Name = nameof(RegisterFood))]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public IActionResult RegisterFood(Food food)
+        {
+            try
+            {
+                string id = _foodService.RegisterFood(food);
+                return CreatedAtAction(nameof(RegisterFood), new { id });
+            }
+            catch (System.Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
     }
 }
