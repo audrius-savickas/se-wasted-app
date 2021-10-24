@@ -36,6 +36,17 @@ namespace Services.Services
         public void DeleteAccount(Credentials creds)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(creds.Mail);
+
+            if (restaurant == null)
+            {
+                throw new Exception("The user does not exist");
+            }
+
+            if (!restaurant.Credentials.Equals(creds))
+            {
+                throw new Exception("The credentials are not correct");
+            }
+
             _restaurantRepository.Delete(restaurant.Id);
         }
 
@@ -88,12 +99,12 @@ namespace Services.Services
                 }
                 else
                 {
-                    throw new System.Exception(error);
+                    throw new Exception(error);
                 }
             }
             else
             {
-                throw new System.Exception("• There is already an account registered on this mail");
+                throw new Exception("There is already an account registered on this mail");
             }
         }
 
