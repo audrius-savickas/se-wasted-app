@@ -18,21 +18,38 @@ namespace Services.Services
         {
             _restaurantRepository = restaurantRepository;
         }
-
-        public void ChangePass(Mail email, Password newPassword)
+        
+        public void ChangePass(Mail mail, Password newPassword)
         {
-            Restaurant restaurant = _restaurantRepository.GetByMail(email);
-            Credentials creds = restaurant.Credentials;
-            creds.Password = newPassword;
-
-            _restaurantRepository.Update(restaurant);
+            Restaurant restaurant = _restaurantRepository.GetByMail(mail);
+            if(restaurant == null)
+            {
+                throw new System.Exception("Invalid email.");
+            }
+            else
+            {
+                Credentials creds = restaurant.Credentials;
+                creds.Password = newPassword;
+                _restaurantRepository.Update(restaurant);
+            }
+            
+            
         }
         
         public RestaurantDto GetRestaurantDtoFromMail(Mail mail)
         {
-            return RestaurantDto.FromEntity(_restaurantRepository.GetByMail(mail));
+            Restaurant restaurant = _restaurantRepository.GetByMail(mail);
+            if(restaurant == null)
+            {
+                throw new System.Exception("Invalid email.");
+            }
+            else
+            {
+                return RestaurantDto.FromEntity(restaurant);
+            }
+            
         }
-
+        
         public void DeleteAccount(Credentials creds)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(creds.Mail);
@@ -56,11 +73,19 @@ namespace Services.Services
                     .GetAll()
                     .Select(r => RestaurantDto.FromEntity(r));
         }
-
-        public RestaurantDto GetRestaurantById(string id)
+        
+        public RestaurantDto GetRestaurantById(string idRestaurant)
         {
-            Restaurant restaurant = _restaurantRepository.GetById(id);
-            return RestaurantDto.FromEntity(restaurant);
+            Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
+            if (restaurant == null)
+            {
+                throw new System.Exception("Invalid id.");
+            }
+            else
+            {
+                return RestaurantDto.FromEntity(restaurant);
+            }
+            
         }
 
         public IEnumerable<RestaurantDto> GetRestaurantsNear(Coords coords)
