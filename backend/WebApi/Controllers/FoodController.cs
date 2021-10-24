@@ -21,7 +21,7 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Retrieve all food items
+        /// Retrieve all food items.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -35,8 +35,9 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Retrieve food item by id
+        /// Retrieve food item by its id.
         /// </summary>
+        /// <param name="id"> Id of food item. </param>
         /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Food>))]
@@ -49,8 +50,9 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Retrieve restaurnat to which food item belongs
+        /// Retrieve the restaurant to which food item belongs.
         /// </summary>
+        /// <param name="id"> Id of food item. </param>
         /// <returns></returns>
         [HttpGet("{id}/restaurant")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<RestaurantDto>))]
@@ -69,8 +71,9 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Retrieve type of food by id
+        /// Retrieve the type of food by its id.
         /// </summary>
+        /// <param name="id"> Id of food item. </param>
         /// <returns></returns>
         [HttpGet("{id}/type")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<TypeOfFood>))]
@@ -89,8 +92,10 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Register a new Food item
+        /// Register a new Food item.
         /// </summary>
+        /// <param name="food"> New food item to be added. </param>
+        /// <returns> Id, which is the Identifier for the new food item. </returns>
         [HttpPost(Name = nameof(RegisterFood))]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -108,8 +113,11 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Delete a food item
+        /// Delete a food item.
         /// </summary>
+        /// <param name="id"> Id of food item. </param>
+        /// <param name="restaurantId"> Id of restaurant from which to delete food item. </param>
+        /// <returns></returns>
         [HttpDelete("{id}", Name = nameof(DeleteFood))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
@@ -136,8 +144,11 @@ namespace WebApi.Controllers
 
         // TODO: Check if restaurant id and typeOfFood id is valid.
         /// <summary>
-        /// Update a food item
+        /// Update a food item.
         /// </summary>
+        /// <param name="id"> Id of food item. </param>
+        /// <param name="updatedFood"> Updated food item (id is not used). </param>
+        /// <returns></returns>
         [HttpPut("{id}", Name = nameof(UpdateFood))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
