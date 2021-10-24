@@ -25,7 +25,7 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Food>))]
-        public IActionResult GetAllFood()
+        public IActionResult GetAll()
         {
             var foods = _foodService.GetAllFood();
             foods ??= new List<Food>();
@@ -40,7 +40,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Food>))]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult GetFoodById(string id)
+        public IActionResult GetById(string id)
         {
             var food = _foodService.GetFoodById(id);
 
@@ -54,7 +54,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}/restaurant")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<RestaurantDto>))]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult GetRestaurantOfFood(string id)
+        public IActionResult GetRestaurant(string id)
         {
             if (_foodService.GetFoodById(id) == null)
             {
@@ -74,7 +74,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}/type")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<TypeOfFood>))]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult GetTypeOfFood(string id)
+        public IActionResult GetType(string id)
         {
             if (_foodService.GetFoodById(id) == null)
             {
