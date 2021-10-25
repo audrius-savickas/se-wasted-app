@@ -97,7 +97,7 @@ namespace Services.Services
             // Validations
             if (_restaurantRepository.GetByMail(creds.Mail) != null)
             {
-                throw new Exception("There is already an account registered on this mail")
+                throw new Exception("There is already an account registered on this mail");
             }
 
             string error = Validator.ValidateEmail(creds.Mail.Value) + Validator.ValidatePassword(creds.Password.Value);
