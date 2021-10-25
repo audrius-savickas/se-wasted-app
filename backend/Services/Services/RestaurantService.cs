@@ -88,11 +88,12 @@ namespace Services.Services
         public bool Login(Credentials creds)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(creds.Mail);
-            return restaurant != null && restaurant.Credentials.Mail.Value == creds.Mail.Value && restaurant.Credentials.Password.Value == creds.Password.Value;
+            return restaurant != null && restaurant.Credentials.Mail.Value == creds.Mail.Value && PasswordHasher.Verify(creds.Password.Value, restaurant.Credentials.Password.Value);
         }
 
         public string Register(Credentials creds, RestaurantDto restaurantDto)
         {
+
             // Validations
             if (_restaurantRepository.GetByMail(creds.Mail) != null)
             {
@@ -115,7 +116,7 @@ namespace Services.Services
                 Name = restaurantDto.Name,
                 Address = restaurantDto.Address,
                 Coords = restaurantDto.Coords,
-                Credentials = creds
+                Credentials = new Credentials(creds.Mail.Value, PasswordHasher.Hash(creds.Password.Value))
             };
 
             _restaurantRepository.Add(restaurant);
