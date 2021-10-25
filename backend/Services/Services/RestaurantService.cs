@@ -24,16 +24,12 @@ namespace Services.Services
             Restaurant restaurant = _restaurantRepository.GetByMail(mail);
             if(restaurant == null)
             {
-                throw new System.Exception("Invalid email.");
+                throw new Exception("Invalid email.");
             }
-            else
-            {
-                Credentials creds = restaurant.Credentials;
-                creds.Password = newPassword;
-                _restaurantRepository.Update(restaurant);
-            }
-            
-            
+
+            Credentials creds = restaurant.Credentials;
+            creds.Password = newPassword;
+            _restaurantRepository.Update(restaurant);
         }
         
         public RestaurantDto GetRestaurantDtoFromMail(Mail mail)
@@ -41,13 +37,10 @@ namespace Services.Services
             Restaurant restaurant = _restaurantRepository.GetByMail(mail);
             if(restaurant == null)
             {
-                throw new System.Exception("Invalid email.");
+                throw new Exception("Invalid email.");
             }
-            else
-            {
-                return RestaurantDto.FromEntity(restaurant);
-            }
-            
+
+            return RestaurantDto.FromEntity(restaurant);
         }
         
         public void DeleteAccount(Credentials creds)
@@ -79,13 +72,10 @@ namespace Services.Services
             Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
             if (restaurant == null)
             {
-                throw new System.Exception("Invalid id.");
+                throw new Exception("Invalid id.");
             }
-            else
-            {
-                return RestaurantDto.FromEntity(restaurant);
-            }
-            
+
+            return RestaurantDto.FromEntity(restaurant);
         }
 
         public IEnumerable<RestaurantDto> GetRestaurantsNear(Coords coords)
@@ -98,46 +88,52 @@ namespace Services.Services
         public bool Login(Credentials creds)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(creds.Mail);
-            return restaurant != null && restaurant.Credentials.Mail.Value == creds.Mail.Value && restaurant.Credentials.Password.Value == creds.Password.Value;
+            return restaurant != null && restaurant.Credentials.Mail.Value == creds.Mail.Value && PasswordHasher.Verify(creds.Password.Value, restaurant.Credentials.Password.Value);
         }
 
         public string Register(Credentials creds, RestaurantDto restaurantDto)
         {
-            if (_restaurantRepository.GetByMail(creds.Mail) == null)
-            {
-                string error = Validator.ValidateEmail(creds.Mail.Value) + Validator.ValidatePassword(creds.Password.Value);
-                if (error == "")
-                {
-                    string id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
 
-                    Restaurant restaurant = new Restaurant
-                    {
-                        Id = id,
-                        Name = restaurantDto.Name,
-                        Address = restaurantDto.Address,
-                        Coords = restaurantDto.Coords,
-                        Credentials = creds
-                    };
-
-                    _restaurantRepository.Add(restaurant);
-                    return id;
-                }
-                else
-                {
-                    throw new Exception(error);
-                }
-            }
-            else
+            // Validations
+            if (_restaurantRepository.GetByMail(creds.Mail) != null)
             {
                 throw new Exception("There is already an account registered on this mail");
             }
+
+            string error = Validator.ValidateEmail(creds.Mail.Value) + Validator.ValidatePassword(creds.Password.Value);
+
+            if ( error != "" )
+            {
+                throw new Exception(error);
+            }
+
+            // Registration
+            string id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+
+            Restaurant restaurant = new Restaurant
+            {
+                Id = id,
+                Name = restaurantDto.Name,
+                Address = restaurantDto.Address,
+                Coords = restaurantDto.Coords,
+                Credentials = new Credentials(creds.Mail.Value, PasswordHasher.Hash(creds.Password.Value))
+            };
+
+            _restaurantRepository.Add(restaurant);
+            return id;
+        
         }
 
         public void UpdateRestaurant(Restaurant restaurant)
         {
             Restaurant restaurantDB = _restaurantRepository.GetById(restaurant.Id);
-            restaurant.Credentials = restaurantDB.Credentials;
 
+            if ( restaurantDB == null )
+            {
+                throw new Exception("Invalid id.");
+            }
+
+            restaurant.Credentials = restaurantDB.Credentials;
             _restaurantRepository.Update(restaurant);
         }
 
