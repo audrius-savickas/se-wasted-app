@@ -126,5 +126,19 @@ namespace WebApi.Controllers
                 return Unauthorized(exception.Message);
             }
         }
+        
+        /// <summary>
+        /// Retrieves the food served by a restaurant
+        /// </summary>
+        /// <param name="id">Identifies the restaurant</param>
+        /// <returns></returns>
+        [HttpGet(Name = nameof(GetAllFoodFromRestaurant))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Food>))]
+        public IActionResult GetAllFoodFromRestaurant(string id)
+        {
+            var foods = _restaurantService.GetAllFoodFromRestaurant(id);
+
+            return Ok(foods);
+        }
     }
 }
