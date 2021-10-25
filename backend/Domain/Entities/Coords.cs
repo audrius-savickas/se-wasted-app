@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    public struct Coords
+    public class Coords
     {
         public decimal Longitude { get; set; }
         public decimal Latitude { get; set; }
