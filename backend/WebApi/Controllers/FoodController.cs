@@ -71,7 +71,7 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Retrieve the type of food by its id.
+        /// Retrieve the type of food by food's id.
         /// </summary>
         /// <param name="id"> Id of food item. </param>
         /// <returns></returns>

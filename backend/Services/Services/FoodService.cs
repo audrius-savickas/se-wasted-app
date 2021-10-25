@@ -94,7 +94,7 @@ namespace Services.Services
 
         public string RegisterFood(Food food)
         {
-            // Check if restaurnt is valid
+            // Check if restaurant is valid
             if (_restaurantRepository.GetById(food.IdRestaurant) == null)
             {
                 throw new System.Exception("Invalid restaurant id.");
