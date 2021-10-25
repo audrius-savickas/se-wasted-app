@@ -132,7 +132,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="id">Identifies the restaurant</param>
         /// <returns></returns>
-        [HttpGet(Name = nameof(GetAllFoodFromRestaurant))]
+        [HttpGet("{id}/food",Name = nameof(GetAllFoodFromRestaurant))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Food>))]
         public IActionResult GetAllFoodFromRestaurant(string id)
         {
