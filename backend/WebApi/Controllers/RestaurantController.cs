@@ -42,9 +42,15 @@ namespace WebApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public IActionResult GetById(string id)
         {
-            var restaurant = _restaurantService.GetRestaurantById(id);
-
-            return (restaurant != null) ? Ok(restaurant) : NotFound();
+            try
+            {
+                var restaurant = _restaurantService.GetRestaurantById(id);
+                return Ok(restaurant);
+            }
+            catch(System.Exception exception)
+            {
+                return NotFound(exception.Message);
+            }
         }
 
         /// <summary>
@@ -55,7 +61,7 @@ namespace WebApi.Controllers
         /// <returns>id, which is the Identifier for the new restaurant</returns>
         [HttpPost(Name = nameof(Post))]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult Post([FromQuery] Credentials creds, [FromBody] RestaurantDto restaurantDto)
         {
             try
@@ -65,7 +71,7 @@ namespace WebApi.Controllers
             }
             catch (System.Exception exception)
             {
-                return Forbid(exception.Message);
+                return BadRequest(exception.Message);
             }
         }
 
@@ -79,18 +85,26 @@ namespace WebApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public IActionResult Put(string id, [FromBody] RestaurantDto restaurantDto)
         {
-            var restaurant = new Restaurant
+            try
             {
-                Id = id,
-                Name = restaurantDto.Name,
-                Address = restaurantDto.Address,
-                Coords = restaurantDto.Coords,
-                Credentials = new Credentials()
-            };
+                var restaurant = new Restaurant
+                {
+                    Id = id,
+                    Name = restaurantDto.Name,
+                    Address = restaurantDto.Address,
+                    Coords = restaurantDto.Coords,
+                    Credentials = new Credentials()
+                };
 
-            _restaurantService.UpdateRestaurant(restaurant);
+                _restaurantService.UpdateRestaurant(restaurant);
 
-            return Ok();
+                return Ok();
+            }
+            catch (System.Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
+            
         }
 
         /// <summary>
