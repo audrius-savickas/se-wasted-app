@@ -20,8 +20,7 @@ namespace Domain.Helpers
             new RNGCryptoServiceProvider().GetBytes(salt = new byte[SALT_SIZE]);
 
             // Create hash
-            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, ITERATIONS);
-            var hash = pbkdf2.GetBytes(HASH_SIZE);
+            var hash = new Rfc2898DeriveBytes(password, salt, ITERATIONS).GetBytes(HASH_SIZE);
 
             // Combine salt and hash
             var hashBytes = new byte[SALT_SIZE + HASH_SIZE];
@@ -46,9 +45,8 @@ namespace Domain.Helpers
             Array.Copy(hashBytes, 0, salt, 0, SALT_SIZE);
 
             // Create hash with given salt
-            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, ITERATIONS);
-            byte[] hash = pbkdf2.GetBytes(HASH_SIZE);
-
+            byte[] hash = new Rfc2898DeriveBytes(password, salt, ITERATIONS).GetBytes(HASH_SIZE);
+            
             // Check if hashes match
             for (var i = 0; i < HASH_SIZE; i++)
             {
