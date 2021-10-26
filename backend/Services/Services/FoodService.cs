@@ -34,7 +34,7 @@ namespace Services.Services
             }
             else
             {
-                throw new System.Exception("Restaurant can't access given food.");
+                throw new Exception("Restaurant can't access given food.");
             }
             
         }
@@ -53,8 +53,10 @@ namespace Services.Services
         {
             if (GetFoodById(updatedFood.Id) == null)
             {
-                throw new Exception("Invalid id.");
+                throw new Exception("Invalid food id.");
             }
+
+            updatedFood.TypesOfFood = GetValidTypesOfFood(updatedFood.TypesOfFood);
 
             _foodRepository.Update(updatedFood);
         }
@@ -94,16 +96,12 @@ namespace Services.Services
             // Check if restaurant is valid
             if (_restaurantRepository.GetById(food.IdRestaurant) == null)
             {
-                throw new System.Exception("Invalid restaurant id.");
+                throw new Exception("Invalid restaurant id.");
             }
-            // Check if typesOfFood are valid
-            if (food.TypesOfFood.Any(type => _typeOfFoodRepository.GetById(type.Id) == null))
-            {
-                throw new System.Exception("Contains invalid food type id.");
-            }
-
             // Generate id for food item
             string id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+
+            var types = GetValidTypesOfFood(food.TypesOfFood);
 
             Food newFood = new Food
             {
@@ -111,11 +109,24 @@ namespace Services.Services
                 Price = food.Price,
                 Id = id,
                 IdRestaurant = food.IdRestaurant,
-                TypesOfFood = food.TypesOfFood,
+                TypesOfFood = types
             };
 
             _foodRepository.Add(newFood);
             return id;
+        }
+
+        private IEnumerable<TypeOfFood> GetValidTypesOfFood(IEnumerable<TypeOfFood> types)
+        {
+            if (types.Any(type => _typeOfFoodRepository.GetById(type.Id) == null))
+            {
+                throw new Exception("Contains invalid food type id.");
+            }
+
+            var typeIds = types.Select(x => x.Id);
+            var validTypes = _typeOfFoodRepository.GetAll().Where(x => typeIds.Contains(x.Id));
+
+            return validTypes;
         }
     }
 }
