@@ -75,7 +75,7 @@ namespace Services.Services
             }
         }
 
-        public TypeOfFood GetTypeOfFood(string idFood)
+        public IEnumerable<TypeOfFood> GetTypesOfFood(string idFood)
         {
             Food food = GetFoodById(idFood);
             if (food == null)
@@ -84,10 +84,7 @@ namespace Services.Services
             }
             else
             {
-                string idTypeOfFood = food.TypesOfFood;
-                TypeOfFood typeOfFood = _typeOfFoodRepository.GetById(idTypeOfFood);
-
-                return typeOfFood;
+                return food.TypesOfFood;
             }
             
         }
@@ -99,10 +96,10 @@ namespace Services.Services
             {
                 throw new System.Exception("Invalid restaurant id.");
             }
-            // Check if typeOfFood is valid
-            if (_typeOfFoodRepository.GetById(food.TypesOfFood) == null)
+            // Check if typesOfFood are valid
+            if (food.TypesOfFood.Any(type => _typeOfFoodRepository.GetById(type.Id) == null))
             {
-                throw new System.Exception("Invalid food type id.");
+                throw new System.Exception("Contains invalid food type id.");
             }
 
             // Generate id for food item
