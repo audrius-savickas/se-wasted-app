@@ -84,7 +84,7 @@ namespace Services.Services
             }
             else
             {
-                string idTypeOfFood = food.IdTypeOfFood;
+                string idTypeOfFood = food.TypesOfFood;
                 TypeOfFood typeOfFood = _typeOfFoodRepository.GetById(idTypeOfFood);
 
                 return typeOfFood;
@@ -100,7 +100,7 @@ namespace Services.Services
                 throw new System.Exception("Invalid restaurant id.");
             }
             // Check if typeOfFood is valid
-            if (_typeOfFoodRepository.GetById(food.IdTypeOfFood) == null)
+            if (_typeOfFoodRepository.GetById(food.TypesOfFood) == null)
             {
                 throw new System.Exception("Invalid food type id.");
             }
@@ -114,7 +114,7 @@ namespace Services.Services
                 Price = food.Price,
                 Id = id,
                 IdRestaurant = food.IdRestaurant,
-                IdTypeOfFood = food.IdTypeOfFood,
+                TypesOfFood = food.TypesOfFood,
             };
 
             _foodRepository.Add(newFood);

@@ -12,6 +12,6 @@ namespace Services.Interfaces
         void UpdateFood(Food updatedFood);
         void DeleteFood(string idFood, string idRestaurant);
         RestaurantDto GetRestaurantOfFood(string idFood);
-        TypeOfFood GetTypeOfFood(string id);
+        IEnumerable<TypeOfFood> GetTypesOfFood(string id);
     }
 }
