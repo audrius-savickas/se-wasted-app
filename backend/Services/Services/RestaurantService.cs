@@ -13,10 +13,16 @@ namespace Services.Services
     public class RestaurantService : IRestaurantService
     {
         private readonly IRestaurantRepository _restaurantRepository;
+        private readonly IFoodRepository _foodRepository;
 
-        public RestaurantService(IRestaurantRepository restaurantRepository)
+        public RestaurantService
+        (
+            IRestaurantRepository restaurantRepository,
+            IFoodRepository foodRepository
+        )
         {
             _restaurantRepository = restaurantRepository;
+            _foodRepository = foodRepository;
         }
         
         public void ChangePass(Mail mail, Password newPassword)
@@ -142,6 +148,13 @@ namespace Services.Services
             return _restaurantRepository
                     .GetAllRestaurantsCloserThan(coords, distance)
                     .Select(r => RestaurantDto.FromEntity(r));
+        }
+
+        public IEnumerable<Food> GetAllFoodFromRestaurant(string idRestaurant)
+        {
+            return _foodRepository
+                    .GetAll()
+                    .Where(f => f.IdRestaurant == idRestaurant);
         }
     }
 }
