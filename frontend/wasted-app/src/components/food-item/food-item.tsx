@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
 import {Colors, ListItem, Text, TouchableOpacity, View} from "react-native-ui-lib"
-import {getFoodTypeByFoodId} from "../../api/food"
+import {getFoodTypeByTypeId} from "../../api/type-of-food"
 import {FoodItemProps} from "./interfaces"
 
-export const FoodItem = ({id, name, price}: FoodItemProps) => {
+export const FoodItem = ({id, name, price, typeId}: FoodItemProps) => {
   const [typeName, setTypeName] = useState("")
 
   const fetchType = async () => {
-    const response = await getFoodTypeByFoodId(id)
+    const response = await getFoodTypeByTypeId(typeId)
     setTypeName(response.name)
   }
 

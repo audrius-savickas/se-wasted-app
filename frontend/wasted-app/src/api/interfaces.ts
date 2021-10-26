@@ -9,6 +9,7 @@ export interface Food {
   id: string
   name: string
   price: string
+  idTypeOfFood: string
 }
 
 export interface FoodType {

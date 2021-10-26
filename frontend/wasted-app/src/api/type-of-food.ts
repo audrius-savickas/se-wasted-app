@@ -1,9 +1,9 @@
 import {FoodType} from "./interfaces"
 import {WASTED_SERVER_URL} from "./urls"
 
-export const getFoodTypeByFoodId = async (id: string): Promise<FoodType> => {
+export const getFoodTypeByTypeId = async (id: string): Promise<FoodType> => {
   try {
-    const response = await fetch(`${WASTED_SERVER_URL}/Food/${id}/type`)
+    const response = await fetch(`${WASTED_SERVER_URL}/TypeOfFood/${id}`)
     const data = await response.json()
     return data
   } catch (error) {
