@@ -17,7 +17,8 @@
 
         public bool Equals(BaseEntity other)
         {
-            return Id == other.Id;
+            if (other == null) return false;
+            return (Id.CompareTo(other.Id) == 0);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Services.Interfaces
         IEnumerable<Food> GetAllFood();
         void RegisterFood(Food food);
         void UpdateFood(Food updatedFood);
-        void DeleteFood(string id);
+        void DeleteFood(string idFood, string idRestaurant);
         RestaurantDto GetRestaurantOfFood(string idFood);
         TypeOfFood GetTypeOfFood(string id);
     }
