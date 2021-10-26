@@ -11,3 +11,5 @@ export const getFoodTypeByFoodId = async (id: string): Promise<FoodType> => {
     return Promise.resolve({id: "-1", name: "not found"})
   }
 }
+
+export const getFoodTypeById = async () => {}
