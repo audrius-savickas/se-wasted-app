@@ -4,3 +4,15 @@ export interface Restaurant {
   coords: {latitude: number; longitude: number}
   address: string
 }
+
+export interface Food {
+  id: string
+  name: string
+  price: string
+  idTypeOfFood: string
+}
+
+export interface FoodType {
+  id: string
+  name: string
+}
