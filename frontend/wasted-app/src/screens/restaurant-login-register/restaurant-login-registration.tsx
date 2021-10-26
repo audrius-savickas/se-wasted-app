@@ -4,7 +4,7 @@ import {Assets, Button, Colors, Text, TextField, View} from "react-native-ui-lib
 import {convertPassword} from "../../utils/credentials"
 import {RootStackParamList} from "../RootStackParamsList"
 
-type restaurantLoginProps = NativeStackScreenProps<RootStackParamList, "RestaurantLoginRegistration">
+type restaurantLoginProps = NativeStackScreenProps<RootStackParamList, "Restaurant Login">
 
 export const RestaurantLoginRegistration = ({navigation}: restaurantLoginProps) => {
   const [email, setEmail] = useState("")
@@ -30,7 +30,7 @@ export const RestaurantLoginRegistration = ({navigation}: restaurantLoginProps) 
   }
 
   const navigateToRegistration = () => {
-    navigation.navigate("RestaurantRegistration")
+    navigation.navigate("Restaurant Registration")
   }
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 export type RootStackParamList = {
   Home: undefined
-  RestaurantLoginRegistration: undefined
+  "Restaurant Login": undefined
   RestaurantList: undefined
-  RestaurantRegistration: undefined
+  "Restaurant Registration": undefined
   FoodList: {restaurantName: string; id: string}
 }

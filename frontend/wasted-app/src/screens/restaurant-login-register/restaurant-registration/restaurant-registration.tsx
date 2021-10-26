@@ -5,7 +5,7 @@ import {Assets, Button, Card, Colors, Text, TextField, View} from "react-native-
 import {convertPassword} from "../../../utils/credentials"
 import {RootStackParamList} from "../../RootStackParamsList"
 
-type restaurantRegistrationProps = NativeStackScreenProps<RootStackParamList, "RestaurantRegistration">
+type restaurantRegistrationProps = NativeStackScreenProps<RootStackParamList, "Restaurant Registration">
 
 export const RestaurantRegistration = ({route, navigation}: restaurantRegistrationProps) => {
   const [name, setName] = useState("")
