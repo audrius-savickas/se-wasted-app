@@ -40,7 +40,8 @@ namespace ConsoleApp
             );
             var restaurantService = new RestaurantService
             (
-                restaurantRepository
+                restaurantRepository,
+                foodRepository
             );
 
             // Usage
