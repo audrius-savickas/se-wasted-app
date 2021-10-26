@@ -4,6 +4,7 @@ using Domain.Entities;
 using Persistence.Interfaces;
 using Contracts.DTOs;
 using Services.Interfaces;
+using System;
 
 namespace Services.Services
 {
@@ -50,6 +51,11 @@ namespace Services.Services
 
         public void UpdateFood(Food updatedFood)
         {
+            if (GetFoodById(updatedFood.Id) == null)
+            {
+                throw new Exception("Invalid id.");
+            }
+
             _foodRepository.Update(updatedFood);
         }
 
@@ -58,7 +64,7 @@ namespace Services.Services
             Food food = GetFoodById(idFood);
             if(food == null)
             {
-                throw new System.Exception("Invalid id.");
+                throw new Exception("Invalid id.");
             }
             else
             {
@@ -74,7 +80,7 @@ namespace Services.Services
             Food food = GetFoodById(idFood);
             if (food == null)
             {
-                throw new System.Exception("Invalid id.");
+                throw new Exception("Invalid id.");
             }
             else
             {
@@ -86,9 +92,33 @@ namespace Services.Services
             
         }
 
-        public void RegisterFood(Food food)
+        public string RegisterFood(Food food)
         {
-            _foodRepository.Add(food);
+            // Check if restaurant is valid
+            if (_restaurantRepository.GetById(food.IdRestaurant) == null)
+            {
+                throw new System.Exception("Invalid restaurant id.");
+            }
+            // Check if typeOfFood is valid
+            if (_typeOfFoodRepository.GetById(food.IdTypeOfFood) == null)
+            {
+                throw new System.Exception("Invalid food type id.");
+            }
+
+            // Generate id for food item
+            string id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+
+            Food newFood = new Food
+            {
+                Name = food.Name,
+                Price = food.Price,
+                Id = id,
+                IdRestaurant = food.IdRestaurant,
+                IdTypeOfFood = food.IdTypeOfFood,
+            };
+
+            _foodRepository.Add(newFood);
+            return id;
         }
     }
 }
