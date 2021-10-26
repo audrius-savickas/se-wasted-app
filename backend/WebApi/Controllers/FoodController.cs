@@ -82,7 +82,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var type = _foodService.GetTypeOfFood(id);
+                var type = _foodService.GetTypesOfFood(id);
                 return Ok(type);
             } 
             catch (Exception exception)
