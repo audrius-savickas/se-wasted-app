@@ -9,7 +9,6 @@ It is divided in the following projects:
 * Domain:
     - **Goal:** Define the objects used on the application and functionality to read and modify them.
     - **Structure:**
-        - Comparers: allow to sort list of entities.
         - Entities: definition of all the objects used on the app.
         - Helpers: encompass functionality to be used in other objects.
 * Persistence:
