@@ -8,7 +8,7 @@ namespace Domain.Entities
         public decimal Price { get; set; }
         public DateTime CreatedAt { get; set; }
         public string IdRestaurant { get; set; }
-        public IEnumerable<TypeOfFood> TypesOfFood { get; set; }
+        public virtual IEnumerable<TypeOfFood> TypesOfFood { get; set; }
 
         public Food() : base() { }
 
