@@ -71,18 +71,18 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Retrieve the type of food by food's id.
+        /// Retrieve the types of food by food's id.
         /// </summary>
         /// <param name="id"> Id of food item. </param>
         /// <returns></returns>
         [HttpGet("{id}/type")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<TypeOfFood>))]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult GetType(string id)
+        public IActionResult GetTypes(string id)
         {
             try
             {
-                var type = _foodService.GetTypeOfFood(id);
+                var type = _foodService.GetTypesOfFood(id);
                 return Ok(type);
             } 
             catch (Exception exception)

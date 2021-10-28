@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
@@ -7,7 +8,7 @@ namespace Domain.Entities
         public decimal Price { get; set; }
         public DateTime CreatedAt { get; set; }
         public string IdRestaurant { get; set; }
-        public string IdTypeOfFood { get; set; }
+        public virtual IEnumerable<TypeOfFood> TypesOfFood { get; set; }
 
         public Food() : base() { }
 
@@ -17,7 +18,7 @@ namespace Domain.Entities
             string name,
             decimal price,
             string idRestaurant,
-            string idTypeOfFood,
+            IEnumerable<TypeOfFood> typesOfFood,
             DateTime? createdAt = null
         )
             : base(id, name)
@@ -25,7 +26,7 @@ namespace Domain.Entities
             Price = price;
             CreatedAt = createdAt ?? DateTime.Now;
             IdRestaurant = idRestaurant;
-            IdTypeOfFood = idTypeOfFood;
+            TypesOfFood = typesOfFood;
         }
     }
 }
