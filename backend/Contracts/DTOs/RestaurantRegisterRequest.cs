@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Contracts.DTOs
 {
-    class RestaurantRegisterRequest
+    public class RestaurantRegisterRequest
     {
         public string Name { get; set; }
 
