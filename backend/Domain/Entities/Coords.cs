@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using System;
+
+namespace Domain.Entities
 {
     public class Coords
     {
@@ -7,8 +9,16 @@
 
         public Coords(decimal longitude, decimal latitude)
         {
-            Longitude = longitude;
-            Latitude = latitude;
+            if(MathF.Abs((float)latitude) > 90 || MathF.Abs((float)longitude) > 180)
+            {
+                throw new Exception("Invalid Coordinates");
+            }
+            else
+            {
+                Longitude = longitude;
+                Latitude = latitude;
+            }
+            
         }
     }
 }
