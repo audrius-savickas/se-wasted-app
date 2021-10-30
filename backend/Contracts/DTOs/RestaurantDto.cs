@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using System;
 
 namespace Contracts.DTOs
 {
@@ -18,18 +19,34 @@ namespace Contracts.DTOs
             : base(id, name)
         {
             Address = address;
-            Coords = coords;
+            if(coords == null)
+            {
+                throw new Exception("Invalid coords");
+            }
+            else
+            {
+                Coords = coords;
+            }
+           
         }
 
         public static RestaurantDto FromEntity(Restaurant restaurant)
         {
-            return new RestaurantDto
-            (
-                restaurant.Id,
-                restaurant.Name,
-                restaurant.Address,
-                restaurant.Coords
-            );
+            if(restaurant == null)
+            {
+                throw new Exception("Invalid restaurant");
+            }
+            else
+            {
+                return new RestaurantDto
+                (
+                    restaurant.Id,
+                    restaurant.Name,
+                    restaurant.Address,
+                    restaurant.Coords
+                );
+            }
+           
         }
     }
 }
