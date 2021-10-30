@@ -11,7 +11,7 @@ namespace Domain.Entities
         {
             if(MathF.Abs((float)latitude) > 90 || MathF.Abs((float)longitude) > 180)
             {
-                throw new Exception("Invalid Coordinates");
+                throw new Exception("Invalid coordinates.");
             }
             else
             {

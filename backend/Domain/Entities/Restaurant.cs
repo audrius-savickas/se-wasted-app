@@ -19,7 +19,7 @@ namespace Domain.Entities
             Address = address;
             if(coords == null)
             {
-                throw new Exception("Invalid coordinates");
+                throw new Exception("Invalid coordinates.");
             }
             else
             {
@@ -28,7 +28,7 @@ namespace Domain.Entities
             
             if(creds == null)
             {
-                throw new Exception("Invalid credentials");
+                throw new Exception("Invalid credentials.");
             }
             else
             {
@@ -40,7 +40,7 @@ namespace Domain.Entities
         {
             if (coords == null)
             {
-                throw new Exception("Invalid coordinates");
+                throw new Exception("Invalid coordinates.");
             }
             else
             {
@@ -52,7 +52,7 @@ namespace Domain.Entities
         {
             if(coords == null)
             {
-                throw new Exception("Invalid coordinates");
+                throw new Exception("Invalid coordinates.");
             }
             else
             {

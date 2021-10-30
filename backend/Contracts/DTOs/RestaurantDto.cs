@@ -21,7 +21,7 @@ namespace Contracts.DTOs
             Address = address;
             if(coords == null)
             {
-                throw new Exception("Invalid coordinates");
+                throw new Exception("Invalid coordinates.");
             }
             else
             {
@@ -34,7 +34,7 @@ namespace Contracts.DTOs
         {
             if(restaurant == null)
             {
-                throw new Exception("Invalid restaurant");
+                throw new Exception("Invalid restaurant.");
             }
             else
             {
