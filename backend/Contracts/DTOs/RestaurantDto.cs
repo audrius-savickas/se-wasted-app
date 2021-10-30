@@ -21,7 +21,7 @@ namespace Contracts.DTOs
             Address = address;
             if(coords == null)
             {
-                throw new Exception("Invalid coords");
+                throw new Exception("Invalid coordinates");
             }
             else
             {

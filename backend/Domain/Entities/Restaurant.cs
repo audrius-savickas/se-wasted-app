@@ -1,4 +1,5 @@
 using Domain.Helpers;
+using System;
 
 namespace Domain.Entities
 {
@@ -16,18 +17,47 @@ namespace Domain.Entities
             : base(id, name)
         {
             Address = address;
-            Coords = coords;
-            Credentials = creds;
+            if(coords == null)
+            {
+                throw new Exception("Invalid coordinates");
+            }
+            else
+            {
+                Coords = coords;
+            }
+            
+            if(creds == null)
+            {
+                throw new Exception("Invalid credentials");
+            }
+            else
+            {
+                Credentials = creds;
+            }
         }
 
         public bool IsNear(Coords coords)
         {
-            return IsCloser(coords, Distances.NEAR);
+            if (coords == null)
+            {
+                throw new Exception("Invalid coordinates");
+            }
+            else
+            {
+                return IsCloser(coords, Distances.NEAR);
+            }
         }
 
         public bool IsCloser(Coords coords, Distances distance)
         {
-            return CoordsHelper.IsCloser(Coords, coords, distance);
+            if(coords == null)
+            {
+                throw new Exception("Invalid coordinates");
+            }
+            else
+            {
+                return CoordsHelper.IsCloser(Coords, coords, distance);
+            }
         }
     }
 }
