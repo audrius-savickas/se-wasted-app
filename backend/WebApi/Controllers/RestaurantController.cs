@@ -57,7 +57,7 @@ namespace WebApi.Controllers
         /// Register a new restaurant in the application
         /// </summary>
         /// <param name="creds">Credentials of the restaurant</param>
-        /// <param name="restaurantDto">Representation of the restaurant</param>
+        /// <param name="restaurantRegisterRequest">Representation of the restaurant</param>
         /// <returns>id, which is the Identifier for the new restaurant</returns>
         [HttpPost(Name = nameof(Post))]
         [ProducesResponseType((int)HttpStatusCode.Created)]
