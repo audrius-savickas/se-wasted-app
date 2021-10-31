@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react"
 import {Text, View} from "react-native-ui-lib"
-import {getAllFoodByRestaurantId} from "../../api"
-import {Food} from "../../api/interfaces"
-import {FoodsList} from "../../components/foods-list"
+import {getAllFoodByRestaurantId} from "../../../../api"
+import {Food} from "../../../../api/interfaces"
+import {FoodsList} from "../../../../components/foods-list"
 import {FoodListProps} from "./interfaces"
 
 export const FoodList = ({componentId, restaurantId, restaurantName}: FoodListProps) => {

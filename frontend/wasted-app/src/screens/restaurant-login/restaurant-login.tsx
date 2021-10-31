@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 import {Assets, Button, Colors, Text, TextField, View} from "react-native-ui-lib"
-import {navigateToRestaurantRegistration, setRestaurantRoot} from "../../services/navigationService"
+import {navigateToRestaurantRegistration, setRestaurantRoot} from "../../services/navigation"
 import {convertPassword} from "../../utils/credentials"
 import {RestaurantLoginProps} from "./interfaces"
 

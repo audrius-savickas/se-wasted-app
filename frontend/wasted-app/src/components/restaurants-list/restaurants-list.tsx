@@ -1,7 +1,7 @@
 import React from "react"
 import {FlatList, ListRenderItemInfo} from "react-native"
 import {Restaurant} from "../../api/interfaces"
-import {navigateToFoodList} from "../../services/navigationService"
+import {navigateToFoodList} from "../../services/navigation"
 import {RestaurantItem} from "../restaurant-item/"
 import {RestaurantsListProps} from "./interfaces"
 

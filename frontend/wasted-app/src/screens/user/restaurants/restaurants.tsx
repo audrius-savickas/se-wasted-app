@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react"
 import {LoaderScreen, View} from "react-native-ui-lib"
 import {Colors} from "react-native/Libraries/NewAppScreen"
-import {getAllRestaurants} from "../../api"
-import {Restaurant} from "../../api/interfaces"
-import {RestaurantsList} from "../../components/restaurants-list"
+import {getAllRestaurants} from "../../../api"
+import {Restaurant} from "../../../api/interfaces"
+import {RestaurantsList} from "../../../components/restaurants-list"
 import {RestaurantListProps} from "./interfaces"
 
 export const RestaurantList = ({componentId}: RestaurantListProps) => {

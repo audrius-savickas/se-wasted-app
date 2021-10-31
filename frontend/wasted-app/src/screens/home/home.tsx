@@ -1,6 +1,6 @@
 import React from "react"
 import {Button, Colors, Text, View} from "react-native-ui-lib"
-import {navigateToRestaurantList, navigateToRestaurantLogin} from "../../services/navigationService"
+import {navigateToRestaurantLogin, setUserRoot} from "../../services/navigation"
 import {HomeProps} from "./interfaces"
 
 export const Home = ({componentId}: HomeProps) => {
@@ -15,7 +15,7 @@ export const Home = ({componentId}: HomeProps) => {
         bg-white
         label={"User"}
         outlineColor={Colors.black}
-        onPress={() => navigateToRestaurantList(componentId, {})}
+        onPress={() => setUserRoot(componentId)}
       />
       <Button
         black
