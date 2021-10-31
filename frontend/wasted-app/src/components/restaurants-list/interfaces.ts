@@ -1,8 +1,6 @@
-import {NativeStackNavigationProp} from "@react-navigation/native-stack"
+import {NavigationComponentProps} from "react-native-navigation"
 import {Restaurant} from "../../api/interfaces"
-import {RootStackParamList} from "../../screens/RootStackParamsList"
 
-export interface RestaurantsListProps {
-  navigation: NativeStackNavigationProp<RootStackParamList, "RestaurantList">
+export interface RestaurantsListProps extends NavigationComponentProps {
   restaurants: Restaurant[]
 }

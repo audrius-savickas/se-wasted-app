@@ -1,18 +1,15 @@
-import {NativeStackScreenProps} from "@react-navigation/native-stack"
 import React, {useEffect, useState} from "react"
 import {Text, View} from "react-native-ui-lib"
 import {getAllFoodByRestaurantId} from "../../api"
 import {Food} from "../../api/interfaces"
 import {FoodsList} from "../../components/foods-list"
-import {RootStackParamList} from "../RootStackParamsList"
+import {FoodListProps} from "./interfaces"
 
-type foodListProps = NativeStackScreenProps<RootStackParamList, "FoodList">
-
-export const FoodList = ({route}: foodListProps) => {
+export const FoodList = ({restaurantId, restaurantName}: FoodListProps) => {
   const [foods, setFoods] = useState([] as Food[])
 
   const fetchFoods = async () => {
-    const response = await getAllFoodByRestaurantId(route.params.id)
+    const response = await getAllFoodByRestaurantId(restaurantId)
     setFoods(response)
   }
 
@@ -23,7 +20,7 @@ export const FoodList = ({route}: foodListProps) => {
   return (
     <>
       <View center margin-s3>
-        <Text text40M>{route.params.restaurantName}</Text>
+        <Text text40M>{restaurantName}</Text>
         <Text text60L>Foods</Text>
       </View>
       <View flex>
