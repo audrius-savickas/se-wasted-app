@@ -13,12 +13,9 @@ namespace Domain.Entities
             {
                 throw new Exception("Invalid coordinates.");
             }
-            else
-            {
-                Longitude = longitude;
-                Latitude = latitude;
-            }
-            
+
+            Longitude = longitude;
+            Latitude = latitude;
         }
     }
 }

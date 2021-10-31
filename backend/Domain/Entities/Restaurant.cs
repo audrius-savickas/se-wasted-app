@@ -13,51 +13,32 @@ namespace Domain.Entities
 
         public Restaurant() : base() { }
 
-        public Restaurant(string id, string name, string address, Coords coords, Credentials creds)
+        public Restaurant(string id, string name, string address, Coords coords, Credentials credentials)
             : base(id, name)
         {
             Address = address;
-            if(coords == null)
-            {
-                throw new Exception("Invalid coordinates.");
-            }
-            else
-            {
-                Coords = coords;
-            }
-            
-            if(creds == null)
-            {
-                throw new Exception("Invalid credentials.");
-            }
-            else
-            {
-                Credentials = creds;
-            }
+            Coords = coords ?? throw new ArgumentNullException(nameof(coords));
+            Credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
         }
 
         public bool IsNear(Coords coords)
         {
             if (coords == null)
             {
-                throw new Exception("Invalid coordinates.");
+                throw new ArgumentNullException(nameof(coords));
             }
-            else
-            {
-                return IsCloser(coords, Distances.NEAR);
-            }
+
+            return IsCloser(coords, Distances.NEAR);
         }
 
         public bool IsCloser(Coords coords, Distances distance)
         {
             if(coords == null)
             {
-                throw new Exception("Invalid coordinates.");
+                throw new ArgumentNullException(nameof(coords));
             }
-            else
-            {
-                return CoordsHelper.IsCloser(Coords, coords, distance);
-            }
+
+            return CoordsHelper.IsCloser(Coords, coords, distance);
         }
     }
 }

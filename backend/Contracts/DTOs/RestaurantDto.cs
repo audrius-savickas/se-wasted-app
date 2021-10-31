@@ -19,34 +19,23 @@ namespace Contracts.DTOs
             : base(id, name)
         {
             Address = address;
-            if(coords == null)
-            {
-                throw new Exception("Invalid coordinates.");
-            }
-            else
-            {
-                Coords = coords;
-            }
-           
+            Coords = coords ?? throw new ArgumentNullException(nameof(coords));
         }
 
         public static RestaurantDto FromEntity(Restaurant restaurant)
         {
             if(restaurant == null)
             {
-                throw new Exception("Invalid restaurant.");
+                throw new ArgumentNullException(nameof(restaurant));
             }
-            else
-            {
-                return new RestaurantDto
-                (
-                    restaurant.Id,
-                    restaurant.Name,
-                    restaurant.Address,
-                    restaurant.Coords
-                );
-            }
-           
+
+            return new RestaurantDto
+            (
+                restaurant.Id,
+                restaurant.Name,
+                restaurant.Address,
+                restaurant.Coords
+            );
         }
     }
 }
