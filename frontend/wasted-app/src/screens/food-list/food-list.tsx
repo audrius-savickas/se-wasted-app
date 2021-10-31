@@ -5,7 +5,7 @@ import {Food} from "../../api/interfaces"
 import {FoodsList} from "../../components/foods-list"
 import {FoodListProps} from "./interfaces"
 
-export const FoodList = ({restaurantId, restaurantName}: FoodListProps) => {
+export const FoodList = ({componentId, restaurantId, restaurantName}: FoodListProps) => {
   const [foods, setFoods] = useState([] as Food[])
 
   const fetchFoods = async () => {

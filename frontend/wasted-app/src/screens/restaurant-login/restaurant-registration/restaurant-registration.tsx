@@ -1,13 +1,10 @@
-import {NativeStackScreenProps} from "@react-navigation/native-stack"
 import React, {useState} from "react"
 import {ScrollView} from "react-native"
 import {Assets, Button, Card, Colors, Text, TextField, View} from "react-native-ui-lib"
 import {convertPassword} from "../../../utils/credentials"
-import {RootStackParamList} from "../../RootStackParamsList"
+import {RestaurantRegistrationProps} from "./interfaces"
 
-type restaurantRegistrationProps = NativeStackScreenProps<RootStackParamList, "Restaurant Registration">
-
-export const RestaurantRegistration = ({route, navigation}: restaurantRegistrationProps) => {
+export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProps) => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -22,10 +19,7 @@ export const RestaurantRegistration = ({route, navigation}: restaurantRegistrati
 
   return (
     <ScrollView>
-      <View flexG center marginB-s10>
-        <Text text20 marginV-s10>
-          Registration
-        </Text>
+      <View flexG center marginB-s10 marginT-s6>
         <View centerV width={320}>
           <View>
             <TextField
