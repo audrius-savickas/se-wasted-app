@@ -1,11 +1,9 @@
-import {NativeStackScreenProps} from "@react-navigation/native-stack"
 import React from "react"
 import {Button, Colors, Text, View} from "react-native-ui-lib"
-import {RootStackParamList} from "../RootStackParamsList"
+import {navigateToRestaurantList, navigateToRestaurantLogin} from "../../services/navigationService"
+import {HomeProps} from "./interfaces"
 
-type homeScreenProp = NativeStackScreenProps<RootStackParamList, "Home">
-
-export const Home = ({navigation}: homeScreenProp) => {
+export const Home = ({componentId}: HomeProps) => {
   return (
     <View flex center>
       <Text cyan10 text30BO marginB-s6>
@@ -17,14 +15,14 @@ export const Home = ({navigation}: homeScreenProp) => {
         bg-white
         label={"User"}
         outlineColor={Colors.black}
-        onPress={() => navigation.navigate("RestaurantList")}
+        onPress={() => navigateToRestaurantList(componentId, {})}
       />
       <Button
         black
         bg-white
         outlineColor={Colors.black}
         label={"Restaurant"}
-        onPress={() => navigation.navigate("RestaurantLoginRegistration")}
+        onPress={() => navigateToRestaurantLogin(componentId, {})}
       />
     </View>
   )
