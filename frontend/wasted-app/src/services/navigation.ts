@@ -124,6 +124,11 @@ export const setUserRoot = props =>
     root: {
       bottomTabs: {
         id: "USER_BOTTOM_TABS",
+        options: {
+          bottomTabs: {
+            tabsAttachMode: "onSwitchToTab"
+          }
+        },
         children: [
           {
             stack: {
@@ -144,6 +149,14 @@ export const setUserRoot = props =>
                   iconColor: Colors.grey30,
                   selectedTextColor: Colors.black,
                   textColor: Colors.grey30
+                },
+                topBar: {
+                  leftButtons: [
+                    {
+                      id: "GO_BACK",
+                      text: "Back"
+                    }
+                  ]
                 }
               }
             }
@@ -167,6 +180,14 @@ export const setUserRoot = props =>
                   iconColor: Colors.grey30,
                   selectedTextColor: Colors.black,
                   textColor: Colors.grey30
+                },
+                topBar: {
+                  leftButtons: [
+                    {
+                      id: "GO_BACK",
+                      text: "Back"
+                    }
+                  ]
                 }
               }
             }
@@ -190,8 +211,31 @@ export const setUserRoot = props =>
                   iconColor: Colors.grey30,
                   selectedTextColor: Colors.black,
                   textColor: Colors.grey30
+                },
+                topBar: {
+                  leftButtons: [
+                    {
+                      id: "GO_BACK",
+                      text: "Back"
+                    }
+                  ]
                 }
               }
+            }
+          }
+        ]
+      }
+    }
+  })
+
+export const setHomeRoot = () =>
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: screenNames.HOME_SCREEN
             }
           }
         ]

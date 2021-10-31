@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react"
+import {Navigation} from "react-native-navigation"
 import {LoaderScreen, View} from "react-native-ui-lib"
 import {Colors} from "react-native/Libraries/NewAppScreen"
 import {getAllRestaurants} from "../../../api"
 import {Restaurant} from "../../../api/interfaces"
 import {RestaurantsList} from "../../../components/restaurants-list"
+import {setHomeRoot} from "../../../services/navigation"
 import {RestaurantListProps} from "./interfaces"
 
 export const RestaurantList = ({componentId}: RestaurantListProps) => {
@@ -18,6 +20,13 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
 
   useEffect(() => {
     fetchRestaurants()
+    const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
+      if (buttonId === "GO_BACK") {
+        setHomeRoot()
+      }
+    })
+
+    return () => listener.remove()
   }, [])
 
   return (
