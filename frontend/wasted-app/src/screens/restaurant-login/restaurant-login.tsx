@@ -33,10 +33,6 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   }
 
   useEffect(() => {
-    // Navigation.mergeOptionss(componentId, {bottomTabs: {ch}})
-  }, [])
-
-  useEffect(() => {
     setEmailError(!email.includes("@") ? "Invalid email" : "")
     setPasswordError(!password ? "Invalid password" : "")
   }, [email, password])
