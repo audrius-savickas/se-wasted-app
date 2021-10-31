@@ -4,4 +4,6 @@ export type RootStackParamList = {
   RestaurantList: undefined
   "Restaurant Registration": undefined
   FoodList: {restaurantName: string; id: string}
+  UserScreenTabs: undefined
+  RestaurantScreenTabs: undefined
 }

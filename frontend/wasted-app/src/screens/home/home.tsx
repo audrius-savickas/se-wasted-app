@@ -17,14 +17,14 @@ export const Home = ({navigation}: homeScreenProp) => {
         bg-white
         label={"User"}
         outlineColor={Colors.black}
-        onPress={() => navigation.navigate("RestaurantList")}
+        onPress={() => navigation.navigate("UserScreenTabs")}
       />
       <Button
         black
         bg-white
         outlineColor={Colors.black}
         label={"Restaurant"}
-        onPress={() => navigation.navigate("RestaurantLoginRegistration")}
+        onPress={() => navigation.navigate("RestaurantScreenTabs")}
       />
     </View>
   )
