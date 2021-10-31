@@ -24,10 +24,7 @@ namespace Contracts.DTOs
 
         public static RestaurantDto FromEntity(Restaurant restaurant)
         {
-            if(restaurant == null)
-            {
-                throw new ArgumentNullException(nameof(restaurant));
-            }
+            _ = restaurant ?? throw new ArgumentNullException(nameof(restaurant));
 
             return new RestaurantDto
             (

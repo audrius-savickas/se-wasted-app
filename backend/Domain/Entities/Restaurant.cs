@@ -23,20 +23,14 @@ namespace Domain.Entities
 
         public bool IsNear(Coords coords)
         {
-            if (coords == null)
-            {
-                throw new ArgumentNullException(nameof(coords));
-            }
+            _ = coords ?? throw new ArgumentNullException(nameof(coords));
 
             return IsCloser(coords, Distances.NEAR);
         }
 
         public bool IsCloser(Coords coords, Distances distance)
         {
-            if(coords == null)
-            {
-                throw new ArgumentNullException(nameof(coords));
-            }
+            _ = coords ?? throw new ArgumentNullException(nameof(coords));
 
             return CoordsHelper.IsCloser(Coords, coords, distance);
         }
