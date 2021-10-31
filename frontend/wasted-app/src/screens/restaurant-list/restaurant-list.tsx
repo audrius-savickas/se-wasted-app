@@ -1,15 +1,12 @@
-import {NativeStackScreenProps} from "@react-navigation/native-stack"
 import React, {useEffect, useState} from "react"
 import {LoaderScreen, View} from "react-native-ui-lib"
 import {Colors} from "react-native/Libraries/NewAppScreen"
 import {getAllRestaurants} from "../../api"
 import {Restaurant} from "../../api/interfaces"
 import {RestaurantsList} from "../../components/restaurants-list"
-import {RootStackParamList} from "../RootStackParamsList"
+import {RestaurantListProps} from "./interfaces"
 
-type restaurantListProps = NativeStackScreenProps<RootStackParamList, "RestaurantList">
-
-export const RestaurantList = ({navigation}: restaurantListProps) => {
+export const RestaurantList = ({componentId}: RestaurantListProps) => {
   const [restaurants, setRestaurants] = useState([] as Restaurant[])
   const [loading, setLoading] = useState(true)
 
@@ -28,7 +25,7 @@ export const RestaurantList = ({navigation}: restaurantListProps) => {
       {loading ? (
         <LoaderScreen color={Colors.blue30} message="Loading..." />
       ) : (
-        <RestaurantsList navigation={navigation} restaurants={restaurants} />
+        <RestaurantsList componentId={componentId} restaurants={restaurants} />
       )}
     </View>
   )

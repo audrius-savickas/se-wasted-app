@@ -1,12 +1,10 @@
-import {NativeStackScreenProps} from "@react-navigation/native-stack"
 import React, {useEffect, useState} from "react"
 import {Assets, Button, Colors, Text, TextField, View} from "react-native-ui-lib"
+import {navigateToRestaurantRegistration} from "../../services/navigationService"
 import {convertPassword} from "../../utils/credentials"
-import {RootStackParamList} from "../RootStackParamsList"
+import {RestaurantLoginProps} from "./interfaces"
 
-type restaurantLoginProps = NativeStackScreenProps<RootStackParamList, "Restaurant Login">
-
-export const RestaurantLoginRegistration = ({navigation}: restaurantLoginProps) => {
+export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -30,8 +28,12 @@ export const RestaurantLoginRegistration = ({navigation}: restaurantLoginProps) 
   }
 
   const navigateToRegistration = () => {
-    navigation.navigate("Restaurant Registration")
+    navigateToRestaurantRegistration(componentId, {})
   }
+
+  useEffect(() => {
+    // Navigation.mergeOptionss(componentId, {bottomTabs: {ch}})
+  }, [])
 
   useEffect(() => {
     setEmailError(!email.includes("@") ? "Invalid email" : "")
