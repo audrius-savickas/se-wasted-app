@@ -62,11 +62,11 @@ namespace WebApi.Controllers
         [HttpPost(Name = nameof(Post))]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public IActionResult Post([FromQuery] Credentials creds, [FromBody] RestaurantDto restaurantDto)
+        public IActionResult Post([FromQuery] Credentials creds, [FromBody] RestaurantRegisterRequest restaurantRegisterRequest)
         {
             try
             {
-                string id = _restaurantService.Register(creds, restaurantDto);
+                string id = _restaurantService.Register(creds, restaurantRegisterRequest);
                 return CreatedAtAction(nameof(Post), new { id });
             }
             catch (System.Exception exception)

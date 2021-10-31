@@ -97,7 +97,7 @@ namespace Services.Services
             return restaurant != null && restaurant.Credentials.Mail.Value == creds.Mail.Value && PasswordHasher.Verify(creds.Password.Value, restaurant.Credentials.Password.Value);
         }
 
-        public string Register(Credentials creds, RestaurantDto restaurantDto)
+        public string Register(Credentials creds, RestaurantRegisterRequest restaurantRegisterRequest)
         {
 
             // Validations
@@ -119,9 +119,9 @@ namespace Services.Services
             Restaurant restaurant = new Restaurant
             {
                 Id = id,
-                Name = restaurantDto.Name,
-                Address = restaurantDto.Address,
-                Coords = restaurantDto.Coords,
+                Name = restaurantRegisterRequest.Name,
+                Address = restaurantRegisterRequest.Address,
+                Coords = restaurantRegisterRequest.Coords,
                 Credentials = new Credentials(creds.Mail.Value, PasswordHasher.Hash(creds.Password.Value))
             };
 

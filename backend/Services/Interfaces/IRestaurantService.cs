@@ -4,7 +4,7 @@ using Contracts.DTOs;
 
 namespace Services.Interfaces
 {
-    public interface IRestaurantService : IAuthService<RestaurantDto>
+    public interface IRestaurantService : IAuthService<RestaurantRegisterRequest>
     {
         RestaurantDto GetRestaurantById(string id);
         IEnumerable<RestaurantDto> GetAllRestaurants();
