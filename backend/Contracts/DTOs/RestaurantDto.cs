@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using System;
 
 namespace Contracts.DTOs
 {
@@ -18,11 +19,13 @@ namespace Contracts.DTOs
             : base(id, name)
         {
             Address = address;
-            Coords = coords;
+            Coords = coords ?? throw new ArgumentNullException(nameof(coords));
         }
 
         public static RestaurantDto FromEntity(Restaurant restaurant)
         {
+            _ = restaurant ?? throw new ArgumentNullException(nameof(restaurant));
+
             return new RestaurantDto
             (
                 restaurant.Id,
