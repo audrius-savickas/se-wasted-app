@@ -1,12 +1,10 @@
-import {NativeStackScreenProps} from "@react-navigation/native-stack"
 import React, {useEffect, useState} from "react"
 import {Assets, Button, Colors, Text, TextField, View} from "react-native-ui-lib"
+import {navigateToRestaurantRegistration, setRestaurantRoot} from "../../services/navigation"
 import {convertPassword} from "../../utils/credentials"
-import {RootStackParamList} from "../RootStackParamsList"
+import {RestaurantLoginProps} from "./interfaces"
 
-type restaurantLoginProps = NativeStackScreenProps<RootStackParamList, "RestaurantLoginRegistration">
-
-export const RestaurantLoginRegistration = ({navigation}: restaurantLoginProps) => {
+export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -19,6 +17,7 @@ export const RestaurantLoginRegistration = ({navigation}: restaurantLoginProps) 
   const login = () => {
     console.log(email)
     console.log(password)
+    setRestaurantRoot({})
   }
 
   const onBlurEmail = () => {
@@ -30,7 +29,7 @@ export const RestaurantLoginRegistration = ({navigation}: restaurantLoginProps) 
   }
 
   const navigateToRegistration = () => {
-    navigation.navigate("RestaurantRegistration")
+    navigateToRestaurantRegistration(componentId, {})
   }
 
   useEffect(() => {

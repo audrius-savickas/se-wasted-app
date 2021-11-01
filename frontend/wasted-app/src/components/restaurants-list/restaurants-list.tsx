@@ -1,17 +1,18 @@
 import React from "react"
 import {FlatList, ListRenderItemInfo} from "react-native"
 import {Restaurant} from "../../api/interfaces"
+import {navigateToFoodList} from "../../services/navigation"
 import {RestaurantItem} from "../restaurant-item/"
 import {RestaurantsListProps} from "./interfaces"
 
-export const RestaurantsList = ({navigation, restaurants}: RestaurantsListProps) => {
+export const RestaurantsList = ({componentId, restaurants}: RestaurantsListProps) => {
   const renderItem = ({item}: ListRenderItemInfo<Restaurant>) => {
     return (
       <RestaurantItem
         name={item.name}
         id={item.id}
         address={item.address}
-        onPress={() => navigation.navigate("FoodList", {restaurantName: item.name, id: item.id})}
+        onPress={() => navigateToFoodList(componentId, {restaurantId: item.id, restaurantName: item.name})}
       />
     )
   }
