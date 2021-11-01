@@ -80,7 +80,7 @@ export const setRestaurantRoot = props =>
               ],
               options: {
                 bottomTab: {
-                  icon: require("../../assets/food-25x25.png"),
+                  icon: require("../../assets/food-30x30.png"),
                   text: "Food",
                   fontSize: 13,
                   selectedIconColor: Colors.black,
@@ -142,7 +142,7 @@ export const setUserRoot = props =>
               ],
               options: {
                 bottomTab: {
-                  icon: require("../../assets/food-25x25.png"),
+                  icon: require("../../assets/home-25x25.png"),
                   text: "Home",
                   fontSize: 13,
                   selectedIconColor: Colors.black,
@@ -173,7 +173,7 @@ export const setUserRoot = props =>
               ],
               options: {
                 bottomTab: {
-                  icon: require("../../assets/profile-30x30.png"),
+                  icon: require("../../assets/food-30x30.png"),
                   text: "Food",
                   fontSize: 13,
                   selectedIconColor: Colors.black,
@@ -204,7 +204,7 @@ export const setUserRoot = props =>
               ],
               options: {
                 bottomTab: {
-                  icon: require("../../assets/food-25x25.png"),
+                  icon: require("../../assets/restaurant-25x25.png"),
                   text: "Restaurants",
                   fontSize: 13,
                   selectedIconColor: Colors.black,
