@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using Persistence;
 using Persistence.Interfaces;
 using Persistence.Repositories;
+using Persistence.Services;
 using Services.Interfaces;
 using Services.Services;
 using System;
@@ -47,6 +48,7 @@ namespace WebApi
             services.AddTransient<IRestaurantService, RestaurantService>();
             services.AddTransient<IFoodService, FoodService>();
             services.AddTransient<ITypeOfFoodService, TypeOfFoodService>();
+            services.AddTransient<IImageService, ImageService>();
 
             services.AddSwaggerGen(c =>
             {

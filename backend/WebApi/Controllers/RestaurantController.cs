@@ -1,12 +1,20 @@
 ﻿using Contracts.DTOs;
 using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 
 namespace WebApi.Controllers
 {
+    public class RestaurantRequest
+    {
+        public IFormFile FormFile { get; set; }
+        public Restaurant Restaurant { get; set; }
+    }
+
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
@@ -62,7 +70,7 @@ namespace WebApi.Controllers
         [HttpPost(Name = nameof(Post))]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public IActionResult Post([FromQuery] Credentials creds, [FromBody] RestaurantDto restaurantDto)
+        public IActionResult Post([FromBody] Credentials creds, [FromForm] RestaurantDto restaurantDto)
         {
             try
             {
@@ -79,24 +87,27 @@ namespace WebApi.Controllers
         /// Update a restaurant. Cannot update creds.
         /// </summary>
         /// <param name="id">Identifies uniquely the restaurant</param>
-        /// <param name="restaurantDto">Representation of the restaurant</param>
+        /// <param name="restaurant">Representation of the restaurant</param>
+        /// <param name="formFile">Representation of the photo</param>
         /// <returns></returns>
         [HttpPut("{id}", Name = nameof(Put))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public IActionResult Put(string id, [FromBody] RestaurantDto restaurantDto)
+        public IActionResult Put(string id, [FromForm] IFormFile formFile, [FromQuery] Restaurant restaurant)
         {
             try
             {
-                var restaurant = new Restaurant
-                {
-                    Id = id,
-                    Name = restaurantDto.Name,
-                    Address = restaurantDto.Address,
-                    Coords = restaurantDto.Coords,
-                    Credentials = new Credentials()
-                };
+                Image image = null;
 
-                _restaurantService.UpdateRestaurant(restaurant);
+                /*if (formFile != null)
+                {
+                    var extension = Path.GetExtension(formFile.FileName);
+                    var filename = Path.Combine(restaurant.Name + extension);
+                    var stream = formFile.OpenReadStream();
+
+                    image = new Image(stream, filename);
+                }*/
+
+                _restaurantService.UpdateRestaurant(restaurant, image);
 
                 return Ok();
             }
