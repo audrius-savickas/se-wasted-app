@@ -8,7 +8,7 @@ namespace Services.Interfaces
     {
         RestaurantDto GetRestaurantById(string id);
         IEnumerable<RestaurantDto> GetAllRestaurants();
-        void UpdateRestaurant(Restaurant restaurant);
+        void UpdateRestaurant(Restaurant restaurant, Image? image = null);
         IEnumerable<RestaurantDto> GetRestaurantsNear(Coords coords);
         RestaurantDto GetRestaurantDtoFromMail(Mail mail);
         IEnumerable<RestaurantDto> GetAllRestaurantsCloserThan(Coords coords, Distances distance);

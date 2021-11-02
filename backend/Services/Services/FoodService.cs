@@ -13,17 +13,20 @@ namespace Services.Services
         private readonly IFoodRepository _foodRepository;
         private readonly IRestaurantRepository _restaurantRepository;
         private readonly ITypeOfFoodRepository _typeOfFoodRepository;
+        private readonly IImageService _imageService;
 
         public FoodService
         (
             IFoodRepository foodRepository,
             IRestaurantRepository restaurantRepository,
-            ITypeOfFoodRepository typeOfFoodRepository
+            ITypeOfFoodRepository typeOfFoodRepository,
+            IImageService imageService
         )
         {
             _foodRepository = foodRepository;
             _restaurantRepository = restaurantRepository;
             _typeOfFoodRepository = typeOfFoodRepository;
+            _imageService = imageService;
         }
 
         public void DeleteFood(string idFood, string idRestaurant)
@@ -68,13 +71,12 @@ namespace Services.Services
             {
                 throw new Exception("Invalid id.");
             }
-            else
-            {
-                string idRestaurant = food.IdRestaurant;
-                Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
 
-                return RestaurantDto.FromEntity(restaurant);
-            }
+            string idRestaurant = food.IdRestaurant;
+            Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
+            Image image = _imageService.ReadImage(restaurant.ImageSrc);
+
+            return RestaurantDto.FromEntity(restaurant, image);
         }
 
         public IEnumerable<TypeOfFood> GetTypesOfFood(string idFood)
