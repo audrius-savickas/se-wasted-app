@@ -21,7 +21,7 @@ namespace Domain.Entities
         (
             string id,
             string name,
-            decimal price,
+            decimal startingPrice,
             string idRestaurant,
             IEnumerable<TypeOfFood> typesOfFood,
             TimeSpan intervalTime,
@@ -32,7 +32,7 @@ namespace Domain.Entities
         )
             : base(id, name)
         {
-            StartingPrice = price;
+            StartingPrice = startingPrice;
             CreatedAt = createdAt ?? DateTime.Now;
             IdRestaurant = idRestaurant;
             TypesOfFood = typesOfFood;
@@ -42,25 +42,37 @@ namespace Domain.Entities
             if (amountPerInterval == null && percentPerInterval == null)
             {
                 throw new ArgumentException("Both decrease amount and percent cannot be null.");
+            } 
+            else if (amountPerInterval != null && percentPerInterval != null)
+            {
+                throw new ArgumentException("Cannot pick both types of price decrease at the same time.");
             }
 
-            AmountPerInterval = amountPerInterval ?? CalculateAmountPerInterval();
-            PercentPerInterval = percentPerInterval ?? CalculatePercentPerInterval();
-        }
-
-        private decimal CalculateAmountPerInterval()
-        {
-            return 0; // TODO
-        }
-
-        private double CalculatePercentPerInterval()
-        {
-            return 0; // TODO
+            AmountPerInterval = (decimal)(amountPerInterval != null ? amountPerInterval : CalculateAmountPerInterval());
+            PercentPerInterval = (double)(percentPerInterval != null ? percentPerInterval : CalculatePercentPerInterval());
         }
 
         public decimal CalculateCurrentPrice()
         {
-            return StartingPrice; // TODO
+            if (StartDecreasingAt > DateTime.Now)
+            {
+                return StartingPrice;
+            }
+
+            int intervalCount = (int)((DateTime.Now - StartDecreasingAt) / IntervalTime);
+            decimal priceDecrease = intervalCount * AmountPerInterval;
+
+            return StartingPrice - priceDecrease;
+        }
+
+        private decimal CalculateAmountPerInterval()
+        {
+            return StartingPrice * (decimal)PercentPerInterval / 100;
+        }
+
+        private double CalculatePercentPerInterval()
+        {
+            return decimal.ToDouble(AmountPerInterval * 100 / StartingPrice);
         }
     }
 }
