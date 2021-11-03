@@ -103,14 +103,16 @@ namespace Services.Services
 
             var types = GetValidTypesOfFood(food.TypesOfFood);
 
-            Food newFood = new Food
-            {
-                Name = food.Name,
-                StartingPrice = food.StartingPrice,
-                Id = id,
-                IdRestaurant = food.IdRestaurant,
-                TypesOfFood = types
-            };
+            Food newFood = new Food(
+                id,
+                food.Name,
+                food.StartingPrice,
+                food.IdRestaurant,
+                types,
+                food.IntervalTime,
+                startDecreasingAt: food.StartDecreasingAt,
+                amountPerInterval: food.AmountPerInterval,
+                percentPerInterval: food.PercentPerInterval);
 
             _foodRepository.Add(newFood);
             return id;

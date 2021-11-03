@@ -14,9 +14,6 @@ namespace Domain.Entities
         public decimal AmountPerInterval { get; set; }
         public double PercentPerInterval { get; set; }
 
-
-        public Food() : base() { }
-
         public Food
         (
             string id,
