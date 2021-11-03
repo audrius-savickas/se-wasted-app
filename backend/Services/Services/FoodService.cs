@@ -106,7 +106,7 @@ namespace Services.Services
             Food newFood = new Food
             {
                 Name = food.Name,
-                Price = food.Price,
+                StartingPrice = food.StartingPrice,
                 Id = id,
                 IdRestaurant = food.IdRestaurant,
                 TypesOfFood = types
