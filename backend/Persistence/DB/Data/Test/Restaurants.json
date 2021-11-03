@@ -37,8 +37,8 @@
   },
   {
     "Coords": {
-      "Longitude": 789.123,
-      "Latitude": 123.789
+      "Longitude": 22,
+      "Latitude": 31
     },
     "Credentials": {
       "Mail": { "Value": "VeroCafe@gmail.com" },
@@ -49,8 +49,8 @@
   },
   {
     "Coords": {
-      "Longitude": 456,
-      "Latitude": 654
+      "Longitude": 12,
+      "Latitude": 65
     },
     "Credentials": {
       "Mail": { "Value": "coffee@gmail.com" },
@@ -61,8 +61,8 @@
   },
   {
     "Coords": {
-      "Longitude": 123456789,
-      "Latitude": 987654321
+      "Longitude": 12,
+      "Latitude": 9
     },
     "Credentials": {
       "Mail": { "Value": "pizza@pizzaMail.co.uk" },
@@ -73,8 +73,8 @@
   },
   {
     "Coords": {
-      "Longitude": 78954,
-      "Latitude": 65478
+      "Longitude": 78,
+      "Latitude": 65
     },
     "Credentials": {
       "Mail": { "Value": "kebabai@kebabai.lt" },
@@ -85,8 +85,8 @@
   },
   {
     "Coords": {
-      "Longitude": 80085,
-      "Latitude": 65421
+      "Longitude": 80,
+      "Latitude": 65
     },
     "Credentials": {
       "Mail": { "Value": "beer@mail.lt" },
