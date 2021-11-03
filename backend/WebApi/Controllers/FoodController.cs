@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 
 namespace WebApi.Controllers
@@ -25,13 +26,14 @@ namespace WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Food>))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
         public IActionResult GetAll()
         {
-            var foods = _foodService.GetAllFood();
-            foods ??= new List<Food>();
+            var foodsResp = _foodService.GetAllFood().Select(food => FoodResponse.FromEntity(food)).ToList();
 
-            return Ok(foods);
+            foodsResp ??= new List<FoodResponse>();
+
+            return Ok(foodsResp);
         }
 
         /// <summary>
@@ -40,13 +42,13 @@ namespace WebApi.Controllers
         /// <param name="id"> Id of food item. </param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Food>))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(FoodResponse))]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public IActionResult GetById(string id)
         {
-            var food = _foodService.GetFoodById(id);
+            var foodResp = FoodResponse.FromEntity(_foodService.GetFoodById(id));
 
-            return food != null ? Ok(food) : NotFound();
+            return foodResp != null ? Ok(foodResp) : NotFound();
         }
 
         /// <summary>
