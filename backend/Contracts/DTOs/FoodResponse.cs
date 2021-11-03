@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace Contracts.DTOs
 {
-    public class FoodResponse
+    public class FoodResponse : BaseDto
     {
+        private FoodResponse(string id, string name) : base(id, name)
+        {
+        }
+
         public decimal StartingPrice { get; set; }
         public decimal CurrentPrice { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -23,7 +27,7 @@ namespace Contracts.DTOs
         {
             _ = food ?? throw new ArgumentNullException(nameof(food));
 
-            return new FoodResponse
+            return new FoodResponse(food.Id, food.Name)
             {
                 StartingPrice = food.StartingPrice,
                 CurrentPrice = food.CalculateCurrentPrice(),
