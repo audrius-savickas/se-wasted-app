@@ -15,7 +15,7 @@ namespace Contracts.DTOs
         public string IdRestaurant { get; set; }
         public virtual IEnumerable<TypeOfFood> TypesOfFood { get; set; }
         public DateTime StartDecreasingAt { get; set; }
-        public TimeSpan IntervalTime { get; set; }
+        public double IntervalTimeInMinutes { get; set; }
         public decimal AmountPerInterval { get; set; }
         public double PercentPerInterval { get; set; }
 
@@ -31,7 +31,7 @@ namespace Contracts.DTOs
                 IdRestaurant = food.IdRestaurant,
                 TypesOfFood = food.TypesOfFood,
                 StartDecreasingAt = food.StartDecreasingAt,
-                IntervalTime = food.IntervalTime,
+                IntervalTimeInMinutes = food.IntervalTimeInMinutes,
                 AmountPerInterval = food.AmountPerInterval,
                 PercentPerInterval = food.PercentPerInterval,
             };

@@ -10,7 +10,7 @@ namespace Domain.Entities
         public string IdRestaurant { get; set; }
         public virtual IEnumerable<TypeOfFood> TypesOfFood { get; set; }
         public DateTime StartDecreasingAt { get; set; }
-        public TimeSpan IntervalTime { get; set; }
+        public double IntervalTimeInMinutes { get; set; }
         public decimal AmountPerInterval { get; set; }
         public double PercentPerInterval { get; set; }
 
@@ -21,7 +21,7 @@ namespace Domain.Entities
             decimal startingPrice,
             string idRestaurant,
             IEnumerable<TypeOfFood> typesOfFood,
-            TimeSpan intervalTime,
+            double intervalTimeInMinutes,
             DateTime? createdAt = null,
             DateTime? startDecreasingAt = null,
             decimal? amountPerInterval = null,
@@ -34,7 +34,7 @@ namespace Domain.Entities
             IdRestaurant = idRestaurant;
             TypesOfFood = typesOfFood;
             StartDecreasingAt = startDecreasingAt ?? CreatedAt;
-            IntervalTime = intervalTime;
+            IntervalTimeInMinutes = intervalTimeInMinutes;
             
             if (amountPerInterval == null && percentPerInterval == null)
             {
@@ -44,9 +44,16 @@ namespace Domain.Entities
             {
                 throw new ArgumentException("Cannot pick both types of price decrease at the same time.");
             }
-
-            AmountPerInterval = (decimal)(amountPerInterval != null ? amountPerInterval : CalculateAmountPerInterval());
-            PercentPerInterval = (double)(percentPerInterval != null ? percentPerInterval : CalculatePercentPerInterval());
+            else if (amountPerInterval != null)
+            {
+                AmountPerInterval = (decimal)amountPerInterval;
+                PercentPerInterval = CalculatePercentPerInterval();
+            }
+            else if (percentPerInterval != null)
+            {
+                PercentPerInterval = (double)percentPerInterval;
+                AmountPerInterval = CalculateAmountPerInterval();
+            }
         }
 
         public decimal CalculateCurrentPrice()
@@ -56,7 +63,7 @@ namespace Domain.Entities
                 return StartingPrice;
             }
 
-            int intervalCount = (int)((DateTime.Now - StartDecreasingAt) / IntervalTime);
+            int intervalCount = (int)((DateTime.Now - StartDecreasingAt) / TimeSpan.FromMinutes(IntervalTimeInMinutes));
             decimal priceDecrease = intervalCount * AmountPerInterval;
 
             return StartingPrice - priceDecrease;

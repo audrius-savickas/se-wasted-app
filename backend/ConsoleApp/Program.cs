@@ -54,7 +54,7 @@ namespace ConsoleApp
                 15,
                 "0",
                 new List<TypeOfFood>(),
-                new TimeSpan(0, 0, 0, 0, 100),
+                1 / 60.0,
                 //amountPerInterval:1,
                 percentPerInterval: 1);
 

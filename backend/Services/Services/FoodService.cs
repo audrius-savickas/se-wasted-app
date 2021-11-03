@@ -109,7 +109,7 @@ namespace Services.Services
                 food.StartingPrice,
                 food.IdRestaurant,
                 types,
-                food.IntervalTime,
+                food.IntervalTimeInMinutes,
                 startDecreasingAt: food.StartDecreasingAt,
                 amountPerInterval: food.AmountPerInterval,
                 percentPerInterval: food.PercentPerInterval);
