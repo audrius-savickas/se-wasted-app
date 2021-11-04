@@ -109,7 +109,8 @@ namespace Services.Services
                 Price = food.Price,
                 Id = id,
                 IdRestaurant = food.IdRestaurant,
-                TypesOfFood = types
+                TypesOfFood = types,
+                ImageURL = food.ImageURL
             };
 
             _foodRepository.Add(newFood);
