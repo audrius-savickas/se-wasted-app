@@ -10,9 +10,15 @@ namespace Domain.Entities
         public string IdRestaurant { get; set; }
         public virtual IEnumerable<TypeOfFood> TypesOfFood { get; set; }
         public DateTime StartDecreasingAt { get; set; }
+        public string DecreaseType { get; set; }
         public double IntervalTimeInMinutes { get; set; }
         public decimal AmountPerInterval { get; set; }
         public double PercentPerInterval { get; set; }
+
+        private const string AMOUNT_STR = "AMOUNT";
+        private const string PERCENT_STR = "PERCENT";
+
+        public Food() : base() { }
 
         public Food
         (
@@ -22,6 +28,7 @@ namespace Domain.Entities
             string idRestaurant,
             IEnumerable<TypeOfFood> typesOfFood,
             double intervalTimeInMinutes,
+            string decreaseType,
             DateTime? createdAt = null,
             DateTime? startDecreasingAt = null,
             decimal? amountPerInterval = null,
@@ -35,21 +42,26 @@ namespace Domain.Entities
             TypesOfFood = typesOfFood;
             StartDecreasingAt = startDecreasingAt ?? CreatedAt;
             IntervalTimeInMinutes = intervalTimeInMinutes;
-            
-            if (amountPerInterval == null && percentPerInterval == null)
+            DecreaseType = decreaseType;
+
+            if (decreaseType != AMOUNT_STR && decreaseType != PERCENT_STR)
             {
-                throw new ArgumentException("Both decrease amount and percent cannot be null.");
-            } 
-            else if (amountPerInterval != null && percentPerInterval != null)
-            {
-                throw new ArgumentException("Cannot pick both types of price decrease at the same time.");
+                throw new ArgumentException("Invalid price decrease type.");
             }
-            else if (amountPerInterval != null)
+            else if (decreaseType == AMOUNT_STR && amountPerInterval == null)
+            {
+                throw new ArgumentNullException(nameof(amountPerInterval));
+            }
+            else if (decreaseType == PERCENT_STR && percentPerInterval == null)
+            {
+                throw new ArgumentNullException(nameof(percentPerInterval));
+            }
+            else if (decreaseType == AMOUNT_STR)
             {
                 AmountPerInterval = (decimal)amountPerInterval;
                 PercentPerInterval = CalculatePercentPerInterval();
             }
-            else if (percentPerInterval != null)
+            else if (decreaseType == PERCENT_STR)
             {
                 PercentPerInterval = (double)percentPerInterval;
                 AmountPerInterval = CalculateAmountPerInterval();
@@ -64,7 +76,16 @@ namespace Domain.Entities
             }
 
             int intervalCount = (int)((DateTime.Now - StartDecreasingAt) / TimeSpan.FromMinutes(IntervalTimeInMinutes));
-            decimal priceDecrease = intervalCount * AmountPerInterval;
+
+            decimal priceDecrease = 0;
+            if (DecreaseType == AMOUNT_STR)
+            {
+                priceDecrease = intervalCount * AmountPerInterval;
+            }
+            else if (DecreaseType == PERCENT_STR)
+            {
+                priceDecrease = StartingPrice * (decimal)(PercentPerInterval / 100) * intervalCount;
+            }
 
             return StartingPrice - priceDecrease;
         }
