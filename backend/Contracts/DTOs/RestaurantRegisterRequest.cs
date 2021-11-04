@@ -15,12 +15,17 @@ namespace Contracts.DTOs
 
         public string Address { get; set; }
 
+        public string ImageURL { get; set; }
 
-        public RestaurantRegisterRequest(string name, string address, Coords coords)
+        private const string DEFAULT_IMAGE_URL = "todo";
+
+
+        public RestaurantRegisterRequest(string name, string address, Coords coords, string? imageURL = null)
         {
             Name = name;
             Address = address;
             Coords = coords;
+            ImageURL = imageURL ?? DEFAULT_IMAGE_URL;
         }
     }
 }
