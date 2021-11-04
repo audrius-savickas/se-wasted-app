@@ -1,7 +1,25 @@
 [
   {
-    "Price": 9.25,
-    "CreatedAt": "2008-06-12T00:00:00",
+    "StartingPrice": 15,
+    "IdRestaurant": "0",
+    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": "PERCENT",
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
+    "TypesOfFood": [],
+    "Id": "TuZfzHOb",
+    "Name": "food name"
+  },
+  {
+    "StartingPrice": 9.25,
+    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": "PERCENT",
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "IdRestaurant": "0",
     "TypesOfFood": [
       {
@@ -13,8 +31,13 @@
     "Name": "Saltibarsciai"
   },
   {
-    "Price": 13.00,
-    "CreatedAt": "2008-06-12T00:00:00",
+    "StartingPrice": 13.00,
+    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": "PERCENT",
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "IdRestaurant": "0",
     "TypesOfFood": [
       {
@@ -26,8 +49,13 @@
     "Name": "Cepelinai"
   },
   {
-    "Price": 10.69,
-    "CreatedAt": "2008-06-12T00:00:00",
+    "StartingPrice": 10.69,
+    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": "PERCENT",
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "IdRestaurant": "0",
     "TypesOfFood": [
       {
@@ -39,8 +67,13 @@
     "Name": "Kijevo kotletas"
   },
   {
-    "Price": 11.00,
-    "CreatedAt": "2008-06-12T00:00:00",
+    "StartingPrice": 11.00,
+    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": "PERCENT",
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "IdRestaurant": "0",
     "TypesOfFood": [
       {
@@ -52,8 +85,13 @@
     "Name": "Zemaiciu blynai"
   },
   {
-    "Price": 4.00,
-    "CreatedAt": "2008-06-12T00:00:00",
+    "StartingPrice": 4.00,
+    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": "PERCENT",
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "IdRestaurant": "0",
     "TypesOfFood": [
       {
@@ -65,8 +103,13 @@
     "Name": "Dark Beer"
   },
   {
-    "Price": 3.00,
-    "CreatedAt": "2008-06-12T00:00:00",
+    "StartingPrice": 3.00,
+    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": "PERCENT",
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "IdRestaurant": "0",
     "TypesOfFood": [
       {
@@ -78,8 +121,13 @@
     "Name": "Light Beer"
   },
   {
-    "Price": 6.00,
-    "CreatedAt": "2008-06-12T00:00:00",
+    "StartingPrice": 6.00,
+    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": "PERCENT",
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "IdRestaurant": "2",
     "TypesOfFood": [
       {
@@ -91,8 +139,13 @@
     "Name": "Fried Chicken"
   },
   {
-    "Price": 2.00,
-    "CreatedAt": "2008-06-12T00:00:00",
+    "StartingPrice": 2.00,
+    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": "PERCENT",
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "IdRestaurant": "2",
     "TypesOfFood": [
       {
@@ -104,8 +157,13 @@
     "Name": "CocaCola"
   },
   {
-    "Price": 5.00,
-    "CreatedAt": "2008-06-12T00:00:00",
+    "StartingPrice": 5.00,
+    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": "PERCENT",
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "IdRestaurant": "2",
     "TypesOfFood": [
       {
@@ -117,8 +175,13 @@
     "Name": "Chicken Burger"
   },
   {
-    "Price": 2.00,
-    "CreatedAt": "2008-06-12T00:00:00",
+    "StartingPrice": 2.00,
+    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": "PERCENT",
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "IdRestaurant": "2",
     "TypesOfFood": [
       {
@@ -130,8 +193,13 @@
     "Name": "Sprite"
   },
   {
-    "Price": 4.00,
-    "CreatedAt": "2008-06-12T00:00:00",
+    "StartingPrice": 4.00,
+    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": "PERCENT",
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "IdRestaurant": "2",
     "TypesOfFood": [
       {
@@ -143,8 +211,13 @@
     "Name": "Chicken Wrap"
   },
   {
-    "Price": 1,
-    "CreatedAt": "0001-01-01T00:00:00",
+    "StartingPrice": 1,
+    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": "PERCENT",
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "IdRestaurant": "0",
     "TypesOfFood": [
       {

@@ -49,21 +49,7 @@ namespace ConsoleApp
             );
 
             // Usage
-            Food food = new Food("id",
-                "food name",
-                15,
-                "0",
-                new List<TypeOfFood>(),
-                1 / 60.0,
-                //amountPerInterval:1,
-                percentPerInterval: 1);
-
-            Thread.Sleep(2500);
-
-            var foodResp = FoodResponse.FromEntity(food);
-
-            string jsonString = JsonSerializer.Serialize(foodResp);
-            Console.WriteLine(jsonString);
+            
         }
     }
 }
