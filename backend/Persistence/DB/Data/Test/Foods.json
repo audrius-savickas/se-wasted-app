@@ -77,9 +77,9 @@
       }
     ],
     "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 0,
+    "DecreaseType": 1,
     "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.15,
+    "AmountPerInterval": 0.05,
     "PercentPerInterval": 1,
     "Id": "3",
     "Name": "Zemaiciu blynai"
@@ -95,9 +95,9 @@
       }
     ],
     "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 0,
+    "DecreaseType": 1,
     "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.15,
+    "AmountPerInterval": 0.05,
     "PercentPerInterval": 1,
     "Id": "4",
     "Name": "Dark Beer"
@@ -113,9 +113,9 @@
       }
     ],
     "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 0,
+    "DecreaseType": 1,
     "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.15,
+    "AmountPerInterval": 0.05,
     "PercentPerInterval": 1,
     "Id": "5",
     "Name": "Light Beer"
@@ -131,9 +131,9 @@
       }
     ],
     "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 0,
+    "DecreaseType": 1,
     "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.15,
+    "AmountPerInterval": 0.05,
     "PercentPerInterval": 1,
     "Id": "6",
     "Name": "Fried Chicken"
@@ -149,9 +149,9 @@
       }
     ],
     "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 0,
+    "DecreaseType": 1,
     "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.15,
+    "AmountPerInterval": 0.05,
     "PercentPerInterval": 1,
     "Id": "7",
     "Name": "CocaCola"
