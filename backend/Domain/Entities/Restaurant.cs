@@ -17,13 +17,13 @@ namespace Domain.Entities
 
         public Restaurant() : base() { }
 
-        public Restaurant(string id, string name, string address, Coords coords, Credentials credentials, string? imageURL = null)
+        public Restaurant(string id, string name, string address, Coords coords, Credentials credentials, string imageURL = DEFAULT_IMAGE_URL)
             : base(id, name)
         {
             Address = address;
             Coords = coords ?? throw new ArgumentNullException(nameof(coords));
             Credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
-            ImageURL = imageURL ?? DEFAULT_IMAGE_URL;
+            ImageURL = imageURL;
         }
 
         public bool IsNear(Coords coords)

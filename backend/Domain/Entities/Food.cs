@@ -23,13 +23,13 @@ namespace Domain.Entities
             string idRestaurant,
             IEnumerable<TypeOfFood> typesOfFood,
             DateTime? createdAt = null,
-            string? imageURL = null
+            string imageURL = DEFAULT_IMAGE_URL
         )
             : base(id, name)
         {
             Price = price;
             CreatedAt = createdAt ?? DateTime.Now;
-            ImageURL = imageURL ?? DEFAULT_IMAGE_URL;
+            ImageURL = imageURL;
             IdRestaurant = idRestaurant;
             TypesOfFood = typesOfFood;
         }
