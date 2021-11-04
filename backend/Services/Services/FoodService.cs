@@ -99,23 +99,12 @@ namespace Services.Services
                 throw new Exception("Invalid restaurant id.");
             }
             // Generate id for food item
-            string id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+            food.Id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
 
-            var types = GetValidTypesOfFood(food.TypesOfFood);
+            food.TypesOfFood = GetValidTypesOfFood(food.TypesOfFood);
 
-            Food newFood = new Food(
-                id,
-                food.Name,
-                food.StartingPrice,
-                food.IdRestaurant,
-                types,
-                food.IntervalTimeInMinutes,
-                startDecreasingAt: food.StartDecreasingAt,
-                amountPerInterval: food.AmountPerInterval,
-                percentPerInterval: food.PercentPerInterval);
-
-            _foodRepository.Add(newFood);
-            return id;
+            _foodRepository.Add(food);
+            return food.Id;
         }
 
         private IEnumerable<TypeOfFood> GetValidTypesOfFood(IEnumerable<TypeOfFood> types)
