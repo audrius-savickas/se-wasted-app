@@ -25,7 +25,7 @@ export const FoodInfo = ({food, imageUrl}: FoodInfoProps) => {
         <Text text30M purple20 marginT-s2 marginB-s1>
           {name}
         </Text>
-        <View row>
+        <View row centerH style={{flexWrap: "wrap"}}>
           {typesOfFood.map(type => (
             <Chip margin-s1 key={type.id} label={type.name} />
           ))}
