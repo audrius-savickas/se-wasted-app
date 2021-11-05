@@ -6,6 +6,7 @@ import {getAllRestaurants} from "../../../api"
 import {Restaurant} from "../../../api/interfaces"
 import {RestaurantsList} from "../../../components/restaurants-list"
 import {setHomeRoot} from "../../../services/navigation"
+import {HOME_BUTTON} from "../home-button"
 import {RestaurantListProps} from "./interfaces"
 
 export const RestaurantList = ({componentId}: RestaurantListProps) => {
@@ -19,6 +20,7 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
   }
 
   useEffect(() => {
+    Navigation.mergeOptions(componentId, {topBar: {leftButtons: [HOME_BUTTON]}})
     fetchRestaurants()
     const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
       if (buttonId === "GO_BACK") {

@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
-import {Image, Text, View} from "react-native-ui-lib"
+import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getAllRestaurants} from "../../../api"
 import {Restaurant} from "../../../api/interfaces"
+import {navigateToRestaurantInfo} from "../../../services/navigation"
 import {HorizontalList} from "../../horizontal-list"
+import {PopularRestaurantsProps} from "./interfaces"
 
-export const PopularRestaurants = () => {
+export const PopularRestaurants = ({componentId}: PopularRestaurantsProps) => {
   const [restaurants, setRestaurants] = useState([] as Restaurant[])
 
   const fetchRestaurants = async () => {
@@ -13,7 +15,16 @@ export const PopularRestaurants = () => {
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Restaurant>) => (
-    <View margin-s1 centerH>
+    <TouchableOpacity
+      margin-s1
+      centerH
+      onPress={() =>
+        navigateToRestaurantInfo(componentId, {
+          imageUrl: "https://g2.dcdn.lt/images/pix/kfc-siauliuose-87245359.jpg",
+          restaurant: item
+        })
+      }
+    >
       <Image
         source={{
           uri: `https://media.istockphoto.com/photos/closeup-mcdonalds-outdoor-sign-against-blue-sky-picture-id458546943?k=20&m=458546943&s=612x612&w=0&h=G7fU8lNJh50I-Ou_ocB8XE5s_jpphKO0wNPy_5OxOkc=`,
@@ -22,7 +33,7 @@ export const PopularRestaurants = () => {
         }}
       />
       <Text marginT-s1>{item.name}</Text>
-    </View>
+    </TouchableOpacity>
   )
 
   useEffect(() => {
