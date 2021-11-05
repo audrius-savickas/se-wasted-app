@@ -139,6 +139,10 @@
     "ImageURL": "http://www.goingcavewoman.com/wp-content/uploads/2013/04/Drip-doughnut-1200.jpg",
     "TypesOfFood": [
       {
+        "Id": "1",
+        "Name": "Fast food"
+      },
+      {
         "Id": "4",
         "Name": "Pastry"
       }
@@ -157,6 +161,10 @@
     "IdRestaurant": "H6\u002BmLxBY",
     "ImageURL": "https://assets.epicurious.com/photos/54b0226d766062b20344580a/master/pass/51160200_glazed-doughnuts_1x1.jpg",
     "TypesOfFood": [
+      {
+        "Id": "1",
+        "Name": "Fast food"
+      },
       {
         "Id": "4",
         "Name": "Pastry"
@@ -228,38 +236,7 @@
     "Name": "Cookie"
   },
   {
-    "StartingPrice": 1,
-    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
-    "IdRestaurant": "pt953XaT",
-    "ImageURL": "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg",
-    "TypesOfFood": [
-      {
-        "Id": "0",
-        "Name": "Unclassified"
-      },
-      {
-        "Id": "1",
-        "Name": "Fast food"
-      },
-      {
-        "Id": "2",
-        "Name": "Traditional food"
-      },
-      {
-        "Id": "3",
-        "Name": "Drink"
-      }
-    ],
-    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 0,
-    "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.15,
-    "PercentPerInterval": 1,
-    "Id": "test",
-    "Name": "test food item"
-  },
-  {
-    "StartingPrice": 0,
+    "StartingPrice": 5,
     "CreatedAt": "2021-11-04T09:59:21.56Z",
     "IdRestaurant": "pt953XaT",
     "ImageURL": "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg",
@@ -275,41 +252,6 @@
     "AmountPerInterval": 0,
     "PercentPerInterval": 0,
     "Id": "5V0H438R",
-    "Name": "test food 1"
-  },
-  {
-    "StartingPrice": 90,
-    "CreatedAt": "2021-11-05T20:15:45.5381929+02:00",
-    "IdRestaurant": "pt953XaT",
-    "ImageURL": "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg",
-    "TypesOfFood": [
-      {
-        "Id": "0",
-        "Name": "Unclassified"
-      },
-      {
-        "Id": "1",
-        "Name": "Fast food"
-      },
-      {
-        "Id": "2",
-        "Name": "Traditional food"
-      },
-      {
-        "Id": "3",
-        "Name": "Drink"
-      },
-      {
-        "Id": "4",
-        "Name": "Pastry"
-      }
-    ],
-    "StartDecreasingAt": "2021-11-05T20:15:45.5381929+02:00",
-    "DecreaseType": 0,
-    "IntervalTimeInMinutes": 1,
-    "AmountPerInterval": 1,
-    "PercentPerInterval": 1.1111111111111112,
-    "Id": "39jNAEwn",
-    "Name": "xd"
+    "Name": "Blynai"
   }
 ]
