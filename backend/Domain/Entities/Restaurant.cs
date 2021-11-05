@@ -10,15 +10,20 @@ namespace Domain.Entities
         public string Address { get; set; }
 
         public Credentials Credentials { get; set; }
+        
+        public string ImageURL { get; set; }
+
+        private const string DEFAULT_IMAGE_URL = "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg";
 
         public Restaurant() : base() { }
 
-        public Restaurant(string id, string name, string address, Coords coords, Credentials credentials)
+        public Restaurant(string id, string name, string address, Coords coords, Credentials credentials, string imageURL = DEFAULT_IMAGE_URL)
             : base(id, name)
         {
             Address = address;
             Coords = coords ?? throw new ArgumentNullException(nameof(coords));
             Credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
+            ImageURL = imageURL;
         }
 
         public bool IsNear(Coords coords)

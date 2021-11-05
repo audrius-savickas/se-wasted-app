@@ -3,6 +3,7 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 
 namespace WebApi.Controllers
@@ -133,10 +134,10 @@ namespace WebApi.Controllers
         /// <param name="id">Identifies the restaurant</param>
         /// <returns></returns>
         [HttpGet("{id}/food",Name = nameof(GetAllFoodFromRestaurant))]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Food>))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
         public IActionResult GetAllFoodFromRestaurant(string id)
         {
-            var foods = _restaurantService.GetAllFoodFromRestaurant(id);
+            var foods = _restaurantService.GetAllFoodFromRestaurant(id).Select(food => FoodResponse.FromEntity(food));
 
             return Ok(foods);
         }

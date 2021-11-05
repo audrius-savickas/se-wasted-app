@@ -9,17 +9,23 @@ namespace Contracts.DTOs
 
         public string Address { get; set; }
 
+        public string ImageURL { get; set; }
+
+        private const string DEFAULT_IMAGE_URL = "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg";
+
         public RestaurantDto
         (
             string id,
             string name,
             string address,
-            Coords coords
+            Coords coords,
+            string imageURL = DEFAULT_IMAGE_URL
         )
             : base(id, name)
         {
             Address = address;
             Coords = coords ?? throw new ArgumentNullException(nameof(coords));
+            ImageURL = imageURL;
         }
 
         public static RestaurantDto FromEntity(Restaurant restaurant)
@@ -31,7 +37,8 @@ namespace Contracts.DTOs
                 restaurant.Id,
                 restaurant.Name,
                 restaurant.Address,
-                restaurant.Coords
+                restaurant.Coords,
+                restaurant.ImageURL
             );
         }
     }

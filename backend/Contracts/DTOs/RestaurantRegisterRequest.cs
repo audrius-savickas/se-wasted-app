@@ -15,12 +15,17 @@ namespace Contracts.DTOs
 
         public string Address { get; set; }
 
+        public string ImageURL { get; set; }
 
-        public RestaurantRegisterRequest(string name, string address, Coords coords)
+        private const string DEFAULT_IMAGE_URL = "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg";
+
+
+        public RestaurantRegisterRequest(string name, string address, Coords coords, string imageURL = DEFAULT_IMAGE_URL)
         {
             Name = name;
             Address = address;
             Coords = coords;
+            ImageURL = imageURL;
         }
     }
 }

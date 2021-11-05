@@ -22,7 +22,10 @@ In order to run the mobile application, we need to setup some tools first. The i
 2. Clone this repository.
 3. `cd se-wasted-app/frontend/wasted-app` to navigate to frontend source directory.
 4. `npm install` to install the dependencies to your local `node_modules` directory.
-5. `npm run start` to open Metro server, which bundles the application and opens it on iOS or Android simulator (it also allows to run the app on your physical device).
+   1. FOR IOS DEVELOPMENT: `cd ios && pod install && cd ..`
+5. `npm run android` for Android development / `npm run ios` for iOS development to build the app and automatically open the Metro bundler.
+   <br>OR
+6. `npm run start` to open Metro server, which bundles the application and allows you to run the app on on your physical/emulated device. Keep in mind that you need to have the development app already installed on the device for the bundler to work. (with this command you can also run the app on your physical device)
 
 ## Backend
 

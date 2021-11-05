@@ -55,6 +55,7 @@ namespace Services.Services
             {
                 throw new Exception("Invalid food id.");
             }
+            ValidateDecreaseType(updatedFood.DecreaseType);
 
             updatedFood.TypesOfFood = GetValidTypesOfFood(updatedFood.TypesOfFood);
 
@@ -93,27 +94,20 @@ namespace Services.Services
 
         public string RegisterFood(Food food)
         {
+            ValidateDecreaseType(food.DecreaseType);
+
             // Check if restaurant is valid
             if (_restaurantRepository.GetById(food.IdRestaurant) == null)
             {
                 throw new Exception("Invalid restaurant id.");
             }
             // Generate id for food item
-            string id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+            food.Id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
 
-            var types = GetValidTypesOfFood(food.TypesOfFood);
+            food.TypesOfFood = GetValidTypesOfFood(food.TypesOfFood);
 
-            Food newFood = new Food
-            {
-                Name = food.Name,
-                Price = food.Price,
-                Id = id,
-                IdRestaurant = food.IdRestaurant,
-                TypesOfFood = types
-            };
-
-            _foodRepository.Add(newFood);
-            return id;
+            _foodRepository.Add(food);
+            return food.Id;
         }
 
         private IEnumerable<TypeOfFood> GetValidTypesOfFood(IEnumerable<TypeOfFood> types)
@@ -127,6 +121,14 @@ namespace Services.Services
             var validTypes = _typeOfFoodRepository.GetAll().Where(x => typeIds.Contains(x.Id));
 
             return validTypes;
+        }
+
+        private void ValidateDecreaseType(object value)
+        {
+            if (Enum.IsDefined(typeof(DecreaseType), value) == false)
+            {
+                throw new ArgumentException("Invalid price decrease type.");
+            }
         }
     }
 }
