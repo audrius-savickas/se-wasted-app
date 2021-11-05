@@ -244,6 +244,22 @@
       {
         "Id": "0",
         "Name": "Unclassified"
+      },
+      {
+        "Id": "1",
+        "Name": "Fast food"
+      },
+      {
+        "Id": "2",
+        "Name": "Traditional food"
+      },
+      {
+        "Id": "3",
+        "Name": "Drink"
+      },
+      {
+        "Id": "4",
+        "Name": "Pastry"
       }
     ],
     "StartDecreasingAt": "2021-11-04T09:59:21.56Z",
