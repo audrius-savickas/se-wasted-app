@@ -5,10 +5,15 @@ namespace Domain.Entities
 {
     public class Food : BaseEntity
     {
-        public decimal Price { get; set; }
+        public decimal StartingPrice { get; set; }
         public DateTime CreatedAt { get; set; }
         public string IdRestaurant { get; set; }
         public virtual IEnumerable<TypeOfFood> TypesOfFood { get; set; }
+        public DateTime StartDecreasingAt { get; set; }
+        public DecreaseType DecreaseType { get; set; }
+        public double IntervalTimeInMinutes { get; set; }
+        public decimal AmountPerInterval { get; set; }
+        public double PercentPerInterval { get; set; }
 
         public Food() : base() { }
 
@@ -16,17 +21,93 @@ namespace Domain.Entities
         (
             string id,
             string name,
-            decimal price,
+            decimal startingPrice,
             string idRestaurant,
             IEnumerable<TypeOfFood> typesOfFood,
-            DateTime? createdAt = null
+            double intervalTimeInMinutes,
+            DecreaseType decreaseType,
+            DateTime? createdAt = null,
+            DateTime? startDecreasingAt = null,
+            decimal? amountPerInterval = null,
+            double? percentPerInterval = null
         )
             : base(id, name)
         {
-            Price = price;
+            StartingPrice = startingPrice;
             CreatedAt = createdAt ?? DateTime.Now;
             IdRestaurant = idRestaurant;
             TypesOfFood = typesOfFood;
+            StartDecreasingAt = startDecreasingAt ?? CreatedAt;
+            IntervalTimeInMinutes = intervalTimeInMinutes;
+            DecreaseType = decreaseType;
+
+            ValidatePriceDecrease(decreaseType, percentPerInterval, amountPerInterval);
+
+            switch (decreaseType)
+            {
+                case DecreaseType.AMOUNT:
+                    AmountPerInterval = (decimal)amountPerInterval;
+                    PercentPerInterval = CalculatePercentPerInterval();
+                    break;
+                case DecreaseType.PERCENT:
+                    PercentPerInterval = (double)percentPerInterval;
+                    AmountPerInterval = CalculateAmountPerInterval();
+                    break;
+            }
         }
+
+        public decimal CalculateCurrentPrice()
+        {
+            if (StartDecreasingAt > DateTime.Now)
+            {
+                return StartingPrice;
+            }
+
+            int intervalCount = (int)((DateTime.Now - StartDecreasingAt) / TimeSpan.FromMinutes(IntervalTimeInMinutes));
+
+            decimal priceDecrease = 0;
+            if (DecreaseType == DecreaseType.AMOUNT)
+            {
+                priceDecrease = intervalCount * AmountPerInterval;
+            }
+            else if (DecreaseType == DecreaseType.PERCENT)
+            {
+                priceDecrease = StartingPrice * (decimal)(PercentPerInterval / 100) * intervalCount;
+            }
+
+            return StartingPrice - priceDecrease;
+        }
+
+        private void ValidatePriceDecrease(DecreaseType type, double? percent, decimal? amount)
+        {
+            if (type != DecreaseType.AMOUNT && type != DecreaseType.PERCENT)
+            {
+                throw new ArgumentException("Invalid price decrease type.");
+            }
+            else if (type == DecreaseType.AMOUNT && amount == null)
+            {
+                throw new ArgumentNullException(nameof(amount));
+            }
+            else if (type == DecreaseType.PERCENT && percent == null)
+            {
+                throw new ArgumentNullException(nameof(percent));
+            }
+        }
+
+        private decimal CalculateAmountPerInterval()
+        {
+            return StartingPrice * (decimal)PercentPerInterval / 100;
+        }
+
+        private double CalculatePercentPerInterval()
+        {
+            return decimal.ToDouble(AmountPerInterval * 100 / StartingPrice);
+        }
+    }
+
+    public enum DecreaseType
+    {
+        AMOUNT,
+        PERCENT
     }
 }

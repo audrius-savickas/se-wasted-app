@@ -7,7 +7,7 @@ namespace Domain.Entities
     {   
         public static IEnumerable<Food> SortByPrice(this IEnumerable<Food> list)
         {
-            return list.OrderBy(x => x.Price);
+            return list.OrderBy(x => x.StartingPrice);
         }
 
         public static IEnumerable<Food> SortByNew(this IEnumerable<Food> list)
@@ -17,7 +17,7 @@ namespace Domain.Entities
 
         public static IEnumerable<Food> SortByPriceReverse(this IEnumerable<Food> list)
         {
-            return list.OrderByDescending(x => x.Price);
+            return list.OrderByDescending(x => x.StartingPrice);
         }
 
         public static IEnumerable<Food> SortByNewReverse(this IEnumerable<Food> list)
