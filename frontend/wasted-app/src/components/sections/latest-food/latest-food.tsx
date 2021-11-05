@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
 import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getAllFood} from "../../../api/food"
-import {Food, Restaurant} from "../../../api/interfaces"
+import {Food} from "../../../api/interfaces"
 import {showFoodInfoModal} from "../../../services/navigation"
-import {timeAgo, timeAgoFull} from "../../../utils/date"
+import {timeAgo} from "../../../utils/date"
 import {HorizontalList} from "../../horizontal-list"
 
 export const LatestFood = () => {
