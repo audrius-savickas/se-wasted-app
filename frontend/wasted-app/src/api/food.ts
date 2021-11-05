@@ -16,6 +16,7 @@ export const getAllFood = async (): Promise<Food[]> => {
   try {
     const response = await fetch(`${WASTED_SERVER_URL}/Food`)
     const data = await response.json()
+    console.log(data)
     return data
   } catch (error) {
     console.error(error)

@@ -1,5 +1,6 @@
 import {Navigation} from "react-native-navigation"
 import {screenNames} from "./src/screenNames"
+import {FoodInfo} from "./src/screens/food-info"
 import {Home} from "./src/screens/home"
 import {RestaurantLogin} from "./src/screens/restaurant-login"
 import {RestaurantRegistration} from "./src/screens/restaurant-login/restaurant-registration"
@@ -19,6 +20,7 @@ Navigation.registerComponent(screenNames.RESTAURANT_LOGIN, () => RestaurantLogin
 Navigation.registerComponent(screenNames.RESTAURANT_REGISTRATION, () => RestaurantRegistration)
 Navigation.registerComponent(screenNames.RESTAURANT_FOOD, () => Food)
 Navigation.registerComponent(screenNames.RESTAURANT_PROFILE, () => Profile)
+Navigation.registerComponent(screenNames.FOOD_INFO, () => FoodInfo)
 
 Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setRoot({

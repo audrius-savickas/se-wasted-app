@@ -1,20 +1,11 @@
-import React, {useEffect, useState} from "react"
+import React from "react"
 import {StyleSheet} from "react-native"
 import {Colors, ListItem, Text, TouchableOpacity, View} from "react-native-ui-lib"
-import {getFoodTypeByTypeId} from "../../api/type-of-food"
 import {FoodItemProps} from "./interfaces"
 
-export const FoodItem = ({id, name, price, typeId}: FoodItemProps) => {
-  const [typeName, setTypeName] = useState("")
-
-  const fetchType = async () => {
-    const response = await getFoodTypeByTypeId(typeId)
-    setTypeName(response.name)
-  }
-
-  useEffect(() => {
-    fetchType()
-  }, [])
+export const FoodItem = ({id, name, price, types}: FoodItemProps) => {
+  let foodTypes = ""
+  types.map(foodType => (foodTypes += foodType.name))
 
   return (
     <ListItem height={100}>
@@ -33,7 +24,7 @@ export const FoodItem = ({id, name, price, typeId}: FoodItemProps) => {
             <View>
               <Text text50L>{name}</Text>
               <Text text80L grey20>
-                {typeName}
+                {foodTypes}
               </Text>
             </View>
           </ListItem.Part>

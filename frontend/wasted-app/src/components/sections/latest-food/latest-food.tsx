@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
-import {Image, Text, View} from "react-native-ui-lib"
+import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getAllFood} from "../../../api/food"
 import {Food, Restaurant} from "../../../api/interfaces"
+import {showFoodInfoModal} from "../../../services/navigation"
 import {HorizontalList} from "../../horizontal-list"
 
 export const LatestFood = () => {
@@ -12,8 +13,18 @@ export const LatestFood = () => {
     setFood(await getAllFood())
   }
 
-  const renderItem = ({item}: ListRenderItemInfo<Restaurant>) => (
-    <View margin-s1 centerH>
+  const renderItem = ({item}: ListRenderItemInfo<Food>) => (
+    <TouchableOpacity
+      margin-s1
+      centerH
+      onPress={() =>
+        showFoodInfoModal({
+          food: item,
+          imageUrl:
+            "https://receptai.lidl.lt/var/site/storage/images/_aliases/960x540/0/7/8/5/895870-1-lit-LT/saltibarsciai-20210408-1440x495.jpg"
+        })
+      }
+    >
       <Image
         source={{
           uri: `https://assets.epicurious.com/photos/57c5c6d9cf9e9ad43de2d96e/master/pass/the-ultimate-hamburger.jpg`,
@@ -22,7 +33,7 @@ export const LatestFood = () => {
         }}
       />
       <Text marginT-s1>{item.name}</Text>
-    </View>
+    </TouchableOpacity>
   )
 
   useEffect(() => {

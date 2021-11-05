@@ -6,7 +6,7 @@ import {FoodsListProps} from "./interfaces"
 
 export const FoodsList = ({foods}: FoodsListProps) => {
   const renderItem = ({item}: ListRenderItemInfo<Food>) => {
-    return <FoodItem id={item.id} name={item.name} price={item.price} typeId={item.idTypeOfFood} />
+    return <FoodItem id={item.id} name={item.name} price={item.currentPrice} types={item.typesOfFood} />
   }
 
   return <FlatList data={foods} renderItem={renderItem} keyExtractor={item => item.id} />
