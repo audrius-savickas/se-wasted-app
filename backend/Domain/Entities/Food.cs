@@ -8,12 +8,15 @@ namespace Domain.Entities
         public decimal StartingPrice { get; set; }
         public DateTime CreatedAt { get; set; }
         public string IdRestaurant { get; set; }
+        public string ImageURL { get; set; }
         public virtual IEnumerable<TypeOfFood> TypesOfFood { get; set; }
         public DateTime StartDecreasingAt { get; set; }
         public DecreaseType DecreaseType { get; set; }
         public double IntervalTimeInMinutes { get; set; }
         public decimal AmountPerInterval { get; set; }
         public double PercentPerInterval { get; set; }
+
+        private const string DEFAULT_IMAGE_URL = "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg";
 
         public Food() : base() { }
 
@@ -26,6 +29,7 @@ namespace Domain.Entities
             IEnumerable<TypeOfFood> typesOfFood,
             double intervalTimeInMinutes,
             DecreaseType decreaseType,
+            string imageURL = DEFAULT_IMAGE_URL,
             DateTime? createdAt = null,
             DateTime? startDecreasingAt = null,
             decimal? amountPerInterval = null,
@@ -35,6 +39,7 @@ namespace Domain.Entities
         {
             StartingPrice = startingPrice;
             CreatedAt = createdAt ?? DateTime.Now;
+            ImageURL = imageURL;
             IdRestaurant = idRestaurant;
             TypesOfFood = typesOfFood;
             StartDecreasingAt = startDecreasingAt ?? CreatedAt;
