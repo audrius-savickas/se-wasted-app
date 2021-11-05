@@ -1,3 +1,5 @@
+import moment from "moment"
+
 export const formatDate = (string: string) => {
   const date = new Date(string)
   const year = date.getFullYear()
@@ -14,38 +16,52 @@ export const formatTime = (string: string) => {
   return `${hour}:${minutes}`
 }
 
-export const timeAgo = (string: string) => {
+export const timeAgoFull = (string: string) => {
+  moment.updateLocale("en", {
+    relativeTime: {
+      future: "in %s",
+      past: "%s",
+      s: "1 second ago",
+      ss: "%s seconds ago",
+      m: "1 minute ago",
+      mm: "%d minutes ago",
+      h: "1 hour ago",
+      hh: "%d hours ago",
+      d: "1 day ago",
+      dd: "%d days ago",
+      M: "1 month ago",
+      MM: "%d months ago",
+      y: "1 year ago",
+      yy: "%d years ago"
+    }
+  })
+
   const date = new Date(string)
+  return moment(date).fromNow()
+}
 
-  const seconds = Math.floor(new Date().getTime() / 1000 - date.getTime() / 1000)
-  let interval = seconds / 31536000
+export const timeAgo = (string: string) => {
+  moment.updateLocale("en", {
+    relativeTime: {
+      future: "in %s",
+      past: "%s",
+      s: "1 sec",
+      ss: "%s secs",
+      m: "1 min",
+      mm: "%d mins",
+      h: "1 h",
+      hh: "%d h",
+      d: "1 day",
+      dd: "%d days",
+      M: "1 month",
+      MM: "%d months",
+      y: "1 year",
+      yy: "%d years"
+    }
+  })
 
-  if (interval >= 1) {
-    if (interval === 1) return Math.floor(interval) + " years"
-    return Math.floor(interval) + " year"
-  }
-  interval = seconds / 2592000
-  if (interval >= 1) {
-    if (interval === 1) return Math.floor(interval) + " months"
-    return Math.floor(interval) + " month"
-  }
-  interval = seconds / 86400
-  if (interval >= 1) {
-    if (interval === 1) return Math.floor(interval) + " days"
-    return Math.floor(interval) + " day"
-  }
-  interval = seconds / 3600
-  if (interval >= 1) {
-    if (interval === 1) return Math.floor(interval) + " hours"
-    return Math.floor(interval) + " hour"
-  }
-  interval = seconds / 60
-  if (interval >= 1) {
-    if (interval === 1) return Math.floor(interval) + " minutes"
-    return Math.floor(interval) + " minute"
-  }
-  if (interval === 1) return Math.floor(interval) + " seconds"
-  return Math.floor(seconds) + " second"
+  const date = new Date(string)
+  return moment(date).fromNow()
 }
 
 const months = [

@@ -4,6 +4,7 @@ import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getAllFood} from "../../../api/food"
 import {Food, Restaurant} from "../../../api/interfaces"
 import {showFoodInfoModal} from "../../../services/navigation"
+import {timeAgo, timeAgoFull} from "../../../utils/date"
 import {HorizontalList} from "../../horizontal-list"
 
 export const LatestFood = () => {
@@ -33,6 +34,11 @@ export const LatestFood = () => {
         }}
       />
       <Text marginT-s1>{item.name}</Text>
+      <View br20 bg-purple30 padding-s1 paddingH-s2 marginT-s1>
+        <Text white text90M>
+          {timeAgo(item.createdAt)}
+        </Text>
+      </View>
     </TouchableOpacity>
   )
 

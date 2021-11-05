@@ -3,7 +3,7 @@ import {Chip, Image, Text, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
 import {Restaurant} from "../../api/interfaces"
 import {formatPrice} from "../../utils/currency"
-import {formatDate, formatTime, timeAgo} from "../../utils/date"
+import {formatDate, formatTime, timeAgoFull} from "../../utils/date"
 import {FoodInfoProps} from "./interfaces"
 
 export const FoodInfo = ({food, imageUrl}: FoodInfoProps) => {
@@ -45,7 +45,7 @@ export const FoodInfo = ({food, imageUrl}: FoodInfoProps) => {
           </Text>
           <View>
             <Text text60L style={{width: 200}}>
-              {`${timeAgo(createdAt)} ago`}
+              {`${timeAgoFull(createdAt)}`}
             </Text>
             <Text text80L style={{width: 250}}>{`${formatDate(createdAt)} | ${formatTime(createdAt)}`}</Text>
           </View>

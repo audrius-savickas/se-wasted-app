@@ -1,7 +1,7 @@
 [
   {
     "StartingPrice": 15,
-    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "CreatedAt": "2021-11-02T11:47:04.9955968+02:00",
     "IdRestaurant": "0",
     "TypesOfFood": [],
     "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
@@ -14,7 +14,7 @@
   },
   {
     "StartingPrice": 9.25,
-    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "CreatedAt": "2021-10-04T11:47:04.9955968+02:00",
     "IdRestaurant": "0",
     "TypesOfFood": [
       {
@@ -22,7 +22,7 @@
         "Name": "Traditional food"
       }
     ],
-    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2020-11-04T11:47:04.9955968+02:00",
     "DecreaseType": 0,
     "IntervalTimeInMinutes": 180,
     "AmountPerInterval": 0.15,
@@ -31,8 +31,8 @@
     "Name": "Saltibarsciai"
   },
   {
-    "StartingPrice": 13.00,
-    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartingPrice": 13.0,
+    "CreatedAt": "2021-11-05T11:47:04.9955968+02:00",
     "IdRestaurant": "0",
     "TypesOfFood": [
       {
@@ -40,7 +40,7 @@
         "Name": "Traditional food"
       }
     ],
-    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartDecreasingAt": "2021-11-05T04:00:04.9955968+02:00",
     "DecreaseType": 0,
     "IntervalTimeInMinutes": 180,
     "AmountPerInterval": 0.15,
@@ -50,7 +50,7 @@
   },
   {
     "StartingPrice": 10.69,
-    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "CreatedAt": "2021-11-05T19:47:04.9955968+02:00",
     "IdRestaurant": "0",
     "TypesOfFood": [
       {
@@ -67,8 +67,8 @@
     "Name": "Kijevo kotletas"
   },
   {
-    "StartingPrice": 11.00,
-    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "StartingPrice": 11.0,
+    "CreatedAt": "2021-11-05T20:22:04.9955968+02:00",
     "IdRestaurant": "0",
     "TypesOfFood": [
       {
@@ -85,7 +85,7 @@
     "Name": "Zemaiciu blynai"
   },
   {
-    "StartingPrice": 4.00,
+    "StartingPrice": 4.0,
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "0",
     "TypesOfFood": [
@@ -103,7 +103,7 @@
     "Name": "Dark Beer"
   },
   {
-    "StartingPrice": 3.00,
+    "StartingPrice": 3.0,
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "0",
     "TypesOfFood": [
@@ -121,7 +121,7 @@
     "Name": "Light Beer"
   },
   {
-    "StartingPrice": 6.00,
+    "StartingPrice": 6.0,
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "2",
     "TypesOfFood": [
@@ -139,7 +139,7 @@
     "Name": "Fried Chicken"
   },
   {
-    "StartingPrice": 2.00,
+    "StartingPrice": 2.0,
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "2",
     "TypesOfFood": [
@@ -157,7 +157,7 @@
     "Name": "CocaCola"
   },
   {
-    "StartingPrice": 5.00,
+    "StartingPrice": 5.0,
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "2",
     "TypesOfFood": [
@@ -175,7 +175,7 @@
     "Name": "Chicken Burger"
   },
   {
-    "StartingPrice": 2.00,
+    "StartingPrice": 2.0,
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "2",
     "TypesOfFood": [
@@ -193,7 +193,7 @@
     "Name": "Sprite"
   },
   {
-    "StartingPrice": 4.00,
+    "StartingPrice": 4.0,
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "2",
     "TypesOfFood": [
