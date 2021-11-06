@@ -1,10 +1,25 @@
-import React from "react"
-import {Text, View} from "react-native-ui-lib"
+import React, { useEffect } from "react"
+import { Navigation } from "react-native-navigation"
+import { setHomeRoot } from "../../../services/navigation"
+import { FoodList } from "../../user/restaurants/food-list"
+import { FoodScreenProps } from "./interfaces"
 
-export const Food = () => {
+export const Food = ({componentId, restaurantId, restaurantName} : FoodScreenProps) => {
+  
+  useEffect(() => {
+    const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
+      if (buttonId === "LOG_OUT") {
+        setHomeRoot()
+      }
+    })
+    return () => listener.remove()
+  }, [])
+
   return (
-    <View>
-      <Text>This is food view</Text>
-    </View>
+    <FoodList 
+      componentId={componentId} 
+      restaurantId={restaurantId}
+      restaurantName={restaurantName}
+    />
   )
 }
