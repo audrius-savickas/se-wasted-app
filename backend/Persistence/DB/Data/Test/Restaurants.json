@@ -1,98 +1,114 @@
 [
   {
     "Coords": {
-      "Longitude": 25.2796521,
-      "Latitude": 54.687157
+      "Longitude": 25.29874,
+      "Latitude": 54.71276
     },
+    "Address": "J. Kubiliaus g. 16, Vilnius",
     "Credentials": {
-      "Mail": { "Value": "etno@mail.com" },
-      "Password": { "Value": "vY13olXYY/gu/QOcVpQWIbSHYoKgzZteAaKxDVAccz8UzbP3" }
+      "Mail": { "Value": "EtnoDvaras@mail.com" },
+      "Password": { "Value": "NfE9hJ75WDnHUY5O1CukGcLTBBBYcViCwTeWsLwgqtrnxetO" }
     },
-    "Id": "0",
-    "Name": "Etno Varas"
+    "ImageURL": "https://etnodvaras.lt/wp-content/uploads/2018/08/logo-e1537528542134.jpg",
+    "Id": "pt953XaT",
+    "Name": "Etno Dvaras"
   },
   {
     "Coords": {
-      "Longitude": 50,
-      "Latitude": 50
+      "Longitude": 25.29415,
+      "Latitude": 54.71379
     },
+    "Address": "Verki\u0173 g. 29C, Vilnius",
     "Credentials": {
-      "Mail": { "Value": "mcdonalds@mail.com" },
-      "Password": { "Value": "kh3aTGQyc8H7+h/RNod0KJB83pP+AJVd4oacS/kP7c3Pl7cd" }
+      "Mail": { "Value": "VeroCafe@mail.com" },
+      "Password": { "Value": "RM582luhoJ3QRrRansDav2oXsEDvvp3p4yeF2lVxH7DlSYYx" }
     },
-    "Id": "1",
-    "Name": "mcdonalds"
-  },
-  {
-    "Coords": {
-      "Longitude": 69.245,
-      "Latitude": 4.20
-    },
-    "Credentials": {
-      "Mail": { "Value": "KFC@mail.com" },
-      "Password": { "Value": "V+EHYF1Mo1S1DyfmIolZBDQNxipxVhZa2waIpNRhcK6JYp4a" }
-    },
-    "Id": "2",
-    "Name": "KFC"
-  },
-  {
-    "Coords": {
-      "Longitude": 22,
-      "Latitude": 31
-    },
-    "Credentials": {
-      "Mail": { "Value": "VeroCafe@gmail.com" },
-      "Password": { "Value": "ahEs9x/Q9Od1balUhHEtVKILBKneKxqI72uAbFHNPdC4iqCl" }
-    },
-    "Id": "3",
+    "ImageURL": "https://zalgirioarena.lt/wp-content/uploads/2015/10/za-38.jpg",
+    "Id": "H6\u002BmLxBY",
     "Name": "Vero Cafe"
   },
   {
     "Coords": {
-      "Longitude": 12,
-      "Latitude": 65
+      "Longitude": 25.337971,
+      "Latitude": 54.723598
     },
+    "Address": "Saul\u0117tekio al. 15, Vilnius",
     "Credentials": {
-      "Mail": { "Value": "coffee@gmail.com" },
-      "Password": { "Value": "DXb71l57n2/0eIWKEZzr2Z0ssWXLAlgwEbveYBYsboF6v60M" }
+      "Mail": { "Value": "Caffeine@mail.com" },
+      "Password": { "Value": "Ya3GYjgMGdpWd5BFs81z\u002BRGUxYfBOJNjTDy/gqWnqg1lwOpw" }
     },
-    "Id": "4",
+    "ImageURL": "https://www.panorama.lt/assets/Uploads/Shops/Caffeine.jpg",
+    "Id": "V7PRn4Wt",
     "Name": "Caffeine"
   },
   {
     "Coords": {
-      "Longitude": 12,
-      "Latitude": 9
+      "Longitude": 25.28417,
+      "Latitude": 54.68649
     },
+    "Address": "Gedimino pr. 3a, Vilnius",
     "Credentials": {
-      "Mail": { "Value": "pizza@pizzaMail.co.uk" },
-      "Password": { "Value": "cmagHrc4kE7jgEIAGfGxz/+AHOXCYuU5n1U36x0EbJZHL7oN" }
+      "Mail": { "Value": "CaifCafe@mail.com" },
+      "Password": { "Value": "2lT6FJv1OHgJ4USNsn1W3hVQ5u6ABXxkW0lg77EhZQC2WFur" }
     },
-    "Id": "5",
-    "Name": "PasT\u0105"
+    "ImageURL": "https://ozas.lt/img/gallery/retina/shops/5b3365d27a1f6.jpg",
+    "Id": "uMzTuscI",
+    "Name": "Caif Cafe"
   },
   {
     "Coords": {
-      "Longitude": 78,
-      "Latitude": 65
+      "Longitude": 25.276831,
+      "Latitude": 54.696339
     },
+    "Address": "Konstitucijos pr. 7A, Vilnius",
     "Credentials": {
-      "Mail": { "Value": "kebabai@kebabai.lt" },
-      "Password": { "Value": "zoQKBcs9EKG1ZiSoOxljzZHsHErt+Q9k+j7cudrgSXbmDQF1" }
+      "Mail": { "Value": "Fortas@mail.com" },
+      "Password": { "Value": "HtBMBL\u002B\u002BzMZE0SCpcO9BIEC840nOM6Wmmr6l4gXLLgHejaWC" }
     },
-    "Id": "6",
-    "Name": "JAMMI"
+    "ImageURL": "https://renginiai.kasvyksta.lt/uploads/places/438/fortas-siauliai.jpg",
+    "Id": "WDbxkWbm",
+    "Name": "Fortas"
   },
   {
     "Coords": {
-      "Longitude": 80,
-      "Latitude": 65
+      "Longitude": 25.342145,
+      "Latitude": 54.7780669
     },
+    "Address": "Visalaukio g. 1, Vilnius",
     "Credentials": {
-      "Mail": { "Value": "beer@mail.lt" },
-      "Password": { "Value": "2EnAPBrenb37br8twU6t0CCxDh9FOSudKXvdImFN3Q9p0t9t" }
+      "Mail": { "Value": "IKI@mail.com" },
+      "Password": { "Value": "\u002BZHCbeiQIIiCH5GwqYLIa0MQ9qtuDPxMxctq66gga6KiKmO2" }
     },
-    "Id": "7",
-    "Name": "Busi Tre\u010Dias"
+    "ImageURL": "https://iki.lt/wp-content/uploads/for-imports/assets/Uploads/News/Iki-parduotuve7.jpg",
+    "Id": "ZM8HYKxb",
+    "Name": "IKI"
+  },
+  {
+    "Coords": {
+      "Longitude": 23.9473052,
+      "Latitude": 54.865608
+    },
+    "Address": "A. Juozapavi\u010Diaus pr. 11, Kaunas",
+    "Credentials": {
+      "Mail": { "Value": "Rimi@mail.com" },
+      "Password": { "Value": "oQoamZi2Q1Plm928vm/90K9qSIxlzrBz3nN\u002BsO4CGpZDxyH3" }
+    },
+    "ImageURL": "https://rimibaltic-web-res.cloudinary.com/image/upload/c_fill,f_auto,h_945,q_auto,w_1800/v1/web-cms/921312c13228c64f96ad2427c60eea3ff05a9d5f-Cqdrn3jWOX.jpg",
+    "Id": "SFO1YQaN",
+    "Name": "Rimi"
+  },
+  {
+    "Coords": {
+      "Longitude": 25.3487883,
+      "Latitude": 54.8006501
+    },
+    "Address": "\u017Dali\u0173j\u0173 E\u017Eer\u0173 g. 207, Vilnius",
+    "Credentials": {
+      "Mail": { "Value": "Maxima@mail.com" },
+      "Password": { "Value": "EnxQ\u002BJcFwICgKBxLYuN3R45dSLcAVDvX0lhZjslcAeSkfo4e" }
+    },
+    "ImageURL": "https://www.gaudre.lt/assets/Uploads/Images/13-Vilniaus-Mindaugo-g.jpg",
+    "Id": "idWL81y0",
+    "Name": "Maxima"
   }
 ]
