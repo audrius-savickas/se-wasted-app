@@ -24,7 +24,7 @@ namespace WebApi.Controllers
         /// <summary>
         /// Retrieve all food items.
         /// </summary>
-        /// <param name="sortOrder">Optional Order by which the restaurants should be sorted</param>
+        /// <param name="sortOrder">Optional order by which the food should be sorted</param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]

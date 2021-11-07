@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Domain.Helpers;
+using System;
 
 namespace WebApi.Controllers
 {
@@ -24,7 +25,7 @@ namespace WebApi.Controllers
         /// <summary>
         /// Retrieve all restaurants
         /// </summary>
-        /// <param name="sortOrder">Optional Order by which the restaurants should be sorted</param>
+        /// <param name="sortOrder">Optional order by which the restaurants should be sorted</param>
         /// <param name="userCoordinates">Optional coordinates of the user</param>
         /// <returns></returns>
         [HttpGet(Name = nameof(GetAll))]
@@ -36,7 +37,7 @@ namespace WebApi.Controllers
             {
                 NewFolder.InputValidator.ValidateRestaurantSortOrder(sortOrder, userCoordinates);
             }
-            catch(System.Exception e)
+            catch(Exception e)
             {
                 return BadRequest(e.Message);
             }
@@ -79,7 +80,7 @@ namespace WebApi.Controllers
                 var restaurant = _restaurantService.GetRestaurantById(id);
                 return Ok(restaurant);
             }
-            catch(System.Exception exception)
+            catch(Exception exception)
             {
                 return NotFound(exception.Message);
             }
@@ -101,7 +102,7 @@ namespace WebApi.Controllers
                 string id = _restaurantService.Register(creds, restaurantRegisterRequest);
                 return CreatedAtAction(nameof(Post), new { id });
             }
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
                 return BadRequest(exception.Message);
             }
@@ -132,7 +133,7 @@ namespace WebApi.Controllers
 
                 return Ok();
             }
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
                 return BadRequest(exception.Message);
             }
@@ -158,17 +159,52 @@ namespace WebApi.Controllers
                 return Unauthorized(exception.Message);
             }
         }
-        
+
         /// <summary>
         /// Retrieves the food served by a restaurant
         /// </summary>
         /// <param name="id">Identifies the restaurant</param>
+        /// <param name="sortOrder">Optional order by which the food should be sorted</param>
         /// <returns></returns>
         [HttpGet("{id}/food",Name = nameof(GetAllFoodFromRestaurant))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
-        public IActionResult GetAllFoodFromRestaurant(string id)
+
+        public IActionResult GetAllFoodFromRestaurant(string id, string sortOrder = null)
         {
+            try
+            {
+                NewFolder.InputValidator.ValidateFoodSortOrder(sortOrder);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
             var foods = _restaurantService.GetAllFoodFromRestaurant(id).Select(food => FoodResponse.FromEntity(food));
+
+            switch (sortOrder)
+            {
+                case "name":
+                    foods = foods.OrderBy(f => f.Name).ToList();
+                    break;
+                case "name_desc":
+                    foods = foods.OrderByDescending(f => f.Name).ToList();
+                    break;
+                case "price":
+                    foods = foods.OrderBy(f => f.CurrentPrice).ToList();
+                    break;
+                case "price_desc":
+                    foods = foods.OrderByDescending(f => f.CurrentPrice).ToList();
+                    break;
+                case "time":
+                    foods = foods.OrderBy(f => (DateTime.Now - f.CreatedAt)).ToList();
+                    break;
+                case "time_desc":
+                    foods = foods.OrderByDescending(f => (DateTime.Now - f.CreatedAt)).ToList();
+                    break;
+                default:
+                    break;
+            }
 
             return Ok(foods);
         }
