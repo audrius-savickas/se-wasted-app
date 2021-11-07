@@ -21,10 +21,6 @@ namespace WebApi.NewFolder
                 "dist_desc" => true,
                 "name" => true,
                 "name_desc" => true,
-                "price" => true,
-                "price_desc" => true,
-                "time" => true,
-                "time_desc" => true,
                 null => true,
                 _ => throw new System.ArgumentException("Invalid sort order"),
             };
