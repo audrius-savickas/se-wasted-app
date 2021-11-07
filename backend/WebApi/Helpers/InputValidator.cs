@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,9 +8,9 @@ namespace WebApi.NewFolder
 {
     public class InputValidator
     {
-        public bool ValidateSortOrder(string sortOrder, decimal? latitude, decimal? longitude)
+        public static bool ValidateSortOrder(string sortOrder, Coords userCoordinates = null)
         {
-            if ((latitude == null || longitude == null) && (sortOrder == "dist" || sortOrder == "dist_desc"))
+            if (userCoordinates == null && (sortOrder == "dist" || sortOrder == "dist_desc"))
             {
                 throw new System.ArgumentNullException("Invalid user coordinates.");
             }
@@ -20,6 +21,7 @@ namespace WebApi.NewFolder
                 "dist_desc" => true,
                 "name" => true,
                 "name_desc" => true,
+                null => true,
                 _ => throw new System.ArgumentException("Invalid sort order"),
             };
         }
