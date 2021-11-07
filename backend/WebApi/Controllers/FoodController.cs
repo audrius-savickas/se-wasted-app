@@ -24,14 +24,49 @@ namespace WebApi.Controllers
         /// <summary>
         /// Retrieve all food items.
         /// </summary>
+        /// <param name="sortOrder">Optional Order by which the restaurants should be sorted</param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
-        public IActionResult GetAll()
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public IActionResult GetAll(string sortOrder = null)
         {
+            try
+            {
+                NewFolder.InputValidator.ValidateFoodSortOrder(sortOrder);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
             var foodsResp = _foodService.GetAllFood().Select(food => FoodResponse.FromEntity(food)).ToList();
 
             foodsResp ??= new List<FoodResponse>();
+
+            switch (sortOrder)
+            {
+                case "name":
+                    foodsResp = foodsResp.OrderBy(f => f.Name).ToList();
+                    break;
+                case "name_desc":
+                    foodsResp = foodsResp.OrderByDescending(f => f.Name).ToList();
+                    break;
+                case "price":
+                    foodsResp = foodsResp.OrderBy(f => f.CurrentPrice).ToList();
+                    break;
+                case "price_desc":
+                    foodsResp = foodsResp.OrderByDescending(f => f.CurrentPrice).ToList();
+                    break;
+                case "time":
+                    foodsResp = foodsResp.OrderBy(f => (DateTime.Now - f.CreatedAt)).ToList();
+                    break;
+                case "time_desc":
+                    foodsResp = foodsResp.OrderByDescending(f => (DateTime.Now - f.CreatedAt)).ToList();
+                    break;
+                default:
+                    break;
+            }
 
             return Ok(foodsResp);
         }
