@@ -21,4 +21,4 @@ Check it [here](./backend)
 [See on YouTube](https://youtube.com/shorts/eCRXE-bRb4I?feature=share)
 
 # Are you a restaurant?
-Your feedback is important for us! Participe in [this questionnaire](https://docs.google.com/forms/d/1c-NWu-nFSWBVj0p2wwgMNzBmXc1aQ8nIEwcM_ZPOFh0/edit?usp=sharing)
+Your feedback is important for us! Participe in [this questionnaire](https://forms.gle/8GJLD3RzGmnRG12N8)
