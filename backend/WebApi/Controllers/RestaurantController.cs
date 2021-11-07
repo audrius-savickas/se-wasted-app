@@ -34,7 +34,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                NewFolder.InputValidator.ValidateSortOrder(sortOrder, userCoordinates);
+                NewFolder.InputValidator.ValidateRestaurantSortOrder(sortOrder, userCoordinates);
             }
             catch(System.Exception e)
             {

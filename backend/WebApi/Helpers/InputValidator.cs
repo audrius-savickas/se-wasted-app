@@ -8,7 +8,7 @@ namespace WebApi.NewFolder
 {
     public class InputValidator
     {
-        public static bool ValidateSortOrder(string sortOrder, Coords userCoordinates = null)
+        public static bool ValidateRestaurantSortOrder(string sortOrder, Coords userCoordinates = null)
         {
             if (userCoordinates == null && (sortOrder == "dist" || sortOrder == "dist_desc"))
             {
@@ -19,6 +19,21 @@ namespace WebApi.NewFolder
             {
                 "dist" => true,
                 "dist_desc" => true,
+                "name" => true,
+                "name_desc" => true,
+                "price" => true,
+                "price_desc" => true,
+                "time" => true,
+                "time_desc" => true,
+                null => true,
+                _ => throw new System.ArgumentException("Invalid sort order"),
+            };
+        }
+
+        public static bool ValidateFoodSortOrder(string sortOrder)
+        {
+            return sortOrder switch
+            {
                 "name" => true,
                 "name_desc" => true,
                 "price" => true,
