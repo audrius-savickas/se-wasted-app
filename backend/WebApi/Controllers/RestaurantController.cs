@@ -5,6 +5,7 @@ using Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Domain.Helpers;
 
 namespace WebApi.Controllers
 {
@@ -23,12 +24,42 @@ namespace WebApi.Controllers
         /// <summary>
         /// Retrieve all restaurants
         /// </summary>
+        /// <param name="sortOrder">Optional Order by which the restaurants should be sorted</param>
+        /// <param name="userCoordinates">Optional coordinates of the user</param>
         /// <returns></returns>
         [HttpGet(Name = nameof(GetAll))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<RestaurantDto>))]
-        public IActionResult GetAll()
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public IActionResult GetAll(string sortOrder = null, [FromQuery] Coords userCoordinates = null)
         {
+            try
+            {
+                NewFolder.InputValidator.ValidateSortOrder(sortOrder, userCoordinates);
+            }
+            catch(System.Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
             var restaurants = _restaurantService.GetAllRestaurants();
+
+            switch (sortOrder)
+            {
+                case "name":
+                    restaurants = restaurants.OrderBy(r => r.Name);
+                    break;
+                case "name_desc":
+                    restaurants = restaurants.OrderByDescending(r => r.Name);
+                    break;
+                case "dist":
+                    restaurants = restaurants.OrderBy(r => CoordsHelper.HaversineDistanceKM(userCoordinates, r.Coords));
+                    break;
+                case "dist_desc":
+                    restaurants = restaurants.OrderByDescending(r => CoordsHelper.HaversineDistanceKM(userCoordinates, r.Coords));
+                    break;
+                default:
+                    break;
+            }
 
             return Ok(restaurants);
         }
