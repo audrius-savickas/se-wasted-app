@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Domain.Helpers;
+using WebApi.Helpers;
 using System;
 
 namespace WebApi.Controllers
@@ -35,7 +36,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                NewFolder.InputValidator.ValidateRestaurantSortOrder(sortOrder, userCoordinates);
+                InputValidator.ValidateRestaurantSortOrder(sortOrder, userCoordinates);
             }
             catch(Exception e)
             {
@@ -173,7 +174,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                NewFolder.InputValidator.ValidateFoodSortOrder(sortOrder);
+                InputValidator.ValidateFoodSortOrder(sortOrder);
             }
             catch (Exception e)
             {

@@ -1,5 +1,6 @@
 ﻿using Contracts.DTOs;
 using Domain.Entities;
+using WebApi.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using System;
@@ -33,7 +34,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                NewFolder.InputValidator.ValidateFoodSortOrder(sortOrder);
+                InputValidator.ValidateFoodSortOrder(sortOrder);
             }
             catch (Exception e)
             {
