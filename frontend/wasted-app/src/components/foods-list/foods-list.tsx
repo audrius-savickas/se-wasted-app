@@ -1,4 +1,3 @@
-import { Zocial } from "@expo/vector-icons"
 import React from "react"
 import {FlatList, ListRenderItemInfo} from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
