@@ -2,7 +2,7 @@ import React from "react"
 import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {RestaurantInfoProps} from "./interfaces"
 
-export const RestaurantInfo = ({imageUrl, restaurant}: RestaurantInfoProps) => {
+export const RestaurantInfo = ({restaurant}: RestaurantInfoProps) => {
   const {name} = restaurant
 
   return (
@@ -11,7 +11,7 @@ export const RestaurantInfo = ({imageUrl, restaurant}: RestaurantInfoProps) => {
         <Text text30M purple20 marginT-s2 marginB-s1>
           {name}
         </Text>
-        <Image marginT-s2 source={{uri: imageUrl, height: 200, width: 330}} />
+        <Image marginT-s2 source={{uri: restaurant.imageURL, height: 200, width: 330}} />
       </View>
       <View marginT-s6 marginH-s6>
         <View row centerV>
