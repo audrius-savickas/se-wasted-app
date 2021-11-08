@@ -15,9 +15,10 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   const [passwordBlur, setPasswordBlur] = useState(false)
 
   const login = () => {
-    console.log(email)
-    console.log(password)
-    setRestaurantRoot({})
+    setRestaurantRoot({
+      restaurantId: "0",
+      restaurantName: "Example of restaurant"
+    })
   }
 
   const onBlurEmail = () => {

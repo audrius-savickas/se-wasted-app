@@ -77,8 +77,9 @@ export const setRestaurantRoot = props =>
               children: [
                 {
                   component: {
-                    name: screenNames.RESTAURANT_FOOD
-                  }
+                    name: screenNames.RESTAURANT_FOOD,
+                    passProps: {...props}
+                  },
                 }
               ],
               options: {
@@ -90,6 +91,14 @@ export const setRestaurantRoot = props =>
                   iconColor: Colors.grey30,
                   selectedTextColor: Colors.black,
                   textColor: Colors.grey30
+                },
+                topBar: {
+                  leftButtons: [
+                    {
+                      id: "LOG_OUT",
+                      text: "Log out"
+                    }
+                  ]
                 }
               }
             }
@@ -100,7 +109,8 @@ export const setRestaurantRoot = props =>
               children: [
                 {
                   component: {
-                    name: screenNames.RESTAURANT_PROFILE
+                    name: screenNames.RESTAURANT_PROFILE,
+                    passProps: {...props}
                   }
                 }
               ],
@@ -113,6 +123,14 @@ export const setRestaurantRoot = props =>
                   iconColor: Colors.grey30,
                   selectedTextColor: Colors.black,
                   textColor: Colors.grey30
+                },
+                topBar: {
+                  leftButtons: [
+                    {
+                      id: "LOG_OUT",
+                      text: "Log out"
+                    }
+                  ]
                 }
               }
             }
