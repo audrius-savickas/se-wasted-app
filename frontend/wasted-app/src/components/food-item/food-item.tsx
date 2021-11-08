@@ -47,7 +47,16 @@ export const FoodItem = ({food, onPress}: FoodItemProps) => {
               <Text text50L>{name}</Text>
               <View row style={{flexWrap: "wrap"}}>
                 {typesOfFood.map(type => (
-                  <Chip marginR-s1 marginV-s1 key={type.id} label={type.name} size={25} />
+                  <Chip
+                    marginR-s1
+                    marginV-s1
+                    br60
+                    labelStyle={{color: Colors.grey20, fontWeight: "400"}}
+                    style={{borderColor: Colors.grey40, borderWidth: 1}}
+                    key={type.id}
+                    label={type.name}
+                    size={25}
+                  />
                 ))}
               </View>
             </View>
