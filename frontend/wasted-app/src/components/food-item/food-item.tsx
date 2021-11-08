@@ -6,6 +6,27 @@ import {FoodItemProps} from "./interfaces"
 
 export const FoodItem = ({food, onPress}: FoodItemProps) => {
   const {name, currentPrice, startingPrice, typesOfFood, imageURL} = food
+
+  const renderPrice = () => {
+    if (startingPrice === currentPrice) {
+      return (
+        <Text text60L grey10>
+          {formatPrice(currentPrice)}
+        </Text>
+      )
+    }
+    return (
+      <View center>
+        <Text text70L red30 style={{textDecorationLine: "line-through"}}>
+          {formatPrice(startingPrice)}
+        </Text>
+        <Text text60L green10>
+          {formatPrice(currentPrice)}
+        </Text>
+      </View>
+    )
+  }
+
   return (
     <ListItem height="auto">
       <TouchableOpacity
@@ -32,14 +53,7 @@ export const FoodItem = ({food, onPress}: FoodItemProps) => {
             </View>
           </ListItem.Part>
           <ListItem.Part right marginL-s4>
-            <View center>
-              <Text text60L green10>
-                {formatPrice(currentPrice)}
-              </Text>
-              <Text text70L red10 style={{textDecorationLine: "line-through"}}>
-                {formatPrice(startingPrice)}
-              </Text>
-            </View>
+            <View center>{renderPrice()}</View>
           </ListItem.Part>
         </View>
       </TouchableOpacity>
