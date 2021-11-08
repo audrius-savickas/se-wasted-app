@@ -6,10 +6,10 @@ import {formatPrice} from "../../utils/currency"
 import {formatDate, formatTime, timeAgoFull} from "../../utils/date"
 import {FoodInfoProps} from "./interfaces"
 
-export const FoodInfo = ({food, imageUrl}: FoodInfoProps) => {
+export const FoodInfo = ({food}: FoodInfoProps) => {
   const [restaurant, setRestaurant] = useState({} as Restaurant)
 
-  const {name, typesOfFood, currentPrice, idRestaurant, createdAt} = food
+  const {name, typesOfFood, currentPrice, idRestaurant, createdAt, imageURL} = food
 
   const fetchRestaurant = async () => {
     setRestaurant(await getRestaurantById(idRestaurant))
@@ -30,7 +30,7 @@ export const FoodInfo = ({food, imageUrl}: FoodInfoProps) => {
             <Chip margin-s1 key={type.id} label={type.name} />
           ))}
         </View>
-        <Image marginT-s2 source={{uri: imageUrl, height: 200, width: 330}} />
+        <Image marginT-s2 source={{uri: imageURL, height: 200, width: 330}} />
       </View>
       <View marginT-s6 marginH-s6>
         <View row centerV>

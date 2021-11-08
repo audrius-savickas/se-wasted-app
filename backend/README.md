@@ -1,6 +1,10 @@
 # Backend
 
-## Installation
+## Stack of technologies
+- C# 
+- ASP. NET
+
+## Set up
 ```bash
 git clone git@github.com:audrius-savickas/se-wasted-app.git
 ```

@@ -3,6 +3,7 @@ export interface Restaurant {
   name: string
   coords: {latitude: number; longitude: number}
   address: string
+  imageURL: string
 }
 
 export interface Food {
@@ -18,6 +19,7 @@ export interface Food {
   intervalTimeInMinutes: number
   amountPerInterval: number
   percentPerInterval: number
+  imageURL: string
 }
 
 export interface FoodType {
