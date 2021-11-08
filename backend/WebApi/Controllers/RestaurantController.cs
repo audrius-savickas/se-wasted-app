@@ -49,7 +49,15 @@ namespace WebApi.Controllers
             var restaurants = _restaurantService.GetAllRestaurants();
 
             restaurants = EntitySorter.SortRestaurants(restaurants, sortOrder, userCoordinates);
-
+            if (userCoordinates != null)
+            {
+                restaurants = restaurants.ToList();
+                foreach(RestaurantDto restaurant in restaurants)
+                {
+                    restaurant.DistanceToUser = CoordsHelper.HaversineDistanceKM(userCoordinates, restaurant.Coords);
+                }
+            }
+          
             return Ok(restaurants);
         }
 
