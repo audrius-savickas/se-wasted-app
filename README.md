@@ -1,4 +1,4 @@
-![Logo](assets/logo/WastedApp_1.png)
+<img alt="Logo" src="./assets/logo/WastedApp_1.png" width="300" />
 
 # About
 
