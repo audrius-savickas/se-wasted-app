@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from "react"
-import {Chip, Image, Text, View} from "react-native-ui-lib"
+import {Chip, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
 import {Restaurant} from "../../api/interfaces"
 import {formatPrice} from "../../utils/currency"
 import {formatDate, formatTime, timeAgoFull} from "../../utils/date"
 import {FoodInfoProps} from "./interfaces"
 
-export const FoodInfo = ({food}: FoodInfoProps) => {
+export const FoodInfo = ({food, showRestaurantLink = true}: FoodInfoProps) => {
   const [restaurant, setRestaurant] = useState({} as Restaurant)
 
   const {name, typesOfFood, currentPrice, idRestaurant, createdAt, imageURL} = food
-  console.log(imageURL)
 
   const fetchRestaurant = async () => {
     setRestaurant(await getRestaurantById(idRestaurant))
@@ -34,12 +33,21 @@ export const FoodInfo = ({food}: FoodInfoProps) => {
         <Image marginT-s2 source={{uri: imageURL, height: 200, width: 330}} />
       </View>
       <View marginT-s6 marginH-s6>
-        <View row centerV>
-          <Text text60L purple20 style={{width: 120}}>
-            Price
-          </Text>
-          <Text text60L>{formatPrice(currentPrice)}</Text>
-        </View>
+        {showRestaurantLink ? (
+          <TouchableOpacity row centerV onPress={() => {}}>
+            <Text text60L purple20 style={{width: 120}}>
+              Restaurant
+            </Text>
+            <Text text60L>{`${restaurant.name} ↗️`}</Text>
+          </TouchableOpacity>
+        ) : (
+          <View row centerV>
+            <Text text60L purple20 style={{width: 120}}>
+              Restaurant
+            </Text>
+            <Text text60L>{restaurant.name}</Text>
+          </View>
+        )}
         <View row centerV marginT-s4>
           <Text text60L purple20 style={{width: 120}}>
             Cooked
@@ -53,9 +61,9 @@ export const FoodInfo = ({food}: FoodInfoProps) => {
         </View>
         <View row centerV marginT-s4>
           <Text text60L purple20 style={{width: 120}}>
-            Restaurant
+            Price
           </Text>
-          <Text text60L>{restaurant.name}</Text>
+          <Text text60L>{formatPrice(currentPrice)}</Text>
         </View>
       </View>
     </View>
