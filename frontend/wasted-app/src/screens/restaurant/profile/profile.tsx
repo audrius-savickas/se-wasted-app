@@ -45,7 +45,7 @@ export const Profile = ({
   const fetchRestaurantInfo = async () => {
     const response = await getRestaurantById(restaurantId)
     
-    if (response != null) {
+    if (response !== null) {
       setRestaurant(response)
       setUpdatedRestaurant(response)
     }
@@ -132,7 +132,7 @@ export const Profile = ({
                   }}
                 >
                   <Button
-                    link={true}
+                    link
                     label="Reset"
                     onPress={cancelUpdate}
                   />
