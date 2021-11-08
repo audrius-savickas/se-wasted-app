@@ -1,9 +1,9 @@
 import React from "react"
 import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
-import {navigateToRestaurantList} from "../../services/navigation"
+import {navigateToFoodList, navigateToRestaurantList} from "../../services/navigation"
 import {RestaurantInfoProps} from "./interfaces"
 
-export const RestaurantInfo = ({restaurant}: RestaurantInfoProps) => {
+export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) => {
   const {name} = restaurant
 
   return (
@@ -29,7 +29,15 @@ export const RestaurantInfo = ({restaurant}: RestaurantInfoProps) => {
         </View>
       </View>
       <View marginT-s6 center>
-        <TouchableOpacity bg-purple30 br60 paddingH-s4 paddingV-s2>
+        <TouchableOpacity
+          bg-purple30
+          br60
+          paddingH-s4
+          paddingV-s2
+          onPress={() =>
+            navigateToFoodList(componentId, {restaurantId: restaurant.id, restaurantName: restaurant.name})
+          }
+        >
           <Text text60L white>
             See restaurant's list of food ↗️
           </Text>

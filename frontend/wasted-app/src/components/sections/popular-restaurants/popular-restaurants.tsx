@@ -20,7 +20,7 @@ export const PopularRestaurants = ({componentId}: PopularRestaurantsProps) => {
       centerH
       onPress={() =>
         navigateToRestaurantInfo(componentId, {
-          imageUrl: "https://g2.dcdn.lt/images/pix/kfc-siauliuose-87245359.jpg",
+          componentId,
           restaurant: item
         })
       }

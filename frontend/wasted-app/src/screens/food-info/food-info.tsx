@@ -6,7 +6,7 @@ import {formatPrice} from "../../utils/currency"
 import {formatDate, formatTime, timeAgoFull} from "../../utils/date"
 import {FoodInfoProps} from "./interfaces"
 
-export const FoodInfo = ({food}: FoodInfoProps) => {
+export const FoodInfo = ({food, showRestaurantLink = true}: FoodInfoProps) => {
   const [restaurant, setRestaurant] = useState({} as Restaurant)
 
   const {name, typesOfFood, currentPrice, idRestaurant, createdAt, imageURL} = food
@@ -50,12 +50,21 @@ export const FoodInfo = ({food}: FoodInfoProps) => {
             <Text text80L style={{width: 250}}>{`${formatDate(createdAt)} | ${formatTime(createdAt)}`}</Text>
           </View>
         </View>
-        <TouchableOpacity row centerV marginT-s4 onPress={() => {}}>
-          <Text text60L purple20 style={{width: 120}}>
-            Restaurant
-          </Text>
-          <Text text60L>{`${restaurant.name} ↗️`}</Text>
-        </TouchableOpacity>
+        {showRestaurantLink ? (
+          <TouchableOpacity row centerV marginT-s4 onPress={() => {}}>
+            <Text text60L purple20 style={{width: 120}}>
+              Restaurant
+            </Text>
+            <Text text60L>{`${restaurant.name} ↗️`}</Text>
+          </TouchableOpacity>
+        ) : (
+          <View row centerV marginT-s4>
+            <Text text60L purple20 style={{width: 120}}>
+              Restaurant
+            </Text>
+            <Text text60L>{restaurant.name}</Text>
+          </View>
+        )}
       </View>
     </View>
   )

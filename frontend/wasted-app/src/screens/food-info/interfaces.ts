@@ -3,4 +3,5 @@ import {Food} from "../../api/interfaces"
 
 export interface FoodInfoProps extends NavigationComponentProps {
   food: Food
+  showRestaurantLink?: boolean
 }

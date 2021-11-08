@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 import {LoaderScreen, Text, View} from "react-native-ui-lib"
-import { Colors } from "react-native/Libraries/NewAppScreen"
+import {Colors} from "react-native/Libraries/NewAppScreen"
 import {getAllFoodByRestaurantId} from "../../../../api"
 import {Food} from "../../../../api/interfaces"
 import {FoodsList} from "../../../../components/foods-list"
@@ -26,16 +26,13 @@ export const FoodList = ({componentId, restaurantId, restaurantName}: FoodListPr
         <Text text40M>{restaurantName}</Text>
         <Text text60L>Foods</Text>
       </View>
-      {loading ? 
-        (
-          <LoaderScreen color={Colors.blue30} message="Loading..." />
-        ) :
-        (
-          <View flex>
-            <FoodsList foods={foods} />
-          </View>
-        )
-      }
+      {loading ? (
+        <LoaderScreen color={Colors.blue30} message="Loading..." />
+      ) : (
+        <View flex>
+          <FoodsList foods={foods} componentId={componentId} />
+        </View>
+      )}
     </>
   )
 }
