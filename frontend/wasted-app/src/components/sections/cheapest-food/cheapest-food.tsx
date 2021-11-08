@@ -22,6 +22,7 @@ export const CheapestFood = () => {
           width: 100,
           height: 100
         }}
+        style={{width: 100, height: 100}}
       />
       <Text marginT-s1>{item.name}</Text>
       <View br20 bg-purple30 padding-s1 marginT-s1>
