@@ -7,10 +7,12 @@ import {LatestFood} from "../../../components/sections/latest-food"
 import {NearRestaurants} from "../../../components/sections/near-restaurants"
 import {PopularRestaurants} from "../../../components/sections/popular-restaurants"
 import {setHomeRoot} from "../../../services/navigation"
+import {HOME_BUTTON} from "../home-button"
 import {HomeProps} from "./interfaces"
 
 export const Home = ({componentId}: HomeProps) => {
   useEffect(() => {
+    Navigation.mergeOptions(componentId, {topBar: {leftButtons: [HOME_BUTTON]}})
     const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
       if (buttonId === "GO_BACK") {
         setHomeRoot()
@@ -22,16 +24,16 @@ export const Home = ({componentId}: HomeProps) => {
   return (
     <ScrollView>
       <View style={{borderBottomColor: Colors.grey50, borderBottomWidth: 1}}>
-        <PopularRestaurants />
+        <PopularRestaurants componentId={componentId} />
       </View>
       <View style={{borderBottomColor: Colors.grey50, borderBottomWidth: 1}}>
-        <LatestFood />
+        <LatestFood componentId={componentId} />
       </View>
       <View style={{borderBottomColor: Colors.grey50, borderBottomWidth: 1}}>
-        <NearRestaurants />
+        <NearRestaurants componentId={componentId} />
       </View>
       <View style={{borderBottomColor: Colors.grey50, borderBottomWidth: 1}}>
-        <CheapestFood />
+        <CheapestFood componentId={componentId} />
       </View>
     </ScrollView>
   )

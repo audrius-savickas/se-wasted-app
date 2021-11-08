@@ -6,8 +6,9 @@ import {Food, FoodSortType} from "../../../api/interfaces"
 import {showFoodInfoModal} from "../../../services/navigation"
 import {formatPrice} from "../../../utils/currency"
 import {HorizontalList} from "../../horizontal-list"
+import {CheapestFoodProps} from "./interfaces"
 
-export const CheapestFood = () => {
+export const CheapestFood = ({componentId}: CheapestFoodProps) => {
   const [food, setFood] = useState([] as Food[])
 
   const fetchFood = async () => {
@@ -15,7 +16,7 @@ export const CheapestFood = () => {
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Food>) => (
-    <TouchableOpacity margin-s1 centerH onPress={() => showFoodInfoModal({food: item})}>
+    <TouchableOpacity margin-s1 centerH onPress={() => showFoodInfoModal({food: item, componentId})}>
       <Image
         source={{
           uri: item.imageURL,

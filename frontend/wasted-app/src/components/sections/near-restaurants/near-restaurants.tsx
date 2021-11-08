@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
-import GetLocation, {Location} from "react-native-get-location"
-import {Image, Text, View} from "react-native-ui-lib"
+import GetLocation from "react-native-get-location"
+import {NavigationComponentProps} from "react-native-navigation"
+import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getAllRestaurants} from "../../../api"
 import {Restaurant, RestaurantSortType} from "../../../api/interfaces"
+import {navigateToRestaurantInfo} from "../../../services/navigation"
 import {formatDistance} from "../../../utils/coordinates"
 import {HorizontalList} from "../../horizontal-list"
 
-export const NearRestaurants = () => {
+export const NearRestaurants = ({componentId}: NavigationComponentProps) => {
   const [restaurants, setRestaurants] = useState([] as Restaurant[])
 
   const fetchRestaurants = async () => {
@@ -24,7 +26,16 @@ export const NearRestaurants = () => {
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Restaurant>) => (
-    <View margin-s1 centerH>
+    <TouchableOpacity
+      margin-s1
+      centerH
+      onPress={() =>
+        navigateToRestaurantInfo(componentId, {
+          componentId,
+          restaurant: item
+        })
+      }
+    >
       <Image
         source={{
           uri: item.imageURL,
@@ -39,7 +50,7 @@ export const NearRestaurants = () => {
           {`${formatDistance(item.distanceToUser)} km`}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 
   useEffect(() => {

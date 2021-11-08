@@ -3,6 +3,7 @@ import {Navigation, Options} from "react-native-navigation"
 import {Colors} from "react-native-ui-lib"
 import {screenNames} from "../screenNames"
 import {FoodInfoProps} from "../screens/food-info/interfaces"
+import {RestaurantInfoProps} from "../screens/restaurant-info/interfaces"
 import {RestaurantLoginOwnProps} from "../screens/restaurant-login/interfaces"
 import {RestaurantRegistrationOwnProps} from "../screens/restaurant-login/restaurant-registration/interfaces"
 import {FoodListOwnProps} from "../screens/user/restaurants/food-list/interfaces"
@@ -53,6 +54,9 @@ export const addOptions = <Props>(component: ComponentType<Props>, options: (pro
 
 export const showFoodInfoModal = (props: FoodInfoProps) => showModal(screenNames.FOOD_INFO, props, "Food Info")
 
+export const navigateToRestaurantInfo = (componentId: string, props: RestaurantInfoProps) =>
+  navigateTo(componentId, screenNames.RESTAURANT_INFO, props, "Restaurant Info")
+
 export const navigateToRestaurantList = (componentId: string, props: RestaurantListOwnProps) =>
   navigateTo(componentId, screenNames.USER_RESTAURANTS, props, "Restaurant List")
 
@@ -79,7 +83,7 @@ export const setRestaurantRoot = props =>
                   component: {
                     name: screenNames.RESTAURANT_FOOD,
                     passProps: {...props}
-                  },
+                  }
                 }
               ],
               options: {
@@ -170,14 +174,6 @@ export const setUserRoot = props =>
                   iconColor: Colors.grey30,
                   selectedTextColor: Colors.black,
                   textColor: Colors.grey30
-                },
-                topBar: {
-                  leftButtons: [
-                    {
-                      id: "GO_BACK",
-                      text: "Back"
-                    }
-                  ]
                 }
               }
             }
@@ -201,14 +197,6 @@ export const setUserRoot = props =>
                   iconColor: Colors.grey30,
                   selectedTextColor: Colors.black,
                   textColor: Colors.grey30
-                },
-                topBar: {
-                  leftButtons: [
-                    {
-                      id: "GO_BACK",
-                      text: "Back"
-                    }
-                  ]
                 }
               }
             }
@@ -232,14 +220,6 @@ export const setUserRoot = props =>
                   iconColor: Colors.grey30,
                   selectedTextColor: Colors.black,
                   textColor: Colors.grey30
-                },
-                topBar: {
-                  leftButtons: [
-                    {
-                      id: "GO_BACK",
-                      text: "Back"
-                    }
-                  ]
                 }
               }
             }

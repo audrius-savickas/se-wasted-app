@@ -6,8 +6,9 @@ import {Food, FoodSortType} from "../../../api/interfaces"
 import {showFoodInfoModal} from "../../../services/navigation"
 import {timeAgo} from "../../../utils/date"
 import {HorizontalList} from "../../horizontal-list"
+import {LatestFoodProps} from "./interfaces"
 
-export const LatestFood = () => {
+export const LatestFood = ({componentId}: LatestFoodProps) => {
   const [food, setFood] = useState([] as Food[])
 
   const fetchFood = async () => {
@@ -15,7 +16,7 @@ export const LatestFood = () => {
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Food>) => (
-    <TouchableOpacity margin-s1 centerH onPress={() => showFoodInfoModal({food: item})}>
+    <TouchableOpacity margin-s1 centerH onPress={() => showFoodInfoModal({food: item, componentId})}>
       <Image
         source={{
           uri: item.imageURL,

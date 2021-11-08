@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
-import {Image, Text, View} from "react-native-ui-lib"
+import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getAllRestaurants} from "../../../api"
 import {Restaurant, RestaurantSortType} from "../../../api/interfaces"
+import {navigateToRestaurantInfo} from "../../../services/navigation"
 import {HorizontalList} from "../../horizontal-list"
+import {PopularRestaurantsProps} from "./interfaces"
 
-export const PopularRestaurants = () => {
+export const PopularRestaurants = ({componentId}: PopularRestaurantsProps) => {
   const [restaurants, setRestaurants] = useState([] as Restaurant[])
 
   const fetchRestaurants = async () => {
@@ -13,7 +15,16 @@ export const PopularRestaurants = () => {
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Restaurant>) => (
-    <View margin-s1 centerH>
+    <TouchableOpacity
+      margin-s1
+      centerH
+      onPress={() =>
+        navigateToRestaurantInfo(componentId, {
+          componentId,
+          restaurant: item
+        })
+      }
+    >
       <Image
         source={{
           uri: item.imageURL,
@@ -23,7 +34,7 @@ export const PopularRestaurants = () => {
         style={{width: 100, height: 100}}
       />
       <Text marginT-s1>{item.name}</Text>
-    </View>
+    </TouchableOpacity>
   )
 
   useEffect(() => {

@@ -1,8 +1,6 @@
-import {FoodType} from "../../api/interfaces"
+import {Food} from "../../api/interfaces"
 
 export interface FoodItemProps {
-  id: string
-  name: string
-  price: string
-  types: FoodType[]
+  food: Food
+  onPress: () => void
 }
