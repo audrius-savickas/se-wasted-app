@@ -44,33 +44,9 @@ namespace WebApi.Controllers
                 }
             }
 
-            var foodsResp = _foodService.GetAllFood().Select(food => FoodResponse.FromEntity(food)).ToList();
+            var foodsResp = _foodService.GetAllFood().Select(food => FoodResponse.FromEntity(food));
 
-            foodsResp ??= new List<FoodResponse>();
-
-            switch (sortOrder)
-            {
-                case "name":
-                    foodsResp = foodsResp.OrderBy(f => f.Name).ToList();
-                    break;
-                case "name_desc":
-                    foodsResp = foodsResp.OrderByDescending(f => f.Name).ToList();
-                    break;
-                case "price":
-                    foodsResp = foodsResp.OrderBy(f => f.CurrentPrice).ToList();
-                    break;
-                case "price_desc":
-                    foodsResp = foodsResp.OrderByDescending(f => f.CurrentPrice).ToList();
-                    break;
-                case "time":
-                    foodsResp = foodsResp.OrderBy(f => (DateTime.Now - f.CreatedAt)).ToList();
-                    break;
-                case "time_desc":
-                    foodsResp = foodsResp.OrderByDescending(f => (DateTime.Now - f.CreatedAt)).ToList();
-                    break;
-                default:
-                    break;
-            }
+            foodsResp = EntitySorter.SortFoods(foodsResp, sortOrder);
 
             return Ok(foodsResp);
         }

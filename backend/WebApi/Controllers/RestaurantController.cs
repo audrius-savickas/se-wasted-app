@@ -48,23 +48,7 @@ namespace WebApi.Controllers
 
             var restaurants = _restaurantService.GetAllRestaurants();
 
-            switch (sortOrder)
-            {
-                case "name":
-                    restaurants = restaurants.OrderBy(r => r.Name);
-                    break;
-                case "name_desc":
-                    restaurants = restaurants.OrderByDescending(r => r.Name);
-                    break;
-                case "dist":
-                    restaurants = restaurants.OrderBy(r => CoordsHelper.HaversineDistanceKM(userCoordinates, r.Coords));
-                    break;
-                case "dist_desc":
-                    restaurants = restaurants.OrderByDescending(r => CoordsHelper.HaversineDistanceKM(userCoordinates, r.Coords));
-                    break;
-                default:
-                    break;
-            }
+            restaurants = EntitySorter.SortRestaurants(restaurants, sortOrder, userCoordinates);
 
             return Ok(restaurants);
         }
@@ -189,29 +173,7 @@ namespace WebApi.Controllers
             
             var foods = _restaurantService.GetAllFoodFromRestaurant(id).Select(food => FoodResponse.FromEntity(food));
 
-            switch (sortOrder)
-            {
-                case "name":
-                    foods = foods.OrderBy(f => f.Name).ToList();
-                    break;
-                case "name_desc":
-                    foods = foods.OrderByDescending(f => f.Name).ToList();
-                    break;
-                case "price":
-                    foods = foods.OrderBy(f => f.CurrentPrice).ToList();
-                    break;
-                case "price_desc":
-                    foods = foods.OrderByDescending(f => f.CurrentPrice).ToList();
-                    break;
-                case "time":
-                    foods = foods.OrderBy(f => (DateTime.Now - f.CreatedAt)).ToList();
-                    break;
-                case "time_desc":
-                    foods = foods.OrderByDescending(f => (DateTime.Now - f.CreatedAt)).ToList();
-                    break;
-                default:
-                    break;
-            }
+            foods = EntitySorter.SortFoods(foods, sortOrder);
 
             return Ok(foods);
         }
