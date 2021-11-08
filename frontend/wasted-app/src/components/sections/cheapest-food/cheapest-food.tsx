@@ -15,20 +15,10 @@ export const CheapestFood = () => {
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Food>) => (
-    <TouchableOpacity
-      margin-s1
-      centerH
-      onPress={() =>
-        showFoodInfoModal({
-          food: item,
-          imageUrl:
-            "https://receptai.lidl.lt/var/site/storage/images/_aliases/960x540/0/7/8/5/895870-1-lit-LT/saltibarsciai-20210408-1440x495.jpg"
-        })
-      }
-    >
+    <TouchableOpacity margin-s1 centerH onPress={() => showFoodInfoModal({food: item})}>
       <Image
         source={{
-          uri: `https://www.bbc.co.uk/staticarchive/4924b0772cad94008653b216980c869e1d4ec953.jpg`,
+          uri: item.imageURL,
           width: 100,
           height: 100
         }}

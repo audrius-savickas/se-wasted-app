@@ -16,7 +16,7 @@ export const PopularRestaurants = () => {
     <View margin-s1 centerH>
       <Image
         source={{
-          uri: `https://media.istockphoto.com/photos/closeup-mcdonalds-outdoor-sign-against-blue-sky-picture-id458546943?k=20&m=458546943&s=612x612&w=0&h=G7fU8lNJh50I-Ou_ocB8XE5s_jpphKO0wNPy_5OxOkc=`,
+          uri: item.imageURL,
           width: 100,
           height: 100
         }}
