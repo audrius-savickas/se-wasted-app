@@ -2,14 +2,14 @@ import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
 import {Image, Text, View} from "react-native-ui-lib"
 import {getAllRestaurants} from "../../../api"
-import {Restaurant} from "../../../api/interfaces"
+import {Restaurant, RestaurantSortType} from "../../../api/interfaces"
 import {HorizontalList} from "../../horizontal-list"
 
 export const PopularRestaurants = () => {
   const [restaurants, setRestaurants] = useState([] as Restaurant[])
 
   const fetchRestaurants = async () => {
-    setRestaurants(await getAllRestaurants())
+    setRestaurants(await getAllRestaurants({sortType: RestaurantSortType.NAME}))
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Restaurant>) => (

@@ -6,7 +6,7 @@ import {HorizontalListProps} from "./interfaces"
 
 export const HorizontalList = ({items, renderItem}: HorizontalListProps) => {
   return (
-    <ScrollView nestedScrollEnabled style={{}}>
+    <ScrollView nestedScrollEnabled>
       <View>
         <FlatList
           horizontal
