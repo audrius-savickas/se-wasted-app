@@ -12,8 +12,9 @@ export const FoodInfo = ({food, showRestaurantLink = true}: FoodInfoProps) => {
   const {name, typesOfFood, currentPrice, idRestaurant, createdAt, imageURL} = food
 
   const fetchRestaurant = async () => {
-    setRestaurant(await getRestaurantById(idRestaurant))
+    setRestaurant((await getRestaurantById(idRestaurant)) as Restaurant)
   }
+  console.log(imageURL)
 
   useEffect(() => {
     fetchRestaurant()
@@ -30,7 +31,7 @@ export const FoodInfo = ({food, showRestaurantLink = true}: FoodInfoProps) => {
             <Chip margin-s1 key={type.id} label={type.name} />
           ))}
         </View>
-        <Image marginT-s2 source={{uri: imageURL, height: 200, width: 330}} />
+        <Image marginT-s2 source={{uri: imageURL, height: 200, width: 330}} style={{height: 200, width: 300}} />
       </View>
       <View marginT-s6 marginH-s6>
         {showRestaurantLink ? (

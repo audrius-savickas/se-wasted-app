@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
 import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getAllRestaurants} from "../../../api"
-import {Restaurant} from "../../../api/interfaces"
+import {Restaurant, RestaurantSortType} from "../../../api/interfaces"
 import {navigateToRestaurantInfo} from "../../../services/navigation"
 import {HorizontalList} from "../../horizontal-list"
 import {PopularRestaurantsProps} from "./interfaces"
@@ -11,7 +11,7 @@ export const PopularRestaurants = ({componentId}: PopularRestaurantsProps) => {
   const [restaurants, setRestaurants] = useState([] as Restaurant[])
 
   const fetchRestaurants = async () => {
-    setRestaurants(await getAllRestaurants())
+    setRestaurants(await getAllRestaurants({sortType: RestaurantSortType.NAME}))
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Restaurant>) => (
@@ -31,6 +31,7 @@ export const PopularRestaurants = ({componentId}: PopularRestaurantsProps) => {
           width: 100,
           height: 100
         }}
+        style={{width: 100, height: 100}}
       />
       <Text marginT-s1>{item.name}</Text>
     </TouchableOpacity>

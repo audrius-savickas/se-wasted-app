@@ -1,17 +1,28 @@
 import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
+import GetLocation from "react-native-get-location"
 import {NavigationComponentProps} from "react-native-navigation"
 import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getAllRestaurants} from "../../../api"
-import {Restaurant} from "../../../api/interfaces"
+import {Restaurant, RestaurantSortType} from "../../../api/interfaces"
 import {navigateToRestaurantInfo} from "../../../services/navigation"
+import {formatDistance} from "../../../utils/coordinates"
 import {HorizontalList} from "../../horizontal-list"
 
 export const NearRestaurants = ({componentId}: NavigationComponentProps) => {
   const [restaurants, setRestaurants] = useState([] as Restaurant[])
 
   const fetchRestaurants = async () => {
-    setRestaurants(await getAllRestaurants())
+    const location = await GetLocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 15000
+    })
+    setRestaurants(
+      await getAllRestaurants({
+        sortType: RestaurantSortType.DIST,
+        coordinates: {longitude: location.longitude, latitude: location.latitude}
+      })
+    )
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Restaurant>) => (
@@ -31,8 +42,14 @@ export const NearRestaurants = ({componentId}: NavigationComponentProps) => {
           width: 100,
           height: 100
         }}
+        style={{width: 100, height: 100}}
       />
       <Text marginT-s1>{item.name}</Text>
+      <View br20 bg-purple30 padding-s1 paddingH-s2 marginT-s1>
+        <Text white text90M>
+          {`${formatDistance(item.distanceToUser)} km`}
+        </Text>
+      </View>
     </TouchableOpacity>
   )
 

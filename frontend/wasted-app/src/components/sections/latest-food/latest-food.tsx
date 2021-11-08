@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
 import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getAllFood} from "../../../api/food"
-import {Food} from "../../../api/interfaces"
+import {Food, FoodSortType} from "../../../api/interfaces"
 import {showFoodInfoModal} from "../../../services/navigation"
 import {timeAgo} from "../../../utils/date"
 import {HorizontalList} from "../../horizontal-list"
@@ -12,7 +12,7 @@ export const LatestFood = ({componentId}: LatestFoodProps) => {
   const [food, setFood] = useState([] as Food[])
 
   const fetchFood = async () => {
-    setFood(await getAllFood())
+    setFood(await getAllFood({sortType: FoodSortType.TIME}))
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Food>) => (
@@ -23,6 +23,7 @@ export const LatestFood = ({componentId}: LatestFoodProps) => {
           width: 100,
           height: 100
         }}
+        style={{width: 100, height: 100}}
       />
       <Text marginT-s1>{item.name}</Text>
       <View br20 bg-purple30 padding-s1 paddingH-s2 marginT-s1>
