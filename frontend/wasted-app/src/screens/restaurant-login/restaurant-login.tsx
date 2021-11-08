@@ -16,7 +16,7 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
 
   const login = () => {
     setRestaurantRoot({
-      restaurantId: "0",
+      restaurantId: "pt953XaT",
       restaurantName: "Example of restaurant"
     })
   }

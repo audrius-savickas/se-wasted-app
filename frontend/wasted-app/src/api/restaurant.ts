@@ -22,13 +22,12 @@ export const getAllFoodByRestaurantId = async (id: string): Promise<Food[]> => {
   }
 }
 
-export const getRestaurantById = async (id: string): Promise<Restaurant> => {
+export const getRestaurantById = async (id: string): Promise<Restaurant | null> => {
   try {
     const response = await fetch(`${WASTED_SERVER_URL}/Restaurant/${id}`)
     const data = await response.json()
     return data
   } catch (error) {
-    console.error(error)
-    throw Error("restaurant not found by id")
+    return null
   }
 }

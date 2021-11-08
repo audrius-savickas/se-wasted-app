@@ -2,7 +2,7 @@ export interface Restaurant {
   id: string
   name: string
   coords: {latitude: number; longitude: number}
-  address: string
+  address: string,
   imageURL: string
 }
 
