@@ -25,6 +25,7 @@ namespace Contracts.DTOs
         public double IntervalTimeInMinutes { get; set; }
         public decimal AmountPerInterval { get; set; }
         public double PercentPerInterval { get; set; }
+        public string ImageURL { get; set; }
 
         public static FoodResponse FromEntity(Food food)
         {
@@ -44,6 +45,7 @@ namespace Contracts.DTOs
                 PercentPerInterval = food.PercentPerInterval,
                 DecreaseType = food.DecreaseType,
                 Description = food.Description,
+                ImageURL = food.ImageURL
             };
         }
     }
