@@ -14,7 +14,6 @@ export const FoodInfo = ({food, showRestaurantLink = true}: FoodInfoProps) => {
   const fetchRestaurant = async () => {
     setRestaurant((await getRestaurantById(idRestaurant)) as Restaurant)
   }
-  console.log(imageURL)
 
   useEffect(() => {
     fetchRestaurant()
