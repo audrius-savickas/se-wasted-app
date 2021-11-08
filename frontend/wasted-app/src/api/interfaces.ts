@@ -2,8 +2,9 @@ export interface Restaurant {
   id: string
   name: string
   coords: {latitude: number; longitude: number}
-  address: string,
+  address: string
   imageURL: string
+  distanceToUser: number
 }
 
 export interface Food {
@@ -27,7 +28,37 @@ export interface FoodType {
   name: string
 }
 
+export interface Coordinates {
+  latitude: number
+  longitude: number
+}
+
+export interface RestaurantSortObject {
+  sortType: RestaurantSortType
+  coordinates?: Coordinates
+}
+
+export interface FoodSortObject {
+  sortType: FoodSortType
+}
+
 export enum DecreaseType {
   AMOUNT,
   PERCENT
+}
+
+export enum RestaurantSortType {
+  NAME = "name",
+  NAME_DESC = "name_desc",
+  DIST = "dist",
+  DIST_DESC = "dist_desc"
+}
+
+export enum FoodSortType {
+  PRICE = "price",
+  PRICE_DESC = "price_desc",
+  NAME = "name",
+  NAME_DESC = "name_desc",
+  TIME = "time",
+  TIME_DESC = "time_desc"
 }

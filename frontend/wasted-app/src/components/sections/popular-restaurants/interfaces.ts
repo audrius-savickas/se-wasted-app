@@ -1,1 +1,3 @@
-export interface PopularRestaurantsProps {}
+export interface PopularRestaurantsProps {
+  componentId: string
+}
