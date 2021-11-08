@@ -133,7 +133,7 @@ export const Profile = ({
                 >
                   <Button
                     link={true}
-                    label="Cancel"
+                    label="Reset"
                     onPress={cancelUpdate}
                   />
                   <Button
