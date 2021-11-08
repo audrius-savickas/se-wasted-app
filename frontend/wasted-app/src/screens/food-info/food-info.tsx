@@ -33,12 +33,21 @@ export const FoodInfo = ({food, showRestaurantLink = true}: FoodInfoProps) => {
         <Image marginT-s2 source={{uri: imageURL, height: 200, width: 330}} />
       </View>
       <View marginT-s6 marginH-s6>
-        <View row centerV>
-          <Text text60L purple20 style={{width: 120}}>
-            Price
-          </Text>
-          <Text text60L>{formatPrice(currentPrice)}</Text>
-        </View>
+        {showRestaurantLink ? (
+          <TouchableOpacity row centerV onPress={() => {}}>
+            <Text text60L purple20 style={{width: 120}}>
+              Restaurant
+            </Text>
+            <Text text60L>{`${restaurant.name} ↗️`}</Text>
+          </TouchableOpacity>
+        ) : (
+          <View row centerV>
+            <Text text60L purple20 style={{width: 120}}>
+              Restaurant
+            </Text>
+            <Text text60L>{restaurant.name}</Text>
+          </View>
+        )}
         <View row centerV marginT-s4>
           <Text text60L purple20 style={{width: 120}}>
             Cooked
@@ -50,21 +59,12 @@ export const FoodInfo = ({food, showRestaurantLink = true}: FoodInfoProps) => {
             <Text text80L style={{width: 250}}>{`${formatDate(createdAt)} | ${formatTime(createdAt)}`}</Text>
           </View>
         </View>
-        {showRestaurantLink ? (
-          <TouchableOpacity row centerV marginT-s4 onPress={() => {}}>
-            <Text text60L purple20 style={{width: 120}}>
-              Restaurant
-            </Text>
-            <Text text60L>{`${restaurant.name} ↗️`}</Text>
-          </TouchableOpacity>
-        ) : (
-          <View row centerV marginT-s4>
-            <Text text60L purple20 style={{width: 120}}>
-              Restaurant
-            </Text>
-            <Text text60L>{restaurant.name}</Text>
-          </View>
-        )}
+        <View row centerV marginT-s4>
+          <Text text60L purple20 style={{width: 120}}>
+            Price
+          </Text>
+          <Text text60L>{formatPrice(currentPrice)}</Text>
+        </View>
       </View>
     </View>
   )
