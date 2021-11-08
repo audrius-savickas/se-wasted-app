@@ -40,7 +40,7 @@ export const FoodItem = ({food, onPress}: FoodItemProps) => {
       >
         <View row centerV marginH-s4>
           <View marginR-s4>
-            <Image source={{uri: imageURL, width: 80, height: 80}} />
+            <Image source={{uri: imageURL, width: 80, height: 80}} style={{height: 80, width: 80}} />
           </View>
           <ListItem.Part middle>
             <View>
