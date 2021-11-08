@@ -1,5 +1,6 @@
 import React from "react"
 import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import {navigateToRestaurantList} from "../../services/navigation"
 import {RestaurantInfoProps} from "./interfaces"
 
 export const RestaurantInfo = ({restaurant}: RestaurantInfoProps) => {

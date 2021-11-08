@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Chip, Image, Text, View} from "react-native-ui-lib"
+import {Chip, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
 import {Restaurant} from "../../api/interfaces"
 import {formatPrice} from "../../utils/currency"
@@ -50,12 +50,12 @@ export const FoodInfo = ({food}: FoodInfoProps) => {
             <Text text80L style={{width: 250}}>{`${formatDate(createdAt)} | ${formatTime(createdAt)}`}</Text>
           </View>
         </View>
-        <View row centerV marginT-s4>
+        <TouchableOpacity row centerV marginT-s4 onPress={() => {}}>
           <Text text60L purple20 style={{width: 120}}>
             Restaurant
           </Text>
-          <Text text60L>{restaurant.name}</Text>
-        </View>
+          <Text text60L>{`${restaurant.name} ↗️`}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )

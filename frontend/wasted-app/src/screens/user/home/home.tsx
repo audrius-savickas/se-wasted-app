@@ -27,13 +27,13 @@ export const Home = ({componentId}: HomeProps) => {
         <PopularRestaurants componentId={componentId} />
       </View>
       <View style={{borderBottomColor: Colors.grey50, borderBottomWidth: 1}}>
-        <LatestFood />
+        <LatestFood componentId={componentId} />
       </View>
       <View style={{borderBottomColor: Colors.grey50, borderBottomWidth: 1}}>
         <NearRestaurants componentId={componentId} />
       </View>
       <View style={{borderBottomColor: Colors.grey50, borderBottomWidth: 1}}>
-        <CheapestFood />
+        <CheapestFood componentId={componentId} />
       </View>
     </ScrollView>
   )
