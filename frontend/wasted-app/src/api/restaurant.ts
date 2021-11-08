@@ -31,3 +31,13 @@ export const getRestaurantById = async (id: string): Promise<Restaurant | null> 
     return null
   }
 }
+
+export const updateRestaurant = async (updatedRestaurant: Restaurant) => {
+  await fetch(`${WASTED_SERVER_URL}/Restaurant/${updatedRestaurant.id}`,{
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(updatedRestaurant)
+  })
+}
