@@ -1,18 +1,24 @@
 import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
+import GetLocation, {Location} from "react-native-get-location"
 import {Image, Text, View} from "react-native-ui-lib"
 import {getAllRestaurants} from "../../../api"
 import {Restaurant, RestaurantSortType} from "../../../api/interfaces"
+import {formatDistance} from "../../../utils/coordinates"
 import {HorizontalList} from "../../horizontal-list"
 
 export const NearRestaurants = () => {
   const [restaurants, setRestaurants] = useState([] as Restaurant[])
 
   const fetchRestaurants = async () => {
+    const location = await GetLocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 15000
+    })
     setRestaurants(
       await getAllRestaurants({
         sortType: RestaurantSortType.DIST,
-        coordinates: {longitude: 25.28417, latitude: 54.68649}
+        coordinates: {longitude: location.longitude, latitude: location.latitude}
       })
     )
   }
@@ -27,6 +33,11 @@ export const NearRestaurants = () => {
         }}
       />
       <Text marginT-s1>{item.name}</Text>
+      <View br20 bg-purple30 padding-s1 paddingH-s2 marginT-s1>
+        <Text white text90M>
+          {`${formatDistance(item.distanceToUser)} km`}
+        </Text>
+      </View>
     </View>
   )
 

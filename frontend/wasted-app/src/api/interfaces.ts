@@ -4,6 +4,7 @@ export interface Restaurant {
   coords: {latitude: number; longitude: number}
   address: string
   imageURL: string
+  distanceToUser: number
 }
 
 export interface Food {
