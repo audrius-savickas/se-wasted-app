@@ -5,6 +5,9 @@ using Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Domain.Helpers;
+using WebApi.Helpers;
+using System;
 
 namespace WebApi.Controllers
 {
@@ -23,12 +26,29 @@ namespace WebApi.Controllers
         /// <summary>
         /// Retrieve all restaurants
         /// </summary>
+        /// <param name="sortOrder">Optional order by which the restaurants should be sorted</param>
+        /// <param name="userCoordinates">Optional coordinates of the user</param>
         /// <returns></returns>
         [HttpGet(Name = nameof(GetAll))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<RestaurantDto>))]
-        public IActionResult GetAll()
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public IActionResult GetAll(string sortOrder = null, [FromQuery] Coords userCoordinates = null)
         {
+            if(sortOrder != null)
+            {
+                try
+                {
+                    InputValidator.ValidateRestaurantSortOrder(sortOrder, userCoordinates);
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e.Message);
+                }
+            }
+
             var restaurants = _restaurantService.GetAllRestaurants();
+
+            restaurants = EntitySorter.SortRestaurants(restaurants, sortOrder, userCoordinates);
 
             return Ok(restaurants);
         }
@@ -48,7 +68,7 @@ namespace WebApi.Controllers
                 var restaurant = _restaurantService.GetRestaurantById(id);
                 return Ok(restaurant);
             }
-            catch(System.Exception exception)
+            catch(Exception exception)
             {
                 return NotFound(exception.Message);
             }
@@ -70,7 +90,7 @@ namespace WebApi.Controllers
                 string id = _restaurantService.Register(creds, restaurantRegisterRequest);
                 return CreatedAtAction(nameof(Post), new { id });
             }
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
                 return BadRequest(exception.Message);
             }
@@ -102,7 +122,7 @@ namespace WebApi.Controllers
 
                 return Ok();
             }
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
                 return BadRequest(exception.Message);
             }
@@ -128,17 +148,33 @@ namespace WebApi.Controllers
                 return Unauthorized(exception.Message);
             }
         }
-        
+
         /// <summary>
         /// Retrieves the food served by a restaurant
         /// </summary>
         /// <param name="id">Identifies the restaurant</param>
+        /// <param name="sortOrder">Optional order by which the food should be sorted</param>
         /// <returns></returns>
         [HttpGet("{id}/food",Name = nameof(GetAllFoodFromRestaurant))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
-        public IActionResult GetAllFoodFromRestaurant(string id)
+
+        public IActionResult GetAllFoodFromRestaurant(string id, string sortOrder = null)
         {
+            if(sortOrder != null)
+            {
+                try
+                {
+                    InputValidator.ValidateFoodSortOrder(sortOrder);
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e.Message);
+                }
+            }
+            
             var foods = _restaurantService.GetAllFoodFromRestaurant(id).Select(food => FoodResponse.FromEntity(food));
+
+            foods = EntitySorter.SortFoods(foods, sortOrder);
 
             return Ok(foods);
         }
