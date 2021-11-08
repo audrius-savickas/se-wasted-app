@@ -1,6 +1,8 @@
 [
   {
     "StartingPrice": 15,
+    "MinimumPrice": 1,
+    "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "pt953XaT",
     "ImageURL": "https://www.lamaistas.lt/uploads/modules/recipes/thumb920x573/19268.jpg",
@@ -20,6 +22,8 @@
   },
   {
     "StartingPrice": 9.25,
+    "MinimumPrice": 1,
+    "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "pt953XaT",
     "ImageURL": "https://receptai.patarimupasaulis.lt/images/Sriubos/saltibarsciai.jpg",
@@ -39,6 +43,8 @@
   },
   {
     "StartingPrice": 13.00,
+    "MinimumPrice": 1,
+    "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "pt953XaT",
     "ImageURL": "https://g3.dcdn.lt/images/pix/cepelinai-80268533.jpg",
@@ -58,6 +64,8 @@
   },
   {
     "StartingPrice": 10.69,
+    "MinimumPrice": 1,
+    "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "pt953XaT",
     "ImageURL": "https://www.lamaistas.lt/uploads/modules/recipes/thumb920x573/17353.jpg",
@@ -77,6 +85,8 @@
   },
   {
     "StartingPrice": 11.00,
+    "MinimumPrice": 1,
+    "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "pt953XaT",
     "ImageURL": "https://worldrecipes.eu/storage/11068/conversions/zemaiciu-blynai-vistiena-suriu-medium.jpg",
@@ -96,6 +106,8 @@
   },
   {
     "StartingPrice": 4.00,
+    "MinimumPrice": 1,
+    "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "pt953XaT",
     "ImageURL": "https://cdn.craftbeer.com/wp-content/uploads/Debunking-the-Myths-Surrounding-Dark-Beer2-hero.jpg",
@@ -115,6 +127,8 @@
   },
   {
     "StartingPrice": 3.00,
+    "MinimumPrice": 1,
+    "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "pt953XaT",
     "ImageURL": "https://winning-homebrew.com/wp-content/uploads/2021/02/pale-ale.jpg",
@@ -134,6 +148,8 @@
   },
   {
     "StartingPrice": 6.00,
+    "MinimumPrice": 1,
+    "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "H6\u002BmLxBY",
     "ImageURL": "http://www.goingcavewoman.com/wp-content/uploads/2013/04/Drip-doughnut-1200.jpg",
@@ -157,6 +173,8 @@
   },
   {
     "StartingPrice": 2.00,
+    "MinimumPrice": 1,
+    "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "H6\u002BmLxBY",
     "ImageURL": "https://assets.epicurious.com/photos/54b0226d766062b20344580a/master/pass/51160200_glazed-doughnuts_1x1.jpg",
@@ -180,6 +198,8 @@
   },
   {
     "StartingPrice": 5.00,
+    "MinimumPrice": 1,
+    "Description": "Example long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \n",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "H6\u002BmLxBY",
     "ImageURL": "https://www.alphafoodie.com/wp-content/uploads/2020/04/Homemade-Croissant-1-of-1-6.jpeg",
@@ -199,6 +219,8 @@
   },
   {
     "StartingPrice": 2.00,
+    "MinimumPrice": 1,
+    "Description": "Example long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \n",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "H6\u002BmLxBY",
     "ImageURL": "https://www.acouplecooks.com/wp-content/uploads/2020/09/Latte-Art-067s.jpg",
@@ -218,6 +240,8 @@
   },
   {
     "StartingPrice": 4.00,
+    "MinimumPrice": 1,
+    "Description": "Example long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \n",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "H6\u002BmLxBY",
     "ImageURL": "https://assets.bonappetit.com/photos/5ca534485e96521ff23b382b/1:1/w_2700,h_2700,c_limit/chocolate-chip-cookie.jpg",
@@ -237,6 +261,8 @@
   },
   {
     "StartingPrice": 5,
+    "MinimumPrice": 1,
+    "Description": "Example long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \n",
     "CreatedAt": "2021-11-04T09:59:21.56Z",
     "IdRestaurant": "pt953XaT",
     "ImageURL": "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg",

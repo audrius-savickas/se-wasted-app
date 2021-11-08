@@ -14,6 +14,8 @@ namespace Contracts.DTOs
         }
 
         public decimal StartingPrice { get; set; }
+        public decimal MinimumPrice { get; set; }
+        public string Description { get; set; }
         public decimal CurrentPrice { get; set; }
         public DateTime CreatedAt { get; set; }
         public string IdRestaurant { get; set; }
@@ -31,6 +33,7 @@ namespace Contracts.DTOs
             return new FoodResponse(food.Id, food.Name)
             {
                 StartingPrice = food.StartingPrice,
+                MinimumPrice = food.MinimumPrice,
                 CurrentPrice = food.CalculateCurrentPrice(),
                 CreatedAt = food.CreatedAt,
                 IdRestaurant = food.IdRestaurant,
@@ -40,6 +43,7 @@ namespace Contracts.DTOs
                 AmountPerInterval = food.AmountPerInterval,
                 PercentPerInterval = food.PercentPerInterval,
                 DecreaseType = food.DecreaseType,
+                Description = food.Description,
             };
         }
     }
