@@ -8,7 +8,7 @@ namespace Domain.Helpers
         private const double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
 
 
-        private static double HaversineDistanceKM(Coords one, Coords others)
+        public static double HaversineDistanceKM(Coords one, Coords others)
         {
             _ = one ?? throw new ArgumentNullException(nameof(one));
             _ = others ?? throw new ArgumentNullException(nameof(others));

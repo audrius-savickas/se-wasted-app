@@ -7,6 +7,8 @@ namespace Domain.Entities
         public decimal Longitude { get; set; }
         public decimal Latitude { get; set; }
 
+        public Coords() { }
+
         public Coords(decimal longitude, decimal latitude)
         {
             if(MathF.Abs((float)latitude) > 90 || MathF.Abs((float)longitude) > 180)
@@ -17,5 +19,6 @@ namespace Domain.Entities
             Longitude = longitude;
             Latitude = latitude;
         }
+        
     }
 }

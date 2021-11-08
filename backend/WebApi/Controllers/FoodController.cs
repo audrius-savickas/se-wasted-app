@@ -1,5 +1,6 @@
 ﻿using Contracts.DTOs;
 using Domain.Entities;
+using WebApi.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using System;
@@ -24,14 +25,28 @@ namespace WebApi.Controllers
         /// <summary>
         /// Retrieve all food items.
         /// </summary>
+        /// <param name="sortOrder">Optional order by which the food should be sorted</param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
-        public IActionResult GetAll()
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public IActionResult GetAll(string sortOrder = null)
         {
-            var foodsResp = _foodService.GetAllFood().Select(food => FoodResponse.FromEntity(food)).ToList();
+            if (sortOrder != null)
+            {
+                try
+                {
+                    InputValidator.ValidateFoodSortOrder(sortOrder);
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e.Message);
+                }
+            }
 
-            foodsResp ??= new List<FoodResponse>();
+            var foodsResp = _foodService.GetAllFood().Select(food => FoodResponse.FromEntity(food));
+
+            foodsResp = EntitySorter.SortFoods(foodsResp, sortOrder);
 
             return Ok(foodsResp);
         }
