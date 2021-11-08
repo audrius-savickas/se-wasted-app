@@ -1,6 +1,6 @@
 import React from "react"
 import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
-import {navigateToFoodList, navigateToRestaurantList} from "../../services/navigation"
+import {navigateToFoodList} from "../../services/navigation"
 import {RestaurantInfoProps} from "./interfaces"
 
 export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) => {
@@ -12,7 +12,11 @@ export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) =
         <Text text30M purple20 marginT-s2 marginB-s1>
           {name}
         </Text>
-        <Image marginT-s2 source={{uri: restaurant.imageURL, height: 200, width: 330}} />
+        <Image
+          marginT-s2
+          source={{uri: restaurant.imageURL, height: 200, width: 330}}
+          style={{height: 200, width: 300}}
+        />
       </View>
       <View marginT-s6 marginH-s6>
         <View row centerV>
