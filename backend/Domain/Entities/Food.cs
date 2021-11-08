@@ -7,6 +7,7 @@ namespace Domain.Entities
     {
         public decimal StartingPrice { get; set; }
         public decimal MinimumPrice { get; set; }
+        public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public string IdRestaurant { get; set; }
         public string ImageURL { get; set; }
@@ -35,7 +36,8 @@ namespace Domain.Entities
             DateTime? createdAt = null,
             DateTime? startDecreasingAt = null,
             decimal? amountPerInterval = null,
-            double? percentPerInterval = null
+            double? percentPerInterval = null,
+            string description = ""
         )
             : base(id, name)
         {
@@ -48,6 +50,7 @@ namespace Domain.Entities
             StartDecreasingAt = startDecreasingAt ?? CreatedAt;
             IntervalTimeInMinutes = intervalTimeInMinutes;
             DecreaseType = decreaseType;
+            Description = description;
 
             ValidatePriceDecrease(decreaseType, percentPerInterval, amountPerInterval);
 
