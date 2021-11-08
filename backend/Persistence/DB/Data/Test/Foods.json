@@ -33,16 +33,11 @@
         "Name": "Traditional food"
       }
     ],
-    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 0,
-    "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.15,
-    "PercentPerInterval": 1,
     "Id": "0",
     "Name": "Saltibarsciai"
   },
   {
-    "StartingPrice": 13.00,
+    "StartingPrice": 13.0,
     "MinimumPrice": 1,
     "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
@@ -54,11 +49,6 @@
         "Name": "Traditional food"
       }
     ],
-    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 0,
-    "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.15,
-    "PercentPerInterval": 1,
     "Id": "1",
     "Name": "Cepelinai"
   },
@@ -75,16 +65,11 @@
         "Name": "Unclassified"
       }
     ],
-    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 0,
-    "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.15,
-    "PercentPerInterval": 1,
     "Id": "2",
     "Name": "Kijevo kotletas"
   },
   {
-    "StartingPrice": 11.00,
+    "StartingPrice": 11.0,
     "MinimumPrice": 1,
     "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
@@ -96,16 +81,11 @@
         "Name": "Unclassified"
       }
     ],
-    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 1,
-    "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.05,
-    "PercentPerInterval": 1,
     "Id": "3",
     "Name": "Zemaiciu blynai"
   },
   {
-    "StartingPrice": 4.00,
+    "StartingPrice": 4.0,
     "MinimumPrice": 1,
     "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
@@ -117,16 +97,11 @@
         "Name": "Drink"
       }
     ],
-    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 1,
-    "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.05,
-    "PercentPerInterval": 1,
     "Id": "4",
     "Name": "Dark Beer"
   },
   {
-    "StartingPrice": 3.00,
+    "StartingPrice": 3.0,
     "MinimumPrice": 1,
     "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
@@ -138,16 +113,11 @@
         "Name": "Drink"
       }
     ],
-    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 1,
-    "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.05,
-    "PercentPerInterval": 1,
     "Id": "5",
     "Name": "Light Beer"
   },
   {
-    "StartingPrice": 6.00,
+    "StartingPrice": 6.0,
     "MinimumPrice": 1,
     "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
@@ -163,16 +133,11 @@
         "Name": "Pastry"
       }
     ],
-    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 1,
-    "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.05,
-    "PercentPerInterval": 1,
     "Id": "6",
     "Name": "Cream Doughnut"
   },
   {
-    "StartingPrice": 2.00,
+    "StartingPrice": 2.0,
     "MinimumPrice": 1,
     "Description": "Example short description.",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
@@ -188,16 +153,11 @@
         "Name": "Pastry"
       }
     ],
-    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 1,
-    "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.05,
-    "PercentPerInterval": 1,
     "Id": "7",
     "Name": "Glazed Doughnut"
   },
   {
-    "StartingPrice": 5.00,
+    "StartingPrice": 5.0,
     "MinimumPrice": 1,
     "Description": "Example long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \n",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
@@ -209,16 +169,11 @@
         "Name": "Pastry"
       }
     ],
-    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 0,
-    "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.15,
-    "PercentPerInterval": 1,
     "Id": "8",
     "Name": "Croissant"
   },
   {
-    "StartingPrice": 2.00,
+    "StartingPrice": 2.0,
     "MinimumPrice": 1,
     "Description": "Example long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \n",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
@@ -230,16 +185,11 @@
         "Name": "Drink"
       }
     ],
-    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 0,
-    "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.15,
-    "PercentPerInterval": 1,
     "Id": "9",
     "Name": "Latte"
   },
   {
-    "StartingPrice": 4.00,
+    "StartingPrice": 4.0,
     "MinimumPrice": 1,
     "Description": "Example long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \n",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
@@ -251,11 +201,6 @@
         "Name": "Pastry"
       }
     ],
-    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
-    "DecreaseType": 0,
-    "IntervalTimeInMinutes": 180,
-    "AmountPerInterval": 0.15,
-    "PercentPerInterval": 1,
     "Id": "10",
     "Name": "Cookie"
   },
