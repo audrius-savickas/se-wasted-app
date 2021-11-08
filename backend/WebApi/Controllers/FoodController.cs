@@ -32,13 +32,16 @@ namespace WebApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult GetAll(string sortOrder = null)
         {
-            try
+            if (sortOrder != null)
             {
-                InputValidator.ValidateFoodSortOrder(sortOrder);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
+                try
+                {
+                    InputValidator.ValidateFoodSortOrder(sortOrder);
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e.Message);
+                }
             }
 
             var foodsResp = _foodService.GetAllFood().Select(food => FoodResponse.FromEntity(food)).ToList();

@@ -34,13 +34,16 @@ namespace WebApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult GetAll(string sortOrder = null, [FromQuery] Coords userCoordinates = null)
         {
-            try
+            if(sortOrder != null)
             {
-                InputValidator.ValidateRestaurantSortOrder(sortOrder, userCoordinates);
-            }
-            catch(Exception e)
-            {
-                return BadRequest(e.Message);
+                try
+                {
+                    InputValidator.ValidateRestaurantSortOrder(sortOrder, userCoordinates);
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e.Message);
+                }
             }
 
             var restaurants = _restaurantService.GetAllRestaurants();
@@ -172,15 +175,18 @@ namespace WebApi.Controllers
 
         public IActionResult GetAllFoodFromRestaurant(string id, string sortOrder = null)
         {
-            try
+            if(sortOrder != null)
             {
-                InputValidator.ValidateFoodSortOrder(sortOrder);
+                try
+                {
+                    InputValidator.ValidateFoodSortOrder(sortOrder);
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e.Message);
+                }
             }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-
+            
             var foods = _restaurantService.GetAllFoodFromRestaurant(id).Select(food => FoodResponse.FromEntity(food));
 
             switch (sortOrder)

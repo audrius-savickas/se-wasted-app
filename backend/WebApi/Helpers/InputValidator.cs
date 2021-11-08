@@ -1,44 +1,51 @@
 ﻿using Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApi.Helpers
 {
     public class InputValidator
     {
+        private enum RestaurantSortOrders
+        {
+            dist,
+            dist_desc,
+            name,
+            name_desc
+        }
+
+        private enum FoodSortOrders
+        {
+            name,
+            name_desc,
+            price,
+            price_desc,
+            time,
+            time_desc
+        }
+
         public static bool ValidateRestaurantSortOrder(string sortOrder, Coords userCoordinates = null)
         {
             if (userCoordinates == null && (sortOrder == "dist" || sortOrder == "dist_desc"))
             {
-                throw new System.ArgumentNullException("Invalid user coordinates.");
+                throw new ArgumentNullException("Invalid user coordinates.");
+            }
+      
+            if(!Enum.IsDefined(typeof(RestaurantSortOrders), sortOrder))
+            {
+                throw new ArgumentException("Invalid sort order");
             }
 
-            return sortOrder switch
-            {
-                "dist" => true,
-                "dist_desc" => true,
-                "name" => true,
-                "name_desc" => true,
-                null => true,
-                _ => throw new System.ArgumentException("Invalid sort order"),
-            };
+            return true;
         }
 
         public static bool ValidateFoodSortOrder(string sortOrder)
         {
-            return sortOrder switch
+            if(!Enum.IsDefined(typeof(FoodSortOrders),sortOrder))
             {
-                "name" => true,
-                "name_desc" => true,
-                "price" => true,
-                "price_desc" => true,
-                "time" => true,
-                "time_desc" => true,
-                null => true,
-                _ => throw new System.ArgumentException("Invalid sort order"),
-            };
+                throw new ArgumentException("Invalid sort order");
+            }
+
+            return true;
         }
 
 
