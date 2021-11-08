@@ -6,6 +6,7 @@ namespace Domain.Entities
     public class Food : BaseEntity
     {
         public decimal StartingPrice { get; set; }
+        public decimal MinimumPrice { get; set; }
         public DateTime CreatedAt { get; set; }
         public string IdRestaurant { get; set; }
         public string ImageURL { get; set; }
@@ -25,6 +26,7 @@ namespace Domain.Entities
             string id,
             string name,
             decimal startingPrice,
+            decimal minimumPrice,
             string idRestaurant,
             IEnumerable<TypeOfFood> typesOfFood,
             double intervalTimeInMinutes,
@@ -38,6 +40,7 @@ namespace Domain.Entities
             : base(id, name)
         {
             StartingPrice = startingPrice;
+            MinimumPrice = minimumPrice >= 0 ? minimumPrice : 0;
             CreatedAt = createdAt ?? DateTime.Now;
             ImageURL = imageURL;
             IdRestaurant = idRestaurant;
@@ -80,7 +83,10 @@ namespace Domain.Entities
                 priceDecrease = StartingPrice * (decimal)(PercentPerInterval / 100) * intervalCount;
             }
 
-            return StartingPrice - priceDecrease;
+            decimal priceAfterDiscount = StartingPrice - priceDecrease;
+            decimal price = priceAfterDiscount < MinimumPrice ? MinimumPrice : priceAfterDiscount;
+
+            return price;
         }
 
         private void ValidatePriceDecrease(DecreaseType type, double? percent, decimal? amount)
