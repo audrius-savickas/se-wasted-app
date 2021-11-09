@@ -18,6 +18,7 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
   const [searchValue, setSearchValue] = useState("")
   const [sortVisible, setSortVisible] = useState(false)
   const [sortType, setSortType] = useState(RestaurantSortType.DIST)
+  const [ascending, setAscending] = useState(true)
 
   const fetchLocation = async () => {
     setLocation(
@@ -28,7 +29,7 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
     )
   }
 
-  const fetchRestaurants = async (sortType: RestaurantSortType = RestaurantSortType.DIST) => {
+  const fetchInitialRestaurants = async (sortType: RestaurantSortType = RestaurantSortType.DIST) => {
     const response = await getAllRestaurants({
       sortType,
       coordinates: {longitude: location.longitude, latitude: location.latitude}
@@ -52,11 +53,18 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
     setLoading(true)
     setRestaurants(
       await getAllRestaurants({
-        sortType: sortType,
+        sortType: directionalSortType(),
         coordinates: {longitude: location.longitude, latitude: location.latitude}
       })
     )
     setLoading(false)
+  }
+
+  const directionalSortType = () => {
+    if (!ascending) {
+      return (sortType + "_desc") as RestaurantSortType
+    }
+    return sortType
   }
 
   useEffect(() => {
@@ -73,7 +81,7 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
 
   useEffect(() => {
     if (location.longitude) {
-      fetchRestaurants()
+      fetchInitialRestaurants()
     }
   }, [location])
 
@@ -88,11 +96,10 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
   }, [searchValue])
 
   useEffect(() => {
-    setSearchValue("")
     if (location.longitude) {
       sort()
     }
-  }, [sortType])
+  }, [ascending, sortType])
 
   return (
     <View flex>
@@ -103,7 +110,7 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
               <Incubator.TextField
                 text70
                 autoCapitalize="none"
-                label="Name"
+                label="Search"
                 value={searchValue}
                 labelStyle={{marginBottom: 4}}
                 placeholder="Name of restaurant"
@@ -120,6 +127,15 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
                 setSortVisible(!sortVisible)
               }}
             />
+            <Button
+              bg-transparent
+              marginR-s3
+              iconStyle={{width: 21, height: 21}}
+              iconSource={require("../../../../assets/sort.png")}
+              onPress={() => {
+                setAscending(!ascending)
+              }}
+            />
           </View>
         </View>
         {loading ? (
@@ -127,19 +143,17 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
         ) : (
           <RestaurantsList componentId={componentId} restaurants={renderedRestaurants} />
         )}
-        {sortVisible && (
-          <View bg-white br30 padding-s2 paddingH-s4 style={styles.filter}>
-            <Text marginB-s2>Filters</Text>
-            <RadioGroup collapsable initialValue={RestaurantSortType.DIST} onValueChange={setSortType}>
-              <View marginV-s1>
-                <RadioButton size={20} label="Distance" value={RestaurantSortType.DIST} />
-              </View>
-              <View marginV-s1>
-                <RadioButton size={20} label="Name" value={RestaurantSortType.NAME} />
-              </View>
-            </RadioGroup>
-          </View>
-        )}
+        <View bg-white br30 padding-s2 paddingH-s4 style={{...styles.filter, ...{opacity: sortVisible ? 100 : 0}}}>
+          <Text marginB-s2>Filters</Text>
+          <RadioGroup collapsable initialValue={sortType} onValueChange={setSortType}>
+            <View marginV-s1>
+              <RadioButton size={20} label="Distance" value={RestaurantSortType.DIST} />
+            </View>
+            <View marginV-s1>
+              <RadioButton size={20} label="Name" value={RestaurantSortType.NAME} />
+            </View>
+          </RadioGroup>
+        </View>
       </>
     </View>
   )
