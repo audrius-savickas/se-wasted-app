@@ -151,7 +151,7 @@ namespace WebApi.Controllers
             {
                 _restaurantService.DeleteAccount(creds);
                 return Ok();
-            } catch (System.Exception exception)
+            } catch (Exception exception)
             {
                 return Unauthorized(exception.Message);
             }
@@ -186,5 +186,37 @@ namespace WebApi.Controllers
 
             return Ok(foods);
         }
+
+        /// <summary>
+        /// Shows if the log in credentials are correct
+        /// </summary>
+        /// <param name="creds">Credentials of the restaurant</param>
+        /// <returns></returns>
+        [HttpGet("Login", Name = nameof(Login))]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public IActionResult Login([FromQuery] Credentials creds)
+        {
+            return Ok(_restaurantService.Login(creds));
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
