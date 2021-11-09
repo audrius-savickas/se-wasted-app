@@ -9,13 +9,13 @@ export const RestaurantsList = ({componentId, restaurants}: RestaurantsListProps
   const renderItem = ({item}: ListRenderItemInfo<Restaurant>) => {
     return (
       <RestaurantItem
-        name={item.name}
-        id={item.id}
-        address={item.address}
+        restaurant={item}
         onPress={() => navigateToFoodList(componentId, {restaurantId: item.id, restaurantName: item.name})}
       />
     )
   }
 
-  return <FlatList renderItem={renderItem} data={restaurants} keyExtractor={item => item.id} />
+  return (
+    <FlatList style={{marginBottom: 10}} renderItem={renderItem} data={restaurants} keyExtractor={item => item.id} />
+  )
 }

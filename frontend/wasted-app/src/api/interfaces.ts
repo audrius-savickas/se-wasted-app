@@ -34,8 +34,9 @@ export interface Coordinates {
 }
 
 export interface RestaurantSortObject {
-  sortType: RestaurantSortType
+  sortType?: RestaurantSortType
   coordinates?: Coordinates
+  ascending?: boolean
 }
 
 export interface FoodSortObject {
