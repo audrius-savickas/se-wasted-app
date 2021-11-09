@@ -29,14 +29,14 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
     )
   }
 
-  const fetchInitialRestaurants = async (sortType: RestaurantSortType = RestaurantSortType.DIST) => {
-    const response = await getAllRestaurants({
-      sortType,
-      coordinates: {longitude: location.longitude, latitude: location.latitude}
-    })
-
-    setRestaurants(response)
-    setRenderedRestaurants(response)
+  const fetchRestaurants = async () => {
+    setLoading(true)
+    setRestaurants(
+      await getAllRestaurants({
+        sortType: directionalSortType(),
+        coordinates: {longitude: location.longitude, latitude: location.latitude}
+      })
+    )
     setLoading(false)
   }
 
@@ -47,17 +47,6 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
       }
     })
     setRenderedRestaurants(filteredRestaurants)
-  }
-
-  const sort = async () => {
-    setLoading(true)
-    setRestaurants(
-      await getAllRestaurants({
-        sortType: directionalSortType(),
-        coordinates: {longitude: location.longitude, latitude: location.latitude}
-      })
-    )
-    setLoading(false)
   }
 
   const directionalSortType = () => {
@@ -81,7 +70,7 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
 
   useEffect(() => {
     if (location.longitude) {
-      fetchInitialRestaurants()
+      fetchRestaurants()
     }
   }, [location])
 
@@ -92,12 +81,14 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
   }, [restaurants])
 
   useEffect(() => {
-    search()
-  }, [searchValue])
+    if (!loading) {
+      search()
+    }
+  }, [searchValue, loading])
 
   useEffect(() => {
     if (location.longitude) {
-      sort()
+      fetchRestaurants()
     }
   }, [ascending, sortType])
 
@@ -145,7 +136,14 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
         )}
         <View bg-white br30 padding-s2 paddingH-s4 style={{...styles.filter, ...{opacity: sortVisible ? 100 : 0}}}>
           <Text marginB-s2>Filters</Text>
-          <RadioGroup collapsable initialValue={sortType} onValueChange={setSortType}>
+          <RadioGroup
+            collapsable
+            initialValue={sortType}
+            onValueChange={(type: RestaurantSortType) => {
+              setSortType(type)
+              setAscending(true)
+            }}
+          >
             <View marginV-s1>
               <RadioButton size={20} label="Distance" value={RestaurantSortType.DIST} />
             </View>
