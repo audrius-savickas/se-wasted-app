@@ -1,13 +1,8 @@
-﻿using System;
+﻿using MailKit.Net.Smtp;
+using MimeKit;
 using Persistence;
 using Persistence.Repositories;
 using Services.Services;
-using Domain.Entities;
-using Domain.Helpers;
-using System.Collections.Generic;
-using System.Text.Json;
-using Contracts.DTOs;
-using System.Threading;
 
 namespace ConsoleApp
 {
@@ -48,7 +43,20 @@ namespace ConsoleApp
                 foodRepository
             );
 
+            var emailService = new EmailService();
+
             // Usage
+
+            var mailMessage = new MimeMessage();
+            mailMessage.From.Add(new MailboxAddress("Wasted App Team", "wasted.app.team@gmail.com"));
+            mailMessage.To.Add(MailboxAddress.Parse("wasted.app.team@gmail.com"));
+            mailMessage.Subject = "subject";
+            mailMessage.Body = new TextPart("plain")
+            {
+                Text = "Hello"
+            };
+
+            emailService.Send(mailMessage);
             
         }
     }
