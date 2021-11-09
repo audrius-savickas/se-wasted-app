@@ -47,6 +47,7 @@ namespace WebApi
             services.AddTransient<IRestaurantService, RestaurantService>();
             services.AddTransient<IFoodService, FoodService>();
             services.AddTransient<ITypeOfFoodService, TypeOfFoodService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             services.AddSwaggerGen(c =>
             {

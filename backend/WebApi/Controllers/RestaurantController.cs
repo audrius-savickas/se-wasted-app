@@ -5,9 +5,9 @@ using Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Domain.Helpers;
 using WebApi.Helpers;
 using System;
+using MimeKit;
 
 namespace WebApi.Controllers
 {
@@ -17,10 +17,12 @@ namespace WebApi.Controllers
     public class RestaurantController : ControllerBase
     {
         private readonly IRestaurantService _restaurantService;
+        private readonly IEmailService _emailService;
 
-        public RestaurantController(IRestaurantService restaurantService)
+        public RestaurantController(IRestaurantService restaurantService, IEmailService emailService)
         {
             _restaurantService = restaurantService;
+            _emailService = emailService;
         }
 
         /// <summary>
@@ -88,6 +90,20 @@ namespace WebApi.Controllers
             try
             {
                 string id = _restaurantService.Register(creds, restaurantRegisterRequest);
+
+                var mailMessage = new MimeMessage();
+                mailMessage.From.Add(new MailboxAddress("Wasted App Team", "wasted.app.team@gmail.com"));
+                mailMessage.To.Add(MailboxAddress.Parse("wasted.app.team@gmail.com"));
+                mailMessage.Subject = "Registration confirmation";
+                mailMessage.Body = new TextPart("plain")
+                {
+                    Text = "Welcome, " + restaurantRegisterRequest.Name + "!"
+                };
+
+
+                _emailService.SendAsync(mailMessage);
+
+
                 return CreatedAtAction(nameof(Post), new { id });
             }
             catch (Exception exception)

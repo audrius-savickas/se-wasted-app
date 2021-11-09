@@ -7,15 +7,13 @@ namespace Services.Services
 {
     public class EmailService : IEmailService
     {
-        public void Send(MimeMessage message)
+        public async void SendAsync(MimeMessage message)
         {
-            using (var smtpClient = new SmtpClient())
-            {
-                smtpClient.Connect("smtp.gmail.com", 465, true);
-                smtpClient.Authenticate("wasted.app.team@gmail.com", "wastedapp");
-                smtpClient.Send(message);
-                smtpClient.Disconnect(true);
-            }
+            using var smtpClient = new SmtpClient();
+            smtpClient.Connect("smtp.gmail.com", 465, true);
+            smtpClient.Authenticate("wasted.app.team@gmail.com", "wastedapp");
+            await smtpClient.SendAsync(message);
+            smtpClient.Disconnect(true);
         }
     }
 }

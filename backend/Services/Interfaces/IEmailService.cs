@@ -2,8 +2,8 @@
 
 namespace Services.Interfaces
 {
-    interface IEmailService
+    public interface IEmailService
     {
-        void Send(MimeMessage message);
+        void SendAsync(MimeMessage message);
     }
 }
