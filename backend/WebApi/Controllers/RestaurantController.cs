@@ -198,25 +198,5 @@ namespace WebApi.Controllers
         {
             return Ok(_restaurantService.Login(creds));
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
