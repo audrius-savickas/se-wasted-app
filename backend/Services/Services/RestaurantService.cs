@@ -123,7 +123,8 @@ namespace Services.Services
                 Address = restaurantRegisterRequest.Address,
                 Coords = restaurantRegisterRequest.Coords,
                 Credentials = new Credentials(creds.Mail.Value, PasswordHasher.Hash(creds.Password.Value)),
-                ImageURL = restaurantRegisterRequest.ImageURL
+                ImageURL = restaurantRegisterRequest.ImageURL,
+                Description = restaurantRegisterRequest.Description,
             };
 
             _restaurantRepository.Add(restaurant);

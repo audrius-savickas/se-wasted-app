@@ -114,7 +114,9 @@ namespace WebApi.Controllers
                     Name = restaurantDto.Name,
                     Address = restaurantDto.Address,
                     Coords = restaurantDto.Coords,
-                    Credentials = new Credentials()
+                    Credentials = new Credentials(),
+                    Description = restaurantDto.Description,
+                    ImageURL = restaurantDto.ImageURL,
                 };
 
                 _restaurantService.UpdateRestaurant(restaurant);
