@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Helpers;
 using System;
 
 namespace Contracts.DTOs
@@ -12,14 +13,17 @@ namespace Contracts.DTOs
 
         private const string DEFAULT_IMAGE_URL = "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg";
 
+        public double DistanceToUser { get; set; }
+
         public RestaurantDto
         (
             string id,
             string name,
             string address,
             Coords coords,
-            string imageURL = DEFAULT_IMAGE_URL,
             string description = ""
+            string imageURL = DEFAULT_IMAGE_URL,
+            double distanceToUser = 0
         )
             : base(id, name)
         {

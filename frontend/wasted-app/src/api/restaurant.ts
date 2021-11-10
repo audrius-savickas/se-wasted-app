@@ -1,9 +1,18 @@
-import {Food, Restaurant} from "./interfaces"
+import {Food, Restaurant, RestaurantSortObject} from "./interfaces"
 import {WASTED_SERVER_URL} from "./urls"
 
-export const getAllRestaurants = async (): Promise<Restaurant[]> => {
+export const getAllRestaurants = async (sortObject?: RestaurantSortObject): Promise<Restaurant[]> => {
   try {
-    const response = await fetch(`${WASTED_SERVER_URL}/Restaurant`)
+    let queryString = `${WASTED_SERVER_URL}/Restaurant`
+    if (sortObject?.sortType) {
+      queryString += `?sortOrder=${sortObject.sortType}`
+      if (sortObject.coordinates) {
+        queryString += `&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
+      }
+    } else if (sortObject?.coordinates) {
+      queryString += `?&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
+    }
+    const response = await fetch(queryString)
     const data = await response.json()
     return data
   } catch (error) {
@@ -22,13 +31,22 @@ export const getAllFoodByRestaurantId = async (id: string): Promise<Food[]> => {
   }
 }
 
-export const getRestaurantById = async (id: string): Promise<Restaurant> => {
+export const getRestaurantById = async (id: string): Promise<Restaurant | null> => {
   try {
     const response = await fetch(`${WASTED_SERVER_URL}/Restaurant/${id}`)
     const data = await response.json()
     return data
   } catch (error) {
-    console.error(error)
-    throw Error("restaurant not found by id")
+    return null
   }
+}
+
+export const updateRestaurant = async (updatedRestaurant: Restaurant) => {
+  await fetch(`${WASTED_SERVER_URL}/Restaurant/${updatedRestaurant.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(updatedRestaurant)
+  })
 }

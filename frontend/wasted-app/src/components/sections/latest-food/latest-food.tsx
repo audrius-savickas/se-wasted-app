@@ -2,26 +2,28 @@ import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
 import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getAllFood} from "../../../api/food"
-import {Food} from "../../../api/interfaces"
+import {Food, FoodSortType} from "../../../api/interfaces"
 import {showFoodInfoModal} from "../../../services/navigation"
 import {timeAgo} from "../../../utils/date"
 import {HorizontalList} from "../../horizontal-list"
+import {LatestFoodProps} from "./interfaces"
 
-export const LatestFood = () => {
+export const LatestFood = ({componentId}: LatestFoodProps) => {
   const [food, setFood] = useState([] as Food[])
 
   const fetchFood = async () => {
-    setFood(await getAllFood())
+    setFood(await getAllFood({sortType: FoodSortType.TIME}))
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Food>) => (
-    <TouchableOpacity margin-s1 centerH onPress={() => showFoodInfoModal({food: item})}>
+    <TouchableOpacity margin-s1 centerH onPress={() => showFoodInfoModal({food: item, componentId})}>
       <Image
         source={{
           uri: item.imageURL,
           width: 100,
           height: 100
         }}
+        style={{width: 100, height: 100}}
       />
       <Text marginT-s1>{item.name}</Text>
       <View br20 bg-purple30 padding-s1 paddingH-s2 marginT-s1>
