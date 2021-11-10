@@ -12,7 +12,11 @@ namespace Services.Services
         public EmailService(IRestaurantService restaurantService)
         {
             // Subscribe to the event
-            restaurantService.RestaurantRegistered += SendRegistrationConfirmationAsync;
+            restaurantService.RestaurantRegistered += async delegate (object sender, RestaurantEventArgs e)
+            {
+                var email = CreateRegistrationConfirmationEmail(e);
+                await SendAsync(email);
+            };
         }
         public async Task SendAsync(MimeMessage message)
         {
@@ -23,7 +27,7 @@ namespace Services.Services
             smtpClient.Disconnect(true);
         }
 
-        private async void SendRegistrationConfirmationAsync(object sender, RestaurantEventArgs e)
+        private static MimeMessage CreateRegistrationConfirmationEmail(RestaurantEventArgs e)
         {
             var mailMessage = new MimeMessage();
             mailMessage.From.Add(new MailboxAddress("Wasted App Team", WASTED_EMAIL));
@@ -33,7 +37,7 @@ namespace Services.Services
             {
                 Text = "Welcome, " + e.Restaurant.Name + "!"
             };
-            await SendAsync(mailMessage);
+            return mailMessage;
         }
     }
 }
