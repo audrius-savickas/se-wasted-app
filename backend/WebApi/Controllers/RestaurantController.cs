@@ -8,6 +8,7 @@ using System.Net;
 using Domain.Helpers;
 using WebApi.Helpers;
 using System;
+using Services.Utils;
 
 namespace WebApi.Controllers
 {
@@ -95,7 +96,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                string id = _restaurantService.Register(creds, restaurantRegisterRequest);
+                string id = _restaurantService.Register(creds, restaurantRegisterRequest, IdGenerator.GenerateUniqueId);
                 return CreatedAtAction(nameof(Post), new { id });
             }
             catch (Exception exception)

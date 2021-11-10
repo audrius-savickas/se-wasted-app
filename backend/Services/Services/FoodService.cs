@@ -92,7 +92,7 @@ namespace Services.Services
             
         }
 
-        public string RegisterFood(Food food)
+        public string RegisterFood(Food food, Func<string> generateId)
         {
             ValidateDecreaseType(food.DecreaseType);
 
@@ -102,7 +102,7 @@ namespace Services.Services
                 throw new Exception("Invalid restaurant id.");
             }
             // Generate id for food item
-            food.Id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+            food.Id = generateId();
 
             food.TypesOfFood = GetValidTypesOfFood(food.TypesOfFood);
 

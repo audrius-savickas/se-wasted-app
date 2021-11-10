@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Services.Utils;
 
 namespace WebApi.Controllers
 {
@@ -120,7 +121,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                string id = _foodService.RegisterFood(food);
+                string id = _foodService.RegisterFood(food, IdGenerator.GenerateUniqueId);
                 return CreatedAtAction(nameof(RegisterFood), new { id });
             }
             catch (Exception exception)
