@@ -27,7 +27,7 @@ namespace WebApi
         private void ConfigureDatabase(IServiceCollection services)
         {
 
-            services.AddScoped<IFoodRepository,FoodRepository>( _ =>
+            services.AddScoped<IFoodRepository, FoodRepository>(_ =>
                 new FoodRepository(DBConfiguration.Instance.PathToFoodsFile)
             );
             services.AddScoped<IRestaurantRepository, RestaurantRepository>(_ =>
@@ -72,7 +72,8 @@ namespace WebApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => {
+                app.UseSwaggerUI(c =>
+                {
                     c.SwaggerEndpoint
                     (
                         "/swagger/v1/swagger.json",

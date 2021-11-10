@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
+﻿using Contracts.DTOs;
 using Domain.Entities;
+using Domain.Helpers;
 using Persistence.Interfaces;
 using Services.Interfaces;
-using Domain.Helpers;
-using Contracts.DTOs;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Services.Services
 {
@@ -24,11 +23,11 @@ namespace Services.Services
             _restaurantRepository = restaurantRepository;
             _foodRepository = foodRepository;
         }
-        
+
         public void ChangePass(Mail mail, Password newPassword)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(mail);
-            if(restaurant == null)
+            if (restaurant == null)
             {
                 throw new Exception("Invalid email.");
             }
@@ -37,18 +36,18 @@ namespace Services.Services
             creds.Password = newPassword;
             _restaurantRepository.Update(restaurant);
         }
-        
+
         public RestaurantDto GetRestaurantDtoFromMail(Mail mail)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(mail);
-            if(restaurant == null)
+            if (restaurant == null)
             {
                 throw new Exception("Invalid email.");
             }
 
             return RestaurantDto.FromEntity(restaurant);
         }
-        
+
         public void DeleteAccount(Credentials creds)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(creds.Mail);
@@ -72,7 +71,7 @@ namespace Services.Services
                     .GetAll()
                     .Select(r => RestaurantDto.FromEntity(r));
         }
-        
+
         public RestaurantDto GetRestaurantById(string idRestaurant)
         {
             Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
@@ -108,7 +107,7 @@ namespace Services.Services
 
             string error = Validator.ValidateEmail(creds.Mail.Value) + Validator.ValidatePassword(creds.Password.Value);
 
-            if ( error != "" )
+            if (error != "")
             {
                 throw new Exception(error);
             }
@@ -128,14 +127,14 @@ namespace Services.Services
 
             _restaurantRepository.Add(restaurant);
             return id;
-        
+
         }
 
         public void UpdateRestaurant(Restaurant restaurant)
         {
             Restaurant restaurantDB = _restaurantRepository.GetById(restaurant.Id);
 
-            if ( restaurantDB == null )
+            if (restaurantDB == null)
             {
                 throw new Exception("Invalid id.");
             }

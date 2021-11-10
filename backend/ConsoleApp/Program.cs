@@ -1,13 +1,6 @@
-﻿using System;
-using Persistence;
+﻿using Persistence;
 using Persistence.Repositories;
 using Services.Services;
-using Domain.Entities;
-using Domain.Helpers;
-using System.Collections.Generic;
-using System.Text.Json;
-using Contracts.DTOs;
-using System.Threading;
 
 namespace ConsoleApp
 {
@@ -49,7 +42,7 @@ namespace ConsoleApp
             );
 
             // Usage
-            
+
         }
     }
 }

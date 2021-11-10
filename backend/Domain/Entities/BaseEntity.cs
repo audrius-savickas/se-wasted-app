@@ -1,13 +1,13 @@
 ﻿using System;
 
-﻿namespace Domain.Entities
+namespace Domain.Entities
 {
     public abstract class BaseEntity : IEquatable<BaseEntity>
     {
         public string Id { get; set; }
         public string Name { get; set; }
 
-        public BaseEntity () { }
+        public BaseEntity() { }
 
         public BaseEntity(string id, string name)
         {

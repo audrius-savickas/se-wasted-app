@@ -8,7 +8,7 @@ namespace Domain.Entities
         private static readonly int minimumPasswordLength = 8;
         public string Value { get; set; }
 
-        public Password () { }
+        public Password() { }
 
         public Password(string value)
         {

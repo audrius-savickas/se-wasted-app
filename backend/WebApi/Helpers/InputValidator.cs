@@ -29,8 +29,8 @@ namespace WebApi.Helpers
             {
                 throw new Exception("Invalid user coordinates.");
             }
-      
-            if(!Enum.IsDefined(typeof(RestaurantSortOrders), sortOrder))
+
+            if (!Enum.IsDefined(typeof(RestaurantSortOrders), sortOrder))
             {
                 throw new ArgumentException("Invalid sort order");
             }
@@ -40,7 +40,7 @@ namespace WebApi.Helpers
 
         public static bool ValidateFoodSortOrder(string sortOrder)
         {
-            if(!Enum.IsDefined(typeof(FoodSortOrders),sortOrder))
+            if (!Enum.IsDefined(typeof(FoodSortOrders), sortOrder))
             {
                 throw new ArgumentException("Invalid sort order");
             }

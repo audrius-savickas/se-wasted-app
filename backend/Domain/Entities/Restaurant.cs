@@ -10,7 +10,7 @@ namespace Domain.Entities
         public string Address { get; set; }
 
         public Credentials Credentials { get; set; }
-        
+
         public string ImageURL { get; set; }
 
         private const string DEFAULT_IMAGE_URL = "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg";

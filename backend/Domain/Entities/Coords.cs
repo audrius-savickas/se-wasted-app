@@ -11,7 +11,7 @@ namespace Domain.Entities
 
         public Coords(decimal longitude, decimal latitude)
         {
-            if(MathF.Abs((float)latitude) > 90 || MathF.Abs((float)longitude) > 180)
+            if (MathF.Abs((float)latitude) > 90 || MathF.Abs((float)longitude) > 180)
             {
                 throw new Exception("Invalid coordinates.");
             }
@@ -19,6 +19,6 @@ namespace Domain.Entities
             Longitude = longitude;
             Latitude = latitude;
         }
-        
+
     }
 }

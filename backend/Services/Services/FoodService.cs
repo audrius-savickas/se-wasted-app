@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using Contracts.DTOs;
 using Domain.Entities;
 using Persistence.Interfaces;
-using Contracts.DTOs;
 using Services.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Services.Services
 {
@@ -36,7 +36,7 @@ namespace Services.Services
             {
                 throw new Exception("Restaurant can't access given food.");
             }
-            
+
         }
 
         public IEnumerable<Food> GetAllFood()
@@ -65,7 +65,7 @@ namespace Services.Services
         public RestaurantDto GetRestaurantOfFood(string idFood)
         {
             Food food = GetFoodById(idFood);
-            if(food == null)
+            if (food == null)
             {
                 throw new Exception("Invalid id.");
             }
@@ -89,7 +89,7 @@ namespace Services.Services
             {
                 return food.TypesOfFood;
             }
-            
+
         }
 
         public string RegisterFood(Food food, Func<string> generateId)
