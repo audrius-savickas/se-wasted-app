@@ -192,9 +192,9 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="creds">Credentials of the restaurant</param>
         /// <returns></returns>
-        [HttpGet("Login", Name = nameof(Login))]
+        [HttpPost("Login", Name = nameof(Login))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public IActionResult Login([FromQuery] Credentials creds)
+        public IActionResult Login([FromBody] Credentials creds)
         {
             return Ok(_restaurantService.Login(creds));
         }
