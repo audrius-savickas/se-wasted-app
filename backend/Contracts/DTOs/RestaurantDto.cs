@@ -22,8 +22,7 @@ namespace Contracts.DTOs
             string address,
             Coords coords,
             string description = "",
-            string imageURL = DEFAULT_IMAGE_URL,
-            double distanceToUser = 0
+            string imageURL = DEFAULT_IMAGE_URL
         )
             : base(id, name)
         {
