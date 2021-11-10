@@ -10,9 +10,9 @@
 4. Events and their usage: standard and custom.
    - ```RestaurantService``` publishes ```RestaurantRegistered``` event. ```EmailService``` subscribes to this event. When event is raised, email about successful registration is sent to restaurant's email adress.
 5. Exceptions and dealing with them in a meaningfull way.
-   - todo???
+   - todo??? (Custom exceptions)
 6. Anonymous methods.
-   - todo
+   - EmailService.cs line: 15-19.
 7. Lambda expressions.
    - EntitySorter.cs
 8. Concurrent programming (threading or async/await (for your own written classes); common resource usage between threads).
