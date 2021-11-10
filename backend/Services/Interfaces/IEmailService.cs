@@ -1,9 +1,10 @@
 ﻿using MimeKit;
+using System.Threading.Tasks;
 
 namespace Services.Interfaces
 {
     public interface IEmailService
     {
-        void SendAsync(MimeMessage message);
+        Task SendAsync(MimeMessage message);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
 using Domain.Entities;
 using Persistence.Interfaces;
 using Services.Interfaces;
@@ -14,6 +13,8 @@ namespace Services.Services
     {
         private readonly IRestaurantRepository _restaurantRepository;
         private readonly IFoodRepository _foodRepository;
+
+        public event EventHandler<RestaurantEventArgs> RestaurantRegistered;
 
         public RestaurantService
         (
@@ -126,9 +127,16 @@ namespace Services.Services
                 ImageURL = restaurantRegisterRequest.ImageURL
             };
 
+            // Raise an event that restaurant has registered
+            OnRestaurantRegistered(new RestaurantEventArgs(restaurant));
+
             _restaurantRepository.Add(restaurant);
             return id;
-        
+        }
+
+        protected virtual void OnRestaurantRegistered(RestaurantEventArgs e)
+        {
+            RestaurantRegistered?.Invoke(this, e);
         }
 
         public void UpdateRestaurant(Restaurant restaurant)
@@ -157,5 +165,15 @@ namespace Services.Services
                     .GetAll()
                     .Where(f => f.IdRestaurant == idRestaurant);
         }
+    }
+
+    public class RestaurantEventArgs : EventArgs
+    {
+        public RestaurantEventArgs(Restaurant restaurant)
+        {
+            Restaurant = restaurant;
+        }
+
+        public Restaurant Restaurant { get; set; }
     }
 }

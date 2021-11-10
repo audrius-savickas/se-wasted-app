@@ -44,9 +44,9 @@ namespace WebApi
         {
             ConfigureDatabase(services);
 
-            services.AddTransient<IRestaurantService, RestaurantService>();
-            services.AddTransient<IFoodService, FoodService>();
-            services.AddTransient<ITypeOfFoodService, TypeOfFoodService>();
+            services.AddScoped<IRestaurantService, RestaurantService>();
+            services.AddScoped<IFoodService, FoodService>();
+            services.AddScoped<ITypeOfFoodService, TypeOfFoodService>();
             services.AddScoped<IEmailService, EmailService>();
 
             services.AddSwaggerGen(c =>
