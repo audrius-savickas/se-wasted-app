@@ -21,7 +21,7 @@ namespace Contracts.DTOs
             string name,
             string address,
             Coords coords,
-            string description = ""
+            string description = "",
             string imageURL = DEFAULT_IMAGE_URL,
             double distanceToUser = 0
         )
