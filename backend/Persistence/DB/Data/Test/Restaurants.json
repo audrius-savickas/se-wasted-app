@@ -10,6 +10,7 @@
       "Password": { "Value": "NfE9hJ75WDnHUY5O1CukGcLTBBBYcViCwTeWsLwgqtrnxetO" }
     },
     "ImageURL": "https://etnodvaras.lt/wp-content/uploads/2018/08/logo-e1537528542134.jpg",
+    "Description": "Example short description.",
     "Id": "pt953XaT",
     "Name": "Etno Dvaras"
   },
@@ -24,6 +25,7 @@
       "Password": { "Value": "RM582luhoJ3QRrRansDav2oXsEDvvp3p4yeF2lVxH7DlSYYx" }
     },
     "ImageURL": "https://zalgirioarena.lt/wp-content/uploads/2015/10/za-38.jpg",
+    "Description": "Example long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \n",
     "Id": "H6\u002BmLxBY",
     "Name": "Vero Cafe"
   },
@@ -38,6 +40,7 @@
       "Password": { "Value": "Ya3GYjgMGdpWd5BFs81z\u002BRGUxYfBOJNjTDy/gqWnqg1lwOpw" }
     },
     "ImageURL": "https://www.panorama.lt/assets/Uploads/Shops/Caffeine.jpg",
+    "Description": "Example short description.",
     "Id": "V7PRn4Wt",
     "Name": "Caffeine"
   },
@@ -52,6 +55,7 @@
       "Password": { "Value": "2lT6FJv1OHgJ4USNsn1W3hVQ5u6ABXxkW0lg77EhZQC2WFur" }
     },
     "ImageURL": "https://ozas.lt/img/gallery/retina/shops/5b3365d27a1f6.jpg",
+    "Description": "Example long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \n",
     "Id": "uMzTuscI",
     "Name": "Caif Cafe"
   },
@@ -66,6 +70,7 @@
       "Password": { "Value": "HtBMBL\u002B\u002BzMZE0SCpcO9BIEC840nOM6Wmmr6l4gXLLgHejaWC" }
     },
     "ImageURL": "https://renginiai.kasvyksta.lt/uploads/places/438/fortas-siauliai.jpg",
+    "Description": "Example short description.",
     "Id": "WDbxkWbm",
     "Name": "Fortas"
   },
@@ -80,6 +85,7 @@
       "Password": { "Value": "\u002BZHCbeiQIIiCH5GwqYLIa0MQ9qtuDPxMxctq66gga6KiKmO2" }
     },
     "ImageURL": "https://iki.lt/wp-content/uploads/for-imports/assets/Uploads/News/Iki-parduotuve7.jpg",
+    "Description": "Example long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \n",
     "Id": "ZM8HYKxb",
     "Name": "IKI"
   },
@@ -94,6 +100,7 @@
       "Password": { "Value": "oQoamZi2Q1Plm928vm/90K9qSIxlzrBz3nN\u002BsO4CGpZDxyH3" }
     },
     "ImageURL": "https://rimibaltic-web-res.cloudinary.com/image/upload/c_fill,f_auto,h_945,q_auto,w_1800/v1/web-cms/921312c13228c64f96ad2427c60eea3ff05a9d5f-Cqdrn3jWOX.jpg",
+    "Description": "Example short description.",
     "Id": "SFO1YQaN",
     "Name": "Rimi"
   },
@@ -108,6 +115,7 @@
       "Password": { "Value": "EnxQ\u002BJcFwICgKBxLYuN3R45dSLcAVDvX0lhZjslcAeSkfo4e" }
     },
     "ImageURL": "https://www.gaudre.lt/assets/Uploads/Images/13-Vilniaus-Mindaugo-g.jpg",
+    "Description": "Example long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \n",
     "Id": "idWL81y0",
     "Name": "Maxima"
   }

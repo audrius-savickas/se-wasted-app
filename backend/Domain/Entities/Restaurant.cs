@@ -15,7 +15,7 @@ namespace Domain.Entities
 
         public Restaurant() : base() { }
 
-        public Restaurant(string id, string name, string address, string description = "", Coords coords, Credentials credentials, string imageURL = DEFAULT_IMAGE_URL)
+        public Restaurant(string id, string name, string address, Coords coords, Credentials credentials, string description = "", string imageURL = DEFAULT_IMAGE_URL)
             : base(id, name)
         {
             Description = description;
