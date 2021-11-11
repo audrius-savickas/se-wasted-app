@@ -15,6 +15,7 @@ export const Food = ({componentId}: FoodProps) => {
     })
     return () => listener.remove()
   }, [])
+
   return (
     <View>
       <Text>This is user's food view</Text>

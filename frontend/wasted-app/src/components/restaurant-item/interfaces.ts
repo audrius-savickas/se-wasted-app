@@ -1,6 +1,6 @@
+import {Restaurant} from "../../api/interfaces"
+
 export interface RestaurantItemProps {
-  name: string
-  id: string
-  address?: string
+  restaurant: Restaurant
   onPress: () => void
 }

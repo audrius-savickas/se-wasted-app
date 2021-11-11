@@ -1,12 +1,13 @@
 ﻿using Contracts.DTOs;
 using Domain.Entities;
-using WebApi.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
+using Services.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using WebApi.Helpers;
 
 namespace WebApi.Controllers
 {
@@ -101,7 +102,7 @@ namespace WebApi.Controllers
             {
                 var type = _foodService.GetTypesOfFood(id);
                 return Ok(type);
-            } 
+            }
             catch (Exception exception)
             {
                 return NotFound(exception.Message);
@@ -120,7 +121,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                string id = _foodService.RegisterFood(food);
+                string id = _foodService.RegisterFood(food, IdGenerator.GenerateUniqueId);
                 return CreatedAtAction(nameof(RegisterFood), new { id });
             }
             catch (Exception exception)

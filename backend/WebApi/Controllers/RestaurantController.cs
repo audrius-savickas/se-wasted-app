@@ -1,13 +1,14 @@
 ﻿using Contracts.DTOs;
 using Domain.Entities;
+using Domain.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
+using Services.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Domain.Helpers;
 using WebApi.Helpers;
-using System;
 
 namespace WebApi.Controllers
 {
@@ -17,10 +18,12 @@ namespace WebApi.Controllers
     public class RestaurantController : ControllerBase
     {
         private readonly IRestaurantService _restaurantService;
+        private readonly IEmailService _emailService;
 
-        public RestaurantController(IRestaurantService restaurantService)
+        public RestaurantController(IRestaurantService restaurantService, IEmailService emailService)
         {
             _restaurantService = restaurantService;
+            _emailService = emailService;
         }
 
         /// <summary>
@@ -34,7 +37,7 @@ namespace WebApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult GetAll(string sortOrder = null, [FromQuery] Coords userCoordinates = null)
         {
-            if(sortOrder != null)
+            if (sortOrder != null)
             {
                 try
                 {
@@ -52,12 +55,12 @@ namespace WebApi.Controllers
             if (userCoordinates != null)
             {
                 restaurants = restaurants.ToList();
-                foreach(RestaurantDto restaurant in restaurants)
+                foreach (RestaurantDto restaurant in restaurants)
                 {
                     restaurant.DistanceToUser = CoordsHelper.HaversineDistanceKM(userCoordinates, restaurant.Coords);
                 }
             }
-          
+
             return Ok(restaurants);
         }
 
@@ -76,7 +79,7 @@ namespace WebApi.Controllers
                 var restaurant = _restaurantService.GetRestaurantById(id);
                 return Ok(restaurant);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 return NotFound(exception.Message);
             }
@@ -95,7 +98,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                string id = _restaurantService.Register(creds, restaurantRegisterRequest);
+                string id = _restaurantService.Register(creds, restaurantRegisterRequest, IdGenerator.GenerateUniqueId);
                 return CreatedAtAction(nameof(Post), new { id });
             }
             catch (Exception exception)
@@ -123,7 +126,8 @@ namespace WebApi.Controllers
                     Address = restaurantDto.Address,
                     Coords = restaurantDto.Coords,
                     Credentials = new Credentials(),
-                    ImageURL = restaurantDto.ImageURL
+                    Description = restaurantDto.Description,
+                    ImageURL = restaurantDto.ImageURL,
                 };
 
                 _restaurantService.UpdateRestaurant(restaurant);
@@ -134,7 +138,7 @@ namespace WebApi.Controllers
             {
                 return BadRequest(exception.Message);
             }
-            
+
         }
 
         /// <summary>
@@ -151,7 +155,8 @@ namespace WebApi.Controllers
             {
                 _restaurantService.DeleteAccount(creds);
                 return Ok();
-            } catch (Exception exception)
+            }
+            catch (Exception exception)
             {
                 return Unauthorized(exception.Message);
             }
@@ -163,12 +168,12 @@ namespace WebApi.Controllers
         /// <param name="id">Identifies the restaurant</param>
         /// <param name="sortOrder">Optional order by which the food should be sorted</param>
         /// <returns></returns>
-        [HttpGet("{id}/food",Name = nameof(GetAllFoodFromRestaurant))]
+        [HttpGet("{id}/food", Name = nameof(GetAllFoodFromRestaurant))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
 
         public IActionResult GetAllFoodFromRestaurant(string id, string sortOrder = null)
         {
-            if(sortOrder != null)
+            if (sortOrder != null)
             {
                 try
                 {
@@ -179,7 +184,7 @@ namespace WebApi.Controllers
                     return BadRequest(e.Message);
                 }
             }
-            
+
             var foods = _restaurantService.GetAllFoodFromRestaurant(id).Select(food => FoodResponse.FromEntity(food));
 
             foods = EntitySorter.SortFoods(foods, sortOrder);

@@ -3,16 +3,16 @@ import {WASTED_SERVER_URL} from "./urls"
 
 export const getAllRestaurants = async (sortObject?: RestaurantSortObject): Promise<Restaurant[]> => {
   try {
-    let response
-    if (sortObject) {
-      let sortString = `?sortOrder=${sortObject.sortType}`
+    let queryString = `${WASTED_SERVER_URL}/Restaurant`
+    if (sortObject?.sortType) {
+      queryString += `?sortOrder=${sortObject.sortType}`
       if (sortObject.coordinates) {
-        sortString += `&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
+        queryString += `&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
       }
-      response = await fetch(`${WASTED_SERVER_URL}/Restaurant${sortString}`)
-    } else {
-      response = await fetch(`${WASTED_SERVER_URL}/Restaurant`)
+    } else if (sortObject?.coordinates) {
+      queryString += `?&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
     }
+    const response = await fetch(queryString)
     const data = await response.json()
     return data
   } catch (error) {

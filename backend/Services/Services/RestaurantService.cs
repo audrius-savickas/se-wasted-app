@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
+﻿using Contracts.DTOs;
 using Domain.Entities;
+using Domain.Helpers;
 using Persistence.Interfaces;
 using Services.Interfaces;
-using Domain.Helpers;
-using Contracts.DTOs;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Services.Services
 {
@@ -14,6 +13,8 @@ namespace Services.Services
     {
         private readonly IRestaurantRepository _restaurantRepository;
         private readonly IFoodRepository _foodRepository;
+
+        public event EventHandler<RestaurantEventArgs> RestaurantRegistered;
 
         public RestaurantService
         (
@@ -24,11 +25,11 @@ namespace Services.Services
             _restaurantRepository = restaurantRepository;
             _foodRepository = foodRepository;
         }
-        
+
         public void ChangePass(Mail mail, Password newPassword)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(mail);
-            if(restaurant == null)
+            if (restaurant == null)
             {
                 throw new Exception("Invalid email.");
             }
@@ -37,18 +38,18 @@ namespace Services.Services
             creds.Password = newPassword;
             _restaurantRepository.Update(restaurant);
         }
-        
+
         public RestaurantDto GetRestaurantDtoFromMail(Mail mail)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(mail);
-            if(restaurant == null)
+            if (restaurant == null)
             {
                 throw new Exception("Invalid email.");
             }
 
             return RestaurantDto.FromEntity(restaurant);
         }
-        
+
         public void DeleteAccount(Credentials creds)
         {
             Restaurant restaurant = _restaurantRepository.GetByMail(creds.Mail);
@@ -72,7 +73,7 @@ namespace Services.Services
                     .GetAll()
                     .Select(r => RestaurantDto.FromEntity(r));
         }
-        
+
         public RestaurantDto GetRestaurantById(string idRestaurant)
         {
             Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
@@ -97,7 +98,7 @@ namespace Services.Services
             return restaurant != null && restaurant.Credentials.Mail.Value == creds.Mail.Value && PasswordHasher.Verify(creds.Password.Value, restaurant.Credentials.Password.Value);
         }
 
-        public string Register(Credentials creds, RestaurantRegisterRequest restaurantRegisterRequest)
+        public string Register(Credentials creds, RestaurantRegisterRequest restaurantRegisterRequest, Func<string> generateId)
         {
 
             // Validations
@@ -108,13 +109,13 @@ namespace Services.Services
 
             string error = Validator.ValidateEmail(creds.Mail.Value) + Validator.ValidatePassword(creds.Password.Value);
 
-            if ( error != "" )
+            if (error != "")
             {
                 throw new Exception(error);
             }
 
             // Registration
-            string id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+            string id = generateId();
 
             Restaurant restaurant = new Restaurant
             {
@@ -123,19 +124,27 @@ namespace Services.Services
                 Address = restaurantRegisterRequest.Address,
                 Coords = restaurantRegisterRequest.Coords,
                 Credentials = new Credentials(creds.Mail.Value, PasswordHasher.Hash(creds.Password.Value)),
-                ImageURL = restaurantRegisterRequest.ImageURL
+                ImageURL = restaurantRegisterRequest.ImageURL,
+                Description = restaurantRegisterRequest.Description,
             };
+
+            // Raise an event that restaurant has registered
+            OnRestaurantRegistered(new RestaurantEventArgs(restaurant));
 
             _restaurantRepository.Add(restaurant);
             return id;
-        
+        }
+
+        protected virtual void OnRestaurantRegistered(RestaurantEventArgs e)
+        {
+            RestaurantRegistered?.Invoke(this, e);
         }
 
         public void UpdateRestaurant(Restaurant restaurant)
         {
             Restaurant restaurantDB = _restaurantRepository.GetById(restaurant.Id);
 
-            if ( restaurantDB == null )
+            if (restaurantDB == null)
             {
                 throw new Exception("Invalid id.");
             }
@@ -156,6 +165,16 @@ namespace Services.Services
             return _foodRepository
                     .GetAll()
                     .Where(f => f.IdRestaurant == idRestaurant);
+        }
+    }
+
+    public class RestaurantEventArgs : EventArgs
+    {
+        public Restaurant Restaurant { get; set; }
+
+        public RestaurantEventArgs(Restaurant restaurant)
+        {
+            Restaurant = restaurant;
         }
     }
 }

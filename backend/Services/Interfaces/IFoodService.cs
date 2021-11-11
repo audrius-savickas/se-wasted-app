@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Contracts.DTOs;
 using Domain.Entities;
-using Contracts.DTOs;
+using System;
+using System.Collections.Generic;
 
 namespace Services.Interfaces
 {
@@ -8,7 +9,7 @@ namespace Services.Interfaces
     {
         Food GetFoodById(string id);
         IEnumerable<Food> GetAllFood();
-        string RegisterFood(Food food);
+        string RegisterFood(Food food, Func<string> generateId);
         void UpdateFood(Food updatedFood);
         void DeleteFood(string idFood, string idRestaurant);
         RestaurantDto GetRestaurantOfFood(string idFood);
