@@ -29,7 +29,12 @@ namespace WebApi
         {
             services.Configure<EmailOptions>(
                 options =>
-                Configuration.GetSection("EmailOptions").Bind(options)
+                {
+                    options.Host = Configuration["EmailOptions:Host"];
+                    options.UserName = Configuration["EmailOptions:UserName"];
+                    options.Password = Configuration["EmailOptions:Password"];
+                    options.Port = int.Parse(Configuration["EmailOptions:Port"]);
+                }
             );
         }
 
