@@ -169,11 +169,11 @@ namespace Services.Services
 
     public class RestaurantEventArgs : EventArgs
     {
+        public Restaurant Restaurant { get; set; }
+
         public RestaurantEventArgs(Restaurant restaurant)
         {
             Restaurant = restaurant;
         }
-
-        public Restaurant Restaurant { get; set; }
     }
 }

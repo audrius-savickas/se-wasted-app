@@ -8,6 +8,7 @@ using Persistence;
 using Persistence.Interfaces;
 using Persistence.Repositories;
 using Services.Interfaces;
+using Services.Options;
 using Services.Services;
 using System;
 using System.IO;
@@ -23,6 +24,14 @@ namespace WebApi
         }
 
         public IConfiguration Configuration { get; }
+
+        private void ConfigureOptions(IServiceCollection services)  
+        {
+            services.Configure<EmailOptions>(
+                options =>
+                Configuration.GetSection("EmailOptions").Bind(options)
+            );
+        }
 
         private void ConfigureDatabase(IServiceCollection services)
         {
@@ -42,6 +51,7 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureOptions(services);
             ConfigureDatabase(services);
 
             services.AddScoped<IRestaurantService, RestaurantService>();
