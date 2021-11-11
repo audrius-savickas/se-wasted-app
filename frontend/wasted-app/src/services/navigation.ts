@@ -109,6 +109,38 @@ export const setRestaurantRoot = props =>
           },
           {
             stack: {
+              id: "RESTAURANT_ADD_FOOD",
+              children: [
+                {
+                  component: {
+                    name: screenNames.RESTAURANT_ADD_FOOD,
+                    passProps: {...props}
+                  }
+                }
+              ],
+              options: {
+                bottomTab: {
+                  icon: require("../../assets/add.png"),
+                  text: "New meal",
+                  fontSize: 13,
+                  selectedIconColor: Colors.black,
+                  iconColor: Colors.grey30,
+                  selectedTextColor: Colors.black,
+                  textColor: Colors.grey30
+                },
+                topBar: {
+                  leftButtons: [
+                    {
+                      id: "LOG_OUT",
+                      text: "Log out"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            stack: {
               id: "RESTAURANT_PROFILE_TAB",
               children: [
                 {
