@@ -5,9 +5,9 @@ using Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Domain.Helpers;
 using WebApi.Helpers;
 using System;
+using MimeKit;
 
 namespace WebApi.Controllers
 {
@@ -17,10 +17,12 @@ namespace WebApi.Controllers
     public class RestaurantController : ControllerBase
     {
         private readonly IRestaurantService _restaurantService;
+        private readonly IEmailService _emailService;
 
-        public RestaurantController(IRestaurantService restaurantService)
+        public RestaurantController(IRestaurantService restaurantService, IEmailService emailService)
         {
             _restaurantService = restaurantService;
+            _emailService = emailService;
         }
 
         /// <summary>
