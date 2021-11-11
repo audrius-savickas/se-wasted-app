@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net;
 using WebApi.Helpers;
 using System;
-using MimeKit;
+using Domain.Helpers;
 
 namespace WebApi.Controllers
 {
