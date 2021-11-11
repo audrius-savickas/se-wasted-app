@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Contracts.DTOs;
 using Domain.Entities;
-using Contracts.DTOs;
-using System;
 using Services.Services;
+using System;
+using System.Collections.Generic;
 
 namespace Services.Interfaces
 {

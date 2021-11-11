@@ -7,7 +7,7 @@ namespace Domain.Entities
     {
         public string Value { get; set; }
 
-        public Mail () {}
+        public Mail() { }
 
         public Mail(string value)
         {

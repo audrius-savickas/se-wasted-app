@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.Helpers;
 using System;
 
 namespace Contracts.DTOs

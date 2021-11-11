@@ -1,6 +1,4 @@
-﻿using MailKit.Net.Smtp;
-using MimeKit;
-using Persistence;
+﻿using Persistence;
 using Persistence.Repositories;
 using Services.Services;
 
@@ -47,17 +45,6 @@ namespace ConsoleApp
 
             // Usage
 
-            var mailMessage = new MimeMessage();
-            mailMessage.From.Add(new MailboxAddress("Wasted App Team", "wasted.app.team@gmail.com"));
-            mailMessage.To.Add(MailboxAddress.Parse("wasted.app.team@gmail.com"));
-            mailMessage.Subject = "subject";
-            mailMessage.Body = new TextPart("plain")
-            {
-                Text = "Hello"
-            };
-
-            emailService.Send(mailMessage);
-            
         }
     }
 }

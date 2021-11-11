@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
-using Services.Interfaces;
 using Persistence.Interfaces;
+using Services.Interfaces;
 using System.Collections.Generic;
 
 namespace Services.Services

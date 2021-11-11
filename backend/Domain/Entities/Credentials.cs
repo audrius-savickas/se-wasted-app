@@ -7,7 +7,7 @@ namespace Domain.Entities
         public Mail Mail { get; set; }
         public Password Password { get; set; }
 
-        public Credentials() {}
+        public Credentials() { }
 
         public Credentials(string mail, string password)
         {

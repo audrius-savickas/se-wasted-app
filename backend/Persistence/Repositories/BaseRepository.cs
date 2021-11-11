@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Domain.Entities;
+using Persistence.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-using Domain.Entities;
-using Persistence.Interfaces;
 
 namespace Persistence.Repositories
 {
