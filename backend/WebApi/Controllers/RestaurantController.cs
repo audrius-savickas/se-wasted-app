@@ -156,7 +156,7 @@ namespace WebApi.Controllers
                 _restaurantService.DeleteAccount(creds);
                 return Ok();
             }
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
                 return Unauthorized(exception.Message);
             }
@@ -190,6 +190,23 @@ namespace WebApi.Controllers
             foods = EntitySorter.SortFoods(foods, sortOrder);
 
             return Ok(foods);
+        }
+
+        /// <summary>
+        /// Check if the log in credentials are correct
+        /// </summary>
+        /// <param name="creds">Credentials of the restaurant</param>
+        /// <returns>Id of the restaurant that logged in</returns>
+        [HttpPost("Login", Name = nameof(Login))]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        public IActionResult Login([FromBody] Credentials creds)
+        {
+            if(_restaurantService.Login(creds))
+            {
+                return Ok(_restaurantService.GetRestaurantDtoFromMail(creds.Mail).Id);
+            }
+            return Unauthorized("Invalid credentials.");
         }
     }
 }
