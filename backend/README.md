@@ -19,6 +19,11 @@ dotnet user-secrets set "EmailOptions:Port" "<your-mail-ssl-port>"
 dotnet user-secrets set "EmailOptions:UserName" "<your-mail-username>"   
 dotnet user-secrets set "EmailOptions:Password" "<your-mail-password>"   
 ```
+For gmail you can use:
+```bash
+dotnet user-secrets set "EmailOptions:Host" "smtp.gmail.com"  
+dotnet user-secrets set "EmailOptions:Port" "465"
+```
 
 Be sure you can see all this data by running this command:
 ```bash
