@@ -18,10 +18,12 @@ namespace WebApi.Controllers
     public class RestaurantController : ControllerBase
     {
         private readonly IRestaurantService _restaurantService;
+        private readonly IEmailService _emailService;
 
-        public RestaurantController(IRestaurantService restaurantService)
+        public RestaurantController(IRestaurantService restaurantService, IEmailService emailService)
         {
             _restaurantService = restaurantService;
+            _emailService = emailService;
         }
 
         /// <summary>
@@ -124,7 +126,8 @@ namespace WebApi.Controllers
                     Address = restaurantDto.Address,
                     Coords = restaurantDto.Coords,
                     Credentials = new Credentials(),
-                    ImageURL = restaurantDto.ImageURL
+                    Description = restaurantDto.Description,
+                    ImageURL = restaurantDto.ImageURL,
                 };
 
                 _restaurantService.UpdateRestaurant(restaurant);

@@ -1,11 +1,14 @@
 ﻿using Contracts.DTOs;
 using Domain.Entities;
+using Services.Services;
+using System;
 using System.Collections.Generic;
 
 namespace Services.Interfaces
 {
     public interface IRestaurantService : IAuthService<RestaurantRegisterRequest>
     {
+        event EventHandler<RestaurantEventArgs> RestaurantRegistered;
         RestaurantDto GetRestaurantById(string id);
         IEnumerable<RestaurantDto> GetAllRestaurants();
         void UpdateRestaurant(Restaurant restaurant);

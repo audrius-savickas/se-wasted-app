@@ -8,6 +8,7 @@ using Persistence;
 using Persistence.Interfaces;
 using Persistence.Repositories;
 using Services.Interfaces;
+using Services.Options;
 using Services.Services;
 using System;
 using System.IO;
@@ -23,6 +24,19 @@ namespace WebApi
         }
 
         public IConfiguration Configuration { get; }
+
+        private void ConfigureOptions(IServiceCollection services)  
+        {
+            services.Configure<EmailOptions>(
+                options =>
+                {
+                    options.Host = Configuration["EmailOptions:Host"];
+                    options.UserName = Configuration["EmailOptions:UserName"];
+                    options.Password = Configuration["EmailOptions:Password"];
+                    options.Port = int.Parse(Configuration["EmailOptions:Port"]);
+                }
+            );
+        }
 
         private void ConfigureDatabase(IServiceCollection services)
         {
@@ -42,11 +56,13 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureOptions(services);
             ConfigureDatabase(services);
 
-            services.AddTransient<IRestaurantService, RestaurantService>();
-            services.AddTransient<IFoodService, FoodService>();
-            services.AddTransient<ITypeOfFoodService, TypeOfFoodService>();
+            services.AddScoped<IRestaurantService, RestaurantService>();
+            services.AddScoped<IFoodService, FoodService>();
+            services.AddScoped<ITypeOfFoodService, TypeOfFoodService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             services.AddSwaggerGen(c =>
             {

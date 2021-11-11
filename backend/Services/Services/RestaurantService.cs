@@ -14,6 +14,8 @@ namespace Services.Services
         private readonly IRestaurantRepository _restaurantRepository;
         private readonly IFoodRepository _foodRepository;
 
+        public event EventHandler<RestaurantEventArgs> RestaurantRegistered;
+
         public RestaurantService
         (
             IRestaurantRepository restaurantRepository,
@@ -122,12 +124,20 @@ namespace Services.Services
                 Address = restaurantRegisterRequest.Address,
                 Coords = restaurantRegisterRequest.Coords,
                 Credentials = new Credentials(creds.Mail.Value, PasswordHasher.Hash(creds.Password.Value)),
-                ImageURL = restaurantRegisterRequest.ImageURL
+                ImageURL = restaurantRegisterRequest.ImageURL,
+                Description = restaurantRegisterRequest.Description,
             };
+
+            // Raise an event that restaurant has registered
+            OnRestaurantRegistered(new RestaurantEventArgs(restaurant));
 
             _restaurantRepository.Add(restaurant);
             return id;
+        }
 
+        protected virtual void OnRestaurantRegistered(RestaurantEventArgs e)
+        {
+            RestaurantRegistered?.Invoke(this, e);
         }
 
         public void UpdateRestaurant(Restaurant restaurant)
@@ -155,6 +165,16 @@ namespace Services.Services
             return _foodRepository
                     .GetAll()
                     .Where(f => f.IdRestaurant == idRestaurant);
+        }
+    }
+
+    public class RestaurantEventArgs : EventArgs
+    {
+        public Restaurant Restaurant { get; set; }
+
+        public RestaurantEventArgs(Restaurant restaurant)
+        {
+            Restaurant = restaurant;
         }
     }
 }
