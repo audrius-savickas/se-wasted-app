@@ -54,6 +54,12 @@ namespace WebApi.Helpers
                 case "dist_desc":
                     restaurants = restaurants.OrderByDescending(r => r.DistanceToUser);
                     break;
+                case "foodCount":
+                    restaurants = restaurants.OrderBy(r => r.FoodCount);
+                    break;
+                case "foodCount_desc":
+                    restaurants = restaurants.OrderByDescending(r => r.FoodCount);
+                    break;
                 default:
                     break;
             }
