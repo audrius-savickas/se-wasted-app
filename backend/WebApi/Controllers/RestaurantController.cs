@@ -79,6 +79,7 @@ namespace WebApi.Controllers
             try
             {
                 var restaurant = _restaurantService.GetRestaurantById(id);
+                restaurant.FoodCount = _restaurantService.GetFoodCountFromRestaurant(id);
                 return Ok(restaurant);
             }
             catch (Exception exception)
