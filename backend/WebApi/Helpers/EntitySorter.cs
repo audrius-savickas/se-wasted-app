@@ -38,7 +38,7 @@ namespace WebApi.Helpers
             return foods;
         }
 
-        public static IEnumerable<RestaurantDto> SortRestaurants(IEnumerable<RestaurantDto> restaurants, string sortOrder, Coords userCoordinates)
+        public static IEnumerable<RestaurantDto> SortRestaurants(IEnumerable<RestaurantDto> restaurants, string sortOrder)
         {
             switch (sortOrder)
             {
@@ -49,10 +49,16 @@ namespace WebApi.Helpers
                     restaurants = restaurants.OrderByDescending(r => r.Name);
                     break;
                 case "dist":
-                    restaurants = restaurants.OrderBy(r => CoordsHelper.HaversineDistanceKM(userCoordinates, r.Coords));
+                    restaurants = restaurants.OrderBy(r => r.DistanceToUser);
                     break;
                 case "dist_desc":
-                    restaurants = restaurants.OrderByDescending(r => CoordsHelper.HaversineDistanceKM(userCoordinates, r.Coords));
+                    restaurants = restaurants.OrderByDescending(r => r.DistanceToUser);
+                    break;
+                case "foodCount":
+                    restaurants = restaurants.OrderBy(r => r.FoodCount);
+                    break;
+                case "foodCount_desc":
+                    restaurants = restaurants.OrderByDescending(r => r.FoodCount);
                     break;
                 default:
                     break;
