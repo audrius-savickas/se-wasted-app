@@ -3,7 +3,7 @@ import {LoaderScreen, Text, View} from "react-native-ui-lib"
 import {Colors} from "react-native/Libraries/NewAppScreen"
 import {getAllFoodByRestaurantId} from "../../../../api"
 import {Food} from "../../../../api/interfaces"
-import {FoodsList} from "../../../../components/foods-list"
+import {SimpleFoodsList} from "../../../../components/simple-foods-list"
 import {FoodListProps} from "./interfaces"
 
 export const FoodList = ({componentId, restaurantId, restaurantName}: FoodListProps) => {
@@ -30,7 +30,7 @@ export const FoodList = ({componentId, restaurantId, restaurantName}: FoodListPr
         <LoaderScreen color={Colors.blue30} message="Loading..." />
       ) : (
         <View flex>
-          <FoodsList foods={foods} componentId={componentId} />
+          <SimpleFoodsList foods={foods} componentId={componentId} />
         </View>
       )}
     </>

@@ -135,7 +135,7 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
           <RestaurantsList componentId={componentId} restaurants={renderedRestaurants} />
         )}
         <View bg-white br30 padding-s2 paddingH-s4 style={{...styles.filter, ...{opacity: sortVisible ? 100 : 0}}}>
-          <Text marginB-s2>Filters</Text>
+          <Text marginB-s2>Sort by</Text>
           <RadioGroup
             collapsable
             initialValue={sortType}
