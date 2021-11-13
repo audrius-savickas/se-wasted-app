@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 import {ScrollView} from "react-native-gesture-handler"
-import {Assets, Chip, ExpandableSection, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import {Chip, ExpandableSection, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
 import {DecreaseType, Restaurant} from "../../api/interfaces"
 import {PriceIndicator} from "../../components/price-indicator"
