@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
-import GetLocation from "react-native-get-location"
 import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getAllRestaurants} from "../../../api"
 import {Restaurant, RestaurantSortType} from "../../../api/interfaces"

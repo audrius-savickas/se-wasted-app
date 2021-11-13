@@ -1,4 +1,5 @@
 import React, {useState} from "react"
+import {StyleSheet} from "react-native"
 import {ScrollView} from "react-native-gesture-handler"
 import {Colors, ExpandableSection, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {navigateToFoodList} from "../../services/navigation"
@@ -16,7 +17,7 @@ export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) =
           <Text text30M purple20 marginT-s2 marginB-s1>
             {name}
           </Text>
-          <View marginT-s2 style={{shadowColor: Colors.black, shadowOpacity: 0.3, shadowOffset: {height: 0, width: 0}}}>
+          <View marginT-s2 style={styles.shadow}>
             <Image source={{uri: restaurant.imageURL, height: 220, width: 350}} style={{height: 220, width: 350}} />
           </View>
         </View>
@@ -81,3 +82,7 @@ export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) =
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  shadow: {shadowColor: Colors.black, shadowOpacity: 0.3, shadowOffset: {height: 0, width: 0}}
+})
