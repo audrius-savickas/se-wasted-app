@@ -15,8 +15,8 @@ export interface Food {
   minimumPrice: number
   currentPrice: number
   createdAt: string
+  startDecreasingAt: string
   typesOfFood: FoodType[]
-  startDecreasingAt: Date
   decreaseType: DecreaseType
   intervalTimeInMinutes: number
   amountPerInterval: number

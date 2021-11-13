@@ -1,17 +1,31 @@
 import React, {useEffect, useState} from "react"
 import {Assets, Chip, Colors, Image, ProgressBar, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
-import {Restaurant} from "../../api/interfaces"
+import {DecreaseType, Restaurant} from "../../api/interfaces"
 import {PriceIndicator} from "../../components/price-indicator"
 import {navigateToRestaurantInfo} from "../../services/navigation"
 import {formatPrice} from "../../utils/currency"
-import {formatDate, formatTime, timeAgoFull} from "../../utils/date"
+import {convertMinsToHrsMins, formatDate, formatTime, timeAgoFull} from "../../utils/date"
 import {FoodInfoProps} from "./interfaces"
 
 export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInfoProps) => {
   const [restaurant, setRestaurant] = useState({} as Restaurant)
 
-  const {name, typesOfFood, currentPrice, startingPrice, minimumPrice, idRestaurant, createdAt, imageURL} = food
+  const {
+    name,
+    typesOfFood,
+    decreaseType,
+    intervalTimeInMinutes,
+    currentPrice,
+    startingPrice,
+    minimumPrice,
+    idRestaurant,
+    createdAt,
+    amountPerInterval,
+    percentPerInterval,
+    startDecreasingAt,
+    imageURL
+  } = food
 
   const fetchRestaurant = async () => {
     setRestaurant((await getRestaurantById(idRestaurant)) as Restaurant)
@@ -32,7 +46,7 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
             <Chip margin-s1 key={type.id} label={type.name} />
           ))}
         </View>
-        <Image marginT-s2 source={{uri: imageURL, height: 200, width: 330}} style={{height: 200, width: 300}} />
+        <Image marginT-s2 source={{uri: imageURL, height: 220, width: 350}} style={{height: 220, width: 350}} />
       </View>
       <View marginT-s6 marginH-s6>
         {showRestaurantLink ? (
@@ -75,9 +89,18 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
             {formatPrice(currentPrice)}
           </Text>
         </View>
-        <View marginT-s3>
+        <View marginT-s2>
           <PriceIndicator currentPrice={currentPrice} minimumPrice={minimumPrice} maximumPrice={startingPrice} />
-          {/* <Text></Text> */}
+          <View marginT-s2>
+            <Text text80L>
+              The price of <Text text80M>{name}</Text> decreases by{" "}
+              <Text text80M>
+                {decreaseType === DecreaseType.AMOUNT ? formatPrice(amountPerInterval) : `${percentPerInterval}%`}
+              </Text>{" "}
+              every <Text text80M>{convertMinsToHrsMins(intervalTimeInMinutes)}</Text> starting at{" "}
+              <Text text80M>{`${formatDate(startDecreasingAt)}, ${formatTime(startDecreasingAt)}`}</Text>.
+            </Text>
+          </View>
         </View>
       </View>
     </View>
