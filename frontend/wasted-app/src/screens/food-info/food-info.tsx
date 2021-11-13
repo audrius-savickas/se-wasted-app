@@ -71,15 +71,13 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
           <Text text60L purple20 style={{width: 120}}>
             Price
           </Text>
-          {/* <Text marginR-s2 text60L red30 style={{textDecorationLine: "line-through"}}>
-            {formatPrice(startingPrice)}
-          </Text> */}
-          <Text text60L green10={currentPrice !== startingPrice}>
+          <Text text60L green10={currentPrice !== startingPrice} text60M={currentPrice !== startingPrice}>
             {formatPrice(currentPrice)}
           </Text>
         </View>
-        <View marginT-s2>
+        <View marginT-s3>
           <PriceIndicator currentPrice={currentPrice} minimumPrice={minimumPrice} maximumPrice={startingPrice} />
+          {/* <Text></Text> */}
         </View>
       </View>
     </View>

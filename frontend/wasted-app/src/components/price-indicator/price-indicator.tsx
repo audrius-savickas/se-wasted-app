@@ -7,9 +7,7 @@ import {PriceIndicatorProps} from "./interfaces"
 export const PriceIndicator = ({currentPrice, minimumPrice, maximumPrice}: PriceIndicatorProps) => {
   const [containerWidth, setContainerWidth] = useState(100)
 
-  const progress = currentPrice / maximumPrice
-
-  console.log(progress)
+  const progress = (currentPrice - minimumPrice) / (maximumPrice - minimumPrice)
 
   const getContainerWidth = (event: LayoutChangeEvent) => {
     setContainerWidth(event.nativeEvent.layout.width)
@@ -25,8 +23,8 @@ export const PriceIndicator = ({currentPrice, minimumPrice, maximumPrice}: Price
 
   return (
     <>
-      <View br30 bg-red40 centerV style={styles.outer} onLayout={getContainerWidth}>
-        <View br30 bg-green40 style={[styles.progress, getProgressStyle()]}></View>
+      <View br30 bg-green20 centerV style={styles.outer} onLayout={getContainerWidth}>
+        <View br30 bg-red20 style={[styles.progress, getProgressStyle()]}></View>
       </View>
       <View row marginT-2>
         <Text flex>Min: {formatPrice(minimumPrice)}</Text>
@@ -41,7 +39,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderColor: Colors.grey20,
     borderWidth: 1,
-    height: Spacings.s4
+    height: Spacings.s4,
+    opacity: 0.8
   },
   progress: {
     position: "absolute",
