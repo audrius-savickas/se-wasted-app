@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 import {ScrollView} from "react-native-gesture-handler"
-import {Assets, Chip, Colors, Image, ProgressBar, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import {Assets, Chip, ExpandableSection, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
 import {DecreaseType, Restaurant} from "../../api/interfaces"
 import {PriceIndicator} from "../../components/price-indicator"
@@ -11,6 +11,7 @@ import {FoodInfoProps} from "./interfaces"
 
 export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInfoProps) => {
   const [restaurant, setRestaurant] = useState({} as Restaurant)
+  const [descriptionExpanded, setDescriptionExpanded] = useState(true)
 
   const {
     name,
@@ -106,12 +107,30 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
             </View>
           </View>
           <View centerV marginT-s4>
-            <Text text60L purple20 style={{width: 120}}>
-              Description
-            </Text>
-            <Text marginT-s1 text80L>
-              {description}
-            </Text>
+            <ExpandableSection
+              sectionHeader={
+                <View row>
+                  <Text text60L purple20 marginR-s2>
+                    Description
+                  </Text>
+                  <Image
+                    style={{
+                      alignSelf: "center",
+                      width: 16,
+                      height: 16,
+                      transform: [{scaleY: descriptionExpanded ? -1 : 1}]
+                    }}
+                    source={require("../../../assets/down-chevron.png")}
+                  />
+                </View>
+              }
+              expanded={descriptionExpanded}
+              onPress={() => setDescriptionExpanded(!descriptionExpanded)}
+            >
+              <Text marginT-s1 text80L>
+                {description}
+              </Text>
+            </ExpandableSection>
           </View>
         </View>
       </View>
