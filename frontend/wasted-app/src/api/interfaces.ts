@@ -43,8 +43,8 @@ export interface FoodSortObject {
 }
 
 export enum DecreaseType {
-  AMOUNT,
-  PERCENT
+  AMOUNT = 0,
+  PERCENT = 1
 }
 
 export enum RestaurantSortType {

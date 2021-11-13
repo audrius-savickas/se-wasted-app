@@ -25,7 +25,8 @@ export const Profile = ({
       longitude: 0.0
     },
     address: "",
-    imageURL: ""
+    imageURL: "",
+    distanceToUser: 0.0
   })
   const [updatedRestaurant, setUpdatedRestaurant] = useState<Restaurant>(restaurant)
   const [loading, setLoading] = useState(true)
