@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react"
+import {Navigation} from "react-native-navigation"
 import {Chip, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
 import {Restaurant} from "../../api/interfaces"
@@ -6,7 +7,7 @@ import {formatPrice} from "../../utils/currency"
 import {formatDate, formatTime, timeAgoFull} from "../../utils/date"
 import {FoodInfoProps} from "./interfaces"
 
-export const FoodInfo = ({food, showRestaurantLink = true}: FoodInfoProps) => {
+export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInfoProps) => {
   const [restaurant, setRestaurant] = useState({} as Restaurant)
 
   const {name, typesOfFood, currentPrice, idRestaurant, createdAt, imageURL} = food
@@ -17,6 +18,13 @@ export const FoodInfo = ({food, showRestaurantLink = true}: FoodInfoProps) => {
 
   useEffect(() => {
     fetchRestaurant()
+
+    const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
+      if (buttonId === "DISMISS") {
+        Navigation.dismissModal(componentId)
+      }
+    })
+    return () => listener.remove()
   }, [])
 
   return (
