@@ -134,7 +134,7 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
         <RestaurantsList componentId={componentId} restaurants={renderedRestaurants} />
       )}
       <View bg-white br30 padding-s2 paddingH-s4 style={{...styles.filter, ...{opacity: sortVisible ? 100 : 0}}}>
-        <Text marginB-s2>Filters</Text>
+        <Text marginB-s2>Sort by</Text>
         <RadioGroup
           collapsable
           initialValue={sortType}
@@ -150,7 +150,7 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
             <RadioButton size={20} label="Name" value={RestaurantSortType.NAME} />
           </View>
           <View marginV-s1>
-            <RadioButton size={20} label="Added food" value={RestaurantSortType.FOOD_COUNT} />
+            <RadioButton size={20} label="Food count" value={RestaurantSortType.FOOD_COUNT} />
           </View>
         </RadioGroup>
       </View>
