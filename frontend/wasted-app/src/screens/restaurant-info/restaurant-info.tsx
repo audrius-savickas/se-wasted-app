@@ -84,5 +84,5 @@ export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) =
 }
 
 const styles = StyleSheet.create({
-  shadow: {shadowColor: Colors.black, shadowOpacity: 0.3, shadowOffset: {height: 0, width: 0}}
+  shadow: {shadowColor: Colors.black, shadowOpacity: 0.4, shadowOffset: {height: 0, width: 0}}
 })
