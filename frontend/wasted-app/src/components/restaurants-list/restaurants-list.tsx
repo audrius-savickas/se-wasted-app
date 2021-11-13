@@ -1,7 +1,7 @@
 import React from "react"
 import {FlatList, ListRenderItemInfo} from "react-native"
 import {Restaurant} from "../../api/interfaces"
-import {navigateToFoodList} from "../../services/navigation"
+import {navigateToRestaurantInfo} from "../../services/navigation"
 import {RestaurantItem} from "../restaurant-item/"
 import {RestaurantsListProps} from "./interfaces"
 
@@ -10,12 +10,12 @@ export const RestaurantsList = ({componentId, restaurants}: RestaurantsListProps
     return (
       <RestaurantItem
         restaurant={item}
-        onPress={() => navigateToFoodList(componentId, {restaurantId: item.id, restaurantName: item.name})}
+        onPress={() => navigateToRestaurantInfo(componentId, {componentId, restaurant: item})}
       />
     )
   }
 
   return (
-    <FlatList style={{marginBottom: 10}} renderItem={renderItem} data={restaurants} keyExtractor={item => item.id} />
+    <FlatList style={{marginBottom: 8}} renderItem={renderItem} data={restaurants} keyExtractor={item => item.id} />
   )
 }

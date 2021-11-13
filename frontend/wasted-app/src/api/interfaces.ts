@@ -56,7 +56,9 @@ export enum RestaurantSortType {
   NAME = "name",
   NAME_DESC = "name_desc",
   DIST = "dist",
-  DIST_DESC = "dist_desc"
+  DIST_DESC = "dist_desc",
+  FOOD_COUNT = "foodCount",
+  FOOD_COUNT_DESC = "foodCount_desc"
 }
 
 export enum FoodSortType {
