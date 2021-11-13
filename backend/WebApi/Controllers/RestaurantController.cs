@@ -51,15 +51,17 @@ namespace WebApi.Controllers
 
             var restaurants = _restaurantService.GetAllRestaurants();
 
-            restaurants = EntitySorter.SortRestaurants(restaurants, sortOrder, userCoordinates);
-            if (userCoordinates != null)
+            restaurants = restaurants.ToList();
+            foreach (RestaurantDto restaurant in restaurants)
             {
-                restaurants = restaurants.ToList();
-                foreach (RestaurantDto restaurant in restaurants)
+                if(userCoordinates != null)
                 {
                     restaurant.DistanceToUser = CoordsHelper.HaversineDistanceKM(userCoordinates, restaurant.Coords);
                 }
+                restaurant.FoodCount = _restaurantService.GetFoodCountFromRestaurant(restaurant.Id);
             }
+
+            restaurants = EntitySorter.SortRestaurants(restaurants, sortOrder);
 
             return Ok(restaurants);
         }
@@ -77,6 +79,7 @@ namespace WebApi.Controllers
             try
             {
                 var restaurant = _restaurantService.GetRestaurantById(id);
+                restaurant.FoodCount = _restaurantService.GetFoodCountFromRestaurant(id);
                 return Ok(restaurant);
             }
             catch (Exception exception)

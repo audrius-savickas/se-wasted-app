@@ -16,6 +16,7 @@ namespace Services.Interfaces
         RestaurantDto GetRestaurantDtoFromMail(Mail mail);
         IEnumerable<RestaurantDto> GetAllRestaurantsCloserThan(Coords coords, Distances distance);
         IEnumerable<Food> GetAllFoodFromRestaurant(string idRestaurant);
+        int GetFoodCountFromRestaurant(string idRestaurant);
     }
 }
 

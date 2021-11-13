@@ -14,6 +14,8 @@ namespace Contracts.DTOs
 
         public double DistanceToUser { get; set; }
 
+        public int FoodCount { get; set; }
+
         public RestaurantDto
         (
             string id,
@@ -41,8 +43,8 @@ namespace Contracts.DTOs
                 restaurant.Name,
                 restaurant.Address,
                 restaurant.Coords,
-                restaurant.ImageURL,
-                restaurant.Description
+                restaurant.Description,
+                restaurant.ImageURL
             );
         }
     }

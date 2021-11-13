@@ -10,7 +10,9 @@ namespace WebApi.Helpers
             dist,
             dist_desc,
             name,
-            name_desc
+            name_desc,
+            foodCount,
+            foodCount_desc
         }
 
         private enum FoodSortOrders

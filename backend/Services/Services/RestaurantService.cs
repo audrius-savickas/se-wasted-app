@@ -166,6 +166,11 @@ namespace Services.Services
                     .GetAll()
                     .Where(f => f.IdRestaurant == idRestaurant);
         }
+
+        public int GetFoodCountFromRestaurant(string idRestaurant)
+        {
+            return GetAllFoodFromRestaurant(idRestaurant).Count();
+        }
     }
 
     public class RestaurantEventArgs : EventArgs
