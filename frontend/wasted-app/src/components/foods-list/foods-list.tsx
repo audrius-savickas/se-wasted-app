@@ -17,5 +17,5 @@ export const FoodsList = ({componentId, foods}: FoodsListProps) => {
     )
   }
 
-  return <FlatList style={{marginBottom: 10}} renderItem={renderItem} data={foods} keyExtractor={item => item.id} />
+  return <FlatList style={{marginBottom: 8}} renderItem={renderItem} data={foods} keyExtractor={item => item.id} />
 }
