@@ -66,7 +66,7 @@ export const Food = ({componentId}: FoodProps) => {
               label="Search"
               value={searchValue}
               labelStyle={{marginBottom: 4}}
-              placeholder="Name of restaurant"
+              placeholder="Name of food"
               fieldStyle={{borderBottomWidth: 1, borderColor: Colors.purple40, paddingBottom: 4}}
               onChangeText={setSearchValue}
             />
