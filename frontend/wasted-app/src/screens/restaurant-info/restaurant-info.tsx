@@ -34,7 +34,7 @@ export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) =
             <Text text60L purple20 style={{width: 120}}>
               Distance
             </Text>
-            <Text>{formatDistance(distanceToUser)} km</Text>
+            <Text text60L>{formatDistance(distanceToUser)} km</Text>
           </View>
         </View>
         <View centerV marginT-s4 marginH-s6>
@@ -69,6 +69,7 @@ export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) =
             br60
             paddingH-s4
             paddingV-s2
+            style={styles.shadowButton}
             onPress={() =>
               navigateToFoodList(componentId, {restaurantId: restaurant.id, restaurantName: restaurant.name})
             }
@@ -84,5 +85,6 @@ export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) =
 }
 
 const styles = StyleSheet.create({
-  shadow: {shadowColor: Colors.black, shadowOpacity: 0.4, shadowOffset: {height: 0, width: 0}}
+  shadow: {shadowColor: Colors.black, shadowOpacity: 0.4, shadowOffset: {height: 0, width: 0}},
+  shadowButton: {shadowColor: Colors.black, shadowOpacity: 0.7, shadowOffset: {height: 0, width: 0}}
 })
