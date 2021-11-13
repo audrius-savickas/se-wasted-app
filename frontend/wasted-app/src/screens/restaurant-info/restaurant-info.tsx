@@ -1,52 +1,83 @@
-import React from "react"
-import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import React, {useState} from "react"
+import {ScrollView} from "react-native-gesture-handler"
+import {Colors, ExpandableSection, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {navigateToFoodList} from "../../services/navigation"
+import {formatDistance} from "../../utils/coordinates"
 import {RestaurantInfoProps} from "./interfaces"
 
 export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) => {
-  const {name} = restaurant
+  const {name, address, foodCount, description, distanceToUser} = restaurant
+  const [descriptionExpanded, setDescriptionExpanded] = useState(true)
 
   return (
-    <View margin-s4>
-      <View centerH>
-        <Text text30M purple20 marginT-s2 marginB-s1>
-          {name}
-        </Text>
-        <Image
-          marginT-s2
-          source={{uri: restaurant.imageURL, height: 200, width: 330}}
-          style={{height: 200, width: 300}}
-        />
-      </View>
-      <View marginT-s6 marginH-s6>
-        <View row centerV>
-          <Text text60L purple20 style={{width: 120}}>
-            Location
+    <ScrollView>
+      <View margin-s4>
+        <View centerH>
+          <Text text30M purple20 marginT-s2 marginB-s1>
+            {name}
           </Text>
-          <Text text60L>Vilnius</Text>
+          <View marginT-s2 style={{shadowColor: Colors.black, shadowOpacity: 0.3, shadowOffset: {height: 0, width: 0}}}>
+            <Image source={{uri: restaurant.imageURL, height: 220, width: 350}} style={{height: 220, width: 350}} />
+          </View>
         </View>
-        <View row centerV marginT-s4>
-          <Text text60L purple20 style={{width: 120}}>
-            Distance
-          </Text>
-          <Text>600 m</Text>
+        <View marginT-s6 marginH-s6>
+          <View row centerV>
+            <Text text60L purple20 style={{width: 120}}>
+              Location
+            </Text>
+            <Text text60L flex>
+              {address}
+            </Text>
+          </View>
+          <View row centerV marginT-s4>
+            <Text text60L purple20 style={{width: 120}}>
+              Distance
+            </Text>
+            <Text>{formatDistance(distanceToUser)} km</Text>
+          </View>
+        </View>
+        <View centerV marginT-s4 marginH-s6>
+          <ExpandableSection
+            sectionHeader={
+              <View row>
+                <Text text60L purple20 marginR-s2>
+                  Description
+                </Text>
+                <Image
+                  style={{
+                    alignSelf: "center",
+                    width: 16,
+                    height: 16,
+                    transform: [{scaleY: descriptionExpanded ? -1 : 1}]
+                  }}
+                  source={require("../../../assets/down-chevron.png")}
+                />
+              </View>
+            }
+            expanded={descriptionExpanded}
+            onPress={() => setDescriptionExpanded(!descriptionExpanded)}
+          >
+            <Text marginT-s1 text80L>
+              {description}
+            </Text>
+          </ExpandableSection>
+        </View>
+        <View marginT-s6 center>
+          <TouchableOpacity
+            bg-purple30
+            br60
+            paddingH-s4
+            paddingV-s2
+            onPress={() =>
+              navigateToFoodList(componentId, {restaurantId: restaurant.id, restaurantName: restaurant.name})
+            }
+          >
+            <Text text60L white center>
+              See restaurant's list of food ↗️{"\n"}({foodCount} {foodCount === 1 ? "item" : "items"})
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
-      <View marginT-s6 center>
-        <TouchableOpacity
-          bg-purple30
-          br60
-          paddingH-s4
-          paddingV-s2
-          onPress={() =>
-            navigateToFoodList(componentId, {restaurantId: restaurant.id, restaurantName: restaurant.name})
-          }
-        >
-          <Text text60L white>
-            See restaurant's list of food ↗️
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </ScrollView>
   )
 }

@@ -5,6 +5,8 @@ export interface Restaurant {
   address: string
   imageURL: string
   distanceToUser: number
+  description: string
+  foodCount: number
 }
 
 export interface Food {
