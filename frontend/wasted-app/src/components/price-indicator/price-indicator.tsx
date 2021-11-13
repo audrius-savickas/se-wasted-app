@@ -24,7 +24,7 @@ export const PriceIndicator = ({currentPrice, minimumPrice, maximumPrice}: Price
   return (
     <>
       <View br30 bg-green20 centerV style={styles.outer} onLayout={getContainerWidth}>
-        <View br30 bg-red20 style={[styles.progress, getProgressStyle()]}></View>
+        <View bg-red20 style={[styles.progress, getProgressStyle()]}></View>
       </View>
       <View row marginT-2>
         <Text flex>Min: {formatPrice(minimumPrice)}</Text>
