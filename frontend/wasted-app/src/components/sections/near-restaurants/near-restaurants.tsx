@@ -1,22 +1,17 @@
 import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
-import GetLocation from "react-native-get-location"
-import {NavigationComponentProps} from "react-native-navigation"
 import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getAllRestaurants} from "../../../api"
 import {Restaurant, RestaurantSortType} from "../../../api/interfaces"
 import {navigateToRestaurantInfo} from "../../../services/navigation"
 import {formatDistance} from "../../../utils/coordinates"
 import {HorizontalList} from "../../horizontal-list"
+import {NearRestaurantsProps} from "./interfaces"
 
-export const NearRestaurants = ({componentId}: NavigationComponentProps) => {
+export const NearRestaurants = ({componentId, location}: NearRestaurantsProps) => {
   const [restaurants, setRestaurants] = useState([] as Restaurant[])
 
   const fetchRestaurants = async () => {
-    const location = await GetLocation.getCurrentPosition({
-      enableHighAccuracy: true,
-      timeout: 15000
-    })
     setRestaurants(
       await getAllRestaurants({
         sortType: RestaurantSortType.DIST,
