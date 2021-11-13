@@ -10,6 +10,7 @@ export interface Restaurant {
 export interface Food {
   id: string
   name: string
+  description: string
   idRestaurant: string
   startingPrice: number
   minimumPrice: number
