@@ -43,8 +43,8 @@ namespace Contracts.DTOs
                 restaurant.Name,
                 restaurant.Address,
                 restaurant.Coords,
-                restaurant.ImageURL,
-                restaurant.Description
+                restaurant.Description,
+                restaurant.ImageURL
             );
         }
     }
