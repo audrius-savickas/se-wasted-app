@@ -12,12 +12,14 @@ export interface Restaurant {
 export interface Food {
   id: string
   name: string
+  description: string
   idRestaurant: string
   startingPrice: number
+  minimumPrice: number
   currentPrice: number
   createdAt: string
+  startDecreasingAt: string
   typesOfFood: FoodType[]
-  startDecreasingAt: Date
   decreaseType: DecreaseType
   intervalTimeInMinutes: number
   amountPerInterval: number

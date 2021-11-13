@@ -64,6 +64,18 @@ export const timeAgo = (string: string) => {
   return moment(date).fromNow()
 }
 
+export const convertMinsToHrsMins = (mins: number) => {
+  const h = Math.floor(mins / 60)
+  const m = mins % 60
+  if (h) {
+    if (m) {
+      return `${h} h, ${m} min`
+    }
+    return `${h} h`
+  }
+  return `${m} min`
+}
+
 const months = [
   "January",
   "February",
