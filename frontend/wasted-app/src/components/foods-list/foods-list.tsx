@@ -1,6 +1,5 @@
 import React from "react"
 import {FlatList, ListRenderItemInfo} from "react-native"
-import {Text, View} from "react-native-ui-lib"
 import {Food} from "../../api/interfaces"
 import {showFoodInfoModal} from "../../services/navigation"
 import {FoodItem} from "../food-item"
