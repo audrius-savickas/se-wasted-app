@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
+import {StyleSheet} from "react-native"
 import {ScrollView} from "react-native-gesture-handler"
-import {Chip, ExpandableSection, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import {Chip, Colors, ExpandableSection, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
 import {DecreaseType, Restaurant} from "../../api/interfaces"
 import {PriceIndicator} from "../../components/price-indicator"
@@ -50,7 +51,16 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
               <Chip margin-s1 key={type.id} label={type.name} />
             ))}
           </View>
-          <Image marginT-s2 source={{uri: imageURL, height: 220, width: 350}} style={{height: 220, width: 350}} />
+          <View style={styles.shadow}>
+            <Image
+              marginT-s2
+              source={{uri: imageURL, height: 220, width: 350}}
+              style={{
+                height: 220,
+                width: 350
+              }}
+            />
+          </View>
         </View>
         <View marginT-s6 marginH-s6>
           {showRestaurantLink ? (
@@ -137,3 +147,11 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: Colors.black,
+    shadowOpacity: 0.4,
+    shadowOffset: {height: 0, width: 0}
+  }
+})
