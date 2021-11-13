@@ -12,6 +12,7 @@ export interface Food {
   name: string
   idRestaurant: string
   startingPrice: number
+  minimumPrice: number
   currentPrice: number
   createdAt: string
   typesOfFood: FoodType[]
