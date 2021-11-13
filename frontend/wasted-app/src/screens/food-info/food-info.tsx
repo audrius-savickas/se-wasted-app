@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from "react"
-import {Chip, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import {Assets, Chip, Colors, Image, ProgressBar, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
 import {Restaurant} from "../../api/interfaces"
+import {navigateToRestaurantInfo} from "../../services/navigation"
 import {formatPrice} from "../../utils/currency"
 import {formatDate, formatTime, timeAgoFull} from "../../utils/date"
 import {FoodInfoProps} from "./interfaces"
 
-export const FoodInfo = ({food, showRestaurantLink = true}: FoodInfoProps) => {
+export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInfoProps) => {
   const [restaurant, setRestaurant] = useState({} as Restaurant)
 
-  const {name, typesOfFood, currentPrice, idRestaurant, createdAt, imageURL} = food
+  const {name, typesOfFood, currentPrice, startingPrice, idRestaurant, createdAt, imageURL} = food
 
   const fetchRestaurant = async () => {
     setRestaurant((await getRestaurantById(idRestaurant)) as Restaurant)
@@ -34,7 +35,13 @@ export const FoodInfo = ({food, showRestaurantLink = true}: FoodInfoProps) => {
       </View>
       <View marginT-s6 marginH-s6>
         {showRestaurantLink ? (
-          <TouchableOpacity row centerV onPress={() => {}}>
+          <TouchableOpacity
+            row
+            centerV
+            onPress={() => {
+              navigateToRestaurantInfo(componentId, {componentId, restaurant})
+            }}
+          >
             <Text text60L purple20 style={{width: 120}}>
               Restaurant
             </Text>
@@ -63,8 +70,14 @@ export const FoodInfo = ({food, showRestaurantLink = true}: FoodInfoProps) => {
           <Text text60L purple20 style={{width: 120}}>
             Price
           </Text>
-          <Text text60L>{formatPrice(currentPrice)}</Text>
+          <Text marginR-s2 text60L red30 style={{textDecorationLine: "line-through"}}>
+            {formatPrice(startingPrice)}
+          </Text>
+          <Text text60L green30>
+            {formatPrice(currentPrice)}
+          </Text>
         </View>
+        <View></View>
       </View>
     </View>
   )
