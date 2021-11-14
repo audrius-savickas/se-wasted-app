@@ -151,7 +151,7 @@ export const setRestaurantRoot = (props: FoodScreenOwnProps) =>
     }
   })
 
-export const setUserRoot = props =>
+export const setUserRoot = () =>
   Navigation.setRoot({
     root: {
       bottomTabs: {

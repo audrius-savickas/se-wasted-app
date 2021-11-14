@@ -16,7 +16,6 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   const valid = passwordValid && emailValid
 
   const login = async () => {
-    console.log(password)
     const restaurantId = await loginRestaurant({email, password})
     if (valid) {
       if (restaurantId) {

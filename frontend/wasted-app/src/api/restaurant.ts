@@ -37,14 +37,7 @@ export const getRestaurantById = async (id: string): Promise<Restaurant> => {
     const data = await response.json()
     return data
   } catch (error) {
-    return Promise.resolve({
-      id: "-1",
-      name: "Not found",
-      address: "Not found",
-      coords: {latitude: 0, longitude: 0},
-      imageURL: "",
-      distanceToUser: NaN
-    })
+    throw new Error("Restaurant not found")
   }
 }
 

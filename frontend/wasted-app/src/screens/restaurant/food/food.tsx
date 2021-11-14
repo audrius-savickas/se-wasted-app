@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 import {Navigation} from "react-native-navigation"
-import {LoaderScreen, Text} from "react-native-ui-lib"
+import {LoaderScreen} from "react-native-ui-lib"
 import {Colors} from "react-native/Libraries/NewAppScreen"
 import {getRestaurantById} from "../../../api"
 import {Restaurant} from "../../../api/interfaces"
@@ -32,7 +32,7 @@ export const Food = ({componentId, restaurantId}: FoodScreenProps) => {
       {loading ? (
         <LoaderScreen collapsable={Colors.blue30} message="Loading..." />
       ) : (
-        <FoodList componentId={componentId} restaurantId={restaurantId} restaurantName={"bla"} />
+        <FoodList componentId={componentId} restaurantId={restaurantId} restaurantName={restaurant.name} />
       )}
     </>
   )
