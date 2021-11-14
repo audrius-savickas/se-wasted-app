@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
-import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
+import {Button, Colors, Image, Incubator, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {loginRestaurant} from "../../api"
 import {navigateToRestaurantRegistration, setRestaurantRoot} from "../../services/navigation"
 import {RestaurantLoginProps} from "./interfaces"
@@ -12,6 +12,7 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   const [emailValid, setEmailValid] = useState(true)
   const [passwordValid, setPasswordValid] = useState(true)
   const [error, setError] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
 
   const valid = passwordValid && emailValid
 
@@ -59,21 +60,31 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
             onChangeText={setEmail}
             onChangeValidity={setEmailValid}
           />
-          <Incubator.TextField
-            marginT-s5
-            validateOnChange
-            enableErrors
-            secureTextEntry
-            label="Password"
-            autoCapitalize="none"
-            hint="Your account's password"
-            value={password}
-            validate={"required"}
-            validationMessage="Password is required"
-            fieldStyle={styles.withUnderline}
-            onChangeText={setPassword}
-            onChangeValidity={setPasswordValid}
-          />
+          <View>
+            <Incubator.TextField
+              flexS
+              marginT-s5
+              validateOnChange
+              enableErrors
+              secureTextEntry={!showPassword}
+              label="Password"
+              autoCapitalize="none"
+              hint="Your account's password"
+              value={password}
+              validate={"required"}
+              validationMessage="Password is required"
+              fieldStyle={styles.withUnderline}
+              onChangeText={setPassword}
+              onChangeValidity={setPasswordValid}
+            />
+            <TouchableOpacity
+              style={{position: "absolute", left: 300, right: 0}}
+              onPressIn={() => setShowPassword(true)}
+              onPressOut={() => setShowPassword(false)}
+            >
+              <Image source={require("../../../assets/view.png")} style={{top: 30, right: 7, width: 28, height: 28}} />
+            </TouchableOpacity>
+          </View>
         </View>
         <Button bg-blue50 black label="Login" onPress={login} />
         <View marginT-s2 style={{opacity: error ? 100 : 0}}>
