@@ -7,11 +7,16 @@ import {navigateToRestaurantInfo} from "../../../services/navigation"
 import {HorizontalList} from "../../horizontal-list"
 import {PopularRestaurantsProps} from "./interfaces"
 
-export const PopularRestaurants = ({componentId}: PopularRestaurantsProps) => {
+export const PopularRestaurants = ({componentId, location}: PopularRestaurantsProps) => {
   const [restaurants, setRestaurants] = useState([] as Restaurant[])
 
   const fetchRestaurants = async () => {
-    setRestaurants(await getAllRestaurants({sortType: RestaurantSortType.NAME}))
+    setRestaurants(
+      await getAllRestaurants({
+        sortType: RestaurantSortType.NAME,
+        coordinates: {longitude: location.longitude, latitude: location.latitude}
+      })
+    )
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Restaurant>) => (

@@ -149,6 +149,9 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
           <View marginV-s1>
             <RadioButton size={20} label="Name" value={RestaurantSortType.NAME} />
           </View>
+          <View marginV-s1>
+            <RadioButton size={20} label="Food count" value={RestaurantSortType.FOOD_COUNT} />
+          </View>
         </RadioGroup>
       </View>
     </View>
