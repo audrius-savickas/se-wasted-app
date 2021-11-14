@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
-import {Button, Colors, Image, Incubator, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
 import {loginRestaurant} from "../../api"
+import {PasswordInput} from "../../components/password-input"
 import {navigateToRestaurantRegistration, setRestaurantRoot} from "../../services/navigation"
 import {RestaurantLoginProps} from "./interfaces"
 
@@ -60,31 +61,13 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
             onChangeText={setEmail}
             onChangeValidity={setEmailValid}
           />
-          <View>
-            <Incubator.TextField
-              flexS
-              marginT-s5
-              validateOnChange
-              enableErrors
-              secureTextEntry={!showPassword}
-              label="Password"
-              autoCapitalize="none"
-              hint="Your account's password"
-              value={password}
-              validate={"required"}
-              validationMessage="Password is required"
-              fieldStyle={styles.withUnderline}
-              onChangeText={setPassword}
-              onChangeValidity={setPasswordValid}
-            />
-            <TouchableOpacity
-              style={{position: "absolute", left: 300, right: 0}}
-              onPressIn={() => setShowPassword(true)}
-              onPressOut={() => setShowPassword(false)}
-            >
-              <Image source={require("../../../assets/view.png")} style={{top: 30, right: 7, width: 28, height: 28}} />
-            </TouchableOpacity>
-          </View>
+          <PasswordInput
+            showPassword={showPassword}
+            password={password}
+            setPassword={setPassword}
+            setPasswordValid={setPasswordValid}
+            setShowPassword={setShowPassword}
+          />
         </View>
         <Button bg-blue50 black label="Login" onPress={login} />
         <View marginT-s2 style={{opacity: error ? 100 : 0}}>
