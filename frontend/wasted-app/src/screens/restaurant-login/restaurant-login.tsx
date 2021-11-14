@@ -1,37 +1,33 @@
 import React, {useEffect, useState} from "react"
-import {Assets, Button, Colors, Text, TextField, View} from "react-native-ui-lib"
+import {StyleSheet} from "react-native"
+import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
 import {loginRestaurant} from "../../api"
 import {navigateToRestaurantRegistration, setRestaurantRoot} from "../../services/navigation"
-import {convertPassword} from "../../utils/credentials"
 import {RestaurantLoginProps} from "./interfaces"
 
 export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const [emailError, setEmailError] = useState("")
-  const [passwordError, setPasswordError] = useState("")
+  const [emailValid, setEmailValid] = useState(true)
+  const [passwordValid, setPasswordValid] = useState(true)
+  const [error, setError] = useState("")
 
-  const [emailBlur, setEmailBlur] = useState(false)
-  const [passwordBlur, setPasswordBlur] = useState(false)
-
-  const [unauthorized, setUnauthorized] = useState(false)
+  const valid = passwordValid && emailValid
 
   const login = async () => {
+    console.log(password)
     const restaurantId = await loginRestaurant({email, password})
-    if (restaurantId) {
-      setRestaurantRoot({restaurantId})
+    if (valid) {
+      if (restaurantId) {
+        setRestaurantRoot({restaurantId})
+        setError("")
+      } else {
+        setError("Login failed. It seems we don't have a registered restaurant with these credentials.")
+      }
     } else {
-      setUnauthorized(true)
+      setError("Please check your input fields.")
     }
-  }
-
-  const onBlurEmail = () => {
-    setEmailBlur(true)
-  }
-
-  const onBlurPassword = () => {
-    setPasswordBlur(true)
   }
 
   const navigateToRegistration = () => {
@@ -39,9 +35,10 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   }
 
   useEffect(() => {
-    setEmailError(!email.includes("@") ? "Invalid email" : "")
-    setPasswordError(!password ? "Invalid password" : "")
-  }, [email, password])
+    if (valid) {
+      setError("")
+    }
+  }, [valid])
 
   return (
     <>
@@ -50,32 +47,39 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
           Restaurant login
         </Text>
         <View marginB-s4 width={320}>
-          <View marginB-s5>
-            <TextField
-              autoCapitalize="none"
-              underlineColor={Colors.blue60}
-              placeholder="email"
-              value={email}
-              error={(emailBlur && emailError) || ""}
-              onChangeText={setEmail}
-              onBlur={onBlurEmail}
-            />
-          </View>
-          <TextField
+          <Incubator.TextField
+            validateOnChange
+            enableErrors
             autoCapitalize="none"
-            underlineColor={Colors.blue60}
-            placeholder="password"
+            label="Email"
+            hint="Your account's email"
+            value={email}
+            validate={["required", "email"]}
+            validationMessage={["Email is required", "Invalid email"]}
+            fieldStyle={styles.withUnderline}
+            onChangeText={setEmail}
+            onChangeValidity={setEmailValid}
+          />
+          <Incubator.TextField
+            marginT-s5
+            validateOnChange
+            enableErrors
+            secureTextEntry
+            label="Password"
+            autoCapitalize="none"
+            hint="Your account's password"
             value={password}
-            error={(passwordBlur && passwordError) || ""}
-            rightIconSource={Assets.icons.search}
+            validate={"required"}
+            validationMessage="Password is required"
+            fieldStyle={styles.withUnderline}
             onChangeText={setPassword}
-            onBlur={onBlurPassword}
+            onChangeValidity={setPasswordValid}
           />
         </View>
         <Button bg-blue50 black label="Login" onPress={login} />
-        <View marginT-s2 style={{opacity: unauthorized ? 100 : 0}}>
-          <Text center text70L red10>
-            Login failed. It seems we don't have a registered restaurant with these credentials.
+        <View marginT-s2 style={{opacity: error ? 100 : 0}}>
+          <Text center text70L red10 style={{position: "absolute", alignSelf: "center"}}>
+            {error}
           </Text>
         </View>
       </View>
@@ -88,3 +92,11 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  withUnderline: {
+    borderBottomWidth: 1,
+    borderColor: Colors.blue60,
+    paddingBottom: 4
+  }
+})
