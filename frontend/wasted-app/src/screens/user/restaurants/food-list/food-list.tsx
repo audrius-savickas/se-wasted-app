@@ -8,7 +8,7 @@ import {EmptyList} from "../../../../components/empty-list"
 import {SimpleFoodsList} from "../../../../components/simple-foods-list"
 import {FoodListProps} from "./interfaces"
 
-export const FoodList = ({componentId, restaurantId, restaurantName}: FoodListProps) => {
+export const FoodList = ({componentId, restaurantId, restaurantName, isRestaurant = false}: FoodListProps) => {
   const [foods, setFoods] = useState([] as Food[])
   const [loading, setLoading] = useState(true)
 
@@ -40,10 +40,18 @@ export const FoodList = ({componentId, restaurantId, restaurantName}: FoodListPr
             </>
           ) : (
             <EmptyList
-              title={`Uh oh :(\nSadly ${restaurantName} doesn't have any foods added yet. `}
-              subtitle="Please feel free to check back later or order from other restaurants!"
-              buttonLabel="Go back"
-              onPress={() => Navigation.pop(componentId)}
+              title={
+                isRestaurant
+                  ? `Uh oh :(\nSadly you haven't added any foods yet.`
+                  : `Uh oh :(\nSadly ${restaurantName} doesn't have any foods added yet. `
+              }
+              subtitle={
+                isRestaurant
+                  ? `Please feel free to add more foods by clicking "Add food" button`
+                  : "Please feel free to check back later or order from other restaurants!"
+              }
+              buttonLabel={isRestaurant ? "Add food" : "Go back"}
+              onPress={isRestaurant ? () => {} : () => Navigation.pop(componentId)}
             />
           )}
         </>

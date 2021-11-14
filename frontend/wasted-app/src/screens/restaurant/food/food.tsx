@@ -32,7 +32,7 @@ export const Food = ({componentId, restaurantId}: FoodScreenProps) => {
       {loading ? (
         <LoaderScreen collapsable={Colors.blue30} message="Loading..." />
       ) : (
-        <FoodList componentId={componentId} restaurantId={restaurantId} restaurantName={restaurant.name} />
+        <FoodList isRestaurant componentId={componentId} restaurantId={restaurantId} restaurantName={restaurant.name} />
       )}
     </>
   )
