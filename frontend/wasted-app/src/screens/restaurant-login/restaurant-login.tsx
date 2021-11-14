@@ -61,13 +61,15 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
             onChangeText={setEmail}
             onChangeValidity={setEmailValid}
           />
-          <PasswordInput
-            showPassword={showPassword}
-            password={password}
-            setPassword={setPassword}
-            setPasswordValid={setPasswordValid}
-            setShowPassword={setShowPassword}
-          />
+          <View marginT-s5>
+            <PasswordInput
+              showPassword={showPassword}
+              password={password}
+              setPassword={setPassword}
+              setPasswordValid={setPasswordValid}
+              setShowPassword={setShowPassword}
+            />
+          </View>
         </View>
         <Button bg-blue50 black label="Login" onPress={login} />
         <View marginT-s2 style={{opacity: error ? 100 : 0}}>

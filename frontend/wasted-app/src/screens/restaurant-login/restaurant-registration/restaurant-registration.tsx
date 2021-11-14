@@ -1,6 +1,7 @@
-import React, {useState} from "react"
-import {ScrollView} from "react-native"
-import {Assets, Button, Card, Colors, Text, TextField, View} from "react-native-ui-lib"
+import React, {useEffect, useState} from "react"
+import {ScrollView, StyleSheet} from "react-native"
+import {Assets, Button, Card, Colors, Incubator, Text, TextField, View} from "react-native-ui-lib"
+import {PasswordInput} from "../../../components/password-input"
 import {convertPassword} from "../../../utils/credentials"
 import {RestaurantRegistrationProps} from "./interfaces"
 
@@ -9,79 +10,149 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
-  const [location, setLocation] = useState("")
+  const [address, setAddress] = useState("")
+  const [imageUrl, setImageUrl] = useState("")
+
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+  const [nameValid, setNameValid] = useState(true)
+  const [emailValid, setEmailValid] = useState(true)
+  const [passwordValid, setPasswordValid] = useState(true)
+  const [confirmPasswordValid, setConfirmPasswordValid] = useState(true)
+  const [locationValid, setAddressValid] = useState(true)
+  const [imageUrlValid, setImageUrlValid] = useState(true)
+
+  const [error, setError] = useState("")
+
+  const valid = nameValid && emailValid && passwordValid && confirmPasswordValid && locationValid && imageUrlValid
 
   const finishRegistration = () => {
-    if (password !== confirmPassword) {
-      console.log("NO")
+    if (valid) {
+      if (password !== confirmPassword) {
+        setError("Passwords don't match")
+      } else {
+      }
+    } else {
+      setError("Please check your input fields.")
     }
   }
 
+  useEffect(() => {
+    if (valid) {
+      setError("")
+    }
+  }, [valid])
+
   return (
-    <ScrollView>
-      <View flexG center marginB-s10 marginT-s6>
-        <View centerV width={320}>
-          <View>
-            <TextField
-              floatingPlaceholder
+    <>
+      <ScrollView>
+        <View flexG center marginB-s10 marginT-s8>
+          <View br30 margin-s4 marginB-s8 bg-grey70 padding-s4>
+            <Text text70L>Please fill these fields in order to register your restaurant!{`\n* - required fields`}</Text>
+          </View>
+          <View centerV width={320}>
+            <Incubator.TextField
+              validateOnChange
+              enableErrors
+              marginB-s2
               autoCapitalize="none"
-              underlineColor={Colors.blue60}
-              placeholder="Restaurant Name"
+              hint="Your restaurant's name"
+              fieldStyle={styles.withUnderline}
+              label="Restaurant Name*"
+              validate={["required"]}
+              validationMessage="Name is required"
               value={name}
               onChangeText={setName}
+              onChangeValidity={setNameValid}
             />
-          </View>
-          <View marginB-s4>
-            <TextField
-              floatingPlaceholder
+            <Incubator.TextField
+              validateOnChange
+              enableErrors
+              marginB-s6
               autoCapitalize="none"
-              underlineColor={Colors.blue60}
-              placeholder="Email"
+              hint="Your restaurant's email*"
+              fieldStyle={styles.withUnderline}
+              label="Email"
+              validate={["required", "email"]}
+              validationMessage={["Email is required", "Email is invalid"]}
               value={email}
               onChangeText={setEmail}
+              onChangeValidity={setEmailValid}
             />
-          </View>
-          <View>
-            <TextField
-              floatingPlaceholder
-              textContentType="password"
-              autoCapitalize="none"
-              underlineColor={Colors.blue60}
-              placeholder="Password"
-              value={convertPassword(password)}
-              onChangeText={setPassword}
+            <PasswordInput
+              label="Password*"
+              password={password}
+              setPassword={setPassword}
+              showPassword={showPassword}
+              setShowPassword={setShowPassword}
+              setPasswordValid={setPasswordValid}
             />
-          </View>
-          <View marginB-s10>
-            <TextField
-              floatingPlaceholder
+            <View marginB-s10>
+              <PasswordInput
+                label="Confirm password*"
+                hint="Your account's repeated password"
+                password={confirmPassword}
+                setPassword={setConfirmPassword}
+                showPassword={showConfirmPassword}
+                setShowPassword={setShowConfirmPassword}
+                setPasswordValid={setConfirmPasswordValid}
+              />
+              <Card padding-s3 backgroundColor={Colors.grey70}>
+                <Text text70L>Password should contain:</Text>
+                <Text
+                  text80L
+                >{`  ∙ at least 8 characters\n  ∙ 1 or more capital letters\n  ∙ 1 digit\n  ∙ 1 special character`}</Text>
+              </Card>
+            </View>
+            <Incubator.TextField
+              marginB-s2
+              marginT-s4
+              validateOnChange
+              enableErrors
               autoCapitalize="none"
-              underlineColor={Colors.blue60}
-              placeholder="Confirm password"
-              value={convertPassword(confirmPassword)}
-              onChangeText={setConfirmPassword}
-            />
-            <Card padding-s3 backgroundColor={Colors.grey70} containerStyle={{borderColor: "red"}}>
-              <Text text70L>Password should contain:</Text>
-              <Text
-                text80L
-              >{`  ∙ at least 8 characters\n  ∙ 1 or more capital letters\n  ∙ 1 digit\n  ∙ 1 special character`}</Text>
-            </Card>
-          </View>
-          <View marginB-s6 marginT-s4>
-            <TextField
-              autoCapitalize="none"
-              underlineColor={Colors.blue60}
-              placeholder="Location"
-              value={location}
-              rightButtonProps={{iconSource: Assets.icons.search}}
-              onChangeText={setLocation}
+              fieldStyle={styles.withUnderline}
+              label="Address*"
+              hint="Your restaurant's address"
+              value={address}
+              validate={["required"]}
+              validationMessage="Address is required"
+              onChangeText={setAddress}
+              onChangeValidity={setAddressValid}
             />
             {/* TODO: implement location picking */}
+            <Incubator.TextField
+              marginB-s6
+              validateOnChange
+              enableErrors
+              autoCapitalize="none"
+              fieldStyle={styles.withUnderline}
+              label="Image URL*"
+              hint="Your restaurant's image's URL"
+              value={imageUrl}
+              validate={["required"]}
+              validationMessage="Image URL is required"
+              onChangeText={setImageUrl}
+              onChangeValidity={setImageUrlValid}
+            />
+          </View>
+          <Button bg-blue40 label="Register" onPress={finishRegistration} />
+          <View marginT-s2 style={{opacity: error ? 100 : 0}}>
+            <Text center text70L red10 style={styles.error}>
+              {error}
+            </Text>
           </View>
         </View>
-        <Button bg-blue40 label="Register" onPress={finishRegistration} />
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   )
 }
+
+const styles = StyleSheet.create({
+  withUnderline: {
+    borderBottomWidth: 1,
+    borderColor: Colors.blue60,
+    paddingBottom: 4
+  },
+  error: {position: "absolute", alignSelf: "center", width: "85%"}
+})
