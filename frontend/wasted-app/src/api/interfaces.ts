@@ -47,6 +47,11 @@ export interface FoodSortObject {
   sortType: FoodSortType
 }
 
+export interface Credentials {
+  email: string
+  password: string
+}
+
 export enum DecreaseType {
   AMOUNT,
   PERCENT

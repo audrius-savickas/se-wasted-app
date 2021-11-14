@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react"
 import {Assets, Button, Colors, Text, TextField, View} from "react-native-ui-lib"
+import {loginRestaurant} from "../../api"
 import {navigateToRestaurantRegistration, setRestaurantRoot} from "../../services/navigation"
 import {convertPassword} from "../../utils/credentials"
 import {RestaurantLoginProps} from "./interfaces"
@@ -14,11 +15,15 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   const [emailBlur, setEmailBlur] = useState(false)
   const [passwordBlur, setPasswordBlur] = useState(false)
 
-  const login = () => {
-    setRestaurantRoot({
-      restaurantId: "pt953XaT",
-      restaurantName: "Example of restaurant"
-    })
+  const [unauthorized, setUnauthorized] = useState(false)
+
+  const login = async () => {
+    const restaurantId = await loginRestaurant({email, password})
+    if (restaurantId) {
+      setRestaurantRoot({restaurantId})
+    } else {
+      setUnauthorized(true)
+    }
   }
 
   const onBlurEmail = () => {
@@ -60,7 +65,7 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
             autoCapitalize="none"
             underlineColor={Colors.blue60}
             placeholder="password"
-            value={convertPassword(password)}
+            value={password}
             error={(passwordBlur && passwordError) || ""}
             rightIconSource={Assets.icons.search}
             onChangeText={setPassword}
@@ -68,6 +73,11 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
           />
         </View>
         <Button bg-blue50 black label="Login" onPress={login} />
+        <View marginT-s2 style={{opacity: unauthorized ? 100 : 0}}>
+          <Text center text70L red10>
+            Login failed. It seems we don't have a registered restaurant with these credentials.
+          </Text>
+        </View>
       </View>
       <View center row marginB-s10>
         <Text margin-s2 grey20>
