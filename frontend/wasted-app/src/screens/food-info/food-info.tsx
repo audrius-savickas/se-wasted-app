@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
 import {ScrollView} from "react-native-gesture-handler"
+import {Navigation} from "react-native-navigation"
 import {Chip, Colors, ExpandableSection, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
 import {DecreaseType, Restaurant} from "../../api/interfaces"
@@ -37,6 +38,13 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
 
   useEffect(() => {
     fetchRestaurant()
+
+    const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
+      if (buttonId === "DISMISS") {
+        Navigation.dismissModal(componentId)
+      }
+    })
+    return () => listener.remove()
   }, [])
 
   return (

@@ -5,7 +5,7 @@ import {Colors} from "react-native/Libraries/NewAppScreen"
 import {getAllFoodByRestaurantId} from "../../../../api"
 import {Food} from "../../../../api/interfaces"
 import {EmptyList} from "../../../../components/empty-list"
-import {FoodsList} from "../../../../components/foods-list"
+import {SimpleFoodsList} from "../../../../components/simple-foods-list"
 import {FoodListProps} from "./interfaces"
 
 export const FoodList = ({componentId, restaurantId, restaurantName}: FoodListProps) => {
@@ -35,7 +35,7 @@ export const FoodList = ({componentId, restaurantId, restaurantName}: FoodListPr
                 <Text text60L>Foods</Text>
               </View>
               <View flex>
-                <FoodsList foods={foods} componentId={componentId} />
+                <SimpleFoodsList foods={foods} componentId={componentId} />
               </View>
             </>
           ) : (

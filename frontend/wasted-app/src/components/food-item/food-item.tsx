@@ -1,71 +1,57 @@
-import React from "react"
-import {StyleSheet} from "react-native"
-import {Chip, Colors, Image, ListItem, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import React, {useEffect, useState} from "react"
+import {Colors, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import {getRestaurantById} from "../../api"
+import {Restaurant} from "../../api/interfaces"
 import {formatPrice} from "../../utils/currency"
+import {timeAgoFull} from "../../utils/date"
 import {FoodItemProps} from "./interfaces"
 
 export const FoodItem = ({food, onPress}: FoodItemProps) => {
-  const {name, currentPrice, startingPrice, typesOfFood, imageURL} = food
+  const {name, idRestaurant, currentPrice, startingPrice, imageURL, createdAt} = food
+  const [restaurant, setRestaurant] = useState({} as Restaurant)
 
-  const renderPrice = () => {
-    if (startingPrice === currentPrice) {
-      return (
-        <Text text60L grey10>
-          {formatPrice(currentPrice)}
-        </Text>
-      )
-    }
-    return (
-      <View center>
-        <Text text70L red30 style={{textDecorationLine: "line-through"}}>
-          {formatPrice(startingPrice)}
-        </Text>
-        <Text text60L green10>
-          {formatPrice(currentPrice)}
-        </Text>
-      </View>
-    )
+  const fetchRestaurant = async () => {
+    setRestaurant(await getRestaurantById(idRestaurant))
   }
 
+  useEffect(() => {
+    fetchRestaurant()
+  }, [])
+
   return (
-    <ListItem height="auto">
-      <TouchableOpacity
-        flex
-        paddingV-s3
-        style={{
-          borderTopColor: Colors.black,
-          borderTopWidth: StyleSheet.hairlineWidth
-        }}
-        onPress={onPress}
-      >
-        <View row centerV marginH-s4>
-          <View marginR-s4>
-            <Image source={{uri: imageURL, width: 80, height: 80}} style={{height: 80, width: 80}} />
-          </View>
-          <ListItem.Part middle>
-            <View>
-              <Text text50L>{name}</Text>
-              <View row style={{flexWrap: "wrap"}}>
-                {typesOfFood.map(type => (
-                  <Chip
-                    marginR-s1
-                    marginV-s1
-                    br60
-                    labelStyle={{color: Colors.grey20, fontWeight: "400"}}
-                    style={{borderColor: Colors.grey40, borderWidth: 1}}
-                    key={type.id}
-                    label={type.name}
-                    size={25}
-                  />
-                ))}
-              </View>
-            </View>
-          </ListItem.Part>
-          <ListItem.Part right marginL-s4>
-            <View center>{renderPrice()}</View>
-          </ListItem.Part>
+    <View br40 flex marginH-s8 marginV-s1 style={{borderColor: Colors.grey40, borderWidth: 1}}>
+      <View row centerV>
+        <View flex>
+          <Text text50R purple30 marginV-s2 marginH-s3>
+            {name}
+          </Text>
         </View>
-      </TouchableOpacity>
-    </ListItem>
+        <View>
+          <Text text60L marginH-s3>
+            {restaurant.name}
+          </Text>
+        </View>
+      </View>
+      <Image source={{uri: imageURL}} style={{height: 130}} />
+      <View row margin-s4 centerV>
+        <View flex row centerV>
+          <Text text60L>{formatPrice(currentPrice)}</Text>
+          {currentPrice < startingPrice ? (
+            <Image
+              source={require("../../../assets/low-price.png")}
+              style={{height: 25, resizeMode: "contain", left: -15}}
+            />
+          ) : null}
+        </View>
+        <View marginR-s6>
+          <Text>{timeAgoFull(createdAt)}</Text>
+        </View>
+        <TouchableOpacity onPress={onPress}>
+          <Text text60R purple30>
+            SEE MORE
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   )
 }
