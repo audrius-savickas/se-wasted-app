@@ -1,6 +1,1 @@
-export const convertPassword = (password: string) => {
-  return password
-    .split("")
-    .map(() => "*")
-    .join("")
-}
+export const convertPassword = (password: string) => password

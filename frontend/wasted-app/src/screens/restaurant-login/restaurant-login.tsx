@@ -1,32 +1,34 @@
 import React, {useEffect, useState} from "react"
-import {Assets, Button, Colors, Text, TextField, View} from "react-native-ui-lib"
+import {StyleSheet} from "react-native"
+import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
+import {loginRestaurant} from "../../api"
+import {PasswordInput} from "../../components/password-input"
 import {navigateToRestaurantRegistration, setRestaurantRoot} from "../../services/navigation"
-import {convertPassword} from "../../utils/credentials"
 import {RestaurantLoginProps} from "./interfaces"
 
 export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const [emailError, setEmailError] = useState("")
-  const [passwordError, setPasswordError] = useState("")
+  const [emailValid, setEmailValid] = useState(true)
+  const [passwordValid, setPasswordValid] = useState(true)
+  const [error, setError] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
 
-  const [emailBlur, setEmailBlur] = useState(false)
-  const [passwordBlur, setPasswordBlur] = useState(false)
+  const valid = passwordValid && emailValid
 
-  const login = () => {
-    setRestaurantRoot({
-      restaurantId: "pt953XaT",
-      restaurantName: "Example of restaurant"
-    })
-  }
-
-  const onBlurEmail = () => {
-    setEmailBlur(true)
-  }
-
-  const onBlurPassword = () => {
-    setPasswordBlur(true)
+  const login = async () => {
+    const restaurantId = await loginRestaurant({email, password})
+    if (valid) {
+      if (restaurantId) {
+        setRestaurantRoot({restaurantId})
+        setError("")
+      } else {
+        setError("Login failed. We haven't found a registered account with these credentials.")
+      }
+    } else {
+      setError("Please check your input fields.")
+    }
   }
 
   const navigateToRegistration = () => {
@@ -34,9 +36,10 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   }
 
   useEffect(() => {
-    setEmailError(!email.includes("@") ? "Invalid email" : "")
-    setPasswordError(!password ? "Invalid password" : "")
-  }, [email, password])
+    if (valid) {
+      setError("")
+    }
+  }, [valid])
 
   return (
     <>
@@ -45,29 +48,33 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
           Restaurant login
         </Text>
         <View marginB-s4 width={320}>
-          <View marginB-s5>
-            <TextField
-              autoCapitalize="none"
-              underlineColor={Colors.blue60}
-              placeholder="email"
-              value={email}
-              error={(emailBlur && emailError) || ""}
-              onChangeText={setEmail}
-              onBlur={onBlurEmail}
-            />
-          </View>
-          <TextField
+          <Incubator.TextField
+            validateOnChange
+            enableErrors
             autoCapitalize="none"
-            underlineColor={Colors.blue60}
-            placeholder="password"
-            value={convertPassword(password)}
-            error={(passwordBlur && passwordError) || ""}
-            rightIconSource={Assets.icons.search}
-            onChangeText={setPassword}
-            onBlur={onBlurPassword}
+            label="Email"
+            hint="Your account's email"
+            value={email}
+            validate={["required", "email"]}
+            validationMessage={["Email is required", "Invalid email"]}
+            fieldStyle={styles.withUnderline}
+            onChangeText={setEmail}
+            onChangeValidity={setEmailValid}
+          />
+          <PasswordInput
+            showPassword={showPassword}
+            password={password}
+            setPassword={setPassword}
+            setPasswordValid={setPasswordValid}
+            setShowPassword={setShowPassword}
           />
         </View>
         <Button bg-blue50 black label="Login" onPress={login} />
+        <View marginT-s2 style={{opacity: error ? 100 : 0}}>
+          <Text center text70L red10 style={styles.error}>
+            {error}
+          </Text>
+        </View>
       </View>
       <View center row marginB-s10>
         <Text margin-s2 grey20>
@@ -78,3 +85,12 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  withUnderline: {
+    borderBottomWidth: 1,
+    borderColor: Colors.blue60,
+    paddingBottom: 4
+  },
+  error: {position: "absolute", alignSelf: "center", width: "85%"}
+})

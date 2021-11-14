@@ -6,6 +6,7 @@ import {FoodInfoProps} from "../screens/food-info/interfaces"
 import {RestaurantInfoProps} from "../screens/restaurant-info/interfaces"
 import {RestaurantLoginOwnProps} from "../screens/restaurant-login/interfaces"
 import {RestaurantRegistrationOwnProps} from "../screens/restaurant-login/restaurant-registration/interfaces"
+import {FoodScreenOwnProps} from "../screens/restaurant/food/interfaces"
 import {FoodListOwnProps} from "../screens/user/restaurants/food-list/interfaces"
 import {RestaurantListOwnProps} from "../screens/user/restaurants/interfaces"
 
@@ -76,7 +77,7 @@ export const navigateToRestaurantRegistration = (componentId: string, props: Res
 export const navigateToFoodList = (componentId: string, props: FoodListOwnProps) =>
   navigateTo(componentId, screenNames.USER_FOOD_LIST, props, "Food List")
 
-export const setRestaurantRoot = props =>
+export const setRestaurantRoot = (props: FoodScreenOwnProps) =>
   Navigation.setRoot({
     root: {
       bottomTabs: {
@@ -120,8 +121,7 @@ export const setRestaurantRoot = props =>
               children: [
                 {
                   component: {
-                    name: screenNames.RESTAURANT_PROFILE,
-                    passProps: {...props}
+                    name: screenNames.RESTAURANT_PROFILE
                   }
                 }
               ],
@@ -151,7 +151,7 @@ export const setRestaurantRoot = props =>
     }
   })
 
-export const setUserRoot = props =>
+export const setUserRoot = () =>
   Navigation.setRoot({
     root: {
       bottomTabs: {

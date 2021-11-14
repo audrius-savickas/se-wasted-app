@@ -1,4 +1,4 @@
-import {Food, Restaurant, RestaurantSortObject} from "./interfaces"
+import {Credentials, Food, Restaurant, RestaurantSortObject} from "./interfaces"
 import {WASTED_SERVER_URL} from "./urls"
 
 export const getAllRestaurants = async (sortObject?: RestaurantSortObject): Promise<Restaurant[]> => {
@@ -37,14 +37,7 @@ export const getRestaurantById = async (id: string): Promise<Restaurant> => {
     const data = await response.json()
     return data
   } catch (error) {
-    return Promise.resolve({
-      id: "-1",
-      name: "Not found",
-      address: "Not found",
-      coords: {latitude: 0, longitude: 0},
-      imageURL: "",
-      distanceToUser: NaN
-    })
+    throw new Error("Restaurant not found")
   }
 }
 
@@ -56,4 +49,21 @@ export const updateRestaurant = async (updatedRestaurant: Restaurant) => {
     },
     body: JSON.stringify(updatedRestaurant)
   })
+}
+
+export const loginRestaurant = async (credentials: Credentials) => {
+  try {
+    const response = await fetch(`${WASTED_SERVER_URL}/Restaurant/Login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({mail: {value: credentials.email}, password: {value: credentials.password}})
+    })
+    if (response.status === 401) throw new Error("Invalid credentials.")
+    const data = await response.json()
+    return data
+  } catch (error) {
+    return null
+  }
 }

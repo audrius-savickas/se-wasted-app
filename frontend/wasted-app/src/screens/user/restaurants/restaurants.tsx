@@ -94,8 +94,8 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
 
   return (
     <View flex>
-      <View marginH-s8>
-        <View row br20 padding-s3>
+      <View marginH-s8 marginT-s4 marginB-s3>
+        <View row br20>
           <View flexG>
             <Incubator.TextField
               text70
