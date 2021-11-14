@@ -22,7 +22,7 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
         setRestaurantRoot({restaurantId})
         setError("")
       } else {
-        setError("Login failed. It seems we don't have a registered restaurant with these credentials.")
+        setError("Login failed. We haven't found a registered account with these credentials.")
       }
     } else {
       setError("Please check your input fields.")
@@ -77,7 +77,7 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
         </View>
         <Button bg-blue50 black label="Login" onPress={login} />
         <View marginT-s2 style={{opacity: error ? 100 : 0}}>
-          <Text center text70L red10 style={{position: "absolute", alignSelf: "center"}}>
+          <Text center text70L red10 style={styles.error}>
             {error}
           </Text>
         </View>
@@ -97,5 +97,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: Colors.blue60,
     paddingBottom: 4
-  }
+  },
+  error: {position: "absolute", alignSelf: "center", width: "85%"}
 })
