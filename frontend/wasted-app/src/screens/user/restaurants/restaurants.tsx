@@ -94,65 +94,66 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
 
   return (
     <View flex>
-      <>
-        <View marginH-s8 marginT-s4 marginB-s3>
-          <View row br20 padding-s3style={{borderWidth: 1, borderColor: Colors.grey30}}>
-            <View flexG>
-              <Incubator.TextField
-                text70
-                autoCapitalize="none"
-                label="Search"
-                value={searchValue}
-                labelStyle={{marginBottom: 4}}
-                placeholder="Name of restaurant"
-                fieldStyle={{borderBottomWidth: 1, borderColor: Colors.purple40, paddingBottom: 4}}
-                onChangeText={setSearchValue}
-              />
-            </View>
-            <Button
-              bg-transparent
-              marginR-s3
-              iconStyle={{width: 21, height: 21}}
-              iconSource={require("../../../../assets/control.png")}
-              onPress={() => {
-                setSortVisible(!sortVisible)
-              }}
-            />
-            <Button
-              bg-transparent
-              marginR-s3
-              iconStyle={{width: 21, height: 21}}
-              iconSource={require("../../../../assets/sort.png")}
-              onPress={() => {
-                setAscending(!ascending)
-              }}
+      <View marginH-s8>
+        <View row br20 padding-s3>
+          <View flexG>
+            <Incubator.TextField
+              text70
+              autoCapitalize="none"
+              label="Search"
+              value={searchValue}
+              labelStyle={{marginBottom: 4}}
+              placeholder="Name of restaurant"
+              fieldStyle={{borderBottomWidth: 1, borderColor: Colors.purple40, paddingBottom: 4}}
+              onChangeText={setSearchValue}
             />
           </View>
-        </View>
-        {loading ? (
-          <LoaderScreen color={Colors.blue30} message="Loading..." />
-        ) : (
-          <RestaurantsList componentId={componentId} restaurants={renderedRestaurants} />
-        )}
-        <View bg-white br30 padding-s2 paddingH-s4 style={{...styles.filter, ...{opacity: sortVisible ? 100 : 0}}}>
-          <Text marginB-s2>Sort by</Text>
-          <RadioGroup
-            collapsable
-            initialValue={sortType}
-            onValueChange={(type: RestaurantSortType) => {
-              setSortType(type)
-              setAscending(true)
+          <Button
+            bg-transparent
+            marginR-s3
+            iconStyle={{width: 21, height: 21}}
+            iconSource={require("../../../../assets/control.png")}
+            onPress={() => {
+              setSortVisible(!sortVisible)
             }}
-          >
-            <View marginV-s1>
-              <RadioButton size={20} label="Distance" value={RestaurantSortType.DIST} />
-            </View>
-            <View marginV-s1>
-              <RadioButton size={20} label="Name" value={RestaurantSortType.NAME} />
-            </View>
-          </RadioGroup>
+          />
+          <Button
+            bg-transparent
+            marginR-s3
+            iconStyle={{width: 21, height: 21}}
+            iconSource={require("../../../../assets/sort.png")}
+            onPress={() => {
+              setAscending(!ascending)
+            }}
+          />
         </View>
-      </>
+      </View>
+      {loading ? (
+        <LoaderScreen color={Colors.blue30} message="Loading..." />
+      ) : (
+        <RestaurantsList componentId={componentId} restaurants={renderedRestaurants} />
+      )}
+      <View bg-white br30 padding-s2 paddingH-s4 style={{...styles.filter, ...{opacity: sortVisible ? 100 : 0}}}>
+        <Text marginB-s2>Sort by</Text>
+        <RadioGroup
+          collapsable
+          initialValue={sortType}
+          onValueChange={(type: RestaurantSortType) => {
+            setSortType(type)
+            setAscending(true)
+          }}
+        >
+          <View marginV-s1>
+            <RadioButton size={20} label="Distance" value={RestaurantSortType.DIST} />
+          </View>
+          <View marginV-s1>
+            <RadioButton size={20} label="Name" value={RestaurantSortType.NAME} />
+          </View>
+          <View marginV-s1>
+            <RadioButton size={20} label="Food count" value={RestaurantSortType.FOOD_COUNT} />
+          </View>
+        </RadioGroup>
+      </View>
     </View>
   )
 }

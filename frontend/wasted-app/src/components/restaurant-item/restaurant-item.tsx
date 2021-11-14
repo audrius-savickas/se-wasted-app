@@ -4,7 +4,7 @@ import {formatDistance} from "../../utils/coordinates"
 import {RestaurantItemProps} from "./interfaces"
 
 export const RestaurantItem = ({restaurant, onPress}: RestaurantItemProps) => {
-  const {name, address, imageURL, distanceToUser} = restaurant
+  const {name, address, imageURL, distanceToUser, foodCount} = restaurant
 
   return (
     <View br40 flex marginH-s8 marginV-s1 style={{borderColor: Colors.grey40, borderWidth: 1}}>
@@ -21,8 +21,13 @@ export const RestaurantItem = ({restaurant, onPress}: RestaurantItemProps) => {
         </View>
       </View>
       <Image source={{uri: imageURL}} style={{height: 130}} />
-      <View row margin-s4 centerV>
-        <Text flex>{address}</Text>
+      <View row margin-s4 marginV-s3 centerV>
+        <View flex>
+          <Text text70L>{address}</Text>
+          <Text text80L>
+            {foodCount} food {foodCount === 1 ? "item" : "items"}
+          </Text>
+        </View>
         <TouchableOpacity onPress={onPress}>
           <Text text60R purple30>
             SEE MORE
