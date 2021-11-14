@@ -1,6 +1,6 @@
 import {ComponentType} from "react"
-import {Navigation, Options} from "react-native-navigation"
-import {Colors} from "react-native-ui-lib"
+import {Navigation, Options, OptionsModalPresentationStyle} from "react-native-navigation"
+import {Assets, Colors} from "react-native-ui-lib"
 import {screenNames} from "../screenNames"
 import {FoodInfoProps} from "../screens/food-info/interfaces"
 import {RestaurantInfoProps} from "../screens/restaurant-info/interfaces"
@@ -36,8 +36,15 @@ const showModal = (componentName: string, props: any = {}, screenTitle: string) 
               topBar: {
                 title: {
                   text: screenTitle
-                }
-              }
+                },
+                leftButtons: [
+                  {
+                    id: "DISMISS",
+                    icon: Assets.icons.x
+                  }
+                ]
+              },
+              modalPresentationStyle: OptionsModalPresentationStyle.fullScreen
             },
             passProps: {...props}
           }
