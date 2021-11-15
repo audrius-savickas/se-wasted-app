@@ -97,6 +97,7 @@ namespace WebApi.Controllers
         [HttpPost(Name = nameof(Post))]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Conflict)]
         public IActionResult Post([FromQuery] Credentials creds, [FromBody] RestaurantRegisterRequest restaurantRegisterRequest)
         {
             try
@@ -106,7 +107,14 @@ namespace WebApi.Controllers
             }
             catch (Exception exception)
             {
-                return BadRequest(exception.Message);
+                if(exception is ApplicationException)
+                {
+                    return Conflict(exception.Message);
+                }
+                else
+                {
+                    return BadRequest(exception.Message);
+                }
             }
         }
 
