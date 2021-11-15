@@ -5,7 +5,7 @@ namespace Domain.Helpers
 {
     public static class PasswordHasher
     {
-       
+
         private const int SALT_SIZE = 16;
 
         private const int HASH_SIZE = 20;
@@ -46,7 +46,7 @@ namespace Domain.Helpers
 
             // Create hash with given salt
             byte[] hash = new Rfc2898DeriveBytes(password, salt, ITERATIONS).GetBytes(HASH_SIZE);
-            
+
             // Check if hashes match
             for (var i = 0; i < HASH_SIZE; i++)
             {

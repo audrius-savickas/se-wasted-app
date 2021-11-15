@@ -1,18 +1,18 @@
-import {Food, Restaurant, RestaurantSortObject} from "./interfaces"
+import {Credentials, Food, Restaurant, RestaurantRegisterRequest, RestaurantSortObject} from "./interfaces"
 import {WASTED_SERVER_URL} from "./urls"
 
 export const getAllRestaurants = async (sortObject?: RestaurantSortObject): Promise<Restaurant[]> => {
   try {
-    let response
-    if (sortObject) {
-      let sortString = `?sortOrder=${sortObject.sortType}`
+    let queryString = `${WASTED_SERVER_URL}/Restaurant`
+    if (sortObject?.sortType) {
+      queryString += `?sortOrder=${sortObject.sortType}`
       if (sortObject.coordinates) {
-        sortString += `&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
+        queryString += `&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
       }
-      response = await fetch(`${WASTED_SERVER_URL}/Restaurant${sortString}`)
-    } else {
-      response = await fetch(`${WASTED_SERVER_URL}/Restaurant`)
+    } else if (sortObject?.coordinates) {
+      queryString += `?&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
     }
+    const response = await fetch(queryString)
     const data = await response.json()
     return data
   } catch (error) {
@@ -31,13 +31,13 @@ export const getAllFoodByRestaurantId = async (id: string): Promise<Food[]> => {
   }
 }
 
-export const getRestaurantById = async (id: string): Promise<Restaurant | null> => {
+export const getRestaurantById = async (id: string): Promise<Restaurant> => {
   try {
     const response = await fetch(`${WASTED_SERVER_URL}/Restaurant/${id}`)
     const data = await response.json()
     return data
   } catch (error) {
-    return null
+    throw new Error("Restaurant not found")
   }
 }
 
@@ -49,4 +49,50 @@ export const updateRestaurant = async (updatedRestaurant: Restaurant) => {
     },
     body: JSON.stringify(updatedRestaurant)
   })
+}
+
+export const loginRestaurant = async (credentials: Credentials) => {
+  try {
+    const response = await fetch(`${WASTED_SERVER_URL}/Restaurant/Login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({mail: {value: credentials.email}, password: {value: credentials.password}})
+    })
+    if (response.status === 401) throw new Error("Invalid credentials.")
+    const data = await response.json()
+    return data
+  } catch (error) {
+    return null
+  }
+}
+
+export const registerRestaurant = async ({
+  name,
+  coords,
+  credentials: {email, password},
+  address,
+  description = "",
+  imageUrl
+}: RestaurantRegisterRequest) => {
+  try {
+    const response = await fetch(
+      `${WASTED_SERVER_URL}/Restaurant?Mail.Value=${encodeURIComponent(email)}&Password.Value=${encodeURIComponent(
+        password
+      )}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({name, coords, address, imageUrl, description})
+      }
+    )
+    if (response.status !== 201) throw new Error("There is already a restaurant registered on this email.")
+    const data = await response.json()
+    return data
+  } catch (error) {
+    return null
+  }
 }

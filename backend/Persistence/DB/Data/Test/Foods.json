@@ -3,7 +3,7 @@
     "StartingPrice": 15,
     "MinimumPrice": 1,
     "Description": "Example short description.",
-    "CreatedAt": "2021-11-02T11:47:04.9955968+02:00",
+    "CreatedAt": "2021-11-09T11:47:04.9955968+02:00",
     "IdRestaurant": "pt953XaT",
     "ImageURL": "https://www.lamaistas.lt/uploads/modules/recipes/thumb920x573/19268.jpg",
     "TypesOfFood": [
@@ -34,6 +34,11 @@
       }
     ],
     "Id": "0",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": 0,
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "Name": "Saltibarsciai"
   },
   {
@@ -82,6 +87,11 @@
       }
     ],
     "Id": "3",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": 1,
+    "IntervalTimeInMinutes": 180,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "Name": "Zemaiciu blynai"
   },
   {
@@ -162,6 +172,11 @@
     "Description": "Example long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \n",
     "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
     "IdRestaurant": "H6\u002BmLxBY",
+    "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
+    "DecreaseType": 1,
+    "IntervalTimeInMinutes": 1,
+    "AmountPerInterval": 0.15,
+    "PercentPerInterval": 1,
     "ImageURL": "https://www.alphafoodie.com/wp-content/uploads/2020/04/Homemade-Croissant-1-of-1-6.jpeg",
     "TypesOfFood": [
       {
@@ -176,7 +191,7 @@
     "StartingPrice": 2.0,
     "MinimumPrice": 1,
     "Description": "Example long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \n",
-    "CreatedAt": "2021-11-04T11:47:04.9955968+02:00",
+    "CreatedAt": "2021-11-09T13:47:04.9955968+02:00",
     "IdRestaurant": "H6\u002BmLxBY",
     "ImageURL": "https://www.acouplecooks.com/wp-content/uploads/2020/09/Latte-Art-067s.jpg",
     "TypesOfFood": [
@@ -208,7 +223,7 @@
     "StartingPrice": 5,
     "MinimumPrice": 1,
     "Description": "Example long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \nExample long description. Example long description. Example long description. Example long description. Example long description. \n",
-    "CreatedAt": "2021-11-06T19:59:04.9955968+02:00",
+    "CreatedAt": "2021-11-09T13:59:04.9955968+02:00",
     "IdRestaurant": "pt953XaT",
     "ImageURL": "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg",
     "TypesOfFood": [

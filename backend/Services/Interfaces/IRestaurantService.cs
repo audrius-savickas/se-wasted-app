@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using Contracts.DTOs;
 using Domain.Entities;
-using Contracts.DTOs;
+using Services.Services;
+using System;
+using System.Collections.Generic;
 
 namespace Services.Interfaces
 {
     public interface IRestaurantService : IAuthService<RestaurantRegisterRequest>
     {
+        event EventHandler<RestaurantEventArgs> RestaurantRegistered;
         RestaurantDto GetRestaurantById(string id);
         IEnumerable<RestaurantDto> GetAllRestaurants();
         void UpdateRestaurant(Restaurant restaurant);
@@ -13,6 +16,7 @@ namespace Services.Interfaces
         RestaurantDto GetRestaurantDtoFromMail(Mail mail);
         IEnumerable<RestaurantDto> GetAllRestaurantsCloserThan(Coords coords, Distances distance);
         IEnumerable<Food> GetAllFoodFromRestaurant(string idRestaurant);
+        int GetFoodCountFromRestaurant(string idRestaurant);
     }
 }
 

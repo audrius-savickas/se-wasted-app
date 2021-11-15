@@ -1,31 +1,39 @@
 import React from "react"
-import {StyleSheet} from "react-native"
-import {Colors, ListItem, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import {Colors, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import {formatDistance} from "../../utils/coordinates"
 import {RestaurantItemProps} from "./interfaces"
 
-export const RestaurantItem = ({name, id, address, onPress}: RestaurantItemProps) => {
+export const RestaurantItem = ({restaurant, onPress}: RestaurantItemProps) => {
+  const {name, address, imageURL, distanceToUser, foodCount} = restaurant
+
   return (
-    <ListItem height={100}>
-      <TouchableOpacity
-        flex
-        style={{
-          borderBottomColor: Colors.black,
-          borderBottomWidth: StyleSheet.hairlineWidth
-        }}
-        onPress={onPress}
-      >
-        <View flex row marginH-s4>
-          <ListItem.Part left marginR-s4>
-            <Text text60L>{id}</Text>
-          </ListItem.Part>
-          <ListItem.Part middle>
-            <Text text50L>{name}</Text>
-          </ListItem.Part>
-          <ListItem.Part right>
-            <Text text60L>{address}</Text>
-          </ListItem.Part>
+    <View br40 flex marginH-s8 marginV-s1 style={{borderColor: Colors.grey40, borderWidth: 1}}>
+      <View row centerV>
+        <View flex>
+          <Text text50R purple30 marginV-s2 marginH-s3>
+            {name}
+          </Text>
         </View>
-      </TouchableOpacity>
-    </ListItem>
+        <View>
+          <Text text60L purple30 marginH-s3>
+            {formatDistance(distanceToUser)} km
+          </Text>
+        </View>
+      </View>
+      <Image source={{uri: imageURL}} style={{height: 130}} />
+      <View row margin-s4 marginV-s3 centerV>
+        <View flex>
+          <Text text70L>{address}</Text>
+          <Text text80L>
+            {foodCount} food {foodCount === 1 ? "item" : "items"}
+          </Text>
+        </View>
+        <TouchableOpacity onPress={onPress}>
+          <Text text60R purple30>
+            SEE MORE
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   )
 }

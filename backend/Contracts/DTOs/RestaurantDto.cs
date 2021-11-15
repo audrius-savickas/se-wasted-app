@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.Helpers;
 using System;
 
 namespace Contracts.DTOs
@@ -7,14 +6,15 @@ namespace Contracts.DTOs
     public class RestaurantDto : BaseDto
     {
         public Coords Coords { get; set; }
-
         public string Address { get; set; }
-
+        public string Description { get; set; }
         public string ImageURL { get; set; }
 
         private const string DEFAULT_IMAGE_URL = "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg";
 
         public double DistanceToUser { get; set; }
+
+        public int FoodCount { get; set; }
 
         public RestaurantDto
         (
@@ -22,11 +22,12 @@ namespace Contracts.DTOs
             string name,
             string address,
             Coords coords,
-            string imageURL = DEFAULT_IMAGE_URL,
-            double distanceToUser = 0
+            string description = "",
+            string imageURL = DEFAULT_IMAGE_URL
         )
             : base(id, name)
         {
+            Description = description;
             Address = address;
             Coords = coords ?? throw new ArgumentNullException(nameof(coords));
             ImageURL = imageURL;
@@ -42,6 +43,7 @@ namespace Contracts.DTOs
                 restaurant.Name,
                 restaurant.Address,
                 restaurant.Coords,
+                restaurant.Description,
                 restaurant.ImageURL
             );
         }
