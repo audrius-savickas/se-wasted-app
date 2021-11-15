@@ -92,20 +92,20 @@ export const PriceDecreasing = ({food, setFood}: Props) => {
         <Slider
           minimumValue={0}
           maximumValue={food.currentPrice}
-          onValueChange={onChangeMinimumPrice}
           value={food.minimumPrice}
           step={0.01}
+          onValueChange={onChangeMinimumPrice}
         />
       </View>
 
       <View>
         <Text>Decrease price interval (mins)</Text>
         <Stepper
+          small
           minValue={0}
           maxValue={180}
           step={5}
           value={food.intervalTimeInMinutes}
-          small
           onValueChange={onChangeInterval}
         />
       </View>
@@ -114,11 +114,11 @@ export const PriceDecreasing = ({food, setFood}: Props) => {
         <View>
           <Checkbox
             value={decreaseType === DecreaseType.AMOUNT}
+            label="Amount"
             onValueChange={() => {
               onChangeDecreaseType(DecreaseType.AMOUNT)
               setDecreaseStep(0)
             }}
-            label="Amount"
           />
           <Checkbox
             style={{
@@ -126,11 +126,11 @@ export const PriceDecreasing = ({food, setFood}: Props) => {
               marginBottom: "5%"
             }}
             value={decreaseType === DecreaseType.PERCENT}
+            label="Percent"
             onValueChange={() => {
               onChangeDecreaseType(DecreaseType.PERCENT)
               setDecreaseStep(0)
             }}
-            label="Percent"
           />
         </View>
 

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Text, Incubator, TextArea, Picker, View, LoaderScreen} from "react-native-ui-lib"
+import {Incubator, LoaderScreen, Picker, Text, TextArea, View} from "react-native-ui-lib"
 const {TextField} = Incubator
 import {TextFieldProps} from "react-native-ui-lib/generatedTypes/src/incubator"
 import {FoodType} from "../../../../api/interfaces"
@@ -84,52 +84,52 @@ export const BaseInfo = ({food, setFood}: Props) => {
       }}
     >
       <TextField
+        textFieldCommonValues
+        enableErrors
+        validateOnStart
+        validateOnChange
+        marginT-s4
+        marginB-s4
         label="Name *"
         value={baseInfo.name}
-        onChangeText={onChangeName}
         validate="required"
         validationMessage="This field is required"
+        validationMessagePosition={TextField.validationMessagePositions.BOTTOM}
+        onChangeText={onChangeName}
+      />
+      <TextField
         textFieldCommonValues
         enableErrors
         validateOnStart
         validateOnChange
-        validationMessagePosition={TextField.validationMessagePositions.BOTTOM}
         marginT-s4
         marginB-s4
-      />
-      <TextField
         label="Price *"
         value={String(baseInfo.currentPrice)}
-        onChangeText={onChangePrice}
         validate={["number", "required"]}
         validationMessage="This field is required"
-        textFieldCommonValues
-        enableErrors
-        validateOnStart
-        validateOnChange
         validationMessagePosition={TextField.validationMessagePositions.BOTTOM}
-        marginT-s4
-        marginB-s4
+        onChangeText={onChangePrice}
       />
       <TextField
+        textFieldCommonValues
+        enableErrors
+        validateOnChange
+        marginT-s4
+        marginB-s4
         label="Url of the image"
         validate="url"
         value={baseInfo.imageURL}
-        onChangeText={onChangeUrl}
         validationMessage="It must be an url"
-        textFieldCommonValues
-        enableErrors
-        validateOnChange
         validationMessagePosition={TextField.validationMessagePositions.BOTTOM}
-        marginT-s4
-        marginB-s4
+        onChangeText={onChangeUrl}
       />
       <Picker
-        placeholder="Type of meal"
         showSearch
+        placeholder="Type of meal"
         searchPlaceholder={"Search a type of meal"}
-        onChange={onChangeTypeOfMeal}
         mode="MULTI"
+        onChange={onChangeTypeOfMeal}
       >
         {loading ? (
           <LoaderScreen />
