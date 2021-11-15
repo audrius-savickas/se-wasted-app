@@ -27,3 +27,13 @@ export const getAllFood = async (sortObject?: FoodSortObject): Promise<Food[]> =
     return []
   }
 }
+
+export const addNewFood = async (food: Food) => {
+  const data = await fetch(`${WASTED_SERVER_URL}/Food`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(food)
+  })
+}

@@ -5,17 +5,21 @@ export interface Restaurant {
   address: string
   imageURL: string
   distanceToUser: number
+  description: string
+  foodCount: number
 }
 
 export interface Food {
   id: string
   name: string
+  description: string
   idRestaurant: string
   startingPrice: number
+  minimumPrice: number
   currentPrice: number
   createdAt: string
+  startDecreasingAt: string
   typesOfFood: FoodType[]
-  startDecreasingAt: Date
   decreaseType: DecreaseType
   intervalTimeInMinutes: number
   amountPerInterval: number
@@ -34,24 +38,32 @@ export interface Coordinates {
 }
 
 export interface RestaurantSortObject {
-  sortType: RestaurantSortType
+  sortType?: RestaurantSortType
   coordinates?: Coordinates
+  ascending?: boolean
 }
 
 export interface FoodSortObject {
   sortType: FoodSortType
 }
 
+export interface Credentials {
+  email: string
+  password: string
+}
+
 export enum DecreaseType {
-  AMOUNT = 0,
-  PERCENT = 1
+  AMOUNT,
+  PERCENT
 }
 
 export enum RestaurantSortType {
   NAME = "name",
   NAME_DESC = "name_desc",
   DIST = "dist",
-  DIST_DESC = "dist_desc"
+  DIST_DESC = "dist_desc",
+  FOOD_COUNT = "foodCount",
+  FOOD_COUNT_DESC = "foodCount_desc"
 }
 
 export enum FoodSortType {
