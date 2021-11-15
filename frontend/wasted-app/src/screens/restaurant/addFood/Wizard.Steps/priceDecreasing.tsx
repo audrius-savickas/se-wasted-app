@@ -1,20 +1,73 @@
 import React, {useState} from 'react'
 import { Text } from 'react-native'
-import { Checkbox, DateTimePicker, Incubator, Slider, Stepper, View } from 'react-native-ui-lib'
+import { Checkbox, DateTimePicker, Slider, Stepper, View } from 'react-native-ui-lib'
 import { TextFieldProps } from "react-native-ui-lib/generatedTypes/src/incubator"
 import { DecreaseType } from '../../../../api/interfaces'
-
-let date:Date = new Date()
+import { Props } from './interfaces'
 
 const textFieldCommonValues : TextFieldProps = {
     editable:false,
     centered: false
 }
 
-export const PriceDecreasing = () => {
-    const [minimumPrice, setMinimumPrice] = useState<Number>(0)
-    const [decreaseType, setDecreaseType] = useState<DecreaseType>(DecreaseType.AMOUNT)
+interface IPriceDecreasing {
+    startDecreasingAt: string,
+    minimumPrice: number,
+    intervalTimeInMinutes: number,
+    amountPerInterval: number,
+    percentPerInterval: number,
+    decreaseType: DecreaseType
+}
+
+export const PriceDecreasing = ({
+    food,
+    setFood
+} : Props) => {
+    const [minimumPrice, setMinimumPrice] = useState<Number>(food.currentPrice)
+    const [startDecreasingAt, setStartDecreasingAt] = useState<Date>(new Date())
+    const [decreaseType, setDecreaseType] = useState<DecreaseType>(food.decreaseType)
     const [decreaseStep, setDecreaseStep] = useState<Number>(0)
+
+    const [priceDecreasing, setPriceDecreasing] = useState<IPriceDecreasing>({
+        startDecreasingAt: food.startDecreasingAt,
+        minimumPrice: food.minimumPrice,
+        intervalTimeInMinutes: food.intervalTimeInMinutes,
+        amountPerInterval: food.amountPerInterval,
+        percentPerInterval: food.percentPerInterval,
+        decreaseType: food.decreaseType
+    })
+
+    const onChangeStartDecreasingAt = (startDecreasingAt: Date) => {
+        setStartDecreasingAt(startDecreasingAt)
+        setPriceDecreasing({ ...priceDecreasing, startDecreasingAt: startDecreasingAt.toDateString() })
+        setFood({ ...food, startDecreasingAt: startDecreasingAt.toDateString() })
+    }
+
+    const onChangeMinimumPrice = (minimumPrice: number) => {
+        setMinimumPrice(minimumPrice)
+        setPriceDecreasing({ ...priceDecreasing, minimumPrice })
+        setFood({ ...food, minimumPrice })
+    }
+
+    const onChangeInterval = (intervalTimeInMinutes: number) => {
+        setPriceDecreasing({ ...priceDecreasing, intervalTimeInMinutes })
+        setFood({ ...food, intervalTimeInMinutes })
+    }
+
+    const onChangeAmountPerInterval = (amountPerInterval: number) => {
+        setPriceDecreasing({ ...priceDecreasing, amountPerInterval })
+        setFood({ ...food, amountPerInterval })
+    }
+
+    const onChangePercentPerInterval = (percentPerInterval: number) => {
+        setPriceDecreasing({ ...priceDecreasing, percentPerInterval: percentPerInterval*100 })
+        setFood({ ...food, percentPerInterval: percentPerInterval*100 })
+    }
+
+    const onChangeDecreaseType = (x : DecreaseType) => {
+        setDecreaseType(x)
+        setFood({...food, decreaseType: x})
+    }
 
     return (
         <View
@@ -32,24 +85,32 @@ export const PriceDecreasing = () => {
                     title="Start decreasing at"
                     mode="time"
                     display="default"
-                    value={date}
+                    value={startDecreasingAt}
+                    onChange={onChangeStartDecreasingAt}
                 />
             </View>
 
             <View>
-                <Text>Minimum price: {minimumPrice.toFixed(2)}</Text>
+                <Text>Minimum price: {food.minimumPrice.toFixed(2)}</Text>
                 <Slider 
                     minimumValue={0}
-                    maximumValue={10}
-                    onValueChange={setMinimumPrice}
-                    value={10}
+                    maximumValue={food.currentPrice}
+                    onValueChange={onChangeMinimumPrice}
+                    value={food.minimumPrice}
                     step={0.01}
                 />  
             </View>
 
             <View>
                 <Text>Decrease price interval (mins)</Text>
-                <Stepper minValue={5} maxValue={180} step={5} small/>
+                <Stepper
+                    minValue={0} 
+                    maxValue={180} 
+                    step={5}
+                    value={food.intervalTimeInMinutes}
+                    small
+                    onValueChange={onChangeInterval}
+                />
             </View>
 
             <View>
@@ -57,7 +118,7 @@ export const PriceDecreasing = () => {
                     <Checkbox
                         value={decreaseType===DecreaseType.AMOUNT}
                         onValueChange={() => {
-                            setDecreaseType(DecreaseType.AMOUNT)
+                            onChangeDecreaseType(DecreaseType.AMOUNT)
                             setDecreaseStep(0)
                         }}
                         label="Amount"
@@ -69,7 +130,7 @@ export const PriceDecreasing = () => {
                         }}
                         value={decreaseType===DecreaseType.PERCENT}
                         onValueChange={() => {
-                            setDecreaseType(DecreaseType.PERCENT)
+                            onChangeDecreaseType(DecreaseType.PERCENT)
                             setDecreaseStep(0)
                         }}
                         label="Percent"
@@ -79,10 +140,10 @@ export const PriceDecreasing = () => {
 
                 <View>
                     <Text>
-                        Decrease step: {decreaseStep.toFixed(2)} {
+                        Decrease step: {
                             (decreaseType===DecreaseType.AMOUNT)
-                            ? '€'
-                            : '%'
+                            ? food.amountPerInterval.toFixed(2) + '€'
+                            : food.percentPerInterval.toFixed(0) + '%'
                         }
                     </Text>
                     <Slider 
@@ -94,7 +155,12 @@ export const PriceDecreasing = () => {
                         }
                         value={0}
                         step={0.01}
-                        onValueChange={setDecreaseStep}
+                        onValueChange={(x) => {
+                            setDecreaseStep(x);
+                            (decreaseType===DecreaseType.AMOUNT)
+                            ? onChangeAmountPerInterval(x)
+                            : onChangePercentPerInterval(x)
+                        }}
                     />
                 </View> 
             </View> 

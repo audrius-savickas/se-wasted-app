@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Navigation } from "react-native-navigation"
 import { Text, View, Button, Wizard, Colors } from "react-native-ui-lib"
+import { DecreaseType, Food } from "../../../api/interfaces"
 import { setHomeRoot } from "../../../services/navigation"
 import { AddFoodScreenProps } from "./interfaces"
 import { BaseInfo } from "./Wizard.Steps/baseInfo"
@@ -9,8 +10,28 @@ import { PriceDecreasing } from "./Wizard.Steps/priceDecreasing"
 
 const completedStepIndex = 3
 
-export const AddFood = ({} : AddFoodScreenProps) => {
+export const AddFood = ({
+  restaurantId
+} : AddFoodScreenProps) => {
   const [activeIndex, setActiveIndex] = useState<number>(0)
+  const [isNextDisabled, setDisableNext] = useState<boolean>(false)
+  const [food, setFood] = useState<Food>({
+    id: '0',
+    name: '',
+    description: '',
+    idRestaurant: restaurantId,
+    startingPrice: 0,
+    minimumPrice: 0,
+    currentPrice: 0.5,
+    createdAt: new Date().toDateString(),
+    typesOfFood: [],
+    startDecreasingAt: new Date().toDateString(),
+    decreaseType: DecreaseType.AMOUNT,
+    intervalTimeInMinutes: 0,
+    amountPerInterval: 0,
+    percentPerInterval: 0,
+    imageURL: '',
+  })
 
   useEffect(() => {
     const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
@@ -47,19 +68,19 @@ export const AddFood = ({} : AddFoodScreenProps) => {
       case 0:
         return (
           <>
-            <BaseInfo />
+            <BaseInfo food={food} setFood={setFood} />
           </>
         )
       case 1:
         return (
           <>
-            <PriceDecreasing />
+            <PriceDecreasing food={food} setFood={setFood} />
           </>
         )
       case 2:
         return (
           <>
-            <FinalStep />
+            <FinalStep food={food} setFood={setFood} />
           </>
         )
     }
@@ -97,7 +118,7 @@ export const AddFood = ({} : AddFoodScreenProps) => {
           <Button
             backgroundColor={Colors.green10}
             label="Next"
-            disabled={activeIndex===completedStepIndex}
+            disabled={activeIndex+1===completedStepIndex}
             onPress={() => setActiveIndex(activeIndex+1)}
           />
         </View>
