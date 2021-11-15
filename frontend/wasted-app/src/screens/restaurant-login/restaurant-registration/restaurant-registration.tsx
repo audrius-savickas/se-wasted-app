@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from "react"
-import {Alert, ScrollView, StyleSheet} from "react-native"
-import {Button, Card, Colors, Incubator, Text, View} from "react-native-ui-lib"
+import {ActivityIndicator, Alert, ScrollView, StyleSheet} from "react-native"
+import Geocoder from "react-native-geocoding"
+import {Navigation} from "react-native-navigation"
+import {Assets, Button, Card, Colors, Image, Incubator, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {registerRestaurant} from "../../../api"
+import {Coordinates} from "../../../api/interfaces"
 import {PasswordInput} from "../../../components/password-input"
 import {RestaurantRegistrationProps} from "./interfaces"
 
@@ -12,6 +15,9 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
   const [confirmPassword, setConfirmPassword] = useState("")
   const [address, setAddress] = useState("")
   const [imageUrl, setImageUrl] = useState("")
+  const [coordinates, setCoordinates] = useState({} as Coordinates)
+
+  const [coordinatesLoading, setCoordinatesLoading] = useState(false)
 
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -20,12 +26,24 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
   const [emailValid, setEmailValid] = useState(true)
   const [passwordValid, setPasswordValid] = useState(true)
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(true)
-  const [locationValid, setAddressValid] = useState(true)
+  const [addressValid, setAddressValid] = useState(true)
   const [imageUrlValid, setImageUrlValid] = useState(true)
 
   const [error, setError] = useState("")
 
-  const valid = nameValid && emailValid && passwordValid && confirmPasswordValid && locationValid && imageUrlValid
+  const valid =
+    nameValid &&
+    name &&
+    emailValid &&
+    email &&
+    passwordValid &&
+    password &&
+    confirmPasswordValid &&
+    confirmPassword &&
+    addressValid &&
+    imageUrlValid &&
+    imageUrl &&
+    !coordinatesLoading
 
   const finishRegistration = async () => {
     if (valid) {
@@ -34,7 +52,7 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
       } else {
         const restaurantId = await registerRestaurant({
           name,
-          coords: {latitude: 10, longitude: 10},
+          coords: {latitude: coordinates.latitude, longitude: coordinates.longitude},
           credentials: {email, password},
           address,
           imageUrl
@@ -42,12 +60,23 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
         if (!restaurantId) {
           setError("There is already an account registered on this email.")
         } else {
+          setError("")
           Alert.alert("Registered succesfully!", "Please check your inbox for confirmation email.", [{text: "OK"}])
+          Navigation.pop(componentId)
         }
       }
     } else {
+      console.log(nameValid)
       setError("Please check your input fields.")
     }
+  }
+
+  const fetchCoordinates = async () => {
+    setCoordinatesLoading(true)
+    const response = await Geocoder.from(address)
+    const coords = response.results[0].geometry.location
+    setCoordinates({latitude: coords.lat, longitude: coords.lng})
+    setCoordinatesLoading(false)
   }
 
   useEffect(() => {
@@ -72,7 +101,7 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
               hint="Your restaurant's name"
               fieldStyle={styles.withUnderline}
               label="Restaurant Name*"
-              validate={["required"]}
+              validate="required"
               validationMessage="Name is required"
               value={name}
               onChangeText={setName}
@@ -117,21 +146,38 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
                 >{`  ∙ at least 8 characters\n  ∙ 1 or more capital letters\n  ∙ 1 digit\n  ∙ 1 special character`}</Text>
               </Card>
             </View>
-            <Incubator.TextField
-              marginB-s2
-              marginT-s4
-              validateOnChange
-              enableErrors
-              autoCapitalize="none"
-              fieldStyle={styles.withUnderline}
-              label="Address*"
-              hint="Your restaurant's address"
-              value={address}
-              validate={["required"]}
-              validationMessage="Address is required"
-              onChangeText={setAddress}
-              onChangeValidity={setAddressValid}
-            />
+            <View marginB-s6 marginT-s4>
+              <Incubator.TextField
+                validateOnChange
+                enableErrors
+                autoCapitalize="none"
+                fieldStyle={styles.withUnderline}
+                label="Address*"
+                hint="Your restaurant's address"
+                value={address}
+                validate={["required"]}
+                validationMessage="Address is required"
+                onBlur={fetchCoordinates}
+                onChangeText={setAddress}
+                onChangeValidity={setAddressValid}
+              />
+              <TouchableOpacity
+                style={{position: "absolute", alignSelf: "flex-end", top: 15}}
+                onPress={fetchCoordinates}
+              >
+                <Image source={Assets.icons.search} />
+              </TouchableOpacity>
+              {coordinatesLoading ? (
+                <View centerH>
+                  <ActivityIndicator size={"small"} color={Colors.blue30} />
+                </View>
+              ) : (
+                <>
+                  <Text text90L>Latitude: {coordinates.latitude}</Text>
+                  <Text text90L>Longitude: {coordinates.longitude}</Text>
+                </>
+              )}
+            </View>
             {/* TODO: implement location picking */}
             <Incubator.TextField
               marginB-s6
