@@ -29,11 +29,21 @@ export const getAllFood = async (sortObject?: FoodSortObject): Promise<Food[]> =
 }
 
 export const addNewFood = async (food: Food) => {
-  const data = await fetch(`${WASTED_SERVER_URL}/Food`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(food)
-  })
+  try{
+    await fetch(`${WASTED_SERVER_URL}/Food`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(food)
+    })
+    return {
+      ok: true
+    }
+  } catch(error){
+    return {
+      ok: false,
+      error
+    }
+  }
 }
