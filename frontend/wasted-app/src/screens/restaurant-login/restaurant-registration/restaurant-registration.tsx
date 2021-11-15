@@ -16,6 +16,7 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
   const [address, setAddress] = useState("")
   const [imageUrl, setImageUrl] = useState("")
   const [coordinates, setCoordinates] = useState({} as Coordinates)
+  const [description, setDescription] = useState("")
 
   const [coordinatesLoading, setCoordinatesLoading] = useState(false)
 
@@ -55,7 +56,8 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
           coords: {latitude: coordinates.latitude, longitude: coordinates.longitude},
           credentials: {email, password},
           address,
-          imageUrl
+          imageUrl,
+          description
         })
         if (!restaurantId) {
           setError("There is already an account registered on this email.")
@@ -180,7 +182,7 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
             </View>
             {/* TODO: implement location picking */}
             <Incubator.TextField
-              marginB-s6
+              marginB-s2
               validateOnChange
               enableErrors
               autoCapitalize="none"
@@ -192,6 +194,17 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
               validationMessage="Image URL is required"
               onChangeText={setImageUrl}
               onChangeValidity={setImageUrlValid}
+            />
+            <Incubator.TextField
+              marginB-s6
+              paddingT-s2
+              paddingH-s2
+              multiline
+              showCharCounter
+              maxLength={200}
+              label="Description (optional)"
+              fieldStyle={{borderColor: Colors.blue60, borderWidth: 1, height: 100}}
+              onChangeText={setDescription}
             />
           </View>
           <Button bg-blue40 label="Register" onPress={finishRegistration} />
