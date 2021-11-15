@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
-import {ScrollView, StyleSheet} from "react-native"
+import {Alert, ScrollView, StyleSheet} from "react-native"
 import {Assets, Button, Card, Colors, Incubator, Text, TextField, View} from "react-native-ui-lib"
+import {registerRestaurant} from "../../../api"
 import {PasswordInput} from "../../../components/password-input"
 import {convertPassword} from "../../../utils/credentials"
 import {RestaurantRegistrationProps} from "./interfaces"
@@ -27,11 +28,23 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
 
   const valid = nameValid && emailValid && passwordValid && confirmPasswordValid && locationValid && imageUrlValid
 
-  const finishRegistration = () => {
+  const finishRegistration = async () => {
     if (valid) {
       if (password !== confirmPassword) {
         setError("Passwords don't match")
       } else {
+        const restaurantId = await registerRestaurant({
+          name,
+          coords: {latitude: 10, longitude: 10},
+          credentials: {email, password},
+          address,
+          imageUrl
+        })
+        if (!restaurantId) {
+          setError("There is already an account registered on this email.")
+        } else {
+          Alert.alert("Registered succesfully!", "Please check your inbox for confirmation email.", [{text: "OK"}])
+        }
       }
     } else {
       setError("Please check your input fields.")

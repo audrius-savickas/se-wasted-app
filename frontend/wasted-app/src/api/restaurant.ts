@@ -1,4 +1,4 @@
-import {Credentials, Food, Restaurant, RestaurantSortObject} from "./interfaces"
+import {Credentials, Food, Restaurant, RestaurantRegisterRequest, RestaurantSortObject} from "./interfaces"
 import {WASTED_SERVER_URL} from "./urls"
 
 export const getAllRestaurants = async (sortObject?: RestaurantSortObject): Promise<Restaurant[]> => {
@@ -61,6 +61,33 @@ export const loginRestaurant = async (credentials: Credentials) => {
       body: JSON.stringify({mail: {value: credentials.email}, password: {value: credentials.password}})
     })
     if (response.status === 401) throw new Error("Invalid credentials.")
+    const data = await response.json()
+    return data
+  } catch (error) {
+    return null
+  }
+}
+
+export const registerRestaurant = async ({
+  name,
+  coords,
+  credentials: {email, password},
+  address,
+  description = "",
+  imageUrl
+}: RestaurantRegisterRequest) => {
+  try {
+    const response = await fetch(
+      `${WASTED_SERVER_URL}/Restaurant?Mail.Value=${encodeURI(email)}&Password.Value=${encodeURI(password)}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({name, coords, address, imageUrl, description})
+      }
+    )
+    if (response.status === 400) throw new Error("There is already a restaurant registered on this email.")
     const data = await response.json()
     return data
   } catch (error) {
