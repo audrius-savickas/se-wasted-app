@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react"
-import {Incubator, LoaderScreen, Picker, Text, TextArea, View} from "react-native-ui-lib"
+import {StyleSheet} from "react-native"
+import {Colors, Incubator, LoaderScreen, Picker, Text, TextArea, View} from "react-native-ui-lib"
 const {TextField} = Incubator
 import {TextFieldProps} from "react-native-ui-lib/generatedTypes/src/incubator"
-import {FoodType} from "../../../../api/interfaces"
+import {Food, FoodType} from "../../../../api/interfaces"
 import {getAllTypesOfFood} from "../../../../api/type-of-food"
 import {Props} from "./interfaces"
 
@@ -21,6 +22,7 @@ interface IBaseInfo {
 export const BaseInfo = ({food, setFood}: Props) => {
   const [loading, setLoading] = useState(true)
   const [typesOfFood, setTypesOfFood] = useState<FoodType[]>([])
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([])
 
   const [baseInfo, setBaseInfo] = useState<IBaseInfo>({
     name: food.name,
@@ -65,7 +67,8 @@ export const BaseInfo = ({food, setFood}: Props) => {
     setLoading(false)
   }
 
-  const onChangeTypeOfMeal = (typesOfMeal: string) => {
+  const onChangeTypeOfMeal = (typesOfMeal: string[]) => {
+    setSelectedTypes(typesOfMeal)
     const selectedTypes: FoodType[] = []
     typesOfFood.map(typeOfFood => {
       if (typesOfMeal.includes(typeOfFood.name)) selectedTypes.push(typeOfFood)
@@ -77,68 +80,93 @@ export const BaseInfo = ({food, setFood}: Props) => {
   }
 
   return (
-    <View
-      flex
-      style={{
-        flexDirection: "column"
-      }}
-    >
-      <TextField
-        textFieldCommonValues
-        enableErrors
-        validateOnStart
-        validateOnChange
-        marginT-s4
-        marginB-s4
-        label="Name *"
-        value={baseInfo.name}
-        validate="required"
-        validationMessage="This field is required"
-        validationMessagePosition={TextField.validationMessagePositions.BOTTOM}
-        onChangeText={onChangeName}
-      />
-      <TextField
-        textFieldCommonValues
-        enableErrors
-        validateOnStart
-        validateOnChange
-        marginT-s4
-        marginB-s4
-        label="Price *"
-        value={String(baseInfo.currentPrice)}
-        validate={["number", "required"]}
-        validationMessage="This field is required"
-        validationMessagePosition={TextField.validationMessagePositions.BOTTOM}
-        onChangeText={onChangePrice}
-      />
-      <TextField
-        textFieldCommonValues
-        enableErrors
-        validateOnChange
-        marginT-s4
-        marginB-s4
-        label="Url of the image"
-        validate="url"
-        value={baseInfo.imageURL}
-        validationMessage="It must be an url"
-        validationMessagePosition={TextField.validationMessagePositions.BOTTOM}
-        onChangeText={onChangeUrl}
-      />
-      <Picker
-        showSearch
-        placeholder="Type of meal"
-        searchPlaceholder={"Search a type of meal"}
-        mode="MULTI"
-        onChange={onChangeTypeOfMeal}
-      >
-        {loading ? (
-          <LoaderScreen />
-        ) : (
-          typesOfFood.map(option => <Picker.Item label={option.name} key={option.id} value={option.name} />)
-        )}
-      </Picker>
-      <Text>Description</Text>
-      <TextArea value={baseInfo.description} onChangeText={onChangeDescription} />
+    <View flexG center width="100%">
+      <View centerV width={320}>
+        <TextField
+          textFieldCommonValues
+          enableErrors
+          validateOnChange
+          marginT-s4
+          marginB-s4
+          fieldStyle={styles.withUnderline}
+          label="Name *"
+          value={baseInfo.name}
+          validate="required"
+          validationMessage="This field is required"
+          validationMessagePosition={TextField.validationMessagePositions.BOTTOM}
+          onChangeText={onChangeName}
+        />
+        <TextField
+          textFieldCommonValues
+          enableErrors
+          validateOnStart
+          validateOnChange
+          marginT-s4
+          marginB-s4
+          fieldStyle={styles.withUnderline}
+          label="Price *"
+          value={String(baseInfo.currentPrice)}
+          validate={["number", "required"]}
+          validationMessage="This field is required"
+          validationMessagePosition={TextField.validationMessagePositions.BOTTOM}
+          onChangeText={onChangePrice}
+        />
+        <TextField
+          textFieldCommonValues
+          enableErrors
+          validateOnChange
+          marginT-s4
+          marginB-s4
+          fieldStyle={styles.withUnderline}
+          label="URL of the image"
+          validate="url"
+          value={baseInfo.imageURL}
+          validationMessage="It must be an URL"
+          validationMessagePosition={TextField.validationMessagePositions.BOTTOM}
+          onChangeText={onChangeUrl}
+        />
+        <Picker
+          showSearch
+          customPickerProps={{padding: 10}}
+          style={{borderColor: Colors.yellow10}}
+          placeholder="Type of meal"
+          searchPlaceholder={"Search for a type of meal"}
+          mode="MULTI"
+          getLabel={(items: FoodType[]) => {
+            let string = ""
+            items.forEach(item => (string += item + ", "))
+            return string.slice(0, string.length - 2)
+          }}
+          value={selectedTypes}
+          onChange={onChangeTypeOfMeal}
+        >
+          {loading ? (
+            <LoaderScreen />
+          ) : (
+            typesOfFood.map(option => <Picker.Item label={option.name} key={option.id} value={option.name} />)
+          )}
+        </Picker>
+        <Text>Hello</Text>
+        <Incubator.TextField
+          marginB-s6
+          paddingT-s2
+          paddingH-s2
+          multiline
+          showCharCounter
+          maxLength={200}
+          label="Description (optional)"
+          fieldStyle={{borderColor: Colors.blue60, borderWidth: 1, height: 100}}
+          onChangeText={onChangeDescription}
+        />
+      </View>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  withUnderline: {
+    borderBottomWidth: 1,
+    borderColor: Colors.blue60,
+    paddingBottom: 4
+  }
+})
