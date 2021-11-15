@@ -78,7 +78,9 @@ export const registerRestaurant = async ({
 }: RestaurantRegisterRequest) => {
   try {
     const response = await fetch(
-      `${WASTED_SERVER_URL}/Restaurant?Mail.Value=${encodeURI(email)}&Password.Value=${encodeURI(password)}`,
+      `${WASTED_SERVER_URL}/Restaurant?Mail.Value=${encodeURIComponent(email)}&Password.Value=${encodeURIComponent(
+        password
+      )}`,
       {
         method: "POST",
         headers: {
@@ -87,7 +89,7 @@ export const registerRestaurant = async ({
         body: JSON.stringify({name, coords, address, imageUrl, description})
       }
     )
-    if (response.status === 400) throw new Error("There is already a restaurant registered on this email.")
+    if (response.status !== 201) throw new Error("There is already a restaurant registered on this email.")
     const data = await response.json()
     return data
   } catch (error) {
