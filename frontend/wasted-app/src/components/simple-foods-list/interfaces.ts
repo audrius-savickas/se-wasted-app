@@ -3,4 +3,6 @@ import {Food} from "../../api/interfaces"
 
 export interface SimpleFoodsListProps extends NavigationComponentProps {
   foods: Food[]
+  refreshing: boolean
+  onRefresh: () => void
 }

@@ -11,16 +11,24 @@ import {FoodListProps} from "./interfaces"
 export const FoodList = ({componentId, restaurantId, restaurantName, isRestaurant = false}: FoodListProps) => {
   const [foods, setFoods] = useState([] as Food[])
   const [loading, setLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
 
   const fetchFoods = async () => {
     const response = await getAllFoodByRestaurantId(restaurantId)
     setFoods(response)
+    setRefreshing(false)
     setLoading(false)
   }
 
   useEffect(() => {
     fetchFoods()
   }, [])
+
+  useEffect(() => {
+    if (refreshing) {
+      fetchFoods()
+    }
+  }, [refreshing])
 
   return (
     <>
@@ -35,7 +43,12 @@ export const FoodList = ({componentId, restaurantId, restaurantName, isRestauran
                 <Text text60L>Foods</Text>
               </View>
               <View flex>
-                <SimpleFoodsList foods={foods} componentId={componentId} />
+                <SimpleFoodsList
+                  refreshing={refreshing}
+                  foods={foods}
+                  componentId={componentId}
+                  onRefresh={() => setRefreshing(true)}
+                />
               </View>
             </>
           ) : (

@@ -5,7 +5,7 @@ import {showFoodInfoModal} from "../../services/navigation"
 import {SimpleFoodItem} from "../simple-food-item"
 import {SimpleFoodsListProps} from "./interfaces"
 
-export const SimpleFoodsList = ({foods, componentId}: SimpleFoodsListProps) => {
+export const SimpleFoodsList = ({foods, componentId, refreshing, onRefresh}: SimpleFoodsListProps) => {
   const renderItem = ({item}: ListRenderItemInfo<Food>) => {
     return (
       <SimpleFoodItem
@@ -15,5 +15,13 @@ export const SimpleFoodsList = ({foods, componentId}: SimpleFoodsListProps) => {
     )
   }
 
-  return <FlatList data={foods} renderItem={renderItem} keyExtractor={item => item.id} />
+  return (
+    <FlatList
+      refreshing={refreshing}
+      data={foods}
+      keyExtractor={item => item.id}
+      renderItem={renderItem}
+      onRefresh={onRefresh}
+    />
+  )
 }
