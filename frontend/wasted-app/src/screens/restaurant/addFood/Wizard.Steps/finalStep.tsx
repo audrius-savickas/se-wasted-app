@@ -1,9 +1,11 @@
 import React, {useState} from "react"
-import {View, Button} from "react-native-ui-lib"
+import {Alert} from "react-native"
+import {Navigation} from "react-native-navigation"
+import {View, Button, Text} from "react-native-ui-lib"
 import {addNewFood} from "../../../../api/food"
 import {Props} from "./interfaces"
 
-export const FinalStep = ({food, setFood}: Props) => {
+export const FinalStep = ({food, resetForm}: Props) => {
   const [loading, setLoading] = useState(false)
 
   const saveMeal = async () => {
@@ -12,18 +14,18 @@ export const FinalStep = ({food, setFood}: Props) => {
       ...food,
       startingPrice: food.currentPrice,
       createdAt: new Date().toISOString(),
-      startDecreasingAt: new Date(food.startDecreasingAt).toISOString()
+      startDecreasingAt: food.startDecreasingAt
     })
     setLoading(false)
+    Alert.alert("Food successfully added!", "Please refresh the food list to see it added.")
+    resetForm()
   }
 
   return (
-    <View
-      flex
-      style={{
-        width: "100%"
-      }}
-    >
+    <View flex center>
+      <Text text50L marginB-s2>
+        Add your food!
+      </Text>
       <Button disabled={loading} label="Save" onPress={saveMeal} />
     </View>
   )

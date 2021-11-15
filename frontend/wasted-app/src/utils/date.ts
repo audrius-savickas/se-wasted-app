@@ -13,7 +13,11 @@ export const formatTime = (string: string) => {
   const date = new Date(string)
   const hour = date.getHours()
   const minutes = date.getMinutes()
-  return `${hour}:${minutes}`
+
+  const hourString = hour < 10 ? `0${hour}` : hour.toString()
+  const minuteString = minutes < 10 ? `0${minutes}` : minutes.toString()
+
+  return `${hourString}:${minuteString}`
 }
 
 export const timeAgoFull = (string: string) => {

@@ -29,7 +29,7 @@ export const getAllFood = async (sortObject?: FoodSortObject): Promise<Food[]> =
 }
 
 export const addNewFood = async (food: Food) => {
-  try{
+  try {
     await fetch(`${WASTED_SERVER_URL}/Food`, {
       method: "POST",
       headers: {
@@ -40,7 +40,7 @@ export const addNewFood = async (food: Food) => {
     return {
       ok: true
     }
-  } catch(error){
+  } catch (error) {
     return {
       ok: false,
       error

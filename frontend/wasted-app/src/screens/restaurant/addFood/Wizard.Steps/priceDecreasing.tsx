@@ -1,14 +1,8 @@
-import React, {useState} from "react"
-import {Text} from "react-native"
-import {Checkbox, DateTimePicker, Slider, Stepper, View} from "react-native-ui-lib"
-import {TextFieldProps} from "react-native-ui-lib/generatedTypes/src/incubator"
+import moment from "moment"
+import React, {useEffect, useState} from "react"
+import {Checkbox, DateTimePicker, Slider, Stepper, View, Text} from "react-native-ui-lib"
 import {DecreaseType} from "../../../../api/interfaces"
 import {Props} from "./interfaces"
-
-const textFieldCommonValues: TextFieldProps = {
-  editable: false,
-  centered: false
-}
 
 interface IPriceDecreasing {
   startDecreasingAt: string
@@ -20,10 +14,11 @@ interface IPriceDecreasing {
 }
 
 export const PriceDecreasing = ({food, setFood}: Props) => {
-  const [minimumPrice, setMinimumPrice] = useState<Number>(food.currentPrice)
-  const [startDecreasingAt, setStartDecreasingAt] = useState<Date>(new Date())
+  const [minimumPrice, setMinimumPrice] = useState<number>(food.currentPrice)
+  const [time, setTime] = useState<Date>(new Date())
+  const [date, setDate] = useState<Date>(new Date())
   const [decreaseType, setDecreaseType] = useState<DecreaseType>(food.decreaseType)
-  const [decreaseStep, setDecreaseStep] = useState<Number>(0)
+  const [decreaseStep, setDecreaseStep] = useState<number>(0)
 
   const [priceDecreasing, setPriceDecreasing] = useState<IPriceDecreasing>({
     startDecreasingAt: food.startDecreasingAt,
@@ -35,7 +30,6 @@ export const PriceDecreasing = ({food, setFood}: Props) => {
   })
 
   const onChangeStartDecreasingAt = (startDecreasingAt: Date) => {
-    setStartDecreasingAt(startDecreasingAt)
     setPriceDecreasing({...priceDecreasing, startDecreasingAt: startDecreasingAt.toDateString()})
     setFood({...food, startDecreasingAt: startDecreasingAt.toDateString()})
   }
@@ -66,40 +60,40 @@ export const PriceDecreasing = ({food, setFood}: Props) => {
     setFood({...food, decreaseType: x})
   }
 
-  return (
-    <View
-      flex
-      style={{
-        flexDirection: "column",
-        alignContent: "center",
-        justifyContent: "space-around",
-        width: "100%",
-        height: "100%"
-      }}
-    >
-      <View>
-        <DateTimePicker
-          title="Start decreasing at"
-          mode="time"
-          display="default"
-          value={startDecreasingAt}
-          onChange={onChangeStartDecreasingAt}
-        />
-      </View>
+  useEffect(() => {
+    const newDate = new Date()
+    newDate.setFullYear(date.getFullYear())
+    newDate.setMonth(date.getMonth())
+    newDate.setDate(date.getDate())
+    newDate.setTime(time.getTime())
 
-      <View>
+    const momentDate = moment(newDate).add(2, "hours")
+
+    setPriceDecreasing({...priceDecreasing, startDecreasingAt: momentDate.toISOString()})
+    setFood({...food, startDecreasingAt: momentDate.toISOString()})
+  }, [time, date])
+
+  return (
+    <View flex centerV marginH-s6>
+      <Text marginB-s2>Start decreasing at</Text>
+      <View center>
+        <View row centerV>
+          <DateTimePicker style={{width: 170}} title="Date" mode="date" value={date} onChange={setDate} />
+          <DateTimePicker style={{width: 170}} title="Time" mode="time" value={time} onChange={setTime} />
+        </View>
+      </View>
+      <View marginT-s4 marginB-s4>
         <Text>Minimum price: {food.minimumPrice.toFixed(2)}</Text>
         <Slider
           minimumValue={0}
           maximumValue={food.currentPrice}
-          value={food.minimumPrice}
+          value={0}
           step={0.01}
           onValueChange={onChangeMinimumPrice}
         />
       </View>
-
-      <View>
-        <Text>Decrease price interval (mins)</Text>
+      <View marginT-s8 marginB-s4>
+        <Text marginB-s1>Decrease price interval (mins)</Text>
         <Stepper
           small
           minValue={0}
@@ -110,8 +104,8 @@ export const PriceDecreasing = ({food, setFood}: Props) => {
         />
       </View>
 
-      <View>
-        <View>
+      <View marginT-s8>
+        <View marginB-s4>
           <Checkbox
             value={decreaseType === DecreaseType.AMOUNT}
             label="Amount"
@@ -121,10 +115,7 @@ export const PriceDecreasing = ({food, setFood}: Props) => {
             }}
           />
           <Checkbox
-            style={{
-              marginTop: "5%",
-              marginBottom: "5%"
-            }}
+            marginT-s1
             value={decreaseType === DecreaseType.PERCENT}
             label="Percent"
             onValueChange={() => {
@@ -134,7 +125,7 @@ export const PriceDecreasing = ({food, setFood}: Props) => {
           />
         </View>
 
-        <View>
+        <View marginT-s8>
           <Text>
             Decrease step:{" "}
             {decreaseType === DecreaseType.AMOUNT

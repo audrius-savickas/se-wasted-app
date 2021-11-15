@@ -1,22 +1,16 @@
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
-import {Colors, Incubator, LoaderScreen, Picker, Text, TextArea, View} from "react-native-ui-lib"
-const {TextField} = Incubator
-import {TextFieldProps} from "react-native-ui-lib/generatedTypes/src/incubator"
-import {Food, FoodType} from "../../../../api/interfaces"
+import {Colors, Incubator, LoaderScreen, Picker, Text, View} from "react-native-ui-lib"
+import {FoodType} from "../../../../api/interfaces"
 import {getAllTypesOfFood} from "../../../../api/type-of-food"
 import {Props} from "./interfaces"
 
-const textFieldCommonValues: TextFieldProps = {
-  editable: false,
-  centered: false
-}
-
+const {TextField} = Incubator
 interface IBaseInfo {
   name: string
   description: string
   imageURL: string
-  currentPrice: number
+  currentPrice: string
 }
 
 export const BaseInfo = ({food, setFood}: Props) => {
@@ -26,7 +20,7 @@ export const BaseInfo = ({food, setFood}: Props) => {
 
   const [baseInfo, setBaseInfo] = useState<IBaseInfo>({
     name: food.name,
-    currentPrice: food.currentPrice,
+    currentPrice: food.currentPrice.toString(),
     imageURL: food.imageURL,
     description: food.description
   })
@@ -41,13 +35,10 @@ export const BaseInfo = ({food, setFood}: Props) => {
   }
 
   const onChangePrice = (currentPrice: string) => {
-    let price: number = Number(currentPrice)
-    if (isNaN(price)) price = 0
-
-    setBaseInfo({...baseInfo, currentPrice: price})
+    setBaseInfo({...baseInfo, currentPrice})
     setFood({
       ...food,
-      currentPrice: price
+      currentPrice: Number(currentPrice)
     })
   }
 
@@ -93,7 +84,6 @@ export const BaseInfo = ({food, setFood}: Props) => {
           value={baseInfo.name}
           validate="required"
           validationMessage="This field is required"
-          validationMessagePosition={TextField.validationMessagePositions.BOTTOM}
           onChangeText={onChangeName}
         />
         <TextField
@@ -105,10 +95,9 @@ export const BaseInfo = ({food, setFood}: Props) => {
           marginB-s4
           fieldStyle={styles.withUnderline}
           label="Price *"
-          value={String(baseInfo.currentPrice)}
+          value={baseInfo.currentPrice.toString()}
           validate={["number", "required"]}
-          validationMessage="This field is required"
-          validationMessagePosition={TextField.validationMessagePositions.BOTTOM}
+          validationMessage={["Invalid number", "This field is required"]}
           onChangeText={onChangePrice}
         />
         <TextField
@@ -122,11 +111,11 @@ export const BaseInfo = ({food, setFood}: Props) => {
           validate="url"
           value={baseInfo.imageURL}
           validationMessage="It must be an URL"
-          validationMessagePosition={TextField.validationMessagePositions.BOTTOM}
           onChangeText={onChangeUrl}
         />
         <Picker
           showSearch
+          multiline
           customPickerProps={{padding: 10}}
           style={{borderColor: Colors.yellow10}}
           placeholder="Type of meal"
@@ -146,7 +135,6 @@ export const BaseInfo = ({food, setFood}: Props) => {
             typesOfFood.map(option => <Picker.Item label={option.name} key={option.id} value={option.name} />)
           )}
         </Picker>
-        <Text>Hello</Text>
         <Incubator.TextField
           marginB-s6
           paddingT-s2

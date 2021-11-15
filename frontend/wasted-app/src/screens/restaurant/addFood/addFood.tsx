@@ -12,7 +12,6 @@ const completedStepIndex = 3
 
 export const AddFood = ({restaurantId}: AddFoodScreenProps) => {
   const [activeIndex, setActiveIndex] = useState<number>(0)
-  const [isNextDisabled, setDisableNext] = useState<boolean>(false)
   const [food, setFood] = useState<Food>({
     id: "0",
     name: "",
@@ -48,16 +47,7 @@ export const AddFood = ({restaurantId}: AddFoodScreenProps) => {
 
   const renderCurrentStep = () => {
     return (
-      <View
-        flex
-        left
-        marginT-10
-        marginL-10
-        style={{
-          flexDirection: "column",
-          justifyContent: "center"
-        }}
-      >
+      <View flex marginT-s10>
         {renderStep(activeIndex)}
       </View>
     )
@@ -66,23 +56,11 @@ export const AddFood = ({restaurantId}: AddFoodScreenProps) => {
   const renderStep = (n: number) => {
     switch (n) {
       case 0:
-        return (
-          <>
-            <BaseInfo food={food} setFood={setFood} />
-          </>
-        )
+        return <BaseInfo food={food} setFood={setFood} />
       case 1:
-        return (
-          <>
-            <PriceDecreasing food={food} setFood={setFood} />
-          </>
-        )
+        return <PriceDecreasing food={food} setFood={setFood} />
       case 2:
-        return (
-          <>
-            <FinalStep food={food} setFood={setFood} />
-          </>
-        )
+        return <FinalStep food={food} setFood={setFood} />
     }
   }
 
