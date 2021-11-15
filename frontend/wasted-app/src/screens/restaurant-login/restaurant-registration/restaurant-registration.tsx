@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react"
 import {Alert, ScrollView, StyleSheet} from "react-native"
-import {Assets, Button, Card, Colors, Incubator, Text, TextField, View} from "react-native-ui-lib"
+import {Button, Card, Colors, Incubator, Text, View} from "react-native-ui-lib"
 import {registerRestaurant} from "../../../api"
 import {PasswordInput} from "../../../components/password-input"
-import {convertPassword} from "../../../utils/credentials"
 import {RestaurantRegistrationProps} from "./interfaces"
 
 export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProps) => {

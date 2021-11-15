@@ -1,4 +1,6 @@
+import Geocoder from "react-native-geocoding"
 import {Navigation} from "react-native-navigation"
+import {GOOGLE_MAPS_API_KEY} from "./src/credentials"
 import {screenNames} from "./src/screenNames"
 import {FoodInfo} from "./src/screens/food-info"
 import {Home} from "./src/screens/home"
@@ -11,6 +13,16 @@ import {Food as UserFood} from "./src/screens/user/food"
 import {Home as UserHome} from "./src/screens/user/home"
 import {RestaurantList} from "./src/screens/user/restaurants"
 import {FoodList} from "./src/screens/user/restaurants/food-list"
+
+Geocoder.init(GOOGLE_MAPS_API_KEY)
+
+// Search by address
+Geocoder.from("Colosseum")
+  .then(json => {
+    var location = json.results[0].geometry.location
+    console.log(location)
+  })
+  .catch(error => console.warn(error))
 
 Navigation.registerComponent(screenNames.HOME_SCREEN, () => Home)
 Navigation.registerComponent(screenNames.USER_RESTAURANTS, () => RestaurantList)
