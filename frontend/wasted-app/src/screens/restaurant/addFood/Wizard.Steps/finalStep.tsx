@@ -5,7 +5,7 @@ import {View, Button, Text} from "react-native-ui-lib"
 import {addNewFood} from "../../../../api/food"
 import {Props} from "./interfaces"
 
-export const FinalStep = ({food, resetForm}: Props) => {
+export const FinalStep = ({food}: Props) => {
   const [loading, setLoading] = useState(false)
 
   const saveMeal = async () => {
@@ -18,7 +18,6 @@ export const FinalStep = ({food, resetForm}: Props) => {
     })
     setLoading(false)
     Alert.alert("Food successfully added!", "Please refresh the food list to see it added.")
-    resetForm()
   }
 
   return (
