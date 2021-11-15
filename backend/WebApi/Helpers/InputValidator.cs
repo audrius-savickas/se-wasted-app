@@ -29,7 +29,7 @@ namespace WebApi.Helpers
         {
             if (userCoordinates == null && (sortOrder == "dist" || sortOrder == "dist_desc"))
             {
-                throw new Exception("Invalid user coordinates.");
+                throw new ArgumentException("Invalid user coordinates.");
             }
 
             if (!Enum.IsDefined(typeof(RestaurantSortOrders), sortOrder))
