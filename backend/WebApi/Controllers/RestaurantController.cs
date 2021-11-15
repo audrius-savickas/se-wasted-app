@@ -110,7 +110,7 @@ namespace WebApi.Controllers
             {
                 return Conflict(exception.Message);
             }
-            catch (EntityNotFoundException exception)
+            catch (ArgumentException exception)
             {
                 return BadRequest(exception.Message);
             }
