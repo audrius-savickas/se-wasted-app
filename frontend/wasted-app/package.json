@@ -18,6 +18,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "~0.63.4",
+    "react-native-geocoding": "^0.5.0",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-get-location": "^2.1.2",
     "react-native-navigation": "^7.23.1",

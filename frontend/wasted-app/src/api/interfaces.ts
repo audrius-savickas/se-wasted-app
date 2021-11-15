@@ -52,6 +52,15 @@ export interface Credentials {
   password: string
 }
 
+export interface RestaurantRegisterRequest {
+  credentials: Credentials
+  name: string
+  coords: Coordinates
+  address: string
+  imageUrl: string
+  description?: string
+}
+
 export enum DecreaseType {
   AMOUNT,
   PERCENT
