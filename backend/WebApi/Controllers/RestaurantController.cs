@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Services.Exceptions;
 using Services.Interfaces;
 using Services.Utils;
 using System;
@@ -43,7 +44,7 @@ namespace WebApi.Controllers
                 {
                     InputValidator.ValidateRestaurantSortOrder(sortOrder, userCoordinates);
                 }
-                catch (Exception e)
+                catch (ArgumentException e)
                 {
                     return BadRequest(e.Message);
                 }
@@ -82,7 +83,7 @@ namespace WebApi.Controllers
                 restaurant.FoodCount = _restaurantService.GetFoodCountFromRestaurant(id);
                 return Ok(restaurant);
             }
-            catch (Exception exception)
+            catch (EntityNotFoundException exception)
             {
                 return NotFound(exception.Message);
             }
@@ -105,16 +106,13 @@ namespace WebApi.Controllers
                 string id = _restaurantService.Register(creds, restaurantRegisterRequest, IdGenerator.GenerateUniqueId);
                 return CreatedAtAction(nameof(Post), new { id });
             }
-            catch (Exception exception)
+            catch (AuthorizationException exception)
             {
-                if(exception is ApplicationException)
-                {
-                    return Conflict(exception.Message);
-                }
-                else
-                {
-                    return BadRequest(exception.Message);
-                }
+                return Conflict(exception.Message);
+            }
+            catch (EntityNotFoundException exception)
+            {
+                return BadRequest(exception.Message);
             }
         }
 
@@ -145,7 +143,7 @@ namespace WebApi.Controllers
 
                 return Ok();
             }
-            catch (Exception exception)
+            catch (EntityNotFoundException exception)
             {
                 return BadRequest(exception.Message);
             }
@@ -167,7 +165,7 @@ namespace WebApi.Controllers
                 _restaurantService.DeleteAccount(creds);
                 return Ok();
             }
-            catch (Exception exception)
+            catch (Exception exception) when (exception is AuthorizationException || exception is EntityNotFoundException)
             {
                 return Unauthorized(exception.Message);
             }
@@ -190,7 +188,7 @@ namespace WebApi.Controllers
                 {
                     InputValidator.ValidateFoodSortOrder(sortOrder);
                 }
-                catch (Exception e)
+                catch (ArgumentException e)
                 {
                     return BadRequest(e.Message);
                 }

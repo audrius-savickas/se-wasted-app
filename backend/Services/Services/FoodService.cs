@@ -1,6 +1,7 @@
 ﻿using Contracts.DTOs;
 using Domain.Entities;
 using Persistence.Interfaces;
+using Services.Exceptions;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace Services.Services
             }
             else
             {
-                throw new Exception("Restaurant can't access given food.");
+                throw new AuthorizationException("Restaurant can't access given food.");
             }
 
         }
@@ -53,7 +54,7 @@ namespace Services.Services
         {
             if (GetFoodById(updatedFood.Id) == null)
             {
-                throw new Exception("Invalid food id.");
+                throw new EntityNotFoundException("Invalid food id.");
             }
             ValidateDecreaseType(updatedFood.DecreaseType);
 
@@ -67,7 +68,7 @@ namespace Services.Services
             Food food = GetFoodById(idFood);
             if (food == null)
             {
-                throw new Exception("Invalid id.");
+                throw new EntityNotFoundException("Invalid id.");
             }
             else
             {
@@ -83,7 +84,7 @@ namespace Services.Services
             Food food = GetFoodById(idFood);
             if (food == null)
             {
-                throw new Exception("Invalid id.");
+                throw new EntityNotFoundException("Invalid id.");
             }
             else
             {
@@ -99,7 +100,7 @@ namespace Services.Services
             // Check if restaurant is valid
             if (_restaurantRepository.GetById(food.IdRestaurant) == null)
             {
-                throw new Exception("Invalid restaurant id.");
+                throw new EntityNotFoundException("Invalid restaurant id.");
             }
             // Generate id for food item
             food.Id = generateId();
@@ -114,7 +115,7 @@ namespace Services.Services
         {
             if (types.Any(type => _typeOfFoodRepository.GetById(type.Id) == null))
             {
-                throw new Exception("Contains invalid food type id.");
+                throw new ArgumentException("Contains invalid food type id.");
             }
 
             var typeIds = types.Select(x => x.Id);

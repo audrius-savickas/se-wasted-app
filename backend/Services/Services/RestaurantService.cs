@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Helpers;
 using Persistence.Interfaces;
+using Services.Exceptions;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace Services.Services
             Restaurant restaurant = _restaurantRepository.GetByMail(mail);
             if (restaurant == null)
             {
-                throw new Exception("Invalid email.");
+                throw new EntityNotFoundException("Invalid email.");
             }
 
             Credentials creds = restaurant.Credentials;
@@ -44,7 +45,7 @@ namespace Services.Services
             Restaurant restaurant = _restaurantRepository.GetByMail(mail);
             if (restaurant == null)
             {
-                throw new Exception("Invalid email.");
+                throw new EntityNotFoundException("Invalid email.");
             }
 
             return RestaurantDto.FromEntity(restaurant);
@@ -56,12 +57,12 @@ namespace Services.Services
 
             if (restaurant == null)
             {
-                throw new Exception("The user does not exist");
+                throw new EntityNotFoundException("The user does not exist");
             }
 
             if (!restaurant.Credentials.Equals(creds))
             {
-                throw new Exception("The credentials are not correct");
+                throw new AuthorizationException("The credentials are not correct");
             }
 
             _restaurantRepository.Delete(restaurant.Id);
@@ -79,7 +80,7 @@ namespace Services.Services
             Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
             if (restaurant == null)
             {
-                throw new Exception("Invalid id.");
+                throw new EntityNotFoundException("Invalid id.");
             }
 
             return RestaurantDto.FromEntity(restaurant);
@@ -104,14 +105,14 @@ namespace Services.Services
             // Validations
             if (_restaurantRepository.GetByMail(creds.Mail) != null)
             {
-                throw new ApplicationException("There is already an account registered on this mail");
+                throw new AuthorizationException("There is already an account registered on this mail");
             }
 
             string error = Validator.ValidateEmail(creds.Mail.Value) + Validator.ValidatePassword(creds.Password.Value);
 
             if (error != "")
             {
-                throw new Exception(error);
+                throw new ArgumentException(error);
             }
 
             // Registration
@@ -146,7 +147,7 @@ namespace Services.Services
 
             if (restaurantDB == null)
             {
-                throw new Exception("Invalid id.");
+                throw new EntityNotFoundException("Invalid id.");
             }
 
             restaurant.Credentials = restaurantDB.Credentials;
