@@ -68,7 +68,7 @@ namespace Services.Services
             Food food = GetFoodById(idFood);
             if (food == null)
             {
-                throw new EntityNotFoundException("Invalid id.");
+                throw new EntityNotFoundException("Invalid food id.");
             }
             else
             {
@@ -84,7 +84,7 @@ namespace Services.Services
             Food food = GetFoodById(idFood);
             if (food == null)
             {
-                throw new EntityNotFoundException("Invalid id.");
+                throw new EntityNotFoundException("Invalid food id.");
             }
             else
             {

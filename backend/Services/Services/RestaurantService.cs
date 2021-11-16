@@ -57,7 +57,7 @@ namespace Services.Services
 
             if (restaurant == null)
             {
-                throw new EntityNotFoundException("The user does not exist");
+                throw new EntityNotFoundException("The restaurant does not exist");
             }
 
             if (!restaurant.Credentials.Equals(creds))
@@ -80,7 +80,7 @@ namespace Services.Services
             Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
             if (restaurant == null)
             {
-                throw new EntityNotFoundException("Invalid id.");
+                throw new EntityNotFoundException("Invalid restaurant id.");
             }
 
             return RestaurantDto.FromEntity(restaurant);
@@ -147,7 +147,7 @@ namespace Services.Services
 
             if (restaurantDB == null)
             {
-                throw new EntityNotFoundException("Invalid id.");
+                throw new EntityNotFoundException("Invalid restaurant id.");
             }
 
             restaurant.Credentials = restaurantDB.Credentials;
