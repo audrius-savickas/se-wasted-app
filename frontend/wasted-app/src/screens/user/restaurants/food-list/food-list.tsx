@@ -36,37 +36,34 @@ export const FoodList = ({componentId, restaurantId, restaurantName, isRestauran
         <LoaderScreen color={Colors.blue30} message="Loading..." />
       ) : (
         <>
-          {foods.length ? (
-            <>
-              <View center margin-s3>
-                <Text text40M>{restaurantName}</Text>
-                <Text text60L>Foods</Text>
-              </View>
-              <View flex>
-                <SimpleFoodsList
-                  refreshing={refreshing}
-                  foods={foods}
-                  componentId={componentId}
-                  onRefresh={() => setRefreshing(true)}
+          <View center margin-s3>
+            <Text text40M>{restaurantName}</Text>
+            <Text text60L>Foods</Text>
+          </View>
+          <View flex>
+            <SimpleFoodsList
+              emptyListComponent={
+                <EmptyList
+                  title={
+                    isRestaurant
+                      ? `Uh oh :(\nSadly you haven't added any foods yet.`
+                      : `Uh oh :(\nSadly ${restaurantName} doesn't have any foods added yet. `
+                  }
+                  subtitle={
+                    isRestaurant
+                      ? `Please feel free to add more foods by clicking "Add food" button`
+                      : "Please feel free to check back later or order from other restaurants!"
+                  }
+                  buttonLabel={isRestaurant ? "Add food" : "Go back"}
+                  onPress={isRestaurant ? () => {} : () => Navigation.pop(componentId)}
                 />
-              </View>
-            </>
-          ) : (
-            <EmptyList
-              title={
-                isRestaurant
-                  ? `Uh oh :(\nSadly you haven't added any foods yet.`
-                  : `Uh oh :(\nSadly ${restaurantName} doesn't have any foods added yet. `
               }
-              subtitle={
-                isRestaurant
-                  ? `Please feel free to add more foods by clicking "Add food" button`
-                  : "Please feel free to check back later or order from other restaurants!"
-              }
-              buttonLabel={isRestaurant ? "Add food" : "Go back"}
-              onPress={isRestaurant ? () => {} : () => Navigation.pop(componentId)}
+              refreshing={refreshing}
+              foods={foods}
+              componentId={componentId}
+              onRefresh={() => setRefreshing(true)}
             />
-          )}
+          </View>
         </>
       )}
     </>
