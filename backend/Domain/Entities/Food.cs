@@ -32,7 +32,7 @@ namespace Domain.Entities
             IEnumerable<TypeOfFood> typesOfFood,
             double intervalTimeInMinutes,
             DecreaseType decreaseType,
-            string imageURL = DEFAULT_IMAGE_URL,
+            string imageURL = "",
             DateTime? createdAt = null,
             DateTime? startDecreasingAt = null,
             decimal? amountPerInterval = null,
@@ -44,13 +44,20 @@ namespace Domain.Entities
             StartingPrice = startingPrice;
             MinimumPrice = minimumPrice >= 0 ? minimumPrice : 0;
             CreatedAt = createdAt ?? DateTime.Now;
-            ImageURL = imageURL;
             IdRestaurant = idRestaurant;
             TypesOfFood = typesOfFood;
             StartDecreasingAt = startDecreasingAt ?? CreatedAt;
             IntervalTimeInMinutes = intervalTimeInMinutes;
             DecreaseType = decreaseType;
             Description = description;
+            if (imageURL == "")
+            {
+                ImageURL = DEFAULT_IMAGE_URL;
+            }
+            else
+            {
+                ImageURL = imageURL;
+            }
 
             ValidatePriceDecrease(decreaseType, percentPerInterval, amountPerInterval);
 

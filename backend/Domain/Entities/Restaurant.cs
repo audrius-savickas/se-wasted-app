@@ -15,14 +15,21 @@ namespace Domain.Entities
 
         public Restaurant() : base() { }
 
-        public Restaurant(string id, string name, string address, Coords coords, Credentials credentials, string description = "", string imageURL = DEFAULT_IMAGE_URL)
+        public Restaurant(string id, string name, string address, Coords coords, Credentials credentials, string description = "", string imageURL = "")
             : base(id, name)
         {
             Description = description;
             Address = address;
             Coords = coords ?? throw new ArgumentNullException(nameof(coords));
             Credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
-            ImageURL = imageURL;
+            if(imageURL == "")
+            {
+                ImageURL = DEFAULT_IMAGE_URL;
+            }
+            else
+            {
+                ImageURL = imageURL;
+            }
         }
 
         public bool IsNear(Coords coords)
