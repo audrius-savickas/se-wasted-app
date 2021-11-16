@@ -28,7 +28,6 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
   const [passwordValid, setPasswordValid] = useState(true)
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(true)
   const [addressValid, setAddressValid] = useState(true)
-  const [imageUrlValid, setImageUrlValid] = useState(true)
 
   const [error, setError] = useState("")
 
@@ -42,8 +41,6 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
     confirmPasswordValid &&
     confirmPassword &&
     addressValid &&
-    imageUrlValid &&
-    imageUrl &&
     !coordinatesLoading
 
   const finishRegistration = async () => {
@@ -114,9 +111,9 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
               enableErrors
               marginB-s6
               autoCapitalize="none"
-              hint="Your restaurant's email*"
+              hint="Your restaurant's email"
               fieldStyle={styles.withUnderline}
-              label="Email"
+              label="Email*"
               validate={["required", "email"]}
               validationMessage={["Email is required", "Email is invalid"]}
               value={email}
@@ -187,13 +184,10 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
               enableErrors
               autoCapitalize="none"
               fieldStyle={styles.withUnderline}
-              label="Image URL*"
+              label="Image URL (optional)"
               hint="Your restaurant's image's URL"
               value={imageUrl}
-              validate={["required"]}
-              validationMessage="Image URL is required"
               onChangeText={setImageUrl}
-              onChangeValidity={setImageUrlValid}
             />
             <Incubator.TextField
               marginB-s6

@@ -55,7 +55,11 @@ export const FoodList = ({componentId, restaurantId, restaurantName, isRestauran
                       : "Please feel free to check back later or order from other restaurants!"
                   }
                   buttonLabel={isRestaurant ? "Add food" : "Go back"}
-                  onPress={isRestaurant ? () => {} : () => Navigation.pop(componentId)}
+                  onPress={
+                    isRestaurant
+                      ? () => Navigation.mergeOptions(componentId, {bottomTabs: {currentTabIndex: 1}})
+                      : () => Navigation.pop(componentId)
+                  }
                 />
               }
               refreshing={refreshing}
