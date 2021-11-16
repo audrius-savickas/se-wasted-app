@@ -153,7 +153,8 @@ export const setRestaurantRoot = (props: FoodScreenOwnProps) =>
               children: [
                 {
                   component: {
-                    name: screenNames.RESTAURANT_PROFILE
+                    name: screenNames.RESTAURANT_PROFILE,
+                    passProps: {...props}
                   }
                 }
               ],

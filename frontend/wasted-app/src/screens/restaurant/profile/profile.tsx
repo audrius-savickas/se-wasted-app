@@ -12,10 +12,10 @@ const textFieldCommonValues: TextFieldProps = {
   centered: false
 }
 
-export const Profile = ({restaurantId, restaurantName}: ProfileProps) => {
+export const Profile = ({restaurantId}: ProfileProps) => {
   const [restaurant, setRestaurant] = useState<Restaurant>({
     id: restaurantId,
-    name: restaurantName,
+    name: "",
     coords: {
       latitude: 0.0,
       longitude: 0.0
