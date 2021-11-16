@@ -11,3 +11,14 @@ export const getFoodTypeByTypeId = async (id: string): Promise<FoodType> => {
     return Promise.resolve({id: "-1", name: "not found"})
   }
 }
+
+export const getAllTypesOfFood = async (): Promise<FoodType[]> => {
+  try {
+    const response = await fetch(`${WASTED_SERVER_URL}/TypeOfFood`)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error(error)
+    return Promise.resolve([])
+  }
+}

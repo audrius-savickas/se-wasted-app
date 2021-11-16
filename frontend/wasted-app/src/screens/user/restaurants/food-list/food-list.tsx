@@ -11,10 +11,12 @@ import {FoodListProps} from "./interfaces"
 export const FoodList = ({componentId, restaurantId, restaurantName, isRestaurant = false}: FoodListProps) => {
   const [foods, setFoods] = useState([] as Food[])
   const [loading, setLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
 
   const fetchFoods = async () => {
     const response = await getAllFoodByRestaurantId(restaurantId)
     setFoods(response)
+    setRefreshing(false)
     setLoading(false)
   }
 
@@ -22,38 +24,50 @@ export const FoodList = ({componentId, restaurantId, restaurantName, isRestauran
     fetchFoods()
   }, [])
 
+  useEffect(() => {
+    if (refreshing) {
+      fetchFoods()
+    }
+  }, [refreshing])
+
   return (
     <>
       {loading ? (
         <LoaderScreen color={Colors.blue30} message="Loading..." />
       ) : (
         <>
-          {foods.length ? (
-            <>
-              <View center margin-s3>
-                <Text text40M>{restaurantName}</Text>
-                <Text text60L>Foods</Text>
-              </View>
-              <View flex>
-                <SimpleFoodsList foods={foods} componentId={componentId} />
-              </View>
-            </>
-          ) : (
-            <EmptyList
-              title={
-                isRestaurant
-                  ? `Uh oh :(\nSadly you haven't added any foods yet.`
-                  : `Uh oh :(\nSadly ${restaurantName} doesn't have any foods added yet. `
+          <View center margin-s3>
+            <Text text40M>{restaurantName}</Text>
+            <Text text60L>Foods</Text>
+          </View>
+          <View flex>
+            <SimpleFoodsList
+              emptyListComponent={
+                <EmptyList
+                  title={
+                    isRestaurant
+                      ? `Uh oh :(\nSadly you haven't added any foods yet.`
+                      : `Uh oh :(\nSadly ${restaurantName} doesn't have any foods added yet. `
+                  }
+                  subtitle={
+                    isRestaurant
+                      ? `Please feel free to add more foods by clicking "Add food" button`
+                      : "Please feel free to check back later or order from other restaurants!"
+                  }
+                  buttonLabel={isRestaurant ? "Add food" : "Go back"}
+                  onPress={
+                    isRestaurant
+                      ? () => Navigation.mergeOptions(componentId, {bottomTabs: {currentTabIndex: 1}})
+                      : () => Navigation.pop(componentId)
+                  }
+                />
               }
-              subtitle={
-                isRestaurant
-                  ? `Please feel free to add more foods by clicking "Add food" button`
-                  : "Please feel free to check back later or order from other restaurants!"
-              }
-              buttonLabel={isRestaurant ? "Add food" : "Go back"}
-              onPress={isRestaurant ? () => {} : () => Navigation.pop(componentId)}
+              refreshing={refreshing}
+              foods={foods}
+              componentId={componentId}
+              onRefresh={() => setRefreshing(true)}
             />
-          )}
+          </View>
         </>
       )}
     </>

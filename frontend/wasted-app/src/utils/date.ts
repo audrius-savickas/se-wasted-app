@@ -10,10 +10,14 @@ export const formatDate = (string: string) => {
 }
 
 export const formatTime = (string: string) => {
-  const date = new Date(string)
+  const date = new Date(moment(string).subtract(2, "hours").toISOString())
   const hour = date.getHours()
   const minutes = date.getMinutes()
-  return `${hour}:${minutes}`
+
+  const hourString = hour < 10 ? `0${hour}` : hour.toString()
+  const minuteString = minutes < 10 ? `0${minutes}` : minutes.toString()
+
+  return `${hourString}:${minuteString}`
 }
 
 export const timeAgoFull = (string: string) => {
@@ -37,7 +41,7 @@ export const timeAgoFull = (string: string) => {
   })
 
   const date = new Date(string)
-  return moment(date).fromNow()
+  return moment(date).subtract(2, "hours").fromNow()
 }
 
 export const timeAgo = (string: string) => {
@@ -61,7 +65,7 @@ export const timeAgo = (string: string) => {
   })
 
   const date = new Date(string)
-  return moment(date).fromNow()
+  return moment(date).subtract(2, "hours").fromNow()
 }
 
 export const convertMinsToHrsMins = (mins: number) => {
