@@ -32,7 +32,7 @@ namespace Domain.Entities
             IEnumerable<TypeOfFood> typesOfFood,
             double intervalTimeInMinutes,
             DecreaseType decreaseType,
-            string imageURL = "",
+            string imageURL = DEFAULT_IMAGE_URL,
             DateTime? createdAt = null,
             DateTime? startDecreasingAt = null,
             decimal? amountPerInterval = null,
@@ -50,14 +50,6 @@ namespace Domain.Entities
             IntervalTimeInMinutes = intervalTimeInMinutes;
             DecreaseType = decreaseType;
             Description = description;
-            if (imageURL == "")
-            {
-                ImageURL = DEFAULT_IMAGE_URL;
-            }
-            else
-            {
-                ImageURL = imageURL;
-            }
 
             ValidatePriceDecrease(decreaseType, percentPerInterval, amountPerInterval);
 
@@ -71,6 +63,14 @@ namespace Domain.Entities
                     PercentPerInterval = (double)percentPerInterval;
                     AmountPerInterval = CalculateAmountPerInterval();
                     break;
+            }
+        }
+
+        public void CheckIfImageUrlIsSet()
+        {
+            if (ImageURL == "")
+            {
+                ImageURL = DEFAULT_IMAGE_URL;
             }
         }
 

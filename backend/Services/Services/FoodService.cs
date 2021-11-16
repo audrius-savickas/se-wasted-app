@@ -102,6 +102,9 @@ namespace Services.Services
             {
                 throw new EntityNotFoundException("Invalid restaurant id.");
             }
+
+            food.CheckIfImageUrlIsSet();
+
             // Generate id for food item
             food.Id = generateId();
 
