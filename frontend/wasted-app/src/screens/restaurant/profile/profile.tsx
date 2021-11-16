@@ -1,16 +1,10 @@
 import React, {useEffect, useState} from "react"
 import {Navigation} from "react-native-navigation"
-import {Button, Colors, LoaderScreen, Text, View, TextField, Image} from "react-native-ui-lib"
-import {TextFieldProps} from "react-native-ui-lib/generatedTypes/src/incubator"
+import {Button, Colors, Image, LoaderScreen, Text, TextField, View} from "react-native-ui-lib"
 import {getRestaurantById, updateRestaurant as updateRestaurantCall} from "../../../api"
 import {Restaurant} from "../../../api/interfaces"
 import {setHomeRoot} from "../../../services/navigation"
 import {ProfileProps} from "./interfaces"
-
-const textFieldCommonValues: TextFieldProps = {
-  editable: false,
-  centered: false
-}
 
 export const Profile = ({restaurantId}: ProfileProps) => {
   const [restaurant, setRestaurant] = useState<Restaurant>({
@@ -23,7 +17,7 @@ export const Profile = ({restaurantId}: ProfileProps) => {
     address: "",
     imageURL: "",
     distanceToUser: 0.0,
-    description: '',
+    description: "",
     foodCount: 0
   })
   const [updatedRestaurant, setUpdatedRestaurant] = useState<Restaurant>(restaurant)
@@ -97,21 +91,13 @@ export const Profile = ({restaurantId}: ProfileProps) => {
               }}
             />
           </View>
-          <View
-            flex
-            left
-            marginT-10
-            style={{
-              flexDirection: "column",
-              justifyContent: "center"
-            }}
-          >
-            <TextField title="Name" onChangeText={onChangeName} value={updatedRestaurant.name} textFieldCommonValues />
+          <View marginH-s4 flex centerV marginT-s6>
+            <TextField textFieldCommonValues title="Name" value={updatedRestaurant.name} onChangeText={onChangeName} />
             <TextField
-              title="Location"
-              onChangeText={onChangeAddress}
-              value={updatedRestaurant.address}
               textFieldCommonValues
+              title="Location"
+              value={updatedRestaurant.address}
+              onChangeText={onChangeAddress}
             />
           </View>
           <Button outline label="Change Password" />
