@@ -107,8 +107,14 @@ namespace Services.Services
 
             // Generate id for food item
             food.Id = generateId();
-
-            food.TypesOfFood = GetValidTypesOfFood(food.TypesOfFood);
+            try
+            {
+                food.TypesOfFood = GetValidTypesOfFood(food.TypesOfFood);
+            }
+            catch(ArgumentException)
+            {
+                throw;
+            }
 
             _foodRepository.Add(food);
             return food.Id;
