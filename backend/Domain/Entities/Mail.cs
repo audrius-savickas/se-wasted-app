@@ -16,11 +16,7 @@ namespace Domain.Entities
 
         public static bool Validate(string email)
         {
-            if (email == null || !(new EmailAddressAttribute().IsValid(email)))
-            {
-                return false;
-            }
-            return true;
+            return email != null && new EmailAddressAttribute().IsValid(email);
         }
 
         public virtual bool Equals(Mail other)

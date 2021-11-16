@@ -1,6 +1,7 @@
 ﻿using Contracts.DTOs;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Services.Exceptions;
 using Services.Interfaces;
 using Services.Utils;
 using System;
@@ -39,7 +40,7 @@ namespace WebApi.Controllers
                 {
                     InputValidator.ValidateFoodSortOrder(sortOrder);
                 }
-                catch (Exception e)
+                catch (ArgumentException e)
                 {
                     return BadRequest(e.Message);
                 }
@@ -82,9 +83,9 @@ namespace WebApi.Controllers
                 var restaurant = _foodService.GetRestaurantOfFood(id);
                 return Ok(restaurant);
             }
-            catch
+            catch (EntityNotFoundException exception)
             {
-                return NotFound();
+                return NotFound(exception.Message);
             }
         }
 
@@ -103,7 +104,7 @@ namespace WebApi.Controllers
                 var type = _foodService.GetTypesOfFood(id);
                 return Ok(type);
             }
-            catch (Exception exception)
+            catch (EntityNotFoundException exception)
             {
                 return NotFound(exception.Message);
             }
@@ -124,7 +125,7 @@ namespace WebApi.Controllers
                 string id = _foodService.RegisterFood(food, IdGenerator.GenerateUniqueId);
                 return CreatedAtAction(nameof(RegisterFood), new { id });
             }
-            catch (Exception exception)
+            catch (EntityNotFoundException exception)
             {
                 return BadRequest(exception.Message);
             }
@@ -154,7 +155,7 @@ namespace WebApi.Controllers
                     return Ok();
                 }
             }
-            catch (Exception exception)
+            catch (AuthorizationException exception)
             {
                 return Unauthorized(exception.Message);
             }
@@ -178,7 +179,7 @@ namespace WebApi.Controllers
                 _foodService.UpdateFood(updatedFood);
                 return Ok();
             }
-            catch (Exception exception)
+            catch (EntityNotFoundException exception)
             {
                 return BadRequest(exception.Message);
             }
