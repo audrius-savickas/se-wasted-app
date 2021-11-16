@@ -1,3 +1,4 @@
+import moment from "moment"
 import React, {useState} from "react"
 import {Alert} from "react-native"
 import {Navigation} from "react-native-navigation"
@@ -13,7 +14,7 @@ export const FinalStep = ({food}: Props) => {
     await addNewFood({
       ...food,
       startingPrice: food.currentPrice,
-      createdAt: new Date().toISOString(),
+      createdAt: moment().add(2, "hours").toISOString(),
       startDecreasingAt: food.startDecreasingAt
     })
     setLoading(false)
