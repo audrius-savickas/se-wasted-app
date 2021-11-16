@@ -31,8 +31,10 @@
      - Google about Func and Action delegates, multicasting delegates.
 8. Concurrent programming (threading or async/await (for your own written classes); common resource usage between threads).
    - EmailService.cs sending emails asyncronously.
+     - Just know about Tasks and async await.
 9.  Web service implemented and used
     - WebApi project, swagger.
+      - [Service lifetimes](https://www.tektutorialshub.com/asp-net-core/asp-net-core-dependency-injection-lifetime/). See section 'Which one to use'.
 10. Dependency Injection.
     - Startup.cs injecting services.
 
