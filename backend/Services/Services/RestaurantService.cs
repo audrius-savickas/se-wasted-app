@@ -60,7 +60,7 @@ namespace Services.Services
                 throw new EntityNotFoundException("The restaurant does not exist");
             }
 
-            if (!restaurant.Credentials.Equals(creds))
+            if (!PasswordHasher.Verify(creds.Password.Value, restaurant.Credentials.Password.Value))
             {
                 throw new AuthorizationException("The credentials are not correct");
             }
