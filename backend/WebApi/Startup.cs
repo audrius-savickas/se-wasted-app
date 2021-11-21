@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -40,7 +41,6 @@ namespace WebApi
 
         private void ConfigureDatabase(IServiceCollection services)
         {
-
             services.AddScoped<IFoodRepository, FoodRepository>(_ =>
                 new FoodRepository(DBConfiguration.Instance.PathToFoodsFile)
             );
@@ -50,7 +50,20 @@ namespace WebApi
             services.AddScoped<ITypeOfFoodRepository, TypeOfFoodRepository>(_ =>
                 new TypeOfFoodRepository(DBConfiguration.Instance.PathToTypesOfFoodFile)
             );
-            //services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+
+
+
+            var connectionString = Configuration.GetConnectionString("AppDatabase");
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new ArgumentNullException(nameof(connectionString), "Connection string not found");
+            }
+
+            services.AddDbContext<IDatabaseContext, DatabaseContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+            }, ServiceLifetime.Transient);
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.

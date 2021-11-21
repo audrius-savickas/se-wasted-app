@@ -41,7 +41,7 @@ namespace ConsoleApp
                 foodRepository
             );
 
-            var emailService = new EmailService();
+            //var emailService = new EmailService();
 
             // Usage
 
