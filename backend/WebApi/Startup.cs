@@ -16,6 +16,7 @@ using System.IO;
 using System.Reflection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using WebApi.Helpers;
 
 namespace WebApi
 {
@@ -67,6 +68,8 @@ namespace WebApi
         {
             ConfigureOptions(services);
             ConfigureDatabase(services);
+
+            services.AddScoped<ITokenHelper, TokenHelper>();
 
             services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddScoped<IFoodService, FoodService>();
