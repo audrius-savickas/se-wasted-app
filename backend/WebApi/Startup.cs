@@ -9,10 +9,13 @@ using Persistence.Interfaces;
 using Persistence.Repositories;
 using Services.Interfaces;
 using Services.Options;
+using WebApi.Options;
 using Services.Services;
 using System;
 using System.IO;
 using System.Reflection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace WebApi
 {
@@ -34,6 +37,12 @@ namespace WebApi
                     options.UserName = Configuration["EmailOptions:UserName"];
                     options.Password = Configuration["EmailOptions:Password"];
                     options.Port = int.Parse(Configuration["EmailOptions:Port"]);
+                }
+            );
+            services.Configure<TokenOptions>(
+                options =>
+                {
+                    options.SecurityKey = Configuration["TokenOptions:SecurityKey"];
                 }
             );
         }
@@ -79,6 +88,24 @@ namespace WebApi
             });
 
             services.AddControllers();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "JwtBearer";
+                options.DefaultChallengeScheme = "JwtBearer";
+            })
+                .AddJwtBearer("JwtBearer", jwtBearerOptions =>
+            {
+                jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenOptions:SecurityKey"])),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromMinutes(5)
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -103,6 +130,7 @@ namespace WebApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
