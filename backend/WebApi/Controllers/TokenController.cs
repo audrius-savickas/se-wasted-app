@@ -1,19 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Contracts.DTOs;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Services.Interfaces;
+using WebApi.Helpers;
+using WebApi.Options;
 
 namespace WebApi.Controllers
 {
     public class TokenController : Controller
     {
-        // GET: /<controller>/
-        public IActionResult Index()
+        private readonly IRestaurantService _restaurantService;
+        private readonly ITokenHelper _tokenHelper;
+
+        public TokenController(IRestaurantService restaurantService, ITokenHelper tokenHelper)
         {
-            return View();
+            _restaurantService = restaurantService;
+            _tokenHelper = tokenHelper;
+        }
+
+        [Route("/token")]
+        [HttpPost]
+        public IActionResult Create(Credentials creds)
+        {
+            if (_restaurantService.Login(creds))
+            {
+                RestaurantDto restaurantDto = _restaurantService.GetRestaurantDtoFromMail(creds.Mail);
+                return new ObjectResult(_tokenHelper.GenerateToken(creds.Mail, restaurantDto));
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }
