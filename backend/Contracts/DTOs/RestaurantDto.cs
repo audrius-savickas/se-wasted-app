@@ -23,14 +23,21 @@ namespace Contracts.DTOs
             string address,
             Coords coords,
             string description = "",
-            string imageURL = DEFAULT_IMAGE_URL
+            string imageURL = ""
         )
             : base(id, name)
         {
             Description = description;
             Address = address;
             Coords = coords ?? throw new ArgumentNullException(nameof(coords));
-            ImageURL = imageURL;
+            if (imageURL == "")
+            {
+                ImageURL = DEFAULT_IMAGE_URL;
+            }
+            else
+            {
+                ImageURL = imageURL;
+            }
         }
 
         public static RestaurantDto FromEntity(Restaurant restaurant)

@@ -125,7 +125,7 @@ namespace WebApi.Controllers
                 string id = _foodService.RegisterFood(food, IdGenerator.GenerateUniqueId);
                 return CreatedAtAction(nameof(RegisterFood), new { id });
             }
-            catch (EntityNotFoundException exception)
+            catch(Exception exception) when (exception is EntityNotFoundException || exception is ArgumentException)
             {
                 return BadRequest(exception.Message);
             }
