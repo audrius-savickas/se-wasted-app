@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {ActivityIndicator, Alert, ScrollView, StyleSheet} from "react-native"
+import {Alert, ScrollView, StyleSheet} from "react-native"
 import Geocoder from "react-native-geocoding"
 import {Navigation} from "react-native-navigation"
 import {Assets, Button, Card, Colors, Image, Incubator, Text, TouchableOpacity, View} from "react-native-ui-lib"
