@@ -7,6 +7,7 @@ import {registerRestaurant} from "../../../api"
 import {Coordinates} from "../../../api/interfaces"
 import {Map} from "../../../components/map"
 import {PasswordInput} from "../../../components/password-input"
+import {usePrevious} from "../../../hooks/use-previous"
 import {RestaurantRegistrationProps} from "./interfaces"
 
 export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProps) => {
@@ -15,6 +16,7 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [address, setAddress] = useState("")
+  const prevAddress = usePrevious(address)
   const [imageUrl, setImageUrl] = useState("")
   const [coordinates, setCoordinates] = useState({
     latitude: 54.687157,
@@ -75,13 +77,15 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
   }
 
   const fetchCoordinates = async () => {
-    setCoordinatesLoading(true)
-    const response = await Geocoder.from(address)
-    const coords = response.results[0].geometry.location
-    setAddress(response.results[0].formatted_address)
-    setCoordinates({latitude: coords.lat, longitude: coords.lng})
-    setCoordinatesDelta({latitudeDelta: 0.003, longitudeDelta: 0.003})
-    setCoordinatesLoading(false)
+    if (address !== prevAddress) {
+      setCoordinatesLoading(true)
+      const response = await Geocoder.from(address)
+      const coords = response.results[0].geometry.location
+      setAddress(response.results[0].formatted_address)
+      setCoordinates({latitude: coords.lat, longitude: coords.lng})
+      setCoordinatesDelta({latitudeDelta: 0.003, longitudeDelta: 0.003})
+      setCoordinatesLoading(false)
+    }
   }
 
   useEffect(() => {
