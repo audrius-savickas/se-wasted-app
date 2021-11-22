@@ -90,6 +90,7 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
 
   const onAddressChange = async (data: any, details: any) => {
     setAddress(details.formatted_address)
+    setAddressValid(true)
   }
 
   useEffect(() => {
@@ -184,7 +185,7 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
               query={{key: GOOGLE_MAPS_API_KEY}}
               styles={{
                 textInput: {...styles.withUnderline, padding: 0, margin: 0},
-                container: {padding: 0, marginTop: 6, marginBottom: 10},
+                container: {padding: 0, marginTop: 6, marginBottom: 0},
                 row: {
                   backgroundColor: "#FFFFFF",
                   padding: 13,
@@ -196,8 +197,12 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
                   backgroundColor: "#c8c7cc"
                 }
               }}
+              textInputProps={{onBlur: () => !address && setAddressValid(false)}}
               onPress={onAddressChange}
             />
+            <Text red30 style={{opacity: addressValid ? 0 : 100}}>
+              Address is required
+            </Text>
             <View marginT-s1>
               <Map style={styles.map} coordinates={coordinates} coordinatesDelta={coordinatesDelta} />
             </View>
