@@ -55,7 +55,7 @@ namespace WebApi.Controllers
             restaurants = restaurants.ToList();
             foreach (RestaurantDto restaurant in restaurants)
             {
-                if(userCoordinates != null)
+                if (userCoordinates != null)
                 {
                     restaurant.DistanceToUser = CoordsHelper.HaversineDistanceKM(userCoordinates, restaurant.Coords);
                 }
@@ -148,6 +148,32 @@ namespace WebApi.Controllers
                 return BadRequest(exception.Message);
             }
 
+        }
+
+        /// <summary>
+        /// Update a restaurants password.
+        /// </summary>
+        /// <param name="credentials">New credentials of the restaurant</param>
+        /// <returns></returns>
+        [HttpPut(Name = nameof(ChangePass))]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult ChangePass([FromBody] Credentials credentials)
+        {
+            try
+            {
+                _restaurantService.ChangePass(credentials.Mail, credentials.Password);
+                return Ok();
+            }
+            catch (EntityNotFoundException exception)
+            {
+                return NotFound(exception.Message);
+            }
+            catch(ArgumentException exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
 
         /// <summary>
