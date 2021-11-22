@@ -5,6 +5,7 @@ import {Navigation} from "react-native-navigation"
 import {Assets, Button, Card, Colors, Image, Incubator, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {registerRestaurant} from "../../../api"
 import {Coordinates} from "../../../api/interfaces"
+import {Map} from "../../../components/map"
 import {PasswordInput} from "../../../components/password-input"
 import {RestaurantRegistrationProps} from "./interfaces"
 
@@ -15,7 +16,11 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
   const [confirmPassword, setConfirmPassword] = useState("")
   const [address, setAddress] = useState("")
   const [imageUrl, setImageUrl] = useState("")
-  const [coordinates, setCoordinates] = useState({} as Coordinates)
+  const [coordinates, setCoordinates] = useState({
+    latitude: 54.687157,
+    longitude: 25.279652
+  } as Coordinates)
+  const [coordinatesDelta, setCoordinatesDelta] = useState({latitudeDelta: 0.0922, longitudeDelta: 0.0421})
   const [description, setDescription] = useState("")
 
   const [coordinatesLoading, setCoordinatesLoading] = useState(false)
@@ -65,7 +70,6 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
         }
       }
     } else {
-      console.log(nameValid)
       setError("Please check your input fields.")
     }
   }
@@ -75,6 +79,7 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
     const response = await Geocoder.from(address)
     const coords = response.results[0].geometry.location
     setCoordinates({latitude: coords.lat, longitude: coords.lng})
+    setCoordinatesDelta({latitudeDelta: 0.003, longitudeDelta: 0.003})
     setCoordinatesLoading(false)
   }
 
@@ -91,7 +96,7 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
           <View br30 margin-s4 marginB-s8 bg-grey70 padding-s4>
             <Text text70L>Please fill these fields in order to register your restaurant!{`\n* - required fields`}</Text>
           </View>
-          <View centerV width={320}>
+          <View centerV width={340}>
             <Incubator.TextField
               validateOnChange
               enableErrors
@@ -176,6 +181,9 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
                   <Text text90L>Longitude: {coordinates.longitude}</Text>
                 </>
               )}
+              <View marginT-s1>
+                <Map style={styles.map} coordinates={coordinates} coordinatesDelta={coordinatesDelta} />
+              </View>
             </View>
             {/* TODO: implement location picking */}
             <Incubator.TextField
@@ -219,5 +227,8 @@ const styles = StyleSheet.create({
     borderColor: Colors.blue60,
     paddingBottom: 4
   },
-  error: {position: "absolute", alignSelf: "center", width: "85%"}
+  error: {position: "absolute", alignSelf: "center", width: "85%"},
+  map: {
+    height: 200
+  }
 })
