@@ -78,6 +78,7 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
     setCoordinatesLoading(true)
     const response = await Geocoder.from(address)
     const coords = response.results[0].geometry.location
+    setAddress(response.results[0].formatted_address)
     setCoordinates({latitude: coords.lat, longitude: coords.lng})
     setCoordinatesDelta({latitudeDelta: 0.003, longitudeDelta: 0.003})
     setCoordinatesLoading(false)
@@ -185,7 +186,6 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
                 <Map style={styles.map} coordinates={coordinates} coordinatesDelta={coordinatesDelta} />
               </View>
             </View>
-            {/* TODO: implement location picking */}
             <Incubator.TextField
               marginB-s2
               validateOnChange
