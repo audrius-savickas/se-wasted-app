@@ -90,6 +90,17 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
     }
   }, [valid])
 
+  useEffect(() => {
+    Navigation.mergeOptions(componentId, {topBar: {rightButtons: [{text: "Done", id: "DONE"}]}})
+
+    const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
+      if (buttonId === "DONE") {
+        finishRegistration()
+      }
+    })
+    return () => listener.remove()
+  }, [])
+
   return (
     <>
       <ScrollView>
@@ -172,16 +183,6 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
               >
                 <Image source={Assets.icons.search} />
               </TouchableOpacity>
-              {coordinatesLoading ? (
-                <View centerH>
-                  <ActivityIndicator size={"small"} color={Colors.blue30} />
-                </View>
-              ) : (
-                <>
-                  <Text text90L>Latitude: {coordinates.latitude}</Text>
-                  <Text text90L>Longitude: {coordinates.longitude}</Text>
-                </>
-              )}
               <View marginT-s1>
                 <Map style={styles.map} coordinates={coordinates} coordinatesDelta={coordinatesDelta} />
               </View>
