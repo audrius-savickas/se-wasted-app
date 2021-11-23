@@ -12,11 +12,13 @@ namespace Persistence
 {
     public class DatabaseContext : DbContext, IDatabaseContext
     {
-        public DbSet<Restaurant> Restaurants { get; set; }
-        public DbSet<Food> Foods { get; set; }
-        public DbSet<TypeOfFood> TypesOfFood { get; set; }
+        public DbSet<RestaurantEntity> Restaurants { get; set; }
+        public DbSet<FoodEntity> Foods { get; set; }
+        public DbSet<TypeOfFoodEntity> TypesOfFood { get; set; }
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
+            ChangeTracker.Tracked += OnEntityTracked;
+            ChangeTracker.StateChanged += OnEntityStateChanged;
         }
         public override int SaveChanges()
         {
