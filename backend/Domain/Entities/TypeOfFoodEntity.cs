@@ -9,5 +9,7 @@ namespace Domain.Entities
     public class TypeOfFoodEntity : Entity
     {
         public string Name { get; set; }
+
+        public virtual TypeOfFoodEntity TypesOfFood { get; set; }
     }
 }
