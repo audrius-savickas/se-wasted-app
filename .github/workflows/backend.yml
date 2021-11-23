@@ -1,0 +1,36 @@
+name: Backend-CI
+
+on:
+  push:
+    branches: [ '**' ]
+    paths:
+      - 'backend/**'
+  pull_request:
+    branches: [ '**' ]
+    paths:
+      - 'backend/**'
+
+jobs:
+  Backend-CI:
+    runs-on: ubuntu-latest
+    env:  
+      working-directory: ./backend
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: ${{env.working-directory}}
+
+    - name: Build
+      run: dotnet build --no-restore
+      working-directory: ${{env.working-directory}}
+
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+      working-directory: ${{env.working-directory}}
