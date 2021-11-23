@@ -8,8 +8,13 @@ namespace Domain.Entities
 {
     public class TypeOfFoodEntity : Entity
     {
+        public TypeOfFoodEntity()
+        {
+            Foods = new HashSet<FoodEntity>();
+        }
+
         public string Name { get; set; }
 
-        public virtual TypeOfFoodEntity TypesOfFood { get; set; }
+        public virtual ICollection<FoodEntity> Foods { get; set; }
     }
 }

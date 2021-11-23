@@ -40,7 +40,7 @@ namespace Persistence
             {
                 x.HasKey(k => k.Id);
                 x.HasOne(p => p.Restaurant).WithMany(p => p.Foods);
-                x.HasMany(p => p.TypesOfFood).WithMany(p => Foods);
+                x.HasMany(p => p.TypesOfFood).WithMany(p => p.Foods);
                 x.Property(p => p.RestaurantId).IsRequired();
                 x.Property(p => p.Name).IsRequired();
             });
