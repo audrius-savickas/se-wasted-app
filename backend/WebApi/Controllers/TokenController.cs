@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Contracts.DTOs;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Services.Interfaces;
+using System;
+using System.Collections.Generic;
 using WebApi.Helpers;
 using WebApi.Options;
 
@@ -18,11 +14,18 @@ namespace WebApi.Controllers
     {
         private readonly IRestaurantService _restaurantService;
         private readonly ITokenHelper _tokenHelper;
+        private readonly GoogleOptions _googleOptions;
 
-        public TokenController(IRestaurantService restaurantService, ITokenHelper tokenHelper)
+        public TokenController
+        (
+            IRestaurantService restaurantService,
+            ITokenHelper tokenHelper,
+            IOptions<GoogleOptions> googleOptions
+        )
         {
             _restaurantService = restaurantService;
             _tokenHelper = tokenHelper;
+            _googleOptions = googleOptions.Value;
         }
 
         [Route("/token")]
@@ -31,13 +34,33 @@ namespace WebApi.Controllers
         {
             if (_restaurantService.Login(creds))
             {
-                RestaurantDto restaurantDto = _restaurantService.GetRestaurantDtoFromMail(creds.Mail);
-                return new ObjectResult(_tokenHelper.GenerateToken(creds.Mail, restaurantDto));
+                return new ObjectResult(_tokenHelper.GenerateToken(creds.Mail));
             }
             else
             {
                 return BadRequest();
             }
+        }
+
+        [HttpPost("/token/google")]
+        public IActionResult Authenticate([FromQuery] string idToken)
+        {
+            GoogleJsonWebSignature.ValidationSettings settings =
+                new GoogleJsonWebSignature.ValidationSettings();
+
+            // Change this to your google client ID
+            settings.Audience = new List<string>() { _googleOptions.ClientId };
+
+            try
+            {
+                GoogleJsonWebSignature.Payload payload = GoogleJsonWebSignature.ValidateAsync(idToken, settings).Result;
+                return new ObjectResult(_tokenHelper.GenerateToken(new Mail(payload.Email)));
+            }
+            catch(Exception e)
+            {
+                return BadRequest();
+            }
+            
         }
     }
 }

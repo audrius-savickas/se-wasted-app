@@ -46,6 +46,12 @@ namespace WebApi
                     options.SecurityKey = Configuration["TokenOptions:SecurityKey"];
                 }
             );
+            services.Configure<GoogleOptions>(
+                options =>
+                {
+                    options.ClientId = Configuration["GoogleOptions:ClientId"];
+                }
+            );
         }
 
         private void ConfigureDatabase(IServiceCollection services)
@@ -98,17 +104,17 @@ namespace WebApi
                 options.DefaultChallengeScheme = "JwtBearer";
             })
                 .AddJwtBearer("JwtBearer", jwtBearerOptions =>
-            {
-                jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenOptions:SecurityKey"])),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.FromMinutes(5)
-                };
-            });
+                    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenOptions:SecurityKey"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.FromMinutes(5)
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

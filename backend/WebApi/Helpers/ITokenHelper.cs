@@ -5,6 +5,6 @@ namespace WebApi.Helpers
 {
     public interface ITokenHelper
     {
-        dynamic GenerateToken(Mail mail, RestaurantDto restaurant);
+        dynamic GenerateToken(Mail mail);
     }
 }

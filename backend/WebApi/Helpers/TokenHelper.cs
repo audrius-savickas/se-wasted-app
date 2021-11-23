@@ -20,12 +20,11 @@ namespace WebApi.Helpers
             _tokenOptions = tokenOptions.Value;
         }
 
-        public dynamic GenerateToken(Mail mail, RestaurantDto restaurant)
+        public dynamic GenerateToken(Mail mail)
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, mail.Value),
-                new Claim(ClaimTypes.NameIdentifier, restaurant.Id),
                 new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
                 new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString())
             };

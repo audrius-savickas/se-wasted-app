@@ -42,6 +42,10 @@ Be sure you can see all this data by running this command:
 ```bash
 dotnet user-secrets list
 ```
+Also, we use google cloud api to validate tokens created by Google, to enable social login.
+```bash
+dotnet user-secrets set "GoogleOptions:ClientId" "<your-client-id>"
+```
 
 ## Build and run
 - Open [the solution file](https://github.com/audrius-savickas/se-wasted-app/blob/main/backend/wasted-app.sln) your favourite IDE.
