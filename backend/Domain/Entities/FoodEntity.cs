@@ -13,7 +13,7 @@ namespace Domain.Entities
             TypesOfFood = new HashSet<TypeOfFoodEntity>();
         }
         public string Name { get; set; }
-        public string RestaurantId { get; set; }
+        public Guid RestaurantId { get; set; }
         public decimal StartingPrice { get; set; }
         public decimal MinimumPrice { get; set; }
         public DateTime StartDecreasingAt { get; set; }
