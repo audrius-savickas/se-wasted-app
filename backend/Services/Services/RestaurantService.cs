@@ -1,5 +1,5 @@
 ﻿using Contracts.DTOs;
-using Domain.Entities;
+using Domain.Models;
 using Domain.Helpers;
 using Persistence.Interfaces;
 using Services.Exceptions;

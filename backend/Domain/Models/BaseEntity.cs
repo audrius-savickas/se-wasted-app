@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Domain.Entities
+namespace Domain.Models
 {
     public abstract class BaseEntity : IEquatable<BaseEntity>
     {

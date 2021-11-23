@@ -1,7 +1,7 @@
 using Domain.Helpers;
 using System;
 
-namespace Domain.Entities
+namespace Domain.Models
 {
     public class Restaurant : BaseEntity
     {

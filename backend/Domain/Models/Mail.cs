@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Entities
+namespace Domain.Models
 {
     public class Mail : IEquatable<Mail>
     {

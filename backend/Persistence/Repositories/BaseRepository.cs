@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Models;
 using Persistence.Interfaces;
 using System.Collections.Generic;
 using System.Linq;

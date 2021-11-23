@@ -1,5 +1,5 @@
 ﻿using Contracts.DTOs;
-using Domain.Entities;
+using Domain.Models;
 using Services.Services;
 using System;
 using System.Collections.Generic;
