@@ -1,5 +1,7 @@
-﻿using Domain.Models;
+﻿using Domain.Entities;
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,29 +25,47 @@ namespace Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Restaurant>(x =>
+            modelBuilder.Entity<RestaurantEntity>(x =>
             {
                 x.HasKey(k => k.Id);
                 x.Property(p => p.Name).IsRequired();
-
-
-                // TODO
-                x.Ignore(p => p.Coords);
-                x.Ignore(p => p.Credentials);
-
-
                 x.Property(p => p.Address).IsRequired();
-            }).Entity<Food>(x =>
+                x.Property(p => p.Mail).IsRequired();
+                x.Property(p => p.Password).IsRequired();
+            });
+
+            modelBuilder.Entity<FoodEntity>(x =>
             {
                 x.HasKey(k => k.Id);
+                x.HasOne(p => p.Restaurant).WithMany(p => p.Foods);
+                x.HasMany(p => p.TypesOfFood);
+                x.Property(p => p.RestaurantId).IsRequired();
                 x.Property(p => p.Name).IsRequired();
-            }).Entity<TypeOfFood>(x =>
+            });
+
+            modelBuilder.Entity<TypeOfFoodEntity>(x =>
             {
                 x.HasKey(k => k.Id);
                 x.Property(p => p.Name).IsRequired();
             });
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        private void OnEntityTracked(object sender, EntityTrackedEventArgs e)
+        {
+            if (!e.FromQuery && e.Entry.State == EntityState.Added && e.Entry.Entity is Entity entity)
+            {
+                entity.CreatedOn = DateTime.UtcNow;
+            }
+        }
+
+        private void OnEntityStateChanged(object sender, EntityStateChangedEventArgs e)
+        {
+            if (e.NewState == EntityState.Modified && e.Entry.Entity is Entity entity)
+            {
+                entity.ModifiedOn = DateTime.UtcNow;
+            }
         }
     }
 }

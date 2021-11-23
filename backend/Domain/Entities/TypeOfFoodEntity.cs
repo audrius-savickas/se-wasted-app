@@ -8,6 +8,6 @@ namespace Domain.Entities
 {
     public class TypeOfFoodEntity : Entity
     {
-
+        public string Name { get; set; }
     }
 }

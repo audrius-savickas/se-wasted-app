@@ -10,7 +10,7 @@ namespace Domain.Entities
     {
         public RestaurantEntity()
         {
-            FoodItems = new HashSet<FoodEntity>();
+            Foods = new HashSet<FoodEntity>();
         }
 
         public string Name { get; set; }
@@ -21,6 +21,6 @@ namespace Domain.Entities
         public string Password { get; set; }
         public string Description { get; set; }
         public string ImageURL { get; set; }
-        public virtual ICollection<FoodEntity> FoodItems { get; set; }
+        public virtual ICollection<FoodEntity> Foods { get; set; }
     }
 }
