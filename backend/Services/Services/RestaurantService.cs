@@ -35,7 +35,14 @@ namespace Services.Services
                 throw new EntityNotFoundException("Invalid email.");
             }
 
+            string error = Validator.ValidatePassword(newPassword.Value);
+            if (error != "")
+            {
+                throw new ArgumentException(error);
+            }
+
             Credentials creds = restaurant.Credentials;
+            newPassword.Value = PasswordHasher.Hash(newPassword.Value);
             creds.Password = newPassword;
             _restaurantRepository.Update(restaurant);
         }
