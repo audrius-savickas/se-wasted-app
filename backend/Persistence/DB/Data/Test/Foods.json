@@ -17,7 +17,7 @@
     "IntervalTimeInMinutes": 180,
     "AmountPerInterval": 0.15,
     "PercentPerInterval": 1,
-    "Id": "TuZfzHOb",
+    "Id": "d074882b-e102-44ed-ad0e-38096df3b023",
     "Name": "Bulviniai Blynai"
   },
   {
@@ -33,7 +33,7 @@
         "Name": "Traditional food"
       }
     ],
-    "Id": "0",
+    "Id": "fc4e6e61-aee6-4dd1-8557-4e9af11288e1",
     "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
     "DecreaseType": 0,
     "IntervalTimeInMinutes": 180,
@@ -54,7 +54,7 @@
         "Name": "Traditional food"
       }
     ],
-    "Id": "1",
+    "Id": "83eb865d-35ab-46c0-8486-731d9d4c6498",
     "Name": "Cepelinai"
   },
   {
@@ -70,7 +70,7 @@
         "Name": "Unclassified"
       }
     ],
-    "Id": "2",
+    "Id": "199a40e8-e153-4d33-9a83-28e275995b7f",
     "Name": "Kijevo kotletas"
   },
   {
@@ -86,7 +86,7 @@
         "Name": "Unclassified"
       }
     ],
-    "Id": "3",
+    "Id": "dfd2bc1a-55de-47d9-9400-4f27601d1a7d",
     "StartDecreasingAt": "2021-11-04T11:47:04.9955968+02:00",
     "DecreaseType": 1,
     "IntervalTimeInMinutes": 180,
@@ -107,7 +107,7 @@
         "Name": "Drink"
       }
     ],
-    "Id": "4",
+    "Id": "c198a1cb-479d-4df0-8450-6deb5838c966",
     "Name": "Dark Beer"
   },
   {
@@ -123,7 +123,7 @@
         "Name": "Drink"
       }
     ],
-    "Id": "5",
+    "Id": "ea3828ff-2a95-4158-9cc1-17f33ad1d6ae",
     "Name": "Light Beer"
   },
   {
@@ -143,7 +143,7 @@
         "Name": "Pastry"
       }
     ],
-    "Id": "6",
+    "Id": "93f4bc29-15b3-45e7-96d1-abf74337455e",
     "Name": "Cream Doughnut"
   },
   {
@@ -163,7 +163,7 @@
         "Name": "Pastry"
       }
     ],
-    "Id": "7",
+    "Id": "bbc84805-d849-4bec-942c-1c7d2de150d6",
     "Name": "Glazed Doughnut"
   },
   {
@@ -184,7 +184,7 @@
         "Name": "Pastry"
       }
     ],
-    "Id": "8",
+    "Id": "9137be2e-b976-471e-9637-97e17f5739a2",
     "Name": "Croissant"
   },
   {
@@ -200,7 +200,7 @@
         "Name": "Drink"
       }
     ],
-    "Id": "9",
+    "Id": "0408d117-f90f-4873-a8fe-11be3c67a28b",
     "Name": "Latte"
   },
   {
@@ -216,7 +216,7 @@
         "Name": "Pastry"
       }
     ],
-    "Id": "10",
+    "Id": "5be8f000-c701-48ce-92e1-6b43deb010d0",
     "Name": "Cookie"
   },
   {
@@ -253,7 +253,7 @@
     "IntervalTimeInMinutes": 1,
     "AmountPerInterval": 0,
     "PercentPerInterval": 0,
-    "Id": "5V0H438R",
+    "Id": "26d2636e-5f5c-41ed-a0b4-a7944d6436fd",
     "Name": "Blynai"
   }
 ]

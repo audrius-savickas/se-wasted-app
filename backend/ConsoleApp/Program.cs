@@ -49,22 +49,21 @@ namespace ConsoleApp
             //var emailService = new EmailService();
 
 
-            for (int i = 0; i < 10; i++)
+            /*for (int i = 0; i < 15; i++)
             {
                 Console.WriteLine(Guid.NewGuid());
-            }
+            }*/
 
 
 
             // Usage
-            /* var food = foodService.GetAllFood().First();
-             food.Id = new Guid().ToString();
-             food.IdRestaurant = new Guid().ToString();
+            var food = foodService.GetAllFood();
 
-             var entity = food.ToEntity();
+            var entity = food.Select(x => x.ToEntity()).ToList();
 
-             var foods = entity.TypesOfFood.First().Foods;*/
+            var restaurant = restaurantService.GetAllRestaurants();
 
+            Console.WriteLine("success");
         }
     }
 }
