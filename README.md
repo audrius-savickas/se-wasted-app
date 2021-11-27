@@ -1,4 +1,5 @@
 <img alt="Logo" src="./assets/logo/WastedApp_1.png" width="300" />
+
 [![Backend-CI](https://github.com/audrius-savickas/se-wasted-app/actions/workflows/backend.yml/badge.svg)](https://github.com/audrius-savickas/se-wasted-app/actions/workflows/backend.yml)
 
 # About
