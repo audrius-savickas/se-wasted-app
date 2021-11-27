@@ -1,6 +1,11 @@
-﻿using Persistence;
+﻿using Domain.Entities;
+using Persistence;
 using Persistence.Repositories;
+using Services.Mappers;
 using Services.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleApp
 {
@@ -43,7 +48,22 @@ namespace ConsoleApp
 
             //var emailService = new EmailService();
 
+
+            /*for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine(Guid.NewGuid());
+            }*/
+
+
+
             // Usage
+            var food = foodService.GetAllFood().First();
+            food.Id = new Guid().ToString();
+            food.IdRestaurant = new Guid().ToString();
+
+            var entity = food.ToEntity();
+
+            var foods = entity.TypesOfFood.First().Foods;
 
         }
     }

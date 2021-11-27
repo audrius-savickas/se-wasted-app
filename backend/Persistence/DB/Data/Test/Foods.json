@@ -8,7 +8,7 @@
     "ImageURL": "https://www.lamaistas.lt/uploads/modules/recipes/thumb920x573/19268.jpg",
     "TypesOfFood": [
       {
-        "Id": "2",
+        "Id": "fd744426-7b5c-4a97-be1d-f29f70f63033",
         "Name": "Traditional food"
       }
     ],
@@ -29,7 +29,7 @@
     "ImageURL": "https://receptai.patarimupasaulis.lt/images/Sriubos/saltibarsciai.jpg",
     "TypesOfFood": [
       {
-        "Id": "2",
+        "Id": "fd744426-7b5c-4a97-be1d-f29f70f63033",
         "Name": "Traditional food"
       }
     ],
@@ -50,7 +50,7 @@
     "ImageURL": "https://g3.dcdn.lt/images/pix/cepelinai-80268533.jpg",
     "TypesOfFood": [
       {
-        "Id": "2",
+        "Id": "fd744426-7b5c-4a97-be1d-f29f70f63033",
         "Name": "Traditional food"
       }
     ],
@@ -66,7 +66,7 @@
     "ImageURL": "https://www.lamaistas.lt/uploads/modules/recipes/thumb920x573/17353.jpg",
     "TypesOfFood": [
       {
-        "Id": "0",
+        "Id": "0deb5432-7fde-4e57-a908-57e1c7d75826",
         "Name": "Unclassified"
       }
     ],
@@ -82,7 +82,7 @@
     "ImageURL": "https://worldrecipes.eu/storage/11068/conversions/zemaiciu-blynai-vistiena-suriu-medium.jpg",
     "TypesOfFood": [
       {
-        "Id": "0",
+        "Id": "0deb5432-7fde-4e57-a908-57e1c7d75826",
         "Name": "Unclassified"
       }
     ],
@@ -103,7 +103,7 @@
     "ImageURL": "https://cdn.craftbeer.com/wp-content/uploads/Debunking-the-Myths-Surrounding-Dark-Beer2-hero.jpg",
     "TypesOfFood": [
       {
-        "Id": "3",
+        "Id": "0077dac9-14d2-4913-ae68-d431e666ea03",
         "Name": "Drink"
       }
     ],
@@ -119,7 +119,7 @@
     "ImageURL": "https://winning-homebrew.com/wp-content/uploads/2021/02/pale-ale.jpg",
     "TypesOfFood": [
       {
-        "Id": "3",
+        "Id": "0077dac9-14d2-4913-ae68-d431e666ea03",
         "Name": "Drink"
       }
     ],
@@ -135,11 +135,11 @@
     "ImageURL": "http://www.goingcavewoman.com/wp-content/uploads/2013/04/Drip-doughnut-1200.jpg",
     "TypesOfFood": [
       {
-        "Id": "1",
+        "Id": "f3fb3265-6618-4dac-99bd-6d8f03e53049",
         "Name": "Fast food"
       },
       {
-        "Id": "4",
+        "Id": "1cb231b0-edf2-4fad-8329-c9b2e81dbc76",
         "Name": "Pastry"
       }
     ],
@@ -155,11 +155,11 @@
     "ImageURL": "https://assets.epicurious.com/photos/54b0226d766062b20344580a/master/pass/51160200_glazed-doughnuts_1x1.jpg",
     "TypesOfFood": [
       {
-        "Id": "1",
+        "Id": "f3fb3265-6618-4dac-99bd-6d8f03e53049",
         "Name": "Fast food"
       },
       {
-        "Id": "4",
+        "Id": "1cb231b0-edf2-4fad-8329-c9b2e81dbc76",
         "Name": "Pastry"
       }
     ],
@@ -180,7 +180,7 @@
     "ImageURL": "https://www.alphafoodie.com/wp-content/uploads/2020/04/Homemade-Croissant-1-of-1-6.jpeg",
     "TypesOfFood": [
       {
-        "Id": "4",
+        "Id": "1cb231b0-edf2-4fad-8329-c9b2e81dbc76",
         "Name": "Pastry"
       }
     ],
@@ -196,7 +196,7 @@
     "ImageURL": "https://www.acouplecooks.com/wp-content/uploads/2020/09/Latte-Art-067s.jpg",
     "TypesOfFood": [
       {
-        "Id": "3",
+        "Id": "0077dac9-14d2-4913-ae68-d431e666ea03",
         "Name": "Drink"
       }
     ],
@@ -212,7 +212,7 @@
     "ImageURL": "https://assets.bonappetit.com/photos/5ca534485e96521ff23b382b/1:1/w_2700,h_2700,c_limit/chocolate-chip-cookie.jpg",
     "TypesOfFood": [
       {
-        "Id": "4",
+        "Id": "1cb231b0-edf2-4fad-8329-c9b2e81dbc76",
         "Name": "Pastry"
       }
     ],
@@ -228,23 +228,23 @@
     "ImageURL": "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg",
     "TypesOfFood": [
       {
-        "Id": "0",
+        "Id": "0deb5432-7fde-4e57-a908-57e1c7d75826",
         "Name": "Unclassified"
       },
       {
-        "Id": "1",
+        "Id": "f3fb3265-6618-4dac-99bd-6d8f03e53049",
         "Name": "Fast food"
       },
       {
-        "Id": "2",
+        "Id": "fd744426-7b5c-4a97-be1d-f29f70f63033",
         "Name": "Traditional food"
       },
       {
-        "Id": "3",
+        "Id": "0077dac9-14d2-4913-ae68-d431e666ea03",
         "Name": "Drink"
       },
       {
-        "Id": "4",
+        "Id": "1cb231b0-edf2-4fad-8329-c9b2e81dbc76",
         "Name": "Pastry"
       }
     ],

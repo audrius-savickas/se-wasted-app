@@ -39,7 +39,7 @@ namespace Services.Mappers
                 StartingPrice = from.StartingPrice,
                 MinimumPrice = from.MinimumPrice,
                 RestaurantId = Guid.Parse(from.IdRestaurant),
-                TypesOfFood = (ICollection<TypeOfFoodEntity>)from.TypesOfFood.Select(x => x.ToEntity()),
+                TypesOfFood = from.TypesOfFood.Select(x => x.ToEntity()).ToList(),
                 IntervalTimeInMinutes = from.IntervalTimeInMinutes,
                 DecreaseType = from.DecreaseType == DecreaseType.AMOUNT ? "AMOUNT" : "PERCENT",
                 ImageURL = from.ImageURL,
