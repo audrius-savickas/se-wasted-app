@@ -32,6 +32,7 @@ namespace Services.Mappers
 
         public static FoodEntity ToEntity(this Food from)
         {
+            // FIX: restaurant is not set
             return new FoodEntity
             {
                 Id = Guid.Parse(from.Id),
