@@ -1,7 +1,7 @@
 ﻿using Domain.Models;
 using System.Collections.Generic;
 
-namespace Persistence.Interfaces
+namespace Persistence.File.Interfaces
 {
     public interface IRestaurantRepository : IBaseRepository<Restaurant>
     {

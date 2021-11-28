@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-namespace Persistence
+namespace Persistence.File
 {
     public sealed class DBConfiguration
     {
@@ -51,7 +51,7 @@ namespace Persistence
 
             int backendPosition = assemblyDirectory.IndexOf("backend", 0);
             string baseDirectory = assemblyDirectory.Substring(0, backendPosition + "backend".Length);
-            InitialPathname = Path.Combine(baseDirectory, "Persistence");
+            InitialPathname = Path.Combine(baseDirectory, "Persistence.File");
         }
 
         private void UpdatePathsToDataFiles(JsonDocument document)

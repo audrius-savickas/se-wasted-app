@@ -1,7 +1,7 @@
 ﻿using Domain.Models;
-using Persistence.Interfaces;
+using Persistence.File.Interfaces;
 
-namespace Persistence.Repositories
+namespace Persistence.File.Repositories
 {
     public class FoodRepository : BaseRepository<Food>, IFoodRepository
     {

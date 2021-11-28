@@ -39,6 +39,7 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\Persistence.EF\Persistence.EF.csproj" />
     <ProjectReference Include="..\Services\Services.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>

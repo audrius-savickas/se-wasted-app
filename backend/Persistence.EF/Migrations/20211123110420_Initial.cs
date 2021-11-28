@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Persistence.Migrations
+namespace Persistence.EF.Migrations
 {
     public partial class Initial : Migration
     {

@@ -1,10 +1,10 @@
 ﻿using Domain.Models;
-using Persistence.Interfaces;
+using Persistence.File.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 
-namespace Persistence.Repositories
+namespace Persistence.File.Repositories
 {
     public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
