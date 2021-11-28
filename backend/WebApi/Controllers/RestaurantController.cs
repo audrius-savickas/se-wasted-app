@@ -50,6 +50,8 @@ namespace WebApi.Controllers
                 }
             }
 
+            userCoordinates = new Coords(userCoordinates.Longitude, userCoordinates.Latitude);
+
             var restaurants = _restaurantService.GetAllRestaurants();
 
             restaurants = restaurants.ToList();
