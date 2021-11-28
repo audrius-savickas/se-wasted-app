@@ -64,9 +64,10 @@ namespace WebApi
                 new RestaurantRepository(DBConfiguration.Instance.PathToRestaurantsFile)
             );*/
             services.AddScoped<IRestaurantRepository, RestaurantEFRepository>();
-            services.AddScoped<ITypeOfFoodRepository, TypeOfFoodRepository>(_ =>
+            /*services.AddScoped<ITypeOfFoodRepository, TypeOfFoodRepository>(_ =>
                 new TypeOfFoodRepository(DBConfiguration.Instance.PathToTypesOfFoodFile)
-            );
+            );*/
+            services.AddScoped<ITypeOfFoodRepository, TypeOfFoodEFRepository>();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.

@@ -38,7 +38,8 @@ namespace Services.Repositories
 
         public IEnumerable<Restaurant> GetAllRestaurantsCloserThan(Coords coords, Distances distance)
         {
-            throw new NotImplementedException();
+            return _context.Restaurants.Where(rest => rest.ToDomain().IsCloser(coords, distance))
+                                       .Select(x => x.ToDomain());
         }
 
         public Restaurant GetById(string id)
@@ -53,7 +54,7 @@ namespace Services.Repositories
 
         public IEnumerable<Restaurant> GetRestaurantsNear(Coords coords)
         {
-            throw new NotImplementedException();
+            return GetAllRestaurantsCloserThan(coords, Distances.NEAR);
         }
 
         public void Update(Restaurant restaurant)
