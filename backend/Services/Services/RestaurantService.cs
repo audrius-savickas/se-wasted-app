@@ -123,7 +123,7 @@ namespace Services.Services
             }
 
             // Registration
-            string id = generateId();
+            string id = Guid.NewGuid().ToString();
 
             Restaurant restaurant = new Restaurant
             {
@@ -136,10 +136,12 @@ namespace Services.Services
                 Description = restaurantRegisterRequest.Description,
             };
 
+
+            _restaurantRepository.Add(restaurant);
+
             // Raise an event that restaurant has registered
             OnRestaurantRegistered(new RestaurantEventArgs(restaurant));
 
-            _restaurantRepository.Add(restaurant);
             return id;
         }
 

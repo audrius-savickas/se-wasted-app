@@ -57,13 +57,13 @@ namespace ConsoleApp
 
 
             // Usage
-            var food = foodService.GetAllFood();
+            /*var food = foodService.GetAllFood();
 
             var entity = food.Select(x => x.ToEntity()).ToList();
 
             var restaurant = restaurantService.GetAllRestaurants();
 
-            Console.WriteLine("success");
+            Console.WriteLine("success");*/
         }
     }
 }

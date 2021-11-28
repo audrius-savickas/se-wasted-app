@@ -15,6 +15,7 @@ using Services.Services;
 using System;
 using System.IO;
 using System.Reflection;
+using Services.Repositories;
 
 namespace WebApi
 {
@@ -42,18 +43,6 @@ namespace WebApi
 
         private void ConfigureDatabase(IServiceCollection services)
         {
-            services.AddScoped<IFoodRepository, FoodRepository>(_ =>
-                new FoodRepository(DBConfiguration.Instance.PathToFoodsFile)
-            );
-            services.AddScoped<IRestaurantRepository, RestaurantRepository>(_ =>
-                new RestaurantRepository(DBConfiguration.Instance.PathToRestaurantsFile)
-            );
-            services.AddScoped<ITypeOfFoodRepository, TypeOfFoodRepository>(_ =>
-                new TypeOfFoodRepository(DBConfiguration.Instance.PathToTypesOfFoodFile)
-            );
-
-
-
             var connectionString = Configuration.GetConnectionString("AppDatabase");
 
             if (string.IsNullOrWhiteSpace(connectionString))
@@ -65,6 +54,19 @@ namespace WebApi
             {
                 options.UseSqlServer(connectionString);
             }, ServiceLifetime.Transient);
+
+
+            /*services.AddScoped<IFoodRepository, FoodRepository>(_ =>
+                new FoodRepository(DBConfiguration.Instance.PathToFoodsFile)
+            );*/
+            services.AddScoped<IFoodRepository, FoodEFRepository>();
+            /*services.AddScoped<IRestaurantRepository, RestaurantRepository>(_ =>
+                new RestaurantRepository(DBConfiguration.Instance.PathToRestaurantsFile)
+            );*/
+            services.AddScoped<IRestaurantRepository, RestaurantEFRepository>();
+            services.AddScoped<ITypeOfFoodRepository, TypeOfFoodRepository>(_ =>
+                new TypeOfFoodRepository(DBConfiguration.Instance.PathToTypesOfFoodFile)
+            );
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
