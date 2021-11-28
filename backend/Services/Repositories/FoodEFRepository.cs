@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Domain.Entities;
+using Domain.Models;
 using Persistence.EF;
 using Persistence.File.Interfaces;
 using Services.Mappers;
@@ -25,22 +26,35 @@ namespace Services.Repositories
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            FoodEntity entity = GetByIdString(id);
+            _context.Foods.Remove(entity);
+            _context.SaveChanges();
         }
 
         public IEnumerable<Food> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Foods.Select(x => x.ToDomain());
         }
 
         public Food GetById(string id)
         {
-            throw new NotImplementedException();
+            return GetByIdString(id).ToDomain();
         }
 
-        public void Update(Food entity)
+        public void Update(Food food)
         {
-            throw new NotImplementedException();
+            FoodEntity entity = GetByIdString(food.Id);
+            if (entity != null)
+            {
+                _context.Foods.Remove(entity);          // FIX: Ugly workaround for updating
+                _context.Foods.Add(food.ToEntity());
+                _context.SaveChanges();
+            }
+        }
+
+        private FoodEntity GetByIdString(string id)
+        {
+            return _context.Foods.Find(Guid.Parse(id));
         }
     }
 }

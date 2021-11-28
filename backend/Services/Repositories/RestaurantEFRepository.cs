@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Domain.Entities;
+using Domain.Models;
 using Persistence.EF;
 using Persistence.File.Interfaces;
 using Services.Mappers;
@@ -25,12 +26,14 @@ namespace Services.Repositories
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            RestaurantEntity entity = GetByIdString(id);
+            _context.Restaurants.Remove(entity);
+            _context.SaveChanges();
         }
 
         public IEnumerable<Restaurant> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Restaurants.Select(x => x.ToDomain());
         }
 
         public IEnumerable<Restaurant> GetAllRestaurantsCloserThan(Coords coords, Distances distance)
@@ -40,12 +43,12 @@ namespace Services.Repositories
 
         public Restaurant GetById(string id)
         {
-            throw new NotImplementedException();
+            return GetByIdString(id).ToDomain();
         }
 
         public Restaurant GetByMail(Mail mail)
         {
-            return null;
+            return _context.Restaurants.FirstOrDefault(x => x.Mail == mail.Value).ToDomain();
         }
 
         public IEnumerable<Restaurant> GetRestaurantsNear(Coords coords)
@@ -53,9 +56,20 @@ namespace Services.Repositories
             throw new NotImplementedException();
         }
 
-        public void Update(Restaurant entity)
+        public void Update(Restaurant restaurant)
         {
-            throw new NotImplementedException();
+            RestaurantEntity entity = GetByIdString(restaurant.Id);
+            if (entity != null)
+            {
+                _context.Restaurants.Remove(entity);          // FIX: Ugly workaround for updating
+                _context.Restaurants.Add(restaurant.ToEntity());
+                _context.SaveChanges();
+            }
+        }
+
+        private RestaurantEntity GetByIdString(string id)
+        {
+            return _context.Restaurants.Find(Guid.Parse(id));
         }
     }
 }

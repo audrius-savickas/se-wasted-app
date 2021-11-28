@@ -12,7 +12,7 @@ namespace Services.Mappers
         {
             DecreaseType decreaseType = string.Equals(from.DecreaseType, "AMOUNT") ? DecreaseType.AMOUNT : DecreaseType.PERCENT;
             string foodId = from.Id.ToString();
-            string restaurantId = from.Id.ToString();
+            string restaurantId = from.RestaurantId.ToString();
 
             return new Food(
                 foodId,
