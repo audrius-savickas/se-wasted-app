@@ -44,12 +44,12 @@ namespace Services.Repositories
 
         public Restaurant GetById(string id)
         {
-            return GetByIdString(id).ToDomain();
+            return GetByIdString(id)?.ToDomain();
         }
 
         public Restaurant GetByMail(Mail mail)
         {
-            return _context.Restaurants.FirstOrDefault(x => x.Mail == mail.Value).ToDomain();
+            return _context.Restaurants.FirstOrDefault(x => x.Mail == mail.Value)?.ToDomain();
         }
 
         public IEnumerable<Restaurant> GetRestaurantsNear(Coords coords)

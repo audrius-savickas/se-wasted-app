@@ -35,7 +35,7 @@ namespace Services.Repositories
 
         public TypeOfFood GetById(string id)
         {
-            return GetByIdString(id).ToDomain();
+            return GetByIdString(id)?.ToDomain();
         }
 
         public void Update(TypeOfFood entity)

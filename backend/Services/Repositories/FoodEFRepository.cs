@@ -38,7 +38,7 @@ namespace Services.Repositories
 
         public Food GetById(string id)
         {
-            return GetByIdString(id).ToDomain();
+            return GetByIdString(id)?.ToDomain();
         }
 
         public void Update(Food food)
