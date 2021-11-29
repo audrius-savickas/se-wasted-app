@@ -1,29 +1,30 @@
 import React, {useEffect, useState} from "react"
 import {ScrollView} from "react-native"
-import GetLocation, {Location} from "react-native-get-location"
 import {Navigation} from "react-native-navigation"
 import {Colors, LoaderScreen, View} from "react-native-ui-lib"
 import {CheapestFood} from "../../../components/sections/cheapest-food"
 import {LatestFood} from "../../../components/sections/latest-food"
 import {NearRestaurants} from "../../../components/sections/near-restaurants"
 import {PopularRestaurants} from "../../../components/sections/popular-restaurants"
+import {useLocation} from "../../../hooks/location"
 import {setHomeRoot} from "../../../services/navigation"
 import {HOME_BUTTON} from "../home-button"
 import {HomeProps} from "./interfaces"
 
 export const Home = ({componentId}: HomeProps) => {
   const [loading, setLoading] = useState(true)
-  const [location, setLocation] = useState({} as Location)
+  const [loaderMessage, setLoaderMessage] = useState("Loading...")
+  const {location, locationAllowed, locationLoaded, fetchLocation} = useLocation()
 
-  const fetchLocation = async () => {
-    setLocation(
-      await GetLocation.getCurrentPosition({
-        enableHighAccuracy: true,
-        timeout: 15000
-      })
-    )
-    setLoading(false)
-  }
+  useEffect(() => {
+    if (locationLoaded) {
+      if (locationAllowed) {
+        setLoading(false)
+      } else {
+        setLoaderMessage("Please allow access to location to see restaurants")
+      }
+    }
+  }, [locationLoaded, locationAllowed])
 
   useEffect(() => {
     fetchLocation()
@@ -39,7 +40,7 @@ export const Home = ({componentId}: HomeProps) => {
   return (
     <>
       {loading ? (
-        <LoaderScreen color={Colors.blue30} message="Loading..." />
+        <LoaderScreen color={Colors.blue30} message={loaderMessage} />
       ) : (
         <ScrollView>
           <View style={{borderBottomColor: Colors.grey50, borderBottomWidth: 1}}>
