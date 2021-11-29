@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 import {Navigation} from "react-native-navigation"
-import {Text, View, Button, Wizard, Colors} from "react-native-ui-lib"
+import {Button, Colors, Text, View, Wizard} from "react-native-ui-lib"
 import {DecreaseType, Food} from "../../../api/interfaces"
 import {setHomeRoot} from "../../../services/navigation"
 import {AddFoodScreenProps} from "./interfaces"
