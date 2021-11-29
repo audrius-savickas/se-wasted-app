@@ -7,7 +7,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Persistence;
 using Persistence.Interfaces;
-using Persistence.Repositories;
 using Services.Interfaces;
 using Services.Options;
 using Services.Services;

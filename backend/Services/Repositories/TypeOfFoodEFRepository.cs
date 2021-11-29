@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Models;
-using Persistence.EF;
-using Persistence.File.Interfaces;
+using Persistence;
+using Persistence.Interfaces;
 using Services.Mappers;
 using System;
 using System.Collections.Generic;
