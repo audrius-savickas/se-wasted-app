@@ -117,8 +117,6 @@ namespace Services.Services
                 throw;
             }
 
-            food.Id = Guid.NewGuid().ToString();
-
             _foodRepository.Add(food);
             return food.Id;
         }
