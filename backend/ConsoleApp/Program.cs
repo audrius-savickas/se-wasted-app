@@ -46,16 +46,6 @@ namespace ConsoleApp
                 foodRepository
             );
 
-            //var emailService = new EmailService();
-
-
-            /*for (int i = 0; i < 15; i++)
-            {
-                Console.WriteLine(Guid.NewGuid());
-            }*/
-
-
-
             // Usage
             /*var food = foodService.GetAllFood();
 
