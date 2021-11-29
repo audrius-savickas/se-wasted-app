@@ -1,7 +1,7 @@
 ﻿using Contracts.DTOs;
 using Domain.Models;
 using Domain.Helpers;
-using Persistence.File.Interfaces;
+using Persistence.Interfaces;
 using Services.Exceptions;
 using Services.Interfaces;
 using System;

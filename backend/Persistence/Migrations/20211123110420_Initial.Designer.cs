@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
-namespace Persistence.EF.Migrations
+namespace Persistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
     [Migration("20211123110420_Initial")]

@@ -1,7 +1,7 @@
 ﻿using Domain.Models;
 using System.Collections.Generic;
 
-namespace Persistence.File.Interfaces
+namespace Persistence.Interfaces
 {
     public interface IBaseRepository<T> where T : BaseEntity
     {

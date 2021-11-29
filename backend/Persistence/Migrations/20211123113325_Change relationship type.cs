@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Persistence.EF.Migrations
+namespace Persistence.Migrations
 {
     public partial class Changerelationshiptype : Migration
     {

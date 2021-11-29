@@ -12,15 +12,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{C6FFBEAD-D1E4-4343-A701-9E528A3BC0DB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence.EF", "Persistence.EF\Persistence.EF.csproj", "{6D462D03-275A-4F8D-BDD7-9C8B8F1D12D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{6D462D03-275A-4F8D-BDD7-9C8B8F1D12D7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{D5D47F08-69D0-4C36-9193-0B6F35133ECC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{74A30C58-7415-436D-87D8-246F004098A4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{5C40A4EA-B8CC-479C-B23C-1F8020820427}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence.File", "Persistence.File\Persistence.File.csproj", "{45AE3490-D6CE-47C7-8236-FED6C5494C63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,10 +50,6 @@ Global
 		{5C40A4EA-B8CC-479C-B23C-1F8020820427}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C40A4EA-B8CC-479C-B23C-1F8020820427}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C40A4EA-B8CC-479C-B23C-1F8020820427}.Release|Any CPU.Build.0 = Release|Any CPU
-		{45AE3490-D6CE-47C7-8236-FED6C5494C63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{45AE3490-D6CE-47C7-8236-FED6C5494C63}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{45AE3490-D6CE-47C7-8236-FED6C5494C63}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{45AE3490-D6CE-47C7-8236-FED6C5494C63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

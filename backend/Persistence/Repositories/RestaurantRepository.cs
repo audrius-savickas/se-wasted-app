@@ -1,9 +1,9 @@
 ﻿using Domain.Models;
-using Persistence.File.Interfaces;
+using Persistence.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Persistence.File.Repositories
+namespace Persistence.Repositories
 {
     public class RestaurantRepository : BaseRepository<Restaurant>, IRestaurantRepository
     {

@@ -1,6 +1,6 @@
 ﻿using Domain.Models;
 
-namespace Persistence.File.Interfaces
+namespace Persistence.Interfaces
 {
     public interface ITypeOfFoodRepository : IBaseRepository<TypeOfFood>
     {

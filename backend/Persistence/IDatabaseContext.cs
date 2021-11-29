@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.EF
+namespace Persistence
 {
     public interface IDatabaseContext
     {

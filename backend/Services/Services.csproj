@@ -11,9 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\Persistence.EF\Persistence.EF.csproj" />
-    <ProjectReference Include="..\Persistence.File\Persistence.File.csproj" />
-    <ProjectReference Include="..\Persistence\Persistence.EF.csproj" />
+    <ProjectReference Include="..\Persistence\Persistence.csproj" />
     <ProjectReference Include="..\Contracts\Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>

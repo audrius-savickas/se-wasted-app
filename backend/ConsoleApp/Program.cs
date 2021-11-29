@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
-using Persistence.File;
-using Persistence.File.Repositories;
+using Persistence;
+using Persistence.Repositories;
 using Services.Mappers;
 using Services.Services;
 using System;
