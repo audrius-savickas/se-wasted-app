@@ -5,6 +5,7 @@ import {fetchLocation} from "../actions/location"
 interface State {
   location: Location
   locationLoaded: boolean
+  locationAllowed: boolean
 }
 
 export const initialState: State = {
@@ -16,12 +17,18 @@ export const initialState: State = {
     speed: 0,
     time: 0
   },
-  locationLoaded: false
+  locationLoaded: false,
+  locationAllowed: false
 }
 
 export const location = createReducer(initialState, builder => {
   builder.addCase(fetchLocation.fulfilled, (state, {payload}) => {
     state.location = payload
+    state.locationAllowed = true
+    state.locationLoaded = true
+  })
+  builder.addCase(fetchLocation.rejected, state => {
+    state.locationAllowed = false
     state.locationLoaded = true
   })
 })

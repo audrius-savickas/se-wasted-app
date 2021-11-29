@@ -13,13 +13,18 @@ import {HomeProps} from "./interfaces"
 
 export const Home = ({componentId}: HomeProps) => {
   const [loading, setLoading] = useState(true)
-  const {location, locationLoaded, fetchLocation} = useLocation()
+  const [loaderMessage, setLoaderMessage] = useState("Loading...")
+  const {location, locationAllowed, locationLoaded, fetchLocation} = useLocation()
 
   useEffect(() => {
     if (locationLoaded) {
-      setLoading(false)
+      if (locationAllowed) {
+        setLoading(false)
+      } else {
+        setLoaderMessage("Please allow access to location to see restaurants")
+      }
     }
-  }, [locationLoaded])
+  }, [locationLoaded, locationAllowed])
 
   useEffect(() => {
     fetchLocation()
@@ -35,7 +40,7 @@ export const Home = ({componentId}: HomeProps) => {
   return (
     <>
       {loading ? (
-        <LoaderScreen color={Colors.blue30} message="Loading..." />
+        <LoaderScreen color={Colors.blue30} message={loaderMessage} />
       ) : (
         <ScrollView>
           <View style={{borderBottomColor: Colors.grey50, borderBottomWidth: 1}}>
