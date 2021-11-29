@@ -17,9 +17,6 @@
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		0588DE4438AB49D299DA858B /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "wastedapp/noop-file.swift"; sourceTree = "<group>"; };
@@ -183,24 +180,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* wastedapp */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		188C04EE272F05CA00A7C6D3 /* libRNVectorIcons-tvOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libRNVectorIcons-tvOS.a";
-			remoteRef = 188C04ED272F05CA00A7C6D3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
@@ -260,6 +245,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-wastedapp/Pods-wastedapp-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -280,6 +266,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
@@ -363,6 +350,7 @@
 					"$(inherited)",
 					"FB_SONARKIT_ENABLED=1",
 				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = wastedapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -378,9 +366,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-				);
 			};
 			name = Debug;
 		};
@@ -392,6 +377,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = wastedapp/app.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = wastedapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -406,9 +392,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-				);
 			};
 			name = Release;
 		};

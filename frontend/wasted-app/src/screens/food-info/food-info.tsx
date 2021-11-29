@@ -41,7 +41,9 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
 
     const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
       if (buttonId === "DISMISS") {
-        Navigation.dismissModal(componentId)
+        if (!showRestaurantLink) {
+          Navigation.dismissModal(componentId)
+        }
       }
     })
     return () => listener.remove()

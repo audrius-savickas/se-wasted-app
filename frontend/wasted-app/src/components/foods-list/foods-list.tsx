@@ -1,7 +1,7 @@
 import React from "react"
 import {FlatList, ListRenderItemInfo} from "react-native"
 import {Food} from "../../api/interfaces"
-import {showFoodInfoModal} from "../../services/navigation"
+import {navigateToFoodInfo} from "../../services/navigation"
 import {FoodItem} from "../food-item"
 import {FoodsListProps} from "./interfaces"
 
@@ -11,7 +11,7 @@ export const FoodsList = ({componentId, foods}: FoodsListProps) => {
       <FoodItem
         food={item}
         onPress={() => {
-          showFoodInfoModal({food: item, showRestaurantLink: true, componentId})
+          navigateToFoodInfo(componentId, {food: item, componentId})
         }}
       />
     )
