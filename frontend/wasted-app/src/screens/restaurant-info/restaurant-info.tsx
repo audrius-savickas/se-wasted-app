@@ -2,12 +2,13 @@ import React, {useState} from "react"
 import {StyleSheet} from "react-native"
 import {ScrollView} from "react-native-gesture-handler"
 import {Colors, ExpandableSection, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import {Map} from "../../components/map"
 import {navigateToFoodList} from "../../services/navigation"
 import {formatDistance} from "../../utils/coordinates"
 import {RestaurantInfoProps} from "./interfaces"
 
 export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) => {
-  const {name, address, foodCount, description, distanceToUser} = restaurant
+  const {name, address, foodCount, description, distanceToUser, coords} = restaurant
   const [descriptionExpanded, setDescriptionExpanded] = useState(true)
 
   return (
@@ -63,6 +64,13 @@ export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) =
             </Text>
           </ExpandableSection>
         </View>
+        <View marginH-s4 marginT-s4>
+          <Map
+            coordinates={coords}
+            coordinatesDelta={{latitudeDelta: 0.003, longitudeDelta: 0.003}}
+            style={styles.map}
+          />
+        </View>
         <View marginT-s6 center>
           <TouchableOpacity
             bg-purple30
@@ -86,5 +94,8 @@ export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) =
 
 const styles = StyleSheet.create({
   shadow: {shadowColor: Colors.black, shadowOpacity: 0.4, shadowOffset: {height: 0, width: 0}},
-  shadowButton: {shadowColor: Colors.black, shadowOpacity: 0.7, shadowOffset: {height: 0, width: 0}}
+  shadowButton: {shadowColor: Colors.black, shadowOpacity: 0.7, shadowOffset: {height: 0, width: 0}},
+  map: {
+    height: 200
+  }
 })

@@ -3,7 +3,7 @@ import {ListRenderItemInfo} from "react-native"
 import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getAllFood} from "../../../api/food"
 import {Food, FoodSortType} from "../../../api/interfaces"
-import {showFoodInfoModal} from "../../../services/navigation"
+import {navigateToFoodInfo} from "../../../services/navigation"
 import {formatPrice} from "../../../utils/currency"
 import {HorizontalList} from "../../horizontal-list"
 import {CheapestFoodProps} from "./interfaces"
@@ -16,7 +16,7 @@ export const CheapestFood = ({componentId}: CheapestFoodProps) => {
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Food>) => (
-    <TouchableOpacity margin-s1 centerH onPress={() => showFoodInfoModal({food: item, componentId})}>
+    <TouchableOpacity margin-s1 centerH onPress={() => navigateToFoodInfo(componentId, {food: item, componentId})}>
       <Image
         source={{
           uri: item.imageURL,
