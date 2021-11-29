@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models
 {
-    public class TypeOfFood : BaseEntity
+    public class TypeOfFood : BaseModel
     {
         public TypeOfFood() : base() { }
 

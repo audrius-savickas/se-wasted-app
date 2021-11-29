@@ -18,9 +18,9 @@ namespace Services.Repositories
         {
             _context = context;
         }
-        public void Add(Food entity)
+        public void Add(Food food)
         {
-            _context.Foods.Add(entity.ToEntity());
+            _context.Foods.Add(food.ToEntity());
             _context.SaveChanges();
         }
 

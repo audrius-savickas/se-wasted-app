@@ -2,20 +2,20 @@
 
 namespace Domain.Models
 {
-    public abstract class BaseEntity : IEquatable<BaseEntity>
+    public abstract class BaseModel : IEquatable<BaseModel>
     {
         public string Id { get; set; }
         public string Name { get; set; }
 
-        public BaseEntity() { }
+        public BaseModel() { }
 
-        public BaseEntity(string id, string name)
+        public BaseModel(string id, string name)
         {
             Id = id;
             Name = name;
         }
 
-        public bool Equals(BaseEntity other)
+        public bool Equals(BaseModel other)
         {
             if (other == null) return false;
             return (Id.CompareTo(other.Id) == 0);

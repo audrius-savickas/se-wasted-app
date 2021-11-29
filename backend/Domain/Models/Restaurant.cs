@@ -3,7 +3,7 @@ using System;
 
 namespace Domain.Models
 {
-    public class Restaurant : BaseEntity
+    public class Restaurant : BaseModel
     {
         public Coords Coords { get; set; }
         public string Address { get; set; }

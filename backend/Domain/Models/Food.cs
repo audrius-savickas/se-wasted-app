@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models
 {
-    public class Food : BaseEntity
+    public class Food : BaseModel
     {
         public decimal StartingPrice { get; set; }
         public decimal MinimumPrice { get; set; }
