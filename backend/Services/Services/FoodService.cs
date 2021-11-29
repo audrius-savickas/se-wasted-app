@@ -95,7 +95,7 @@ namespace Services.Services
 
         public string RegisterFood(Food food, Func<string> generateId)
         {
-            /*ValidateDecreaseType(food.DecreaseType);
+            ValidateDecreaseType(food.DecreaseType);
 
             // Check if restaurant is valid
             if (_restaurantRepository.GetById(food.IdRestaurant) == null)
@@ -107,6 +107,7 @@ namespace Services.Services
 
             // Generate id for food item
             food.Id = generateId();
+
             try
             {
                 food.TypesOfFood = GetValidTypesOfFood(food.TypesOfFood);
@@ -114,7 +115,7 @@ namespace Services.Services
             catch(ArgumentException)
             {
                 throw;
-            }*/
+            }
 
             food.Id = Guid.NewGuid().ToString();
 
