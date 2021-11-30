@@ -30,6 +30,8 @@
     <PackageReference Include="Microsoft.OpenApi" Version="1.2.3" />
     <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,5 +51,7 @@
     <None Remove="Microsoft.AspNet.WebApi" />
     <None Remove="Microsoft.OpenApi" />
     <None Remove="Swashbuckle.AspNetCore" />
+    <None Remove="Serilog" />
+    <None Remove="Serilog.Sinks.File" />
   </ItemGroup>
 </Project>

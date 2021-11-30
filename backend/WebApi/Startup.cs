@@ -14,6 +14,8 @@ using System;
 using System.IO;
 using System.Reflection;
 using Services.Repositories;
+using WebApi.Middleware;
+using Serilog;
 
 namespace WebApi
 {
@@ -68,9 +70,19 @@ namespace WebApi
             services.AddScoped<ITypeOfFoodRepository, TypeOfFoodEFRepository>();
         }
 
+        private void ConfigureLogger(IServiceCollection services)
+        {
+            Log.Logger = new LoggerConfiguration()
+                   .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+                   .CreateLogger();
+
+            services.AddSingleton(x => Log.Logger);
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureLogger(services);
             ConfigureOptions(services);
             ConfigureDatabase(services);
 
@@ -114,6 +126,8 @@ namespace WebApi
                 });
             }
 
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
