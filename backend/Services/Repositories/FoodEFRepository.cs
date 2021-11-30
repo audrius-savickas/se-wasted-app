@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Models;
+using Domain.Models.QueryParameters;
 using Persistence;
 using Persistence.Interfaces;
 using Services.Mappers;
@@ -34,6 +35,14 @@ namespace Services.Repositories
         public IEnumerable<Food> GetAll()
         {
             return _context.Foods.Select(x => x.ToDomain());
+        }
+
+        public IEnumerable<Food> GetAllWithPaging(FoodParameters foodParameters)
+        {
+            return PagedList<Food>.ToPagedList(
+                _context.Foods.Select(x => x.ToDomain()), 
+                foodParameters.PageNumber, 
+                foodParameters.PageSize);
         }
 
         public Food GetById(string id)

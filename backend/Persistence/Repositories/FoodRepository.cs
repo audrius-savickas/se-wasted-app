@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Domain.Models.QueryParameters;
 using Persistence.Interfaces;
 
 namespace Persistence.Repositories
@@ -7,6 +8,11 @@ namespace Persistence.Repositories
     {
         public FoodRepository(string pathToDatabase) : base(pathToDatabase)
         {
+        }
+
+        public PagedList<Food> GetAllWithPaging(FoodParameters foodParameters)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

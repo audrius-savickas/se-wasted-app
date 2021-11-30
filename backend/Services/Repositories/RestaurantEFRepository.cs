@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Models;
+using Domain.Models.QueryParameters;
 using Persistence;
 using Persistence.Interfaces;
 using Services.Mappers;
@@ -40,6 +41,14 @@ namespace Services.Repositories
         {
             return _context.Restaurants.Where(rest => rest.ToDomain().IsCloser(coords, distance))
                                        .Select(x => x.ToDomain());
+        }
+
+        public PagedList<Restaurant> GetAllWithPaging(RestaurantParameters restaurantParameters)
+        {
+            return PagedList<Restaurant>.ToPagedList(
+                _context.Restaurants.Select(x => x.ToDomain()),
+                restaurantParameters.PageNumber,
+                restaurantParameters.PageSize);
         }
 
         public Restaurant GetById(string id)

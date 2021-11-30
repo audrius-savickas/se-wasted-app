@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Domain.Models.QueryParameters;
 using Persistence.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,11 @@ namespace Persistence.Repositories
                 r => r.IsCloser(coords, distance)
             );
             return restaurantsCloser;
+        }
+
+        public PagedList<Restaurant> GetAllWithPaging(RestaurantParameters restaurantParameters)
+        {
+            throw new System.NotImplementedException();
         }
 
         public Restaurant GetByMail(Mail mail)

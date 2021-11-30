@@ -1,5 +1,6 @@
 ﻿using Contracts.DTOs;
 using Domain.Models;
+using Domain.Models.QueryParameters;
 using Persistence.Interfaces;
 using Services.Exceptions;
 using Services.Interfaces;
@@ -40,9 +41,9 @@ namespace Services.Services
 
         }
 
-        public IEnumerable<Food> GetAllFood()
+        public PagedList<Food> GetAllFood(FoodParameters foodParameters)
         {
-            return _foodRepository.GetAll().ToList();
+            return _foodRepository.GetAllWithPaging(foodParameters);
         }
 
         public Food GetFoodById(string idFood)

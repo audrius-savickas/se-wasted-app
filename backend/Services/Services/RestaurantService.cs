@@ -7,6 +7,7 @@ using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Models.QueryParameters;
 
 namespace Services.Services
 {
@@ -75,11 +76,10 @@ namespace Services.Services
             _restaurantRepository.Delete(restaurant.Id);
         }
 
-        public IEnumerable<RestaurantDto> GetAllRestaurants()
+        public PagedList<RestaurantDto> GetAllRestaurants(RestaurantParameters restaurantParameters)
         {
-            return _restaurantRepository
-                    .GetAll()
-                    .Select(r => RestaurantDto.FromEntity(r));
+            var restaurantPagedList = _restaurantRepository.GetAllWithPaging(restaurantParameters);
+            return restaurantPagedList.ConvertAllItems(restaurantPagedList, new Converter<Restaurant,RestaurantDto>(RestaurantDto.FromEntity));
         }
 
         public RestaurantDto GetRestaurantById(string idRestaurant)
