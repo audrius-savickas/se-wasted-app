@@ -37,7 +37,7 @@ namespace Services.Repositories
             return _context.Foods.Select(x => x.ToDomain());
         }
 
-        public IEnumerable<Food> GetAllWithPaging(FoodParameters foodParameters)
+        public PagedList<Food> GetAllWithPaging(FoodParameters foodParameters)
         {
             return PagedList<Food>.ToPagedList(
                 _context.Foods.Select(x => x.ToDomain()), 

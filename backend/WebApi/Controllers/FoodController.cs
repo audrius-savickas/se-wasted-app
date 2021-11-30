@@ -1,5 +1,6 @@
 ﻿using Contracts.DTOs;
 using Domain.Models;
+using Domain.Models.QueryParameters;
 using Microsoft.AspNetCore.Mvc;
 using Services.Exceptions;
 using Services.Interfaces;
@@ -28,11 +29,12 @@ namespace WebApi.Controllers
         /// Retrieve all food items.
         /// </summary>
         /// <param name="sortOrder">Optional order by which the food should be sorted</param>
+        /// <param name="foodParameters">Page number and size</param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public IActionResult GetAll(string sortOrder = null)
+        public IActionResult GetAll([FromQuery] FoodParameters foodParameters, string sortOrder = null)
         {
             if (sortOrder != null)
             {
@@ -46,7 +48,7 @@ namespace WebApi.Controllers
                 }
             }
 
-            var foodsResp = _foodService.GetAllFood().Select(food => FoodResponse.FromEntity(food));
+            var foodsResp = _foodService.GetAllFood(foodParameters).Select(food => FoodResponse.FromEntity(food));
 
             foodsResp = EntitySorter.SortFoods(foodsResp, sortOrder);
 

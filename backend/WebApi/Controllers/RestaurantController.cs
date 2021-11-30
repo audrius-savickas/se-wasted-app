@@ -38,7 +38,7 @@ namespace WebApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult GetAll(string sortOrder = null, [FromQuery] Coords userCoordinates = null)
         {
-            if (sortOrder != null)
+            /*if (sortOrder != null)
             {
                 try
                 {
@@ -66,7 +66,8 @@ namespace WebApi.Controllers
 
             restaurants = EntitySorter.SortRestaurants(restaurants, sortOrder);
 
-            return Ok(restaurants);
+            return Ok(restaurants);*/
+            return Ok();
         }
 
         /// <summary>
