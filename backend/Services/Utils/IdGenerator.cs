@@ -6,7 +6,7 @@ namespace Services.Utils
     {
         public static string GenerateUniqueId()
         {
-            return Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+            return Guid.NewGuid().ToString();
         }
     }
 }

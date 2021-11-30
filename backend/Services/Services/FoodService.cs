@@ -1,5 +1,5 @@
 ﻿using Contracts.DTOs;
-using Domain.Entities;
+using Domain.Models;
 using Persistence.Interfaces;
 using Services.Exceptions;
 using Services.Interfaces;
@@ -107,6 +107,7 @@ namespace Services.Services
 
             // Generate id for food item
             food.Id = generateId();
+
             try
             {
                 food.TypesOfFood = GetValidTypesOfFood(food.TypesOfFood);

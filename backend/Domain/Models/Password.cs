@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Domain.Entities
+namespace Domain.Models
 {
     public class Password : IEquatable<Password>
     {

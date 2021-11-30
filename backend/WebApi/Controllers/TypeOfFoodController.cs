@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using System.Collections.Generic;

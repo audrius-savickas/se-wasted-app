@@ -1,22 +1,22 @@
 [
-    {
-        "Id":"0",
-        "Name":"Unclassified"
-    },
-    {
-        "Id":"1",
-        "Name":"Fast food"
-    },
-    {
-        "Id": "2",
-        "Name": "Traditional food"
-    },
-    {
-        "Id": "3",
-        "Name": "Drink"
-    },
-    {
-        "Id": "4",
-        "Name": "Pastry"
-    }
+  {
+    "Id": "0deb5432-7fde-4e57-a908-57e1c7d75826",
+    "Name": "Unclassified"
+  },
+  {
+    "Id": "f3fb3265-6618-4dac-99bd-6d8f03e53049",
+    "Name": "Fast food"
+  },
+  {
+    "Id": "fd744426-7b5c-4a97-be1d-f29f70f63033",
+    "Name": "Traditional food"
+  },
+  {
+    "Id": "0077dac9-14d2-4913-ae68-d431e666ea03",
+    "Name": "Drink"
+  },
+  {
+    "Id": "1cb231b0-edf2-4fad-8329-c9b2e81dbc76",
+    "Name": "Pastry"
+  }
 ]

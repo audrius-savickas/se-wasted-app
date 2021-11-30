@@ -1,5 +1,5 @@
 ﻿using Contracts.DTOs;
-using Domain.Entities;
+using Domain.Models;
 using Domain.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Services.Exceptions;
@@ -49,6 +49,8 @@ namespace WebApi.Controllers
                     return BadRequest(e.Message);
                 }
             }
+
+            userCoordinates = new Coords(userCoordinates.Longitude, userCoordinates.Latitude);
 
             var restaurants = _restaurantService.GetAllRestaurants();
 

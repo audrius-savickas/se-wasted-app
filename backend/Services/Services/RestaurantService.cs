@@ -1,5 +1,5 @@
 ﻿using Contracts.DTOs;
-using Domain.Entities;
+using Domain.Models;
 using Domain.Helpers;
 using Persistence.Interfaces;
 using Services.Exceptions;
@@ -136,10 +136,11 @@ namespace Services.Services
                 Description = restaurantRegisterRequest.Description,
             };
 
+            _restaurantRepository.Add(restaurant);
+
             // Raise an event that restaurant has registered
             OnRestaurantRegistered(new RestaurantEventArgs(restaurant));
 
-            _restaurantRepository.Add(restaurant);
             return id;
         }
 

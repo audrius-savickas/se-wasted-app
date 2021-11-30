@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Persistence;
 using Persistence.Interfaces;
-using Persistence.Repositories;
 using Services.Interfaces;
 using Services.Options;
 using Services.Services;
 using System;
 using System.IO;
 using System.Reflection;
+using Services.Repositories;
 
 namespace WebApi
 {
@@ -40,17 +41,31 @@ namespace WebApi
 
         private void ConfigureDatabase(IServiceCollection services)
         {
+            var connectionString = Configuration.GetConnectionString("AppDatabase");
 
-            services.AddScoped<IFoodRepository, FoodRepository>(_ =>
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new ArgumentNullException(nameof(connectionString), "Connection string not found");
+            }
+
+            services.AddDbContext<IDatabaseContext, DatabaseContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+            }, ServiceLifetime.Transient);
+
+
+            /*services.AddScoped<IFoodRepository, FoodRepository>(_ =>
                 new FoodRepository(DBConfiguration.Instance.PathToFoodsFile)
-            );
-            services.AddScoped<IRestaurantRepository, RestaurantRepository>(_ =>
+            );*/
+            services.AddScoped<IFoodRepository, FoodEFRepository>();
+            /*services.AddScoped<IRestaurantRepository, RestaurantRepository>(_ =>
                 new RestaurantRepository(DBConfiguration.Instance.PathToRestaurantsFile)
-            );
-            services.AddScoped<ITypeOfFoodRepository, TypeOfFoodRepository>(_ =>
+            );*/
+            services.AddScoped<IRestaurantRepository, RestaurantEFRepository>();
+            /*services.AddScoped<ITypeOfFoodRepository, TypeOfFoodRepository>(_ =>
                 new TypeOfFoodRepository(DBConfiguration.Instance.PathToTypesOfFoodFile)
-            );
-            //services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            );*/
+            services.AddScoped<ITypeOfFoodRepository, TypeOfFoodEFRepository>();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
