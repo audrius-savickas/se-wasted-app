@@ -14,6 +14,8 @@ using System;
 using System.IO;
 using System.Reflection;
 using Services.Repositories;
+using WebApi.Middleware;
+using Serilog;
 
 namespace WebApi
 {
@@ -53,24 +55,24 @@ namespace WebApi
                 options.UseSqlServer(connectionString);
             }, ServiceLifetime.Transient);
 
-
-            /*services.AddScoped<IFoodRepository, FoodRepository>(_ =>
-                new FoodRepository(DBConfiguration.Instance.PathToFoodsFile)
-            );*/
             services.AddScoped<IFoodRepository, FoodEFRepository>();
-            /*services.AddScoped<IRestaurantRepository, RestaurantRepository>(_ =>
-                new RestaurantRepository(DBConfiguration.Instance.PathToRestaurantsFile)
-            );*/
             services.AddScoped<IRestaurantRepository, RestaurantEFRepository>();
-            /*services.AddScoped<ITypeOfFoodRepository, TypeOfFoodRepository>(_ =>
-                new TypeOfFoodRepository(DBConfiguration.Instance.PathToTypesOfFoodFile)
-            );*/
             services.AddScoped<ITypeOfFoodRepository, TypeOfFoodEFRepository>();
+        }
+
+        private void ConfigureLogger(IServiceCollection services)
+        {
+            Log.Logger = new LoggerConfiguration()
+                   .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+                   .CreateLogger();
+
+            services.AddSingleton(x => Log.Logger);
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureLogger(services);
             ConfigureOptions(services);
             ConfigureDatabase(services);
 
@@ -113,6 +115,8 @@ namespace WebApi
                     c.RoutePrefix = string.Empty;
                 });
             }
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseHttpsRedirection();
 
