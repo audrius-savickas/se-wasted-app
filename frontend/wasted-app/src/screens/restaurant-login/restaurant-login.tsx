@@ -1,3 +1,4 @@
+import {GoogleSignin, GoogleSigninButton, statusCodes, User} from "@react-native-google-signin/google-signin"
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
 import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
@@ -6,9 +7,13 @@ import {PasswordInput} from "../../components/password-input"
 import {navigateToRestaurantRegistration, setRestaurantRoot} from "../../services/navigation"
 import {RestaurantLoginProps} from "./interfaces"
 
+GoogleSignin.configure({iosClientId: "834850407777-uv37m0m83itkc63p628t4hs52vabfrnh.apps.googleusercontent.com"})
+// GoogleSignin.configure({iosClientId: "com.googleusercontent.apps.834850407777-uv37m0m83itkc63p628t4hs52vabfrnh"})
+
 export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [userInfo, setUserInfo] = useState({} as User)
 
   const [emailValid, setEmailValid] = useState(true)
   const [passwordValid, setPasswordValid] = useState(true)
@@ -31,6 +36,25 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
     }
   }
 
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices()
+      const userInfo = await GoogleSignin.signIn()
+      console.log(userInfo)
+      setUserInfo(userInfo)
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  }
+
   const navigateToRegistration = () => {
     navigateToRestaurantRegistration(componentId, {})
   }
@@ -47,6 +71,7 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
         <Text blue40 text20L marginB-s10>
           Restaurant login
         </Text>
+        <GoogleSigninButton onPress={signIn} />
         <View marginB-s4 width={320}>
           <Incubator.TextField
             validateOnChange
