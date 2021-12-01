@@ -38,7 +38,7 @@ namespace Services.Repositories
 
         public IEnumerable<Restaurant> GetAllRestaurantsCloserThan(Coords coords, Distances distance)
         {
-            return _context.Restaurants.Where(rest => rest.ToDomain().IsCloser(coords, distance))
+            return _context.Restaurants.AsEnumerable().Where(rest => rest.ToDomain().IsCloser(coords, distance))
                                        .Select(x => x.ToDomain());
         }
 
