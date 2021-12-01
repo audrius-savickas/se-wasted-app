@@ -4,10 +4,7 @@ using Persistence;
 using Persistence.Interfaces;
 using Services.Mappers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Repositories
 {
@@ -18,7 +15,7 @@ namespace Services.Repositories
         {
             _context = context;
         }
-        public void Add(TypeOfFood entity)
+        public string Insert(TypeOfFood entity)
         {
             throw new NotImplementedException();
         }
@@ -28,7 +25,7 @@ namespace Services.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TypeOfFood> GetAll()
+        public IQueryable<TypeOfFood> GetAll()
         {
             return _context.TypesOfFood.Select(x => x.ToDomain());
         }

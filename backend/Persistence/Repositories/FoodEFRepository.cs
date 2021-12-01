@@ -1,14 +1,10 @@
 ﻿using Domain.Entities;
 using Domain.Models;
-using Domain.Models.QueryParameters;
 using Persistence;
 using Persistence.Interfaces;
 using Services.Mappers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Repositories
 {
@@ -19,10 +15,11 @@ namespace Services.Repositories
         {
             _context = context;
         }
-        public void Add(Food food)
+        public string Insert(Food food)
         {
             _context.Foods.Add(food.ToEntity());
             _context.SaveChanges();
+            return food.Id;
         }
 
         public void Delete(string id)
@@ -32,17 +29,9 @@ namespace Services.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<Food> GetAll()
+        public IQueryable<Food> GetAll()
         {
             return _context.Foods.Select(x => x.ToDomain());
-        }
-
-        public PagedList<Food> GetAllWithPaging(FoodParameters foodParameters)
-        {
-            return PagedList<Food>.ToPagedList(
-                _context.Foods.Select(x => x.ToDomain()), 
-                foodParameters.PageNumber, 
-                foodParameters.PageSize);
         }
 
         public Food GetById(string id)
