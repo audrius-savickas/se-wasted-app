@@ -8,5 +8,6 @@ namespace Domain.Models.QueryParameters
 {
     public class FoodParameters : QueryStringParameters
     {
+        public string SortOrder { get; set; } = "time_desc";
     }
 }

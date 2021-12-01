@@ -5,6 +5,7 @@ using Persistence.Interfaces;
 using Services.Mappers;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Services.Repositories
 {
@@ -29,9 +30,9 @@ namespace Services.Repositories
             _context.SaveChanges();
         }
 
-        public IQueryable<Food> GetAll()
+        public IQueryable<Food> GetAll<TKey>(Expression<Func<Food, TKey>> keySelector)
         {
-            return _context.Foods.Select(x => x.ToDomain());
+            return _context.Foods.Select(x => x.ToDomain()).OrderBy(keySelector);
         }
 
         public Food GetById(string id)

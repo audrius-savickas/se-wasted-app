@@ -2,7 +2,6 @@
 using Domain.Models;
 using Domain.Models.QueryParameters;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Services.Exceptions;
 using Services.Interfaces;
 using Services.Utils;
@@ -29,42 +28,30 @@ namespace WebApi.Controllers
         /// <summary>
         /// Retrieve all food items.
         /// </summary>
-        /// <param name="sortOrder">Optional order by which the food should be sorted</param>
         /// <param name="foodParameters">Page number and size</param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public IActionResult GetAll([FromQuery] FoodParameters foodParameters, string sortOrder = null)
+        public IActionResult GetAll([FromQuery] FoodParameters foodParameters)
         {
-            if (sortOrder != null)
+            try
             {
-                try
-                {
-                    InputValidator.ValidateFoodSortOrder(sortOrder);
-                }
-                catch (ArgumentException e)
-                {
-                    return BadRequest(e.Message);
-                }
+                InputValidator.ValidateFoodSortOrder(foodParameters.SortOrder);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
             }
 
             var pagedFoodList = _foodService.GetAllFood(foodParameters);
 
-            var metadata = new
-            {
-                pagedFoodList.TotalCount,
-                pagedFoodList.PageSize,
-                pagedFoodList.CurrentPage,
-                pagedFoodList.TotalPages,
-                pagedFoodList.HasNext,
-                pagedFoodList.HasPrevious,
-            };
-
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            this.AddPaginationMetadata(pagedFoodList);
 
             var foodsResp = pagedFoodList.Select(food => FoodResponse.FromEntity(food));
-            foodsResp = EntitySorter.SortFoods(foodsResp, sortOrder);
+
+            // move this
+            //foodsResp = EntitySorter.SortFoods(foodsResp, foodParameters.SortOrder);
 
             return Ok(foodsResp);
         }
