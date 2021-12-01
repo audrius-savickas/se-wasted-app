@@ -5,6 +5,5 @@ namespace Persistence.Interfaces
 {
     public interface IFoodRepository : IBaseRepository<Food>
     {
-        PagedList<Food> GetAllWithPaging(FoodParameters foodParameters);
     }
 }

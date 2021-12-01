@@ -1,15 +1,14 @@
 ﻿using Domain.Models;
 using Domain.Models.QueryParameters;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Persistence.Interfaces
 {
     public interface IRestaurantRepository : IBaseRepository<Restaurant>
     {
-        PagedList<Restaurant> GetAllWithPaging(RestaurantParameters restaurantParameters);
-        PagedList<Restaurant> GetAllRestaurantsCloserThan(RestaurantParameters restaurantParameters, Coords coords, Distances distance);
-        IEnumerable<Restaurant> GetRestaurantsNear(Coords coords);
+        IQueryable<Restaurant> GetAllRestaurantsCloserThan(Coords coords, Distances distance);
+        IQueryable<Restaurant> GetRestaurantsNear(Coords coords);
         Restaurant GetByMail(Mail mail);
-        IEnumerable<Restaurant> GetAllRestaurantsCloserThan(Coords coords, Distances distance);
     }
 }

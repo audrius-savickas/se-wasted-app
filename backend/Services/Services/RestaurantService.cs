@@ -5,7 +5,6 @@ using Persistence.Interfaces;
 using Services.Exceptions;
 using Services.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Domain.Models.QueryParameters;
 using Domain.Models.Extensions;
@@ -80,7 +79,11 @@ namespace Services.Services
 
         public PagedList<RestaurantDto> GetAllRestaurants(RestaurantParameters restaurantParameters)
         {
-            return _restaurantRepository.GetAllWithPaging(restaurantParameters).ConvertAllItems(_restaurantToDtoConverter);
+            var restaurantPagedList = PagedList<Restaurant>.ToPagedList(
+                _restaurantRepository.GetAll(),
+                restaurantParameters.PageNumber,
+                restaurantParameters.PageSize);
+            return restaurantPagedList.ConvertAllItems(_restaurantToDtoConverter);
         }
 
         public RestaurantDto GetRestaurantById(string idRestaurant)
@@ -96,9 +99,11 @@ namespace Services.Services
 
         public PagedList<RestaurantDto> GetRestaurantsNear(RestaurantParameters restaurantParameters, Coords coords)
         {
-            return _restaurantRepository
-                    .GetRestaurantsNear(coords)
-                    .Select(r => RestaurantDto.FromEntity(r));
+            var restaurantPagedList = PagedList<Restaurant>.ToPagedList(
+                _restaurantRepository.GetRestaurantsNear(coords),
+                restaurantParameters.PageNumber,
+                restaurantParameters.PageSize);
+            return restaurantPagedList.ConvertAllItems(_restaurantToDtoConverter);
         }
 
         public bool Login(Credentials creds)
@@ -137,7 +142,7 @@ namespace Services.Services
                 Description = restaurantRegisterRequest.Description,
             };
 
-            _restaurantRepository.Add(restaurant);
+            _restaurantRepository.Insert(restaurant);
 
             // Raise an event that restaurant has registered
             OnRestaurantRegistered(new RestaurantEventArgs(restaurant));
@@ -165,21 +170,24 @@ namespace Services.Services
 
         public PagedList<RestaurantDto> GetAllRestaurantsCloserThan(RestaurantParameters restaurantParameters, Coords coords, Distances distance)
         {
-            return _restaurantRepository
-                    .GetAllRestaurantsCloserThan(restaurantParameters, coords, distance)
-                    .ConvertAllItems(_restaurantToDtoConverter);
+            var restaurantPagedList = PagedList<Restaurant>.ToPagedList(
+                _restaurantRepository.GetAllRestaurantsCloserThan(coords, distance),
+                restaurantParameters.PageNumber,
+                restaurantParameters.PageSize);
+            return restaurantPagedList.ConvertAllItems(_restaurantToDtoConverter);
         }
 
         public PagedList<Food> GetAllFoodFromRestaurant(string idRestaurant, FoodParameters foodParameters)
         {
-            return _foodRepository
-                    .GetAllWithPaging(foodParameters)
-                    .Where(f => f.IdRestaurant == idRestaurant);
+            return PagedList<Food>.ToPagedList(
+                _foodRepository.GetAll().Where(f => f.IdRestaurant == idRestaurant),
+                foodParameters.PageNumber,
+                foodParameters.PageSize);
         }
 
         public int GetFoodCountFromRestaurant(string idRestaurant)
         {
-            return GetAllFoodFromRestaurant(idRestaurant).Count;
+            return _foodRepository.GetAll().Where(f => f.IdRestaurant == idRestaurant).Count();
         }
     }
 

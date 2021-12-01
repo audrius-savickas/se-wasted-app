@@ -205,12 +205,13 @@ namespace WebApi.Controllers
         /// Retrieves the food served by a restaurant
         /// </summary>
         /// <param name="id">Identifies the restaurant</param>
+        /// <param name="foodParameters"></param>
         /// <param name="sortOrder">Optional order by which the food should be sorted</param>
         /// <returns></returns>
         [HttpGet("{id}/food", Name = nameof(GetAllFoodFromRestaurant))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
 
-        public IActionResult GetAllFoodFromRestaurant(string id, string sortOrder = null)
+        public IActionResult GetAllFoodFromRestaurant(string id, FoodParameters foodParameters, string sortOrder = null)
         {
             if (sortOrder != null)
             {
@@ -224,7 +225,7 @@ namespace WebApi.Controllers
                 }
             }
 
-            var foods = _restaurantService.GetAllFoodFromRestaurant(id).Select(food => FoodResponse.FromEntity(food));
+            var foods = _restaurantService.GetAllFoodFromRestaurant(id, foodParameters).Select(food => FoodResponse.FromEntity(food));
 
             foods = EntitySorter.SortFoods(foods, sortOrder);
 

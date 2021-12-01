@@ -43,7 +43,10 @@ namespace Services.Services
 
         public PagedList<Food> GetAllFood(FoodParameters foodParameters)
         {
-            return _foodRepository.GetAllWithPaging(foodParameters);
+            return PagedList<Food>.ToPagedList(
+                _foodRepository.GetAll(), 
+                foodParameters.PageNumber, 
+                foodParameters.PageSize);
         }
 
         public Food GetFoodById(string idFood)
@@ -118,7 +121,7 @@ namespace Services.Services
                 throw;
             }
 
-            _foodRepository.Add(food);
+            _foodRepository.Insert(food);
             return food.Id;
         }
 
