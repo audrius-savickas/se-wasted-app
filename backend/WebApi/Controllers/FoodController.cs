@@ -2,6 +2,7 @@
 using Domain.Models;
 using Domain.Models.QueryParameters;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Services.Exceptions;
 using Services.Interfaces;
 using Services.Utils;
@@ -48,8 +49,21 @@ namespace WebApi.Controllers
                 }
             }
 
-            var foodsResp = _foodService.GetAllFood(foodParameters).Select(food => FoodResponse.FromEntity(food));
+            var pagedFoodList = _foodService.GetAllFood(foodParameters);
 
+            var metadata = new
+            {
+                pagedFoodList.TotalCount,
+                pagedFoodList.PageSize,
+                pagedFoodList.CurrentPage,
+                pagedFoodList.TotalPages,
+                pagedFoodList.HasNext,
+                pagedFoodList.HasPrevious,
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+            var foodsResp = pagedFoodList.Select(food => FoodResponse.FromEntity(food));
             foodsResp = EntitySorter.SortFoods(foodsResp, sortOrder);
 
             return Ok(foodsResp);

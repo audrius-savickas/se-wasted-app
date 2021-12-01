@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Models.QueryParameters;
+using Domain.Models.Extensions;
 
 namespace Services.Services
 {
@@ -16,6 +17,7 @@ namespace Services.Services
         private readonly IRestaurantRepository _restaurantRepository;
         private readonly IFoodRepository _foodRepository;
 
+        private readonly Converter<Restaurant, RestaurantDto> _restaurantToDtoConverter = new(RestaurantDto.FromEntity);
         public event EventHandler<RestaurantEventArgs> RestaurantRegistered;
 
         public RestaurantService
@@ -78,8 +80,7 @@ namespace Services.Services
 
         public PagedList<RestaurantDto> GetAllRestaurants(RestaurantParameters restaurantParameters)
         {
-            var restaurantPagedList = _restaurantRepository.GetAllWithPaging(restaurantParameters);
-            return restaurantPagedList.ConvertAllItems(restaurantPagedList, new Converter<Restaurant,RestaurantDto>(RestaurantDto.FromEntity));
+            return _restaurantRepository.GetAllWithPaging(restaurantParameters).ConvertAllItems(_restaurantToDtoConverter);
         }
 
         public RestaurantDto GetRestaurantById(string idRestaurant)
@@ -93,7 +94,7 @@ namespace Services.Services
             return RestaurantDto.FromEntity(restaurant);
         }
 
-        public IEnumerable<RestaurantDto> GetRestaurantsNear(Coords coords)
+        public PagedList<RestaurantDto> GetRestaurantsNear(RestaurantParameters restaurantParameters, Coords coords)
         {
             return _restaurantRepository
                     .GetRestaurantsNear(coords)
@@ -162,23 +163,23 @@ namespace Services.Services
             _restaurantRepository.Update(restaurant);
         }
 
-        public IEnumerable<RestaurantDto> GetAllRestaurantsCloserThan(Coords coords, Distances distance)
+        public PagedList<RestaurantDto> GetAllRestaurantsCloserThan(RestaurantParameters restaurantParameters, Coords coords, Distances distance)
         {
             return _restaurantRepository
-                    .GetAllRestaurantsCloserThan(coords, distance)
-                    .Select(r => RestaurantDto.FromEntity(r));
+                    .GetAllRestaurantsCloserThan(restaurantParameters, coords, distance)
+                    .ConvertAllItems(_restaurantToDtoConverter);
         }
 
-        public IEnumerable<Food> GetAllFoodFromRestaurant(string idRestaurant)
+        public PagedList<Food> GetAllFoodFromRestaurant(string idRestaurant, FoodParameters foodParameters)
         {
             return _foodRepository
-                    .GetAll()
+                    .GetAllWithPaging(foodParameters)
                     .Where(f => f.IdRestaurant == idRestaurant);
         }
 
         public int GetFoodCountFromRestaurant(string idRestaurant)
         {
-            return GetAllFoodFromRestaurant(idRestaurant).Count();
+            return GetAllFoodFromRestaurant(idRestaurant).Count;
         }
     }
 

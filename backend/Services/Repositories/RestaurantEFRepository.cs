@@ -43,6 +43,14 @@ namespace Services.Repositories
                                        .Select(x => x.ToDomain());
         }
 
+        public PagedList<Restaurant> GetAllRestaurantsCloserThan(RestaurantParameters restaurantParameters, Coords coords, Distances distance)
+        {
+            return PagedList<Restaurant>.ToPagedList(
+                _context.Restaurants.Where(rest => rest.ToDomain().IsCloser(coords, distance)).Select(x => x.ToDomain()), 
+                restaurantParameters.PageNumber,
+                restaurantParameters.PageSize);
+        }
+
         public PagedList<Restaurant> GetAllWithPaging(RestaurantParameters restaurantParameters)
         {
             return PagedList<Restaurant>.ToPagedList(

@@ -21,6 +21,11 @@ namespace Persistence.Repositories
             return restaurantsCloser;
         }
 
+        public PagedList<Restaurant> GetAllRestaurantsCloserThan(RestaurantParameters restaurantParameters, Coords coords, Distances distance)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public PagedList<Restaurant> GetAllWithPaging(RestaurantParameters restaurantParameters)
         {
             throw new System.NotImplementedException();

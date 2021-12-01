@@ -28,11 +28,5 @@ namespace Domain.Models
             var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
-
-        public PagedList<TOutput> ConvertAllItems<TOutput> (PagedList<T> source, Converter<T,TOutput> converter)
-        {
-            var convertedList = source.Select(x => converter(x)).ToList();
-            return new PagedList<TOutput>(convertedList, source.Count, source.CurrentPage, source.PageSize);
-        }
     }
 }

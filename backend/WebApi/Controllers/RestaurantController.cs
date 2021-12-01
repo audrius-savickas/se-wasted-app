@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using WebApi.Helpers;
+using Domain.Models.QueryParameters;
 
 namespace WebApi.Controllers
 {
@@ -31,14 +32,15 @@ namespace WebApi.Controllers
         /// Retrieve all restaurants
         /// </summary>
         /// <param name="sortOrder">Optional order by which the restaurants should be sorted</param>
+        /// <param name="restaurantParameters"></param>
         /// <param name="userCoordinates">Optional coordinates of the user</param>
         /// <returns></returns>
         [HttpGet(Name = nameof(GetAll))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<RestaurantDto>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public IActionResult GetAll(string sortOrder = null, [FromQuery] Coords userCoordinates = null)
+        public IActionResult GetAll([FromQuery] RestaurantParameters restaurantParameters, string sortOrder = null, [FromQuery] Coords userCoordinates = null)
         {
-            /*if (sortOrder != null)
+            if (sortOrder != null)
             {
                 try
                 {
@@ -52,9 +54,9 @@ namespace WebApi.Controllers
 
             userCoordinates = new Coords(userCoordinates.Longitude, userCoordinates.Latitude);
 
-            var restaurants = _restaurantService.GetAllRestaurants();
+            var restaurants = _restaurantService.GetAllRestaurants(restaurantParameters);
 
-            restaurants = restaurants.ToList();
+            //restaurants = restaurants.ToList();
             foreach (RestaurantDto restaurant in restaurants)
             {
                 if (userCoordinates != null)
@@ -64,10 +66,9 @@ namespace WebApi.Controllers
                 restaurant.FoodCount = _restaurantService.GetFoodCountFromRestaurant(restaurant.Id);
             }
 
-            restaurants = EntitySorter.SortRestaurants(restaurants, sortOrder);
+            //restaurants = EntitySorter.SortRestaurants(restaurants, sortOrder);
 
-            return Ok(restaurants);*/
-            return Ok();
+            return Ok(restaurants);
         }
 
         /// <summary>

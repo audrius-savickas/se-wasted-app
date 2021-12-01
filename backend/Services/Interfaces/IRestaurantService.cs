@@ -13,10 +13,10 @@ namespace Services.Interfaces
         RestaurantDto GetRestaurantById(string id);
         PagedList<RestaurantDto> GetAllRestaurants(RestaurantParameters restaurantParameters);
         void UpdateRestaurant(Restaurant restaurant);
-        IEnumerable<RestaurantDto> GetRestaurantsNear(Coords coords);
+        PagedList<RestaurantDto> GetRestaurantsNear(RestaurantParameters restaurantParametersm, Coords coords);
         RestaurantDto GetRestaurantDtoFromMail(Mail mail);
-        IEnumerable<RestaurantDto> GetAllRestaurantsCloserThan(Coords coords, Distances distance);
-        IEnumerable<Food> GetAllFoodFromRestaurant(string idRestaurant);
+        PagedList<RestaurantDto> GetAllRestaurantsCloserThan(RestaurantParameters restaurantParameters, Coords coords, Distances distance);
+        PagedList<Food> GetAllFoodFromRestaurant(string idRestaurant, FoodParameters foodParameters);
         int GetFoodCountFromRestaurant(string idRestaurant);
     }
 }
