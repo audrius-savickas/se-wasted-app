@@ -1,13 +1,14 @@
 ﻿using Contracts.DTOs;
 using Domain.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Services.Utils
 {
     public static class SortingExtensions
     {
-        public static IQueryable<Food> SortFood(this IQueryable<Food> foods, string order)
+        public static IEnumerable<Food> SortFood(this IEnumerable<Food> foods, string order)
         {
             switch (order)
             {
@@ -36,7 +37,7 @@ namespace Services.Utils
             return foods;
         }
 
-        public static IQueryable<Restaurant> SortRestaurants(this IQueryable<Restaurant> restaurants, string order)
+        public static IEnumerable<Restaurant> SortRestaurants(this IEnumerable<Restaurant> restaurants, string order)
         {
             switch (order)
             {

@@ -81,7 +81,7 @@ namespace Services.Services
         public PagedList<RestaurantDto> GetAllRestaurants(RestaurantParameters restaurantParameters)
         {
             var restaurantPagedList = PagedList<Restaurant>.ToPagedList(
-                _restaurantRepository.GetAll(),
+                _restaurantRepository.GetAll().AsEnumerable().SortRestaurants(restaurantParameters.SortOrder),
                 restaurantParameters.PageNumber,
                 restaurantParameters.PageSize);
             return restaurantPagedList.ConvertAllItems(_restaurantToDtoConverter);
@@ -101,7 +101,7 @@ namespace Services.Services
         public PagedList<RestaurantDto> GetRestaurantsNear(RestaurantParameters restaurantParameters, Coords coords)
         {
             var restaurantPagedList = PagedList<Restaurant>.ToPagedList(
-                _restaurantRepository.GetRestaurantsNear(coords),
+                _restaurantRepository.GetRestaurantsNear(coords).AsEnumerable().SortRestaurants(restaurantParameters.SortOrder),
                 restaurantParameters.PageNumber,
                 restaurantParameters.PageSize);
             return restaurantPagedList.ConvertAllItems(_restaurantToDtoConverter);
@@ -172,7 +172,7 @@ namespace Services.Services
         public PagedList<RestaurantDto> GetAllRestaurantsCloserThan(RestaurantParameters restaurantParameters, Coords coords, Distances distance)
         {
             var restaurantPagedList = PagedList<Restaurant>.ToPagedList(
-                _restaurantRepository.GetAllRestaurantsCloserThan(coords, distance),
+                _restaurantRepository.GetAllRestaurantsCloserThan(coords, distance).AsEnumerable().SortRestaurants(restaurantParameters.SortOrder),
                 restaurantParameters.PageNumber,
                 restaurantParameters.PageSize);
             return restaurantPagedList.ConvertAllItems(_restaurantToDtoConverter);
@@ -181,7 +181,7 @@ namespace Services.Services
         public PagedList<Food> GetAllFoodFromRestaurant(string idRestaurant, FoodParameters foodParameters)
         {
             return PagedList<Food>.ToPagedList(
-                _foodRepository.GetFoodFromRestaurant(idRestaurant),
+                _foodRepository.GetFoodFromRestaurant(idRestaurant).AsEnumerable().SortFood(foodParameters.SortOrder),
                 foodParameters.PageNumber,
                 foodParameters.PageSize);
         }

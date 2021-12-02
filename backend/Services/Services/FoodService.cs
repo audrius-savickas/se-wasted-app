@@ -45,7 +45,7 @@ namespace Services.Services
         public PagedList<Food> GetAllFood(FoodParameters foodParameters)
         {
             return PagedList<Food>.ToPagedList(
-                _foodRepository.GetAll(), 
+                _foodRepository.GetAll().AsEnumerable().SortFood(foodParameters.SortOrder), 
                 foodParameters.PageNumber, 
                 foodParameters.PageSize);
         }
