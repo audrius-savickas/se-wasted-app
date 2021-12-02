@@ -81,7 +81,7 @@ namespace Services.Services
         public PagedList<RestaurantDto> GetAllRestaurants(RestaurantParameters restaurantParameters)
         {
             var restaurantPagedList = PagedList<Restaurant>.ToPagedList(
-                _restaurantRepository.GetAll().SortRestaurants(restaurantParameters.SortOrder),
+                _restaurantRepository.GetAll(),
                 restaurantParameters.PageNumber,
                 restaurantParameters.PageSize);
             return restaurantPagedList.ConvertAllItems(_restaurantToDtoConverter);
@@ -101,7 +101,7 @@ namespace Services.Services
         public PagedList<RestaurantDto> GetRestaurantsNear(RestaurantParameters restaurantParameters, Coords coords)
         {
             var restaurantPagedList = PagedList<Restaurant>.ToPagedList(
-                _restaurantRepository.GetRestaurantsNear(coords).SortRestaurants(restaurantParameters.SortOrder),
+                _restaurantRepository.GetRestaurantsNear(coords),
                 restaurantParameters.PageNumber,
                 restaurantParameters.PageSize);
             return restaurantPagedList.ConvertAllItems(_restaurantToDtoConverter);
@@ -172,7 +172,7 @@ namespace Services.Services
         public PagedList<RestaurantDto> GetAllRestaurantsCloserThan(RestaurantParameters restaurantParameters, Coords coords, Distances distance)
         {
             var restaurantPagedList = PagedList<Restaurant>.ToPagedList(
-                _restaurantRepository.GetAllRestaurantsCloserThan(coords, distance).SortRestaurants(restaurantParameters.SortOrder),
+                _restaurantRepository.GetAllRestaurantsCloserThan(coords, distance),
                 restaurantParameters.PageNumber,
                 restaurantParameters.PageSize);
             return restaurantPagedList.ConvertAllItems(_restaurantToDtoConverter);
@@ -181,14 +181,14 @@ namespace Services.Services
         public PagedList<Food> GetAllFoodFromRestaurant(string idRestaurant, FoodParameters foodParameters)
         {
             return PagedList<Food>.ToPagedList(
-                _foodRepository.GetAll().Where(f => f.IdRestaurant == idRestaurant).SortFood(foodParameters.SortOrder),
+                _foodRepository.GetFoodFromRestaurant(idRestaurant),
                 foodParameters.PageNumber,
                 foodParameters.PageSize);
         }
 
         public int GetFoodCountFromRestaurant(string idRestaurant)
         {
-            return _foodRepository.GetAll().Where(f => f.IdRestaurant == idRestaurant).Count();
+            return _foodRepository.GetFoodFromRestaurant(idRestaurant).Count();
         }
     }
 

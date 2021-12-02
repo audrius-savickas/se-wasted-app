@@ -51,6 +51,11 @@ namespace Services.Repositories
             }
         }
 
+        public IQueryable<Food> GetFoodFromRestaurant(string idRestaurant)
+        {
+            return _context.Foods.Where(food => food.RestaurantId == Guid.Parse(idRestaurant)).Select(x => x.ToDomain());
+        }
+
         private FoodEntity GetByIdString(string id)
         {
             return _context.Foods.Find(Guid.Parse(id));

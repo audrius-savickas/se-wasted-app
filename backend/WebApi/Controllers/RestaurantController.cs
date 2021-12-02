@@ -218,11 +218,11 @@ namespace WebApi.Controllers
         [HttpGet("{id}/food", Name = nameof(GetAllFoodFromRestaurant))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
 
-        public IActionResult GetAllFoodFromRestaurant(string id, FoodParameters foodParameters, string sortOrder = null)
+        public IActionResult GetAllFoodFromRestaurant(string id, [FromQuery] FoodParameters foodParameters)
         {
             try
             {
-                InputValidator.ValidateFoodSortOrder(sortOrder);
+                InputValidator.ValidateFoodSortOrder(foodParameters.SortOrder);
             }
             catch (ArgumentException e)
             {
