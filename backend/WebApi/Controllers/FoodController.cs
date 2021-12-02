@@ -50,9 +50,6 @@ namespace WebApi.Controllers
 
             var foodsResp = pagedFoodList.Select(food => FoodResponse.FromEntity(food));
 
-            // move this
-            //foodsResp = EntitySorter.SortFoods(foodsResp, foodParameters.SortOrder);
-
             return Ok(foodsResp);
         }
 

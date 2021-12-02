@@ -8,5 +8,6 @@ namespace Domain.Models.QueryParameters
 {
     public class RestaurantParameters : QueryStringParameters
     {
+        public string SortOrder { get; set; } = "name";
     }
 }

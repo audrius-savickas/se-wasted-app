@@ -227,7 +227,7 @@ namespace WebApi.Controllers
 
             var foods = _restaurantService.GetAllFoodFromRestaurant(id, foodParameters).Select(food => FoodResponse.FromEntity(food));
 
-            foods = EntitySorter.SortFoods(foods, sortOrder);
+            //foods = EntitySorter.SortFoods(foods, sortOrder);
 
             return Ok(foods);
         }

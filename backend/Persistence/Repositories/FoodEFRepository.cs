@@ -30,9 +30,9 @@ namespace Services.Repositories
             _context.SaveChanges();
         }
 
-        public IQueryable<Food> GetAll<TKey>(Expression<Func<Food, TKey>> keySelector)
+        public IQueryable<Food> GetAll()
         {
-            return _context.Foods.Select(x => x.ToDomain()).OrderBy(keySelector);
+            return _context.Foods.Select(x => x.ToDomain());
         }
 
         public Food GetById(string id)

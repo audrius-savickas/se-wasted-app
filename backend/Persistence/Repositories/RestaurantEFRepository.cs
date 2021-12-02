@@ -30,14 +30,14 @@ namespace Services.Repositories
             _context.SaveChanges();
         }
 
-        public IQueryable<Restaurant> GetAll<TKey>(Expression<Func<Restaurant, TKey>> keySelector)
+        public IQueryable<Restaurant> GetAll()
         {
-            return _context.Restaurants.Select(x => x.ToDomain()).OrderBy(keySelector);
+            return _context.Restaurants.Select(x => x.ToDomain());
         }
 
-        public IQueryable<Restaurant> GetAllRestaurantsCloserThan<TKey>(Coords coords, Distances distance, Expression<Func<Restaurant, TKey>> keySelector)
+        public IQueryable<Restaurant> GetAllRestaurantsCloserThan(Coords coords, Distances distance)
         {
-            return GetAll(keySelector).Where(rest => rest.IsCloser(coords, distance));
+            return GetAll().Where(rest => rest.IsCloser(coords, distance));
         }
 
         public Restaurant GetById(string id)
@@ -50,9 +50,9 @@ namespace Services.Repositories
             return _context.Restaurants.FirstOrDefault(x => x.Mail == mail.Value)?.ToDomain();
         }
 
-        public IQueryable<Restaurant> GetRestaurantsNear<TKey>(Coords coords, Expression<Func<Restaurant, TKey>> keySelector)
+        public IQueryable<Restaurant> GetRestaurantsNear(Coords coords)
         {
-            return GetAllRestaurantsCloserThan(coords, Distances.NEAR, keySelector);
+            return GetAllRestaurantsCloserThan(coords, Distances.NEAR);
         }
 
         public void Update(Restaurant restaurant)

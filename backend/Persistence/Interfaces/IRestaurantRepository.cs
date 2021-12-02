@@ -9,8 +9,8 @@ namespace Persistence.Interfaces
 {
     public interface IRestaurantRepository : IBaseRepository<Restaurant>
     {
-        IQueryable<Restaurant> GetAllRestaurantsCloserThan<TKey>(Coords coords, Distances distance, Expression<Func<Restaurant, TKey>> keySelector);
-        IQueryable<Restaurant> GetRestaurantsNear<TKey>(Coords coords, Expression<Func<Restaurant, TKey>> keySelector);
+        IQueryable<Restaurant> GetAllRestaurantsCloserThan(Coords coords, Distances distance);
+        IQueryable<Restaurant> GetRestaurantsNear(Coords coords);
         Restaurant GetByMail(Mail mail);
     }
 }
