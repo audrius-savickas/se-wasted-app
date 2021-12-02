@@ -38,13 +38,22 @@ namespace WebApi.Controllers
         [HttpGet(Name = nameof(GetAll))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<RestaurantDto>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public IActionResult GetAll([FromQuery] RestaurantParameters restaurantParameters, string sortOrder = null, [FromQuery] Coords userCoordinates = null)
+        public IActionResult GetAll([FromQuery] RestaurantParameters restaurantParameters, [FromQuery] Coords userCoordinates = null)
         {
-            if (sortOrder != null)
+            try
+            {
+                InputValidator.ValidateRestaurantSortOrder(restaurantParameters.SortOrder, userCoordinates);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+
+            if (userCoordinates != null)
             {
                 try
                 {
-                    InputValidator.ValidateRestaurantSortOrder(sortOrder, userCoordinates);
+                    userCoordinates = new Coords(userCoordinates.Longitude, userCoordinates.Latitude);
                 }
                 catch (ArgumentException e)
                 {
@@ -52,11 +61,11 @@ namespace WebApi.Controllers
                 }
             }
 
-            userCoordinates = new Coords(userCoordinates.Longitude, userCoordinates.Latitude);
-
             var restaurants = _restaurantService.GetAllRestaurants(restaurantParameters);
 
-            //restaurants = restaurants.ToList();
+            this.AddPaginationMetadata(restaurants);
+
+
             foreach (RestaurantDto restaurant in restaurants)
             {
                 if (userCoordinates != null)
@@ -65,8 +74,6 @@ namespace WebApi.Controllers
                 }
                 restaurant.FoodCount = _restaurantService.GetFoodCountFromRestaurant(restaurant.Id);
             }
-
-            //restaurants = EntitySorter.SortRestaurants(restaurants, sortOrder);
 
             return Ok(restaurants);
         }
@@ -213,23 +220,22 @@ namespace WebApi.Controllers
 
         public IActionResult GetAllFoodFromRestaurant(string id, FoodParameters foodParameters, string sortOrder = null)
         {
-            if (sortOrder != null)
+            try
             {
-                try
-                {
-                    InputValidator.ValidateFoodSortOrder(sortOrder);
-                }
-                catch (ArgumentException e)
-                {
-                    return BadRequest(e.Message);
-                }
+                InputValidator.ValidateFoodSortOrder(sortOrder);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
             }
 
-            var foods = _restaurantService.GetAllFoodFromRestaurant(id, foodParameters).Select(food => FoodResponse.FromEntity(food));
+            var pagedFoodList = _restaurantService.GetAllFoodFromRestaurant(id, foodParameters);
 
-            //foods = EntitySorter.SortFoods(foods, sortOrder);
+            this.AddPaginationMetadata(pagedFoodList);
 
-            return Ok(foods);
+            var foodsResp = pagedFoodList.Select(food => FoodResponse.FromEntity(food));
+
+            return Ok(foodsResp);
         }
 
         /// <summary>
