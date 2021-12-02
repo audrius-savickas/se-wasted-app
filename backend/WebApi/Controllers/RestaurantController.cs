@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using WebApi.Helpers;
+using Domain.Models.QueryParameters;
 
 namespace WebApi.Controllers
 {
@@ -31,18 +32,28 @@ namespace WebApi.Controllers
         /// Retrieve all restaurants
         /// </summary>
         /// <param name="sortOrder">Optional order by which the restaurants should be sorted</param>
+        /// <param name="restaurantParameters"></param>
         /// <param name="userCoordinates">Optional coordinates of the user</param>
         /// <returns></returns>
         [HttpGet(Name = nameof(GetAll))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<RestaurantDto>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public IActionResult GetAll(string sortOrder = null, [FromQuery] Coords userCoordinates = null)
+        public IActionResult GetAll([FromQuery] RestaurantParameters restaurantParameters, [FromQuery] Coords userCoordinates = null)
         {
-            if (sortOrder != null)
+            try
+            {
+                InputValidator.ValidateRestaurantSortOrder(restaurantParameters.SortOrder, userCoordinates);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+
+            if (userCoordinates != null)
             {
                 try
                 {
-                    InputValidator.ValidateRestaurantSortOrder(sortOrder, userCoordinates);
+                    userCoordinates = new Coords(userCoordinates.Longitude, userCoordinates.Latitude);
                 }
                 catch (ArgumentException e)
                 {
@@ -50,11 +61,11 @@ namespace WebApi.Controllers
                 }
             }
 
-            userCoordinates = new Coords(userCoordinates.Longitude, userCoordinates.Latitude);
+            var restaurants = _restaurantService.GetAllRestaurants(restaurantParameters);
 
-            var restaurants = _restaurantService.GetAllRestaurants();
+            this.AddPaginationMetadata(restaurants);
 
-            restaurants = restaurants.ToList();
+
             foreach (RestaurantDto restaurant in restaurants)
             {
                 if (userCoordinates != null)
@@ -63,8 +74,6 @@ namespace WebApi.Controllers
                 }
                 restaurant.FoodCount = _restaurantService.GetFoodCountFromRestaurant(restaurant.Id);
             }
-
-            restaurants = EntitySorter.SortRestaurants(restaurants, sortOrder);
 
             return Ok(restaurants);
         }
@@ -203,30 +212,30 @@ namespace WebApi.Controllers
         /// Retrieves the food served by a restaurant
         /// </summary>
         /// <param name="id">Identifies the restaurant</param>
+        /// <param name="foodParameters"></param>
         /// <param name="sortOrder">Optional order by which the food should be sorted</param>
         /// <returns></returns>
         [HttpGet("{id}/food", Name = nameof(GetAllFoodFromRestaurant))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
 
-        public IActionResult GetAllFoodFromRestaurant(string id, string sortOrder = null)
+        public IActionResult GetAllFoodFromRestaurant(string id, [FromQuery] FoodParameters foodParameters)
         {
-            if (sortOrder != null)
+            try
             {
-                try
-                {
-                    InputValidator.ValidateFoodSortOrder(sortOrder);
-                }
-                catch (ArgumentException e)
-                {
-                    return BadRequest(e.Message);
-                }
+                InputValidator.ValidateFoodSortOrder(foodParameters.SortOrder);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
             }
 
-            var foods = _restaurantService.GetAllFoodFromRestaurant(id).Select(food => FoodResponse.FromEntity(food));
+            var pagedFoodList = _restaurantService.GetAllFoodFromRestaurant(id, foodParameters);
 
-            foods = EntitySorter.SortFoods(foods, sortOrder);
+            this.AddPaginationMetadata(pagedFoodList);
 
-            return Ok(foods);
+            var foodsResp = pagedFoodList.Select(food => FoodResponse.FromEntity(food));
+
+            return Ok(foodsResp);
         }
 
         /// <summary>

@@ -1,35 +1,34 @@
 ﻿using Contracts.DTOs;
 using Domain.Models;
-using Domain.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WebApi.Helpers
+namespace Services.Utils
 {
-    public class EntitySorter
+    public static class SortingExtensions
     {
-        public static IEnumerable<FoodResponse> SortFoods(IEnumerable<FoodResponse> foods, string sortOrder)
+        public static IEnumerable<Food> SortFood(this IEnumerable<Food> foods, string order)
         {
-            switch (sortOrder)
+            switch (order)
             {
                 case "name":
-                    foods = foods.OrderBy(f => f.Name).ToList();
+                    foods = foods.OrderBy(f => f.Name);
                     break;
                 case "name_desc":
-                    foods = foods.OrderByDescending(f => f.Name).ToList();
+                    foods = foods.OrderByDescending(f => f.Name);
                     break;
                 case "price":
-                    foods = foods.OrderBy(f => f.CurrentPrice).ToList();
+                    foods = foods.OrderBy(f => f.CalculateCurrentPrice());
                     break;
                 case "price_desc":
-                    foods = foods.OrderByDescending(f => f.CurrentPrice).ToList();
+                    foods = foods.OrderByDescending(f => f.CalculateCurrentPrice());
                     break;
                 case "time":
-                    foods = foods.OrderBy(f => (DateTime.Now - f.CreatedAt)).ToList();
+                    foods = foods.OrderBy(f => (DateTime.Now - f.CreatedAt));
                     break;
                 case "time_desc":
-                    foods = foods.OrderByDescending(f => (DateTime.Now - f.CreatedAt)).ToList();
+                    foods = foods.OrderByDescending(f => (DateTime.Now - f.CreatedAt));
                     break;
                 default:
                     break;
@@ -38,9 +37,9 @@ namespace WebApi.Helpers
             return foods;
         }
 
-        public static IEnumerable<RestaurantDto> SortRestaurants(IEnumerable<RestaurantDto> restaurants, string sortOrder)
+        public static IEnumerable<Restaurant> SortRestaurants(this IEnumerable<Restaurant> restaurants, string order)
         {
-            switch (sortOrder)
+            switch (order)
             {
                 case "name":
                     restaurants = restaurants.OrderBy(r => r.Name);
@@ -49,16 +48,16 @@ namespace WebApi.Helpers
                     restaurants = restaurants.OrderByDescending(r => r.Name);
                     break;
                 case "dist":
-                    restaurants = restaurants.OrderBy(r => r.DistanceToUser);
+                    restaurants = restaurants.OrderBy(r => RestaurantDto.FromEntity(r).DistanceToUser);
                     break;
                 case "dist_desc":
-                    restaurants = restaurants.OrderByDescending(r => r.DistanceToUser);
+                    restaurants = restaurants.OrderByDescending(r => RestaurantDto.FromEntity(r).DistanceToUser);
                     break;
                 case "foodCount":
-                    restaurants = restaurants.OrderBy(r => r.FoodCount);
+                    restaurants = restaurants.OrderBy(r => RestaurantDto.FromEntity(r).FoodCount);
                     break;
                 case "foodCount_desc":
-                    restaurants = restaurants.OrderByDescending(r => r.FoodCount);
+                    restaurants = restaurants.OrderByDescending(r => RestaurantDto.FromEntity(r).FoodCount);
                     break;
                 default:
                     break;
@@ -66,6 +65,5 @@ namespace WebApi.Helpers
 
             return restaurants;
         }
-
     }
 }

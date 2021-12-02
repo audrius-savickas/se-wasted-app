@@ -53,18 +53,8 @@ namespace WebApi
                 options.UseSqlServer(connectionString);
             }, ServiceLifetime.Transient);
 
-
-            /*services.AddScoped<IFoodRepository, FoodRepository>(_ =>
-                new FoodRepository(DBConfiguration.Instance.PathToFoodsFile)
-            );*/
             services.AddScoped<IFoodRepository, FoodEFRepository>();
-            /*services.AddScoped<IRestaurantRepository, RestaurantRepository>(_ =>
-                new RestaurantRepository(DBConfiguration.Instance.PathToRestaurantsFile)
-            );*/
             services.AddScoped<IRestaurantRepository, RestaurantEFRepository>();
-            /*services.AddScoped<ITypeOfFoodRepository, TypeOfFoodRepository>(_ =>
-                new TypeOfFoodRepository(DBConfiguration.Instance.PathToTypesOfFoodFile)
-            );*/
             services.AddScoped<ITypeOfFoodRepository, TypeOfFoodEFRepository>();
         }
 

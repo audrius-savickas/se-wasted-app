@@ -1,11 +1,13 @@
 ﻿using Contracts.DTOs;
 using Domain.Models;
+using Domain.Models.QueryParameters;
 using Persistence.Interfaces;
 using Services.Exceptions;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Services.Utils;
 
 namespace Services.Services
 {
@@ -40,9 +42,12 @@ namespace Services.Services
 
         }
 
-        public IEnumerable<Food> GetAllFood()
+        public PagedList<Food> GetAllFood(FoodParameters foodParameters)
         {
-            return _foodRepository.GetAll().ToList();
+            return PagedList<Food>.ToPagedList(
+                _foodRepository.GetAll().AsEnumerable().SortFood(foodParameters.SortOrder), 
+                foodParameters.PageNumber, 
+                foodParameters.PageSize);
         }
 
         public Food GetFoodById(string idFood)
@@ -117,7 +122,7 @@ namespace Services.Services
                 throw;
             }
 
-            _foodRepository.Add(food);
+            _foodRepository.Insert(food);
             return food.Id;
         }
 
@@ -129,7 +134,7 @@ namespace Services.Services
             }
 
             var typeIds = types.Select(x => x.Id);
-            var validTypes = _typeOfFoodRepository.GetAll().Where(x => typeIds.Contains(x.Id));
+            var validTypes = _typeOfFoodRepository.GetAll().AsEnumerable().Where(x => typeIds.Contains(x.Id));
 
             return validTypes;
         }
