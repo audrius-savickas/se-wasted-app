@@ -134,7 +134,7 @@ namespace Services.Services
             }
 
             var typeIds = types.Select(x => x.Id);
-            var validTypes = _typeOfFoodRepository.GetAll().Where(x => typeIds.Contains(x.Id));
+            var validTypes = _typeOfFoodRepository.GetAll().AsEnumerable().Where(x => typeIds.Contains(x.Id));
 
             return validTypes;
         }
