@@ -15,14 +15,18 @@ namespace Services.Repositories
         {
             _context = context;
         }
-        public string Insert(TypeOfFood entity)
+        public string Insert(TypeOfFood typeOfFood)
         {
-            throw new NotImplementedException();
+            _context.TypesOfFood.Add(typeOfFood.ToEntity());
+            _context.SaveChanges();
+            return typeOfFood.Id;
         }
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            TypeOfFoodEntity entity = GetByIdString(id);
+            _context.TypesOfFood.Remove(entity);
+            _context.SaveChanges();
         }
 
         public IQueryable<TypeOfFood> GetAll()
