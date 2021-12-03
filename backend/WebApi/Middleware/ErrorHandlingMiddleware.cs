@@ -14,9 +14,9 @@ namespace WebApi.Middleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
 
-        public ErrorHandlingMiddleware(RequestDelegate next, ILogger logger, IHostingEnvironment environment)
+        public ErrorHandlingMiddleware(RequestDelegate next, ILogger logger, IWebHostEnvironment environment)
         {
             _next = next;
             _logger = logger;
