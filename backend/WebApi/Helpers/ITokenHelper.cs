@@ -1,6 +1,5 @@
-﻿using Contracts.DTOs;
-using Domain.Entities;
-using System;
+﻿using Domain.Models;
+
 namespace WebApi.Helpers
 {
     public interface ITokenHelper

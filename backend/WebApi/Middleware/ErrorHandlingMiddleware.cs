@@ -43,7 +43,7 @@ namespace WebApi.Middleware
 
             string errorMessage = "Internal server error happened. Please contact support";
 
-            if (_environment.IsDevelopment())
+            if (_environment.EnvironmentName.Equals("Development"))
             {
                 errorMessage = JsonConvert.SerializeObject(exception, Formatting.Indented);
             }

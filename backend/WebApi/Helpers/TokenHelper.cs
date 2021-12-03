@@ -1,5 +1,4 @@
-﻿using Contracts.DTOs;
-using Domain.Entities;
+﻿using Domain.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
