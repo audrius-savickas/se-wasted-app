@@ -68,12 +68,12 @@ namespace Services.Tests
         }
 
         [Fact]
-        public void Add_AddFoodToDataBase()
+        public void Insert_InsertFoodToDataBase()
         {
             var sut = new FoodEFRepository(_context);
             var food = GetSampleFood(foodId, typeOfFoodId);
 
-            sut.Add(food);
+            sut.Insert(food);
 
             List<FoodEntity> foods = _context.Foods.ToList();
             Assert.Single(foods);

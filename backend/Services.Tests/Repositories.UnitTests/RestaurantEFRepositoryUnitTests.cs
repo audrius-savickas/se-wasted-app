@@ -51,12 +51,12 @@ namespace Services.Tests
         }
 
         [Fact]
-        public void Add_AddRestaurantToDataBase()
+        public void Insert_InsertRestaurantToDataBase()
         {
             var sut = new RestaurantEFRepository(_context);
             var restaurant = GetSampleRestaurant(restaurantId);
 
-            sut.Add(restaurant);
+            sut.Insert(restaurant);
 
             List<RestaurantEntity> restaurants = _context.Restaurants.ToList();
             Assert.Single(restaurants);
