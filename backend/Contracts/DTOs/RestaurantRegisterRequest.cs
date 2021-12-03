@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Models;
 
 namespace Contracts.DTOs
 {
@@ -13,13 +13,20 @@ namespace Contracts.DTOs
         private const string DEFAULT_IMAGE_URL = "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg";
 
 
-        public RestaurantRegisterRequest(string name, string address, Coords coords, string imageURL = DEFAULT_IMAGE_URL, string description = "")
+        public RestaurantRegisterRequest(string name, string address, Coords coords, string description = "", string imageURL = "")
         {
             Name = name;
             Address = address;
             Coords = coords;
-            ImageURL = imageURL;
             Description = description;
+            if (imageURL == "")
+            {
+                ImageURL = DEFAULT_IMAGE_URL;
+            }
+            else
+            {
+                ImageURL = imageURL;
+            }
         }
     }
 }

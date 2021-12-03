@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Domain.Entities
+namespace Domain.Models
 {
-    public class Food : BaseEntity
+    public class Food : BaseModel
     {
         public decimal StartingPrice { get; set; }
         public decimal MinimumPrice { get; set; }
@@ -44,7 +44,6 @@ namespace Domain.Entities
             StartingPrice = startingPrice;
             MinimumPrice = minimumPrice >= 0 ? minimumPrice : 0;
             CreatedAt = createdAt ?? DateTime.Now;
-            ImageURL = imageURL;
             IdRestaurant = idRestaurant;
             TypesOfFood = typesOfFood;
             StartDecreasingAt = startDecreasingAt ?? CreatedAt;
@@ -64,6 +63,14 @@ namespace Domain.Entities
                     PercentPerInterval = (double)percentPerInterval;
                     AmountPerInterval = CalculateAmountPerInterval();
                     break;
+            }
+        }
+
+        public void CheckIfImageUrlIsSet()
+        {
+            if (ImageURL == "")
+            {
+                ImageURL = DEFAULT_IMAGE_URL;
             }
         }
 

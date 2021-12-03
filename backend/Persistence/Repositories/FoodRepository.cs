@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Models;
 using Persistence.Interfaces;
 
 namespace Persistence.Repositories

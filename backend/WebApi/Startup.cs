@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Persistence;
 using Persistence.Interfaces;
-using Persistence.Repositories;
 using Services.Interfaces;
 using Services.Options;
 using WebApi.Options;
@@ -17,6 +17,9 @@ using System.Reflection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WebApi.Helpers;
+using Services.Repositories;
+using WebApi.Middleware;
+using Serilog;
 
 namespace WebApi
 {
@@ -56,22 +59,37 @@ namespace WebApi
 
         private void ConfigureDatabase(IServiceCollection services)
         {
+            var connectionString = Configuration.GetConnectionString("AppDatabase");
 
-            services.AddScoped<IFoodRepository, FoodRepository>(_ =>
-                new FoodRepository(DBConfiguration.Instance.PathToFoodsFile)
-            );
-            services.AddScoped<IRestaurantRepository, RestaurantRepository>(_ =>
-                new RestaurantRepository(DBConfiguration.Instance.PathToRestaurantsFile)
-            );
-            services.AddScoped<ITypeOfFoodRepository, TypeOfFoodRepository>(_ =>
-                new TypeOfFoodRepository(DBConfiguration.Instance.PathToTypesOfFoodFile)
-            );
-            //services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new ArgumentNullException(nameof(connectionString), "Connection string not found");
+            }
+
+            services.AddDbContext<IDatabaseContext, DatabaseContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+            }, ServiceLifetime.Transient);
+
+
+            services.AddScoped<IFoodRepository, FoodEFRepository>();
+            services.AddScoped<IRestaurantRepository, RestaurantEFRepository>();
+            services.AddScoped<ITypeOfFoodRepository, TypeOfFoodEFRepository>();
+        }
+
+        private void ConfigureLogger(IServiceCollection services)
+        {
+            Log.Logger = new LoggerConfiguration()
+                   .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+                   .CreateLogger();
+
+            services.AddSingleton(x => Log.Logger);
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureLogger(services);
             ConfigureOptions(services);
             ConfigureDatabase(services);
 
@@ -135,6 +153,8 @@ namespace WebApi
                 });
             }
 
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();

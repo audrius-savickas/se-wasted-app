@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Models;
 using Persistence.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Persistence.Repositories
 {
-    public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
+    public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
     {
         private readonly string _pathToDatabase;
 
@@ -15,10 +15,10 @@ namespace Persistence.Repositories
             _pathToDatabase = pathToDatabase;
         }
 
-        public void Add(T entity)
+        public void Add(T model)
         {
             List<T> all = GetAll().ToList();
-            all.Add(entity);
+            all.Add(model);
             WriteAllToFile(all);
         }
 
@@ -43,13 +43,13 @@ namespace Persistence.Repositories
             return entity;
         }
 
-        public void Update(T entity)
+        public void Update(T model)
         {
             List<T> all = GetAll().ToList();
 
             // Update
-            int indexOfEntity = all.FindIndex(0, t => t.Id == entity.Id);
-            all[indexOfEntity] = entity;
+            int indexOfEntity = all.FindIndex(0, t => t.Id == model.Id);
+            all[indexOfEntity] = model;
 
             WriteAllToFile(all);
         }

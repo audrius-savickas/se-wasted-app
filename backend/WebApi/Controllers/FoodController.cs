@@ -1,5 +1,5 @@
 ﻿using Contracts.DTOs;
-using Domain.Entities;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services.Exceptions;
 using Services.Interfaces;
@@ -125,7 +125,7 @@ namespace WebApi.Controllers
                 string id = _foodService.RegisterFood(food, IdGenerator.GenerateUniqueId);
                 return CreatedAtAction(nameof(RegisterFood), new { id });
             }
-            catch (EntityNotFoundException exception)
+            catch(Exception exception) when (exception is EntityNotFoundException || exception is ArgumentException)
             {
                 return BadRequest(exception.Message);
             }

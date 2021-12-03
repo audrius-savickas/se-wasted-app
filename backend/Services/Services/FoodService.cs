@@ -1,5 +1,5 @@
 ﻿using Contracts.DTOs;
-using Domain.Entities;
+using Domain.Models;
 using Persistence.Interfaces;
 using Services.Exceptions;
 using Services.Interfaces;
@@ -102,10 +102,20 @@ namespace Services.Services
             {
                 throw new EntityNotFoundException("Invalid restaurant id.");
             }
+
+            food.CheckIfImageUrlIsSet();
+
             // Generate id for food item
             food.Id = generateId();
 
-            food.TypesOfFood = GetValidTypesOfFood(food.TypesOfFood);
+            try
+            {
+                food.TypesOfFood = GetValidTypesOfFood(food.TypesOfFood);
+            }
+            catch(ArgumentException)
+            {
+                throw;
+            }
 
             _foodRepository.Add(food);
             return food.Id;

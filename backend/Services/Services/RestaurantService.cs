@@ -1,5 +1,5 @@
 ﻿using Contracts.DTOs;
-using Domain.Entities;
+using Domain.Models;
 using Domain.Helpers;
 using Persistence.Interfaces;
 using Services.Exceptions;
@@ -35,7 +35,14 @@ namespace Services.Services
                 throw new EntityNotFoundException("Invalid email.");
             }
 
+            string error = Validator.ValidatePassword(newPassword.Value);
+            if (error != "")
+            {
+                throw new ArgumentException(error);
+            }
+
             Credentials creds = restaurant.Credentials;
+            newPassword.Value = PasswordHasher.Hash(newPassword.Value);
             creds.Password = newPassword;
             _restaurantRepository.Update(restaurant);
         }
@@ -129,10 +136,11 @@ namespace Services.Services
                 Description = restaurantRegisterRequest.Description,
             };
 
+            _restaurantRepository.Add(restaurant);
+
             // Raise an event that restaurant has registered
             OnRestaurantRegistered(new RestaurantEventArgs(restaurant));
 
-            _restaurantRepository.Add(restaurant);
             return id;
         }
 
