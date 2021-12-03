@@ -9,10 +9,14 @@ using Persistence;
 using Persistence.Interfaces;
 using Services.Interfaces;
 using Services.Options;
+using WebApi.Options;
 using Services.Services;
 using System;
 using System.IO;
 using System.Reflection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using WebApi.Helpers;
 using Services.Repositories;
 using WebApi.Middleware;
 using Serilog;
@@ -39,6 +43,18 @@ namespace WebApi
                     options.Port = int.Parse(Configuration["EmailOptions:Port"]);
                 }
             );
+            services.Configure<TokenOptions>(
+                options =>
+                {
+                    options.SecurityKey = Configuration["TokenOptions:SecurityKey"];
+                }
+            );
+            services.Configure<GoogleOptions>(
+                options =>
+                {
+                    options.ClientId = Configuration["GoogleOptions:ClientId"];
+                }
+            );
         }
 
         private void ConfigureDatabase(IServiceCollection services)
@@ -56,17 +72,8 @@ namespace WebApi
             }, ServiceLifetime.Transient);
 
 
-            /*services.AddScoped<IFoodRepository, FoodRepository>(_ =>
-                new FoodRepository(DBConfiguration.Instance.PathToFoodsFile)
-            );*/
             services.AddScoped<IFoodRepository, FoodEFRepository>();
-            /*services.AddScoped<IRestaurantRepository, RestaurantRepository>(_ =>
-                new RestaurantRepository(DBConfiguration.Instance.PathToRestaurantsFile)
-            );*/
             services.AddScoped<IRestaurantRepository, RestaurantEFRepository>();
-            /*services.AddScoped<ITypeOfFoodRepository, TypeOfFoodRepository>(_ =>
-                new TypeOfFoodRepository(DBConfiguration.Instance.PathToTypesOfFoodFile)
-            );*/
             services.AddScoped<ITypeOfFoodRepository, TypeOfFoodEFRepository>();
         }
 
@@ -85,6 +92,8 @@ namespace WebApi
             ConfigureLogger(services);
             ConfigureOptions(services);
             ConfigureDatabase(services);
+
+            services.AddScoped<ITokenHelper, TokenHelper>();
 
             services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddScoped<IFoodService, FoodService>();
@@ -106,6 +115,24 @@ namespace WebApi
             });
 
             services.AddControllers();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "JwtBearer";
+                options.DefaultChallengeScheme = "JwtBearer";
+            })
+                .AddJwtBearer("JwtBearer", jwtBearerOptions =>
+                {
+                    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenOptions:SecurityKey"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.FromMinutes(5)
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -132,6 +159,7 @@ namespace WebApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
