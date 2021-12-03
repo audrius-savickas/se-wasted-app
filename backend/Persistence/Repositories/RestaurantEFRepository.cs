@@ -37,7 +37,7 @@ namespace Services.Repositories
 
         public IQueryable<Restaurant> GetAllRestaurantsCloserThan(Coords coords, Distances distance)
         {
-            return GetAll().AsEnumerable().Where(rest => rest.IsCloser(coords, distance)).AsQueryable();
+            return GetAll().ToList().Where(rest => rest.IsCloser(coords, distance)).AsQueryable();
         }
 
         public Restaurant GetById(string id)
