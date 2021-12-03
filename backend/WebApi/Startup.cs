@@ -9,11 +9,17 @@ using Persistence;
 using Persistence.Interfaces;
 using Services.Interfaces;
 using Services.Options;
+using WebApi.Options;
 using Services.Services;
 using System;
 using System.IO;
 using System.Reflection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using WebApi.Helpers;
 using Services.Repositories;
+using WebApi.Middleware;
+using Serilog;
 
 namespace WebApi
 {
@@ -37,6 +43,18 @@ namespace WebApi
                     options.Port = int.Parse(Configuration["EmailOptions:Port"]);
                 }
             );
+            services.Configure<TokenOptions>(
+                options =>
+                {
+                    options.SecurityKey = Configuration["TokenOptions:SecurityKey"];
+                }
+            );
+            services.Configure<GoogleOptions>(
+                options =>
+                {
+                    options.ClientId = Configuration["GoogleOptions:ClientId"];
+                }
+            );
         }
 
         private void ConfigureDatabase(IServiceCollection services)
@@ -58,11 +76,23 @@ namespace WebApi
             services.AddScoped<ITypeOfFoodRepository, TypeOfFoodEFRepository>();
         }
 
+        private void ConfigureLogger(IServiceCollection services)
+        {
+            Log.Logger = new LoggerConfiguration()
+                   .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+                   .CreateLogger();
+
+            services.AddSingleton(x => Log.Logger);
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureLogger(services);
             ConfigureOptions(services);
             ConfigureDatabase(services);
+
+            services.AddScoped<ITokenHelper, TokenHelper>();
 
             services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddScoped<IFoodService, FoodService>();
@@ -84,6 +114,24 @@ namespace WebApi
             });
 
             services.AddControllers();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "JwtBearer";
+                options.DefaultChallengeScheme = "JwtBearer";
+            })
+                .AddJwtBearer("JwtBearer", jwtBearerOptions =>
+                {
+                    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenOptions:SecurityKey"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.FromMinutes(5)
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,10 +152,13 @@ namespace WebApi
                 });
             }
 
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
