@@ -10,6 +10,8 @@ git clone git@github.com:audrius-savickas/se-wasted-app.git
 ```
 
 ## Configuration
+
+### SMTP
 Our application uses a SMTP client to send welcome email. In order to use this client, you should define your connection this way:
 ```bash
 cd backend/WebApi
@@ -28,6 +30,21 @@ dotnet user-secrets set "EmailOptions:Port" "465"
 Be sure you can see all this data by running this command:
 ```bash
 dotnet user-secrets list
+```
+
+### Authorization
+Our application use authorization with JWT. Therefore, you should write a secret key to create the tokens.
+```bash
+cd backend/WebApi
+dotnet user-secrets set "TokenOptions:SecurityKey" "<your-security-key>" 
+```
+Be sure you can see all this data by running this command:
+```bash
+dotnet user-secrets list
+```
+Also, we use google cloud api to validate tokens created by Google, to enable social login.
+```bash
+dotnet user-secrets set "GoogleOptions:ClientId" "<your-client-id>"
 ```
 
 ## Build and run
