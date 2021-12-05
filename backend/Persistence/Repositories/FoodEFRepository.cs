@@ -4,10 +4,8 @@ using Persistence;
 using Persistence.Interfaces;
 using Services.Mappers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace Services.Repositories
 {
@@ -18,10 +16,11 @@ namespace Services.Repositories
         {
             _context = context;
         }
-        public void Add(Food food)
+        public string Insert(Food food)
         {
             _context.Foods.Add(food.ToEntity());
             _context.SaveChanges();
+            return food.Id;
         }
 
         public void Delete(string id)
@@ -31,7 +30,7 @@ namespace Services.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<Food> GetAll()
+        public IQueryable<Food> GetAll()
         {
             return _context.Foods.Select(x => x.ToDomain());
         }
@@ -50,6 +49,11 @@ namespace Services.Repositories
                 _context.Foods.Add(food.ToEntity());
                 _context.SaveChanges();
             }
+        }
+
+        public IQueryable<Food> GetFoodFromRestaurant(string idRestaurant)
+        {
+            return _context.Foods.Where(food => food.RestaurantId == Guid.Parse(idRestaurant)).Select(x => x.ToDomain());
         }
 
         private FoodEntity GetByIdString(string id)

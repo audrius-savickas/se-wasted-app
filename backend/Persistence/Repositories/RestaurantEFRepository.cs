@@ -4,10 +4,8 @@ using Persistence;
 using Persistence.Interfaces;
 using Services.Mappers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace Services.Repositories
 {
@@ -18,10 +16,11 @@ namespace Services.Repositories
         {
             _context = context;
         }
-        public void Add(Restaurant restaurant)
+        public string Insert(Restaurant restaurant)
         {
             _context.Restaurants.Add(restaurant.ToEntity());
             _context.SaveChanges();
+            return restaurant.Id;
         }
 
         public void Delete(string id)
@@ -31,15 +30,14 @@ namespace Services.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<Restaurant> GetAll()
+        public IQueryable<Restaurant> GetAll()
         {
             return _context.Restaurants.Select(x => x.ToDomain());
         }
 
-        public IEnumerable<Restaurant> GetAllRestaurantsCloserThan(Coords coords, Distances distance)
+        public IQueryable<Restaurant> GetAllRestaurantsCloserThan(Coords coords, Distances distance)
         {
-            return _context.Restaurants.Where(rest => rest.ToDomain().IsCloser(coords, distance))
-                                       .Select(x => x.ToDomain());
+            return GetAll().ToList().Where(rest => rest.IsCloser(coords, distance)).AsQueryable();
         }
 
         public Restaurant GetById(string id)
@@ -52,7 +50,7 @@ namespace Services.Repositories
             return _context.Restaurants.FirstOrDefault(x => x.Mail == mail.Value)?.ToDomain();
         }
 
-        public IEnumerable<Restaurant> GetRestaurantsNear(Coords coords)
+        public IQueryable<Restaurant> GetRestaurantsNear(Coords coords)
         {
             return GetAllRestaurantsCloserThan(coords, Distances.NEAR);
         }

@@ -71,7 +71,6 @@ namespace WebApi
                 options.UseSqlServer(connectionString);
             }, ServiceLifetime.Transient);
 
-
             services.AddScoped<IFoodRepository, FoodEFRepository>();
             services.AddScoped<IRestaurantRepository, RestaurantEFRepository>();
             services.AddScoped<ITypeOfFoodRepository, TypeOfFoodEFRepository>();
