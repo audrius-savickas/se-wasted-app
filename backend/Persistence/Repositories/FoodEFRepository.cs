@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Persistence.Interfaces;
 using Persistence.Utils;
@@ -20,7 +21,15 @@ namespace Services.Repositories
         public string Insert(Food food)
         {
             food.Id = IdGenerator.GenerateUniqueId();
-            _context.Foods.Add(food.ToEntity());
+
+            FoodEntity entity = food.ToEntity();
+
+            var typeIds = entity.TypesOfFood.Select(x => x.Id);
+            var typesOfFood = _context.TypesOfFood.Where(x => typeIds.Contains(x.Id));
+
+            entity.TypesOfFood = typesOfFood.ToList();
+
+            _context.Foods.Add(entity);
             _context.SaveChanges();
             return food.Id;
         }
@@ -34,7 +43,7 @@ namespace Services.Repositories
 
         public IQueryable<Food> GetAll()
         {
-            return _context.Foods.Select(x => x.ToDomain());
+            return _context.Foods.Include(x => x.TypesOfFood).Select(x => x.ToDomain());
         }
 
         public Food GetById(string id)
@@ -60,7 +69,8 @@ namespace Services.Repositories
 
         private FoodEntity GetByIdString(string id)
         {
-            return _context.Foods.Find(Guid.Parse(id));
+            return _context.Foods.Include(x => x.TypesOfFood)
+                                 .FirstOrDefault(x => x.Id == Guid.Parse(id));
         }
     }
 }
