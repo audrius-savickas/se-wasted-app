@@ -57,7 +57,7 @@ namespace Services.Tests.ServicesUnitTests
         }
 
         [Fact]
-        public void DeleteFood_FoodInDataBaseWrongRestaurant_ReturnsAuthorizationExeption()
+        public void DeleteFood_FoodInDataBaseWrongRestaurant_ThrowsAuthorizationExeption()
         {
             _context.Foods.Add(_foodEntity);
             _context.Restaurants.Add(_restaurantEntity);
@@ -139,6 +139,8 @@ namespace Services.Tests.ServicesUnitTests
             Assert.Null(food);
         }
         
+        //todo Update tests
+
         [Fact]
         public void GetRestaurantOfFood_FoodInDataBase_ReturnsRestaurant()
         {
@@ -182,5 +184,6 @@ namespace Services.Tests.ServicesUnitTests
             Assert.Throws<EntityNotFoundException> (() => sut.GetTypesOfFood(_foodEntity.Id.ToString()));
         }
 
+        //todo register tests
     }
 }
