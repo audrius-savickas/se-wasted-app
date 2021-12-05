@@ -41,8 +41,7 @@ namespace Services.Tests.RepositoriesUnitTests
 
             sut.Delete(FoodEntity.Id.ToString());
 
-            List<FoodEntity> foods = _context.Foods.ToList();
-            Assert.Empty(foods);
+            Assert.Empty(_context.Foods.ToList());
         }
 
         [Fact]
@@ -52,9 +51,7 @@ namespace Services.Tests.RepositoriesUnitTests
             _context.SaveChanges();
             var sut = new FoodEFRepository(_context);
 
-            IEnumerable<Food> foods = sut.GetAll();
-
-            Assert.Single(foods);
+            Assert.Single(sut.GetAll());
         }
 
         [Fact]
@@ -70,7 +67,7 @@ namespace Services.Tests.RepositoriesUnitTests
             _context.SaveChanges();
             var sut = new FoodEFRepository(_context);
 
-            IEnumerable<Food> foods = sut.GetAll();
+            IQueryable<Food> foods = sut.GetAll();
 
             Assert.NotEmpty(foods);
             Assert.Equal(FoodEntity.Id.ToString(), foods.ToList()[0].Id);

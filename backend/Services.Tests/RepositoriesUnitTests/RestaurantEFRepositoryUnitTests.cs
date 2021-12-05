@@ -40,8 +40,7 @@ namespace Services.Tests.RepositoriesUnitTests
 
             sut.Delete(RestaurantEntity.Id.ToString());
 
-            List<RestaurantEntity> restaurants = _context.Restaurants.ToList();
-            Assert.Empty(restaurants);
+            Assert.Empty(_context.Restaurants.ToList());
         }
 
         [Fact]
@@ -51,9 +50,7 @@ namespace Services.Tests.RepositoriesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantEFRepository(_context);
 
-            IEnumerable<Restaurant> restaurants = sut.GetAll();
-
-            Assert.Single(restaurants);
+            Assert.Single(sut.GetAll());
         }
 
         [Fact]
@@ -67,7 +64,7 @@ namespace Services.Tests.RepositoriesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantEFRepository(_context);
 
-            IEnumerable<Restaurant> restaurants = sut.GetAll();
+            IQueryable<Restaurant> restaurants = sut.GetAll();
 
             Assert.NotEmpty(restaurants);
             Assert.Equal(RestaurantEntity.Id.ToString(), restaurants.ToList()[0].Id);
@@ -81,7 +78,7 @@ namespace Services.Tests.RepositoriesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantEFRepository(_context);
 
-            IEnumerable<Restaurant> restaurants = sut.GetAllRestaurantsCloserThan(new Coords((decimal)0.0001, (decimal)0.0001), Distances.FAR);
+            IQueryable<Restaurant> restaurants = sut.GetAllRestaurantsCloserThan(new Coords((decimal)0.0001, (decimal)0.0001), Distances.FAR);
 
             Assert.Single(restaurants);
             Assert.Equal(RestaurantEntity.Id.ToString(), restaurants.ToList()[0].Id);
@@ -98,7 +95,7 @@ namespace Services.Tests.RepositoriesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantEFRepository(_context);
 
-            IEnumerable<Restaurant> restaurants = sut.GetAllRestaurantsCloserThan(new Coords((decimal)0.0001, (decimal)0.0001), Distances.FAR);
+            IQueryable<Restaurant> restaurants = sut.GetAllRestaurantsCloserThan(new Coords((decimal)0.0001, (decimal)0.0001), Distances.FAR);
 
             Assert.NotEmpty(restaurants);
             Assert.Equal(RestaurantEntity.Id.ToString(), restaurants.ToList()[0].Id);
@@ -112,7 +109,7 @@ namespace Services.Tests.RepositoriesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantEFRepository(_context);
 
-            IEnumerable<Restaurant> restaurants = sut.GetAllRestaurantsCloserThan(new Coords((decimal)1, (decimal)1), Distances.FAR);
+            IQueryable<Restaurant> restaurants = sut.GetAllRestaurantsCloserThan(new Coords((decimal)1, (decimal)1), Distances.FAR);
 
             Assert.Empty(restaurants);
         }
@@ -130,7 +127,7 @@ namespace Services.Tests.RepositoriesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantEFRepository(_context);
 
-            IEnumerable<Restaurant> restaurants = sut.GetAllRestaurantsCloserThan(new Coords((decimal)1.01, (decimal)1.01), Distances.MEDIUM);
+            IQueryable<Restaurant> restaurants = sut.GetAllRestaurantsCloserThan(new Coords((decimal)1.01, (decimal)1.01), Distances.MEDIUM);
 
             Assert.Single(restaurants);
             Assert.Equal(otherRestaurantId.ToString(), restaurants.ToList()[0].Id);
@@ -149,7 +146,7 @@ namespace Services.Tests.RepositoriesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantEFRepository(_context);
 
-            IEnumerable<Restaurant> restaurants = sut.GetAllRestaurantsCloserThan(new Coords((decimal)0.101, (decimal)0.101), Distances.NEAR);
+            IQueryable<Restaurant> restaurants = sut.GetAllRestaurantsCloserThan(new Coords((decimal)0.101, (decimal)0.101), Distances.NEAR);
 
             Assert.Single(restaurants);
             Assert.Equal(otherRestaurantId.ToString(), restaurants.ToList()[0].Id);

@@ -74,7 +74,7 @@ namespace Services.Tests
                 Id = restaurantId.ToString(),
                 Name = restaurantName,
                 Coords = new Coords(0, 0),
-                Credentials = new Credentials("mail", "password")
+                Credentials = new Credentials(restaurantMail, "password")
             };
             return restaurant;
         }
