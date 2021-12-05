@@ -122,7 +122,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                string id = _foodService.RegisterFood(food, IdGenerator.GenerateUniqueId);
+                string id = _foodService.RegisterFood(food);
                 return CreatedAtAction(nameof(RegisterFood), new { id });
             }
             catch(Exception exception) when (exception is EntityNotFoundException || exception is ArgumentException)

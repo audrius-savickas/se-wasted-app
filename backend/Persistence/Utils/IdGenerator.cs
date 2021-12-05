@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Services.Utils
+namespace Persistence.Utils
 {
     public class IdGenerator
     {

@@ -9,6 +9,7 @@ using System.Linq;
 using Domain.Models.QueryParameters;
 using Domain.Models.Extensions;
 using Services.Utils;
+using Persistence.Utils;
 
 namespace Services.Services
 {
@@ -113,7 +114,7 @@ namespace Services.Services
             return restaurant != null && restaurant.Credentials.Mail.Value == creds.Mail.Value && PasswordHasher.Verify(creds.Password.Value, restaurant.Credentials.Password.Value);
         }
 
-        public string Register(Credentials creds, RestaurantRegisterRequest restaurantRegisterRequest, Func<string> generateId)
+        public string Register(Credentials creds, RestaurantRegisterRequest restaurantRegisterRequest)
         {
 
             // Validations
@@ -129,12 +130,8 @@ namespace Services.Services
                 throw new ArgumentException(error);
             }
 
-            // Registration
-            string id = generateId();
-
             Restaurant restaurant = new Restaurant
             {
-                Id = id,
                 Name = restaurantRegisterRequest.Name,
                 Address = restaurantRegisterRequest.Address,
                 Coords = restaurantRegisterRequest.Coords,
@@ -143,7 +140,7 @@ namespace Services.Services
                 Description = restaurantRegisterRequest.Description,
             };
 
-            _restaurantRepository.Insert(restaurant);
+            string id = _restaurantRepository.Insert(restaurant);
 
             // Raise an event that restaurant has registered
             OnRestaurantRegistered(new RestaurantEventArgs(restaurant));

@@ -2,6 +2,7 @@
 using Domain.Models;
 using Persistence;
 using Persistence.Interfaces;
+using Persistence.Utils;
 using Services.Mappers;
 using System;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Services.Repositories
         }
         public string Insert(TypeOfFood typeOfFood)
         {
+            typeOfFood.Id = IdGenerator.GenerateUniqueId();
             _context.TypesOfFood.Add(typeOfFood.ToEntity());
             _context.SaveChanges();
             return typeOfFood.Id;
