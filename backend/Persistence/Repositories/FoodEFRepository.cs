@@ -12,8 +12,8 @@ namespace Services.Repositories
 {
     public class FoodEFRepository : IFoodRepository
     {
-        private readonly IDatabaseContext _context;
-        public FoodEFRepository(IDatabaseContext context)
+        private readonly DatabaseContext _context;
+        public FoodEFRepository(DatabaseContext context)
         {
             _context = context;
         }

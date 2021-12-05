@@ -66,7 +66,7 @@ namespace WebApi
                 throw new ArgumentNullException(nameof(connectionString), "Connection string not found");
             }
 
-            services.AddDbContext<IDatabaseContext, DatabaseContext>(options =>
+            services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseSqlServer(connectionString);
             }, ServiceLifetime.Transient);
