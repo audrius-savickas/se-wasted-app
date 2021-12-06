@@ -98,7 +98,7 @@ namespace Services.Services
 
         }
 
-        public string RegisterFood(Food food, Func<string> generateId)
+        public string RegisterFood(Food food)
         {
             ValidateDecreaseType(food.DecreaseType);
 
@@ -110,9 +110,6 @@ namespace Services.Services
 
             food.CheckIfImageUrlIsSet();
 
-            // Generate id for food item
-            food.Id = generateId();
-
             try
             {
                 food.TypesOfFood = GetValidTypesOfFood(food.TypesOfFood);
@@ -122,8 +119,9 @@ namespace Services.Services
                 throw;
             }
 
-            _foodRepository.Insert(food);
-            return food.Id;
+            string foodId = _foodRepository.Insert(food);
+
+            return foodId;
         }
 
         private IEnumerable<TypeOfFood> GetValidTypesOfFood(IEnumerable<TypeOfFood> types)

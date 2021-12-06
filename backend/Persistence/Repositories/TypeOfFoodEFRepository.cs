@@ -2,6 +2,7 @@
 using Domain.Models;
 using Persistence;
 using Persistence.Interfaces;
+using Persistence.Utils;
 using Services.Mappers;
 using System;
 using System.Linq;
@@ -10,13 +11,15 @@ namespace Services.Repositories
 {
     public class TypeOfFoodEFRepository : ITypeOfFoodRepository
     {
-        private readonly IDatabaseContext _context;
-        public TypeOfFoodEFRepository(IDatabaseContext context)
+        private readonly DatabaseContext _context;
+        public TypeOfFoodEFRepository(DatabaseContext context)
         {
             _context = context;
         }
         public string Insert(TypeOfFood typeOfFood)
         {
+            typeOfFood.Id = IdGenerator.GenerateUniqueId();
+            
             _context.TypesOfFood.Add(typeOfFood.ToEntity());
             _context.SaveChanges();
             return typeOfFood.Id;

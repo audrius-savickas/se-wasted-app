@@ -50,6 +50,7 @@ namespace Domain.Models
             IntervalTimeInMinutes = intervalTimeInMinutes;
             DecreaseType = decreaseType;
             Description = description;
+            ImageURL = imageURL;
 
             ValidatePriceDecrease(decreaseType, percentPerInterval, amountPerInterval);
 

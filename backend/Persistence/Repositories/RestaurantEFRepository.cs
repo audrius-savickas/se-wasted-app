@@ -1,7 +1,9 @@
 ﻿using Domain.Entities;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Persistence.Interfaces;
+using Persistence.Utils;
 using Services.Mappers;
 using System;
 using System.Linq;
@@ -11,13 +13,16 @@ namespace Services.Repositories
 {
     public class RestaurantEFRepository : IRestaurantRepository
     {
-        private readonly IDatabaseContext _context;
-        public RestaurantEFRepository(IDatabaseContext context)
+        private readonly DatabaseContext _context;
+        public RestaurantEFRepository(DatabaseContext context)
         {
             _context = context;
         }
+        
         public string Insert(Restaurant restaurant)
         {
+            restaurant.Id = IdGenerator.GenerateUniqueId();
+
             _context.Restaurants.Add(restaurant.ToEntity());
             _context.SaveChanges();
             return restaurant.Id;
@@ -57,13 +62,18 @@ namespace Services.Repositories
 
         public void Update(Restaurant restaurant)
         {
-            RestaurantEntity entity = GetByIdString(restaurant.Id);
-            if (entity != null)
+            if (GetByIdString(restaurant.Id) == null) return;
+
+            var local = _context.Restaurants.Local.FirstOrDefault(x => x.Id == Guid.Parse(restaurant.Id));
+
+            if (local != null)
             {
-                _context.Restaurants.Remove(entity);          // FIX: Ugly workaround for updating
-                _context.Restaurants.Add(restaurant.ToEntity());
-                _context.SaveChanges();
+                _context.Entry(local).State = EntityState.Detached;
             }
+
+            _context.Restaurants.Update(restaurant.ToEntity());
+
+            _context.SaveChanges();
         }
 
         private RestaurantEntity GetByIdString(string id)

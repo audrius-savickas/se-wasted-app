@@ -7,7 +7,7 @@ namespace Services.Interfaces
     {
         TypeOfFood GetTypeOfFoodById(string id);
         IEnumerable<TypeOfFood> GetAllTypesOfFood();
-        void AddTypeOfFood(TypeOfFood newTypeOfFood);
+        string AddTypeOfFood(TypeOfFood newTypeOfFood);
         void UpdateTypeOfFood(TypeOfFood updatedTypeOfFood);
         void DeleteTypeOfFood(string id);
     }

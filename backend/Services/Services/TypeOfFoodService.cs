@@ -14,9 +14,9 @@ namespace Services.Services
             _typeOfFoodRepository = typeOfFoodRepository;
         }
 
-        public void AddTypeOfFood(TypeOfFood newTypeOfFood)
+        public string AddTypeOfFood(TypeOfFood newTypeOfFood)
         {
-            _typeOfFoodRepository.Insert(newTypeOfFood);
+            return _typeOfFoodRepository.Insert(newTypeOfFood);
         }
 
         public void DeleteTypeOfFood(string id)
