@@ -19,7 +19,6 @@ namespace Services.Repositories
         public string Insert(TypeOfFood typeOfFood)
         {
             typeOfFood.Id = IdGenerator.GenerateUniqueId();
-            
             _context.TypesOfFood.Add(typeOfFood.ToEntity());
             _context.SaveChanges();
             return typeOfFood.Id;

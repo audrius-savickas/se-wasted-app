@@ -4,6 +4,7 @@ using Domain.Models.QueryParameters;
 using Microsoft.AspNetCore.Mvc;
 using Services.Exceptions;
 using Services.Interfaces;
+using Services.Mappers;
 using Services.Utils;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,7 @@ namespace WebApi.Controllers
 
             this.AddPaginationMetadata(pagedFoodList);
 
-            var foodsResp = pagedFoodList.Select(food => FoodResponse.FromEntity(food));
+            var foodsResp = pagedFoodList.Select(food => food.ToFoodResponse());
 
             return Ok(foodsResp);
         }
@@ -63,7 +64,7 @@ namespace WebApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public IActionResult GetById(string id)
         {
-            var foodResp = FoodResponse.FromEntity(_foodService.GetFoodById(id));
+            var foodResp = _foodService.GetFoodById(id).ToFoodResponse();
 
             return foodResp != null ? Ok(foodResp) : NotFound();
         }

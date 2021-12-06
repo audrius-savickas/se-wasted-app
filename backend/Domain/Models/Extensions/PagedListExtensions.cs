@@ -11,7 +11,7 @@ namespace Domain.Models.Extensions
         public static PagedList<TOutput> ConvertAllItems<T,TOutput>(this PagedList<T> source, Converter<T,TOutput> converter)
         {
             var convertedList = source.Select(x => converter(x)).ToList();
-            return new PagedList<TOutput>(convertedList, source.Count, source.CurrentPage, source.PageSize);
+            return new PagedList<TOutput>(convertedList, source.TotalCount, source.CurrentPage, source.PageSize);
         }
     }
 }

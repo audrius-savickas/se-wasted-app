@@ -1,5 +1,6 @@
 ﻿using Contracts.DTOs;
 using Domain.Models;
+using Services.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,16 +49,16 @@ namespace Services.Utils
                     restaurants = restaurants.OrderByDescending(r => r.Name);
                     break;
                 case "dist":
-                    restaurants = restaurants.OrderBy(r => RestaurantDto.FromEntity(r).DistanceToUser);
+                    restaurants = restaurants.OrderBy(r => r.ToDTO().DistanceToUser);
                     break;
                 case "dist_desc":
-                    restaurants = restaurants.OrderByDescending(r => RestaurantDto.FromEntity(r).DistanceToUser);
+                    restaurants = restaurants.OrderByDescending(r => r.ToDTO().DistanceToUser);
                     break;
                 case "foodCount":
-                    restaurants = restaurants.OrderBy(r => RestaurantDto.FromEntity(r).FoodCount);
+                    restaurants = restaurants.OrderBy(r => r.ToDTO().FoodCount);
                     break;
                 case "foodCount_desc":
-                    restaurants = restaurants.OrderByDescending(r => RestaurantDto.FromEntity(r).FoodCount);
+                    restaurants = restaurants.OrderByDescending(r => r.ToDTO().FoodCount);
                     break;
                 default:
                     break;

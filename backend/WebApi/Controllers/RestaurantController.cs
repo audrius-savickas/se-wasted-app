@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net;
 using WebApi.Helpers;
 using Domain.Models.QueryParameters;
+using Services.Mappers;
 
 namespace WebApi.Controllers
 {
@@ -63,16 +64,6 @@ namespace WebApi.Controllers
             var restaurants = _restaurantService.GetAllRestaurants(restaurantParameters);
 
             this.AddPaginationMetadata(restaurants);
-
-
-            foreach (RestaurantDto restaurant in restaurants)
-            {
-                if (userCoordinates != null)
-                {
-                    restaurant.DistanceToUser = CoordsHelper.HaversineDistanceKM(userCoordinates, restaurant.Coords);
-                }
-                restaurant.FoodCount = _restaurantService.GetFoodCountFromRestaurant(restaurant.Id);
-            }
 
             return Ok(restaurants);
         }
@@ -231,7 +222,7 @@ namespace WebApi.Controllers
 
             this.AddPaginationMetadata(pagedFoodList);
 
-            var foodsResp = pagedFoodList.Select(food => FoodResponse.FromEntity(food));
+            var foodsResp = pagedFoodList.Select(food => food.ToFoodResponse());
 
             return Ok(foodsResp);
         }

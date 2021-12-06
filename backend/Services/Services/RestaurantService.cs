@@ -10,6 +10,7 @@ using Domain.Models.QueryParameters;
 using Domain.Models.Extensions;
 using Services.Utils;
 using Persistence.Utils;
+using Services.Mappers;
 
 namespace Services.Services
 {
@@ -18,7 +19,7 @@ namespace Services.Services
         private readonly IRestaurantRepository _restaurantRepository;
         private readonly IFoodRepository _foodRepository;
 
-        private readonly Converter<Restaurant, RestaurantDto> _restaurantToDtoConverter = new(RestaurantDto.FromEntity);
+        private readonly Converter<Restaurant, RestaurantDto> _restaurantToDtoConverter = r => r.ToDTO();
         public event EventHandler<RestaurantEventArgs> RestaurantRegistered;
 
         public RestaurantService
@@ -59,7 +60,7 @@ namespace Services.Services
                 throw new EntityNotFoundException("Invalid email.");
             }
 
-            return RestaurantDto.FromEntity(restaurant);
+            return restaurant.ToDTO();
         }
 
         public void DeleteAccount(Credentials creds)
@@ -96,7 +97,7 @@ namespace Services.Services
                 throw new EntityNotFoundException("Invalid restaurant id.");
             }
 
-            return RestaurantDto.FromEntity(restaurant);
+            return restaurant.ToDTO();
         }
 
         public PagedList<RestaurantDto> GetRestaurantsNear(RestaurantParameters restaurantParameters, Coords coords)

@@ -22,11 +22,15 @@ namespace Contracts.DTOs
             string name,
             string address,
             Coords coords,
+            double distanceToUser,
+            int foodCount,
             string description = "",
             string imageURL = ""
         )
             : base(id, name)
         {
+            FoodCount = foodCount;
+            DistanceToUser = distanceToUser;
             Description = description;
             Address = address;
             Coords = coords ?? throw new ArgumentNullException(nameof(coords));
@@ -38,21 +42,6 @@ namespace Contracts.DTOs
             {
                 ImageURL = imageURL;
             }
-        }
-
-        public static RestaurantDto FromEntity(Restaurant restaurant)
-        {
-            _ = restaurant ?? throw new ArgumentNullException(nameof(restaurant));
-
-            return new RestaurantDto
-            (
-                restaurant.Id,
-                restaurant.Name,
-                restaurant.Address,
-                restaurant.Coords,
-                restaurant.Description,
-                restaurant.ImageURL
-            );
         }
     }
 }
