@@ -138,8 +138,36 @@ namespace Services.Tests.ServicesUnitTests
 
             Assert.Null(food);
         }
-        
-        //todo Update tests
+
+        [Fact]
+        public void UpdateFood_UpdatesFoodInDataBase()
+        {
+            _context.Foods.Add(_foodEntity);
+            _context.Restaurants.Add(_restaurantEntity);
+            _context.SaveChanges();
+            var sut = new FoodService(_foodRepository, _restaurantRepository, _typeOfFoodRepository);
+            var food = GetSampleFood();
+            var newName = "NewTestName";
+            food.Name = newName;
+
+            sut.UpdateFood(food);
+
+            var updatedFood = _context.Foods.Find(_foodEntity.Id);
+            Assert.Equal(_foodEntity.Id, updatedFood.Id);
+            Assert.NotEqual(_foodEntity.Name, updatedFood.Name);
+        }
+
+        [Fact]
+        public void UpdateFood_NoFoodInDataBase_ThrowsEntityNotFoundException()
+        {
+            var sut = new FoodService(_foodRepository, _restaurantRepository, _typeOfFoodRepository);
+            var food = GetSampleFood();
+            var newName = "NewTestName";
+            food.Name = newName;
+
+            Assert.Throws<EntityNotFoundException>(() => sut.UpdateFood(food));
+        }
+
 
         [Fact]
         public void GetRestaurantOfFood_FoodInDataBase_ReturnsRestaurant()
@@ -177,13 +205,49 @@ namespace Services.Tests.ServicesUnitTests
         }
 
         [Fact]
-        public void GetTypesOfFood_NoFoodInDataBase_ReturnsEntityNotFoundException()
+        public void GetTypesOfFood_NoFoodInDataBase_ThrowsEntityNotFoundException()
         {
             var sut = new FoodService(_foodRepository, _restaurantRepository, _typeOfFoodRepository);
 
             Assert.Throws<EntityNotFoundException> (() => sut.GetTypesOfFood(_foodEntity.Id.ToString()));
         }
 
-        //todo register tests
+        [Fact]
+        public void RegisterFood_ValidInput_ReturnsRegisteredFoodId()
+        {
+            _context.Restaurants.Add(_restaurantEntity);
+            _context.TypesOfFood.Add(_typeOfFoodEntity);
+            _context.SaveChanges();
+            var sut = new FoodService(_foodRepository, _restaurantRepository, _typeOfFoodRepository);
+
+            var foodId = sut.RegisterFood(_food);
+
+            var registeredFood = _context.Foods.Find(Guid.Parse(foodId));
+            Assert.NotNull(registeredFood);
+            Assert.Equal(_food.Name, registeredFood.Name);
+            Assert.Equal(_food.IdRestaurant, registeredFood.RestaurantId.ToString());
+
+        }
+
+        [Fact]
+        public void RegisterFood_InvalidRestaurantId_ThrowsEntityNotFoundException()
+        {
+            _context.TypesOfFood.Add(_typeOfFoodEntity);
+            _context.SaveChanges();
+            var sut = new FoodService(_foodRepository, _restaurantRepository, _typeOfFoodRepository);
+
+            Assert.Throws<EntityNotFoundException>(() => sut.RegisterFood(_food));
+        }
+
+        [Fact]
+        public void RegisterFood_InvalidTypeOfFood_ThrowsArgumentException()
+        {
+            _context.Restaurants.Add(_restaurantEntity);
+            _context.SaveChanges();
+            var sut = new FoodService(_foodRepository, _restaurantRepository, _typeOfFoodRepository);
+
+            Assert.Throws<ArgumentException>(() => sut.RegisterFood(_food));
+        }
+
     }
 }
