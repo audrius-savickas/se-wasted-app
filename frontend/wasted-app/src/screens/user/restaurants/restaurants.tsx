@@ -19,6 +19,7 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
   const [sortVisible, setSortVisible] = useState(false)
   const [sortType, setSortType] = useState(RestaurantSortType.DIST)
   const [ascending, setAscending] = useState(true)
+  const [pageNumber, setPageNumber] = useState(1)
 
   const fetchLocation = async () => {
     setLocation(
@@ -33,8 +34,10 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
     setLoading(true)
     setRestaurants(
       await getAllRestaurants({
-        sortType: directionalSortType(),
-        coordinates: {longitude: location.longitude, latitude: location.latitude}
+        sortObject: {
+          sortType: directionalSortType(),
+          coordinates: {longitude: location.longitude, latitude: location.latitude}
+        }
       })
     )
     setLoading(false)
@@ -54,6 +57,24 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
       return (sortType + "_desc") as RestaurantSortType
     }
     return sortType
+  }
+
+  const onEndReached = async () => {
+    setRestaurants(
+      restaurants.concat(
+        await getAllRestaurants({
+          sortObject: {
+            sortType: directionalSortType(),
+            coordinates: {longitude: location.longitude, latitude: location.latitude}
+          },
+          pagination: {
+            pageNumber: pageNumber + 1,
+            pageSize: 10
+          }
+        })
+      )
+    )
+    setPageNumber(pageNumber + 1)
   }
 
   useEffect(() => {
@@ -131,7 +152,7 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
       {loading ? (
         <LoaderScreen color={Colors.blue30} message="Loading..." />
       ) : (
-        <RestaurantsList componentId={componentId} restaurants={renderedRestaurants} />
+        <RestaurantsList componentId={componentId} restaurants={renderedRestaurants} onEndReached={onEndReached} />
       )}
       <View bg-white br30 padding-s2 paddingH-s4 style={{...styles.filter, ...{opacity: sortVisible ? 100 : 0}}}>
         <Text marginB-s2>Sort by</Text>

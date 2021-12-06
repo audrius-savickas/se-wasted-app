@@ -5,7 +5,7 @@ import {navigateToRestaurantInfo} from "../../services/navigation"
 import {RestaurantItem} from "../restaurant-item/"
 import {RestaurantsListProps} from "./interfaces"
 
-export const RestaurantsList = ({componentId, restaurants}: RestaurantsListProps) => {
+export const RestaurantsList = ({componentId, restaurants, onEndReached}: RestaurantsListProps) => {
   const renderItem = ({item}: ListRenderItemInfo<Restaurant>) => {
     return (
       <RestaurantItem
@@ -16,6 +16,13 @@ export const RestaurantsList = ({componentId, restaurants}: RestaurantsListProps
   }
 
   return (
-    <FlatList style={{marginBottom: 8}} renderItem={renderItem} data={restaurants} keyExtractor={item => item.id} />
+    <FlatList
+      style={{marginBottom: 8}}
+      renderItem={renderItem}
+      data={restaurants}
+      keyExtractor={item => item.id}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0}
+    />
   )
 }

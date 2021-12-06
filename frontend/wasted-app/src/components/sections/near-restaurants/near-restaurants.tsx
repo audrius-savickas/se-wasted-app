@@ -14,8 +14,10 @@ export const NearRestaurants = ({componentId, location}: NearRestaurantsProps) =
   const fetchRestaurants = async () => {
     setRestaurants(
       await getAllRestaurants({
-        sortType: RestaurantSortType.DIST,
-        coordinates: {longitude: location.longitude, latitude: location.latitude}
+        sortObject: {
+          sortType: RestaurantSortType.DIST,
+          coordinates: {longitude: location.longitude, latitude: location.latitude}
+        }
       })
     )
   }

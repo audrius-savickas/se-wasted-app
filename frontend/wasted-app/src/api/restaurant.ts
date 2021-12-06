@@ -1,16 +1,30 @@
 import {Credentials, Food, Restaurant, RestaurantRegisterRequest, RestaurantSortObject} from "./interfaces"
+import {Pagination} from "./pagination"
 import {WASTED_SERVER_URL} from "./urls"
 
-export const getAllRestaurants = async (sortObject?: RestaurantSortObject): Promise<Restaurant[]> => {
+export const getAllRestaurants = async ({
+  sortObject,
+  pagination
+}: {
+  sortObject: RestaurantSortObject
+  pagination?: Pagination
+}): Promise<Restaurant[]> => {
   try {
     let queryString = `${WASTED_SERVER_URL}/Restaurant`
+
+    if (sortObject || pagination) {
+      queryString += "?"
+    }
     if (sortObject?.sortType) {
-      queryString += `?sortOrder=${sortObject.sortType}`
+      queryString += `sortOrder=${sortObject.sortType}`
       if (sortObject.coordinates) {
         queryString += `&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
       }
     } else if (sortObject?.coordinates) {
-      queryString += `?&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
+      queryString += `&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
+    }
+    if (pagination) {
+      queryString += `&PageNumber=${pagination.pageNumber}&PageSize=${pagination.pageSize}`
     }
     const response = await fetch(queryString)
     const data = await response.json()

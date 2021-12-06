@@ -13,8 +13,10 @@ export const PopularRestaurants = ({componentId, location}: PopularRestaurantsPr
   const fetchRestaurants = async () => {
     setRestaurants(
       await getAllRestaurants({
-        sortType: RestaurantSortType.NAME,
-        coordinates: {longitude: location.longitude, latitude: location.latitude}
+        sortObject: {
+          sortType: RestaurantSortType.NAME,
+          coordinates: {longitude: location.longitude, latitude: location.latitude}
+        }
       })
     )
   }
