@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Tests
+namespace Tests
 {
     public class UnitTests
     {

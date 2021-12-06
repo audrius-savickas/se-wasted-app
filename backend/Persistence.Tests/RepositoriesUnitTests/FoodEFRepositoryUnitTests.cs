@@ -4,9 +4,10 @@ using Services.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Tests;
 using Xunit;
 
-namespace Services.Tests.RepositoriesUnitTests
+namespace Persistence.Tests.RepositoriesUnitTests
 {
     public class FoodEFRepositoryUnitTests : UnitTests
     {
