@@ -50,7 +50,7 @@ namespace Services.Repositories
         {
             return GetByIdString(id)?.ToDomain();
         }
-
+        
         public void Update(Food food)  // FIX: cannot update typesOfFood
         {
             if (GetByIdString(food.Id) == null) return;

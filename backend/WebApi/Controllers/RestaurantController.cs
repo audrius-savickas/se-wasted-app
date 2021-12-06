@@ -32,7 +32,6 @@ namespace WebApi.Controllers
         /// <summary>
         /// Retrieve all restaurants
         /// </summary>
-        /// <param name="sortOrder">Optional order by which the restaurants should be sorted</param>
         /// <param name="restaurantParameters"></param>
         /// <param name="userCoordinates">Optional coordinates of the user</param>
         /// <returns></returns>
@@ -204,7 +203,6 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="id">Identifies the restaurant</param>
         /// <param name="foodParameters"></param>
-        /// <param name="sortOrder">Optional order by which the food should be sorted</param>
         /// <returns></returns>
         [HttpGet("{id}/food", Name = nameof(GetAllFoodFromRestaurant))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]

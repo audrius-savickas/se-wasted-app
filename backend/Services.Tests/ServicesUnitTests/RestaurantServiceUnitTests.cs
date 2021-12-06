@@ -10,8 +10,7 @@ using Services.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Tests;
 using Xunit;
 
 namespace Services.Tests.ServicesUnitTests
@@ -21,7 +20,6 @@ namespace Services.Tests.ServicesUnitTests
         private readonly FoodEFRepository _foodRepository;
         private readonly RestaurantEFRepository _restaurantRepository;
         private FoodEntity _foodEntity { get; set; }
-        private Food _food { get; set; }
         private RestaurantRegisterRequest _restaurantRegisterRequest { get; set; }
         private RestaurantEntity _restaurantEntity { get; set; }
 
@@ -30,7 +28,6 @@ namespace Services.Tests.ServicesUnitTests
             _foodRepository = new FoodEFRepository(_context);
             _restaurantRepository = new RestaurantEFRepository(_context);
             _foodEntity = GetSampleFoodEntity();
-            _food = GetSampleFood();
             _restaurantRegisterRequest = GetSampleRestaurantRegisterRequest();
             _restaurantEntity = GetSampleRestaurantEntity();
         }
