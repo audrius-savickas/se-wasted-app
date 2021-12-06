@@ -53,6 +53,8 @@ namespace Services.Repositories
 
         public void Update(Food food)  // FIX: cannot update typesOfFood
         {
+            if (GetByIdString(food.Id) == null) return;
+
             FoodEntity local = _context.Foods.Local.FirstOrDefault(x => x.Id == Guid.Parse(food.Id));
 
             if (local != null)

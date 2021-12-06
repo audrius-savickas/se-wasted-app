@@ -60,6 +60,8 @@ namespace Services.Repositories
 
         public void Update(Restaurant restaurant)
         {
+            if (GetByIdString(restaurant.Id) == null) return;
+
             var local = _context.Restaurants.Local.FirstOrDefault(x => x.Id == Guid.Parse(restaurant.Id));
 
             if (local != null)
