@@ -188,7 +188,7 @@ namespace Services.Tests.ServicesUnitTests
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
 
-            var restaurantDto = sut.GetRestaurantsNear(parameters, new Coords(0, 0));
+            var restaurantDto = sut.GetRestaurantsNear(parameters);
 
             Assert.Single(restaurantDto);
             Assert.Equal(_restaurantEntity.Id.ToString(), restaurantDto.First().Id);
@@ -206,7 +206,7 @@ namespace Services.Tests.ServicesUnitTests
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
 
-            var restaurantDtos = sut.GetRestaurantsNear(parameters, new Coords(0, 0));
+            var restaurantDtos = sut.GetRestaurantsNear(parameters);
 
             Assert.NotEmpty(restaurantDtos);
             Assert.Equal(_restaurantEntity.Id.ToString(), restaurantDtos.First().Id);
@@ -227,7 +227,7 @@ namespace Services.Tests.ServicesUnitTests
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
 
-            var restaurantDto = sut.GetRestaurantsNear(parameters, new Coords(0, 0));
+            var restaurantDto = sut.GetRestaurantsNear(parameters);
 
             Assert.Single(restaurantDto);
             Assert.Equal(_restaurantEntity.Id.ToString(), restaurantDto.First().Id);
@@ -240,8 +240,11 @@ namespace Services.Tests.ServicesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
+            var coords = new Coords(10, 10);
+            parameters.Longitude = coords.Longitude;
+            parameters.Latitude = coords.Latitude;
 
-            var restaurantDto = sut.GetRestaurantsNear(parameters, new Coords(10, 10));
+            var restaurantDto = sut.GetRestaurantsNear(parameters);
 
             Assert.Empty(restaurantDto);
         }
@@ -345,8 +348,11 @@ namespace Services.Tests.ServicesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
+            var coords = new Coords((decimal)0.0001, (decimal)0.0001);
+            parameters.Longitude = coords.Longitude;
+            parameters.Latitude = coords.Latitude;
 
-            var restaurants = sut.GetAllRestaurantsCloserThan(parameters, new Coords((decimal)0.0001, (decimal)0.0001), Distances.FAR);
+            var restaurants = sut.GetAllRestaurantsCloserThan(parameters, Distances.FAR);
 
             Assert.Single(restaurants);
             Assert.Equal(_restaurantEntity.Id.ToString(), restaurants.ToList()[0].Id);
@@ -363,8 +369,12 @@ namespace Services.Tests.ServicesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
+            var coords = new Coords((decimal)0.0001, (decimal)0.0001);
+            parameters.Longitude = coords.Longitude;
+            parameters.Latitude = coords.Latitude;
 
-            var restaurants = sut.GetAllRestaurantsCloserThan(parameters, new Coords((decimal)0.0001, (decimal)0.0001), Distances.FAR);
+
+            var restaurants = sut.GetAllRestaurantsCloserThan(parameters, Distances.FAR);
 
             Assert.NotEmpty(restaurants);
             Assert.Equal(_restaurantEntity.Id.ToString(), restaurants.ToList()[0].Id);
@@ -378,8 +388,11 @@ namespace Services.Tests.ServicesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
+            var coords = new Coords(1, 1);
+            parameters.Longitude = coords.Longitude;
+            parameters.Latitude = coords.Latitude;
 
-            var restaurants = sut.GetAllRestaurantsCloserThan(parameters, new Coords((decimal)1, (decimal)1), Distances.FAR);
+            var restaurants = sut.GetAllRestaurantsCloserThan(parameters, Distances.FAR);
 
             Assert.Empty(restaurants);
         }
@@ -397,8 +410,11 @@ namespace Services.Tests.ServicesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
+            var coords = new Coords((decimal)1.01, (decimal)1.01);
+            parameters.Longitude = coords.Longitude;
+            parameters.Latitude = coords.Latitude;
 
-            var restaurants = sut.GetAllRestaurantsCloserThan(parameters, new Coords((decimal)1.01, (decimal)1.01), Distances.MEDIUM);
+            var restaurants = sut.GetAllRestaurantsCloserThan(parameters, Distances.MEDIUM);
 
             Assert.Single(restaurants);
             Assert.Equal(otherRestaurantId.ToString(), restaurants.ToList()[0].Id);
@@ -417,8 +433,12 @@ namespace Services.Tests.ServicesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
+            var coords = new Coords((decimal)0.101, (decimal)0.101);
+            parameters.Longitude = coords.Longitude;
+            parameters.Latitude = coords.Latitude;
 
-            var restaurants = sut.GetAllRestaurantsCloserThan(parameters, new Coords((decimal)0.101, (decimal)0.101), Distances.NEAR);
+
+            var restaurants = sut.GetAllRestaurantsCloserThan(parameters, Distances.NEAR);
 
             Assert.Single(restaurants);
             Assert.Equal(otherRestaurantId.ToString(), restaurants.ToList()[0].Id);

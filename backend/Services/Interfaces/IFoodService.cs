@@ -13,7 +13,7 @@ namespace Services.Interfaces
         string RegisterFood(Food food);
         void UpdateFood(Food updatedFood);
         void DeleteFood(string idFood, string idRestaurant);
-        RestaurantDto GetRestaurantOfFood(string idFood);
+        RestaurantDto GetRestaurantOfFood(string idFood, Coords coords = null);
         IEnumerable<TypeOfFood> GetTypesOfFood(string id);
     }
 }

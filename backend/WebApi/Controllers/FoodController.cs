@@ -73,15 +73,16 @@ namespace WebApi.Controllers
         /// Retrieve the restaurant to which food item belongs.
         /// </summary>
         /// <param name="id"> Id of food item. </param>
+        /// <param name="coords"></param>
         /// <returns></returns>
         [HttpGet("{id}/restaurant")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<RestaurantDto>))]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult GetRestaurant(string id)
+        public IActionResult GetRestaurant(string id, [FromQuery] Coords coords)
         {
             try
             {
-                var restaurant = _foodService.GetRestaurantOfFood(id);
+                var restaurant = _foodService.GetRestaurantOfFood(id, coords);
                 return Ok(restaurant);
             }
             catch (EntityNotFoundException exception)

@@ -38,7 +38,7 @@ namespace Services.Utils
             return foods;
         }
 
-        public static IEnumerable<Restaurant> SortRestaurants(this IEnumerable<Restaurant> restaurants, string order)
+        public static IEnumerable<Restaurant> SortRestaurants(this IEnumerable<Restaurant> restaurants, string order, Coords coords = null)
         {
             switch (order)
             {
@@ -49,10 +49,10 @@ namespace Services.Utils
                     restaurants = restaurants.OrderByDescending(r => r.Name);
                     break;
                 case "dist":
-                    restaurants = restaurants.OrderBy(r => r.ToDTO().DistanceToUser);
+                    restaurants = restaurants.OrderBy(r => r.ToDTO(coords).DistanceToUser);
                     break;
                 case "dist_desc":
-                    restaurants = restaurants.OrderByDescending(r => r.ToDTO().DistanceToUser);
+                    restaurants = restaurants.OrderByDescending(r => r.ToDTO(coords).DistanceToUser);
                     break;
                 case "foodCount":
                     restaurants = restaurants.OrderBy(r => r.ToDTO().FoodCount);
