@@ -51,15 +51,20 @@ namespace Services.Repositories
             return GetByIdString(id)?.ToDomain();
         }
 
-        public void Update(Food food)
+        public void Update(Food food)  // FIX: cannot update typesOfFood
         {
-            FoodEntity entity = GetByIdString(food.Id);
-            if (entity != null)
+            FoodEntity local = _context.Foods.Local.FirstOrDefault(x => x.Id == Guid.Parse(food.Id));
+
+            if (local != null)
             {
-                _context.Foods.Remove(entity);          // FIX: Ugly workaround for updating
-                _context.Foods.Add(food.ToEntity());
-                _context.SaveChanges();
+                _context.Entry(local).State = EntityState.Detached;
             }
+
+            var entity = food.ToEntity();
+            entity.TypesOfFood = null;
+            _context.Foods.Update(entity);
+
+            _context.SaveChanges();
         }
 
         public IQueryable<Food> GetFoodFromRestaurant(string idRestaurant)

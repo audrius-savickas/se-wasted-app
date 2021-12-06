@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Persistence.Interfaces;
 using Persistence.Utils;
@@ -59,13 +60,16 @@ namespace Services.Repositories
 
         public void Update(Restaurant restaurant)
         {
-            RestaurantEntity entity = GetByIdString(restaurant.Id);
-            if (entity != null)
+            var local = _context.Restaurants.Local.FirstOrDefault(x => x.Id == Guid.Parse(restaurant.Id));
+
+            if (local != null)
             {
-                _context.Restaurants.Remove(entity);          // FIX: Ugly workaround for updating
-                _context.Restaurants.Add(restaurant.ToEntity());
-                _context.SaveChanges();
+                _context.Entry(local).State = EntityState.Detached;
             }
+
+            _context.Restaurants.Update(restaurant.ToEntity());
+
+            _context.SaveChanges();
         }
 
         private RestaurantEntity GetByIdString(string id)
