@@ -44,5 +44,39 @@ namespace WebApi.Controllers
 
             return food != null ? Ok(food) : NotFound();
         }
+
+        /// <summary>
+        /// Delete a type of food.
+        /// </summary>
+        /// <param name="id"> Id of type of food. </param>
+        /// <returns></returns>
+        [HttpDelete("{id}", Name = nameof(DeleteTypeOfFood))]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult DeleteTypeOfFood(string id)
+        {
+            if (_typeOfFoodService.GetTypeOfFoodById(id) == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _typeOfFoodService.DeleteTypeOfFood(id);
+                return Ok();
+            }
+        }
+
+        /// <summary>
+        /// Register a new type of food.
+        /// </summary>
+        /// <param name="typeOfFood"> New type of food to be added. </param>
+        /// <returns> Id, which is the Identifier for the new type of food. </returns>
+        [HttpPost(Name = nameof(AddTypeOfFood))]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        public IActionResult AddTypeOfFood(TypeOfFood typeOfFood)
+        {
+            string id = _typeOfFoodService.AddTypeOfFood(typeOfFood);
+            return CreatedAtAction(nameof(AddTypeOfFood), new { id });
+        }
     }
 }

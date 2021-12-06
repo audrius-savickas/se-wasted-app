@@ -114,7 +114,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                string id = _restaurantService.Register(creds, restaurantRegisterRequest, IdGenerator.GenerateUniqueId);
+                string id = _restaurantService.Register(creds, restaurantRegisterRequest);
                 return CreatedAtAction(nameof(Post), new { id });
             }
             catch (AuthorizationException exception)

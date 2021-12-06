@@ -10,7 +10,7 @@ namespace Services.Interfaces
     {
         Food GetFoodById(string id);
         PagedList<Food> GetAllFood(FoodParameters foodParameters);
-        string RegisterFood(Food food, Func<string> generateId);
+        string RegisterFood(Food food);
         void UpdateFood(Food updatedFood);
         void DeleteFood(string idFood, string idRestaurant);
         RestaurantDto GetRestaurantOfFood(string idFood);

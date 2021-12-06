@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Persistence
 {
-    public class DatabaseContext : DbContext, IDatabaseContext
+    public class DatabaseContext : DbContext
     {
         public DbSet<RestaurantEntity> Restaurants { get; set; }
         public DbSet<FoodEntity> Foods { get; set; }

@@ -285,7 +285,7 @@ namespace Services.Tests.ServicesUnitTests
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var credentials = new Credentials(_restaurantEntity.Mail, restaurantPassword);
 
-            var restaurantId = sut.Register(credentials, _restaurantRegisterRequest, IdGenerator.GenerateUniqueId);
+            var restaurantId = sut.Register(credentials, _restaurantRegisterRequest);
 
             var restaurant = _context.Restaurants.Find(Guid.Parse(restaurantId));
             Assert.Equal(_restaurantRegisterRequest.Name, restaurant.Name);
@@ -301,7 +301,7 @@ namespace Services.Tests.ServicesUnitTests
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var credentials = new Credentials(_restaurantEntity.Mail, restaurantPassword);
 
-           Assert.Throws<AuthorizationException>(() => sut.Register(credentials, _restaurantRegisterRequest, IdGenerator.GenerateUniqueId));
+           Assert.Throws<AuthorizationException>(() => sut.Register(credentials, _restaurantRegisterRequest));
         }
 
         [Fact]
@@ -310,7 +310,7 @@ namespace Services.Tests.ServicesUnitTests
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var credentials = new Credentials(_restaurantEntity.Mail, "badPassword");
 
-            Assert.Throws<ArgumentException>(() => sut.Register(credentials, _restaurantRegisterRequest, IdGenerator.GenerateUniqueId));
+            Assert.Throws<ArgumentException>(() => sut.Register(credentials, _restaurantRegisterRequest));
         }
 
         [Fact]

@@ -27,7 +27,8 @@ namespace Services.Mappers
                 from.CreatedOn,
                 from.StartDecreasingAt,
                 from.AmountPerInterval,
-                from.PercentPerInterval);
+                from.PercentPerInterval,
+                from.Description);
         }
 
         public static FoodEntity ToEntity(this Food from)
