@@ -1,10 +1,12 @@
 using Domain.Helpers;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Models
 {
     public class Restaurant : BaseModel
     {
+        public IEnumerable<Food> Foods { get; set; }
         public Coords Coords { get; set; }
         public string Address { get; set; }
         public Credentials Credentials { get; set; }
@@ -15,9 +17,10 @@ namespace Domain.Models
 
         public Restaurant() : base() { }
 
-        public Restaurant(string id, string name, string address, Coords coords, Credentials credentials, string description = "", string imageURL = "")
+        public Restaurant(string id, string name, string address, Coords coords, Credentials credentials, IEnumerable<Food> foods, string description = "", string imageURL = "")
             : base(id, name)
         {
+            Foods = foods;
             Description = description;
             Address = address;
             Coords = coords ?? throw new ArgumentNullException(nameof(coords));

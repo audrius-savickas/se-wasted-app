@@ -29,6 +29,7 @@ namespace Services.Mappers
                 from.Address,
                 coords,
                 credentials,
+                from.Foods.Select(x => x.ToDomain()),
                 from.Description,
                 from.ImageURL);
         }
@@ -62,7 +63,7 @@ namespace Services.Mappers
                 from.Address,
                 from.Coords,
                 from.DistanceTo(coords),
-                0,
+                from.Foods.Count(),
                 from.Description,
                 from.ImageURL
             );
