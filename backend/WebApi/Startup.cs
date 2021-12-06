@@ -115,23 +115,23 @@ namespace WebApi
 
             services.AddControllers();
 
-            //services.AddAuthentication(options =>
-            //{
-            //    options.DefaultAuthenticateScheme = "JwtBearer";
-            //    options.DefaultChallengeScheme = "JwtBearer";
-            //})
-            //    .AddJwtBearer("JwtBearer", jwtBearerOptions =>
-            //    {
-            //        jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateIssuerSigningKey = true,
-            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenOptions:SecurityKey"])),
-            //            ValidateIssuer = false,
-            //            ValidateAudience = false,
-            //            ValidateLifetime = true,
-            //            ClockSkew = TimeSpan.FromMinutes(5)
-            //        };
-            //    });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "JwtBearer";
+                options.DefaultChallengeScheme = "JwtBearer";
+            })
+                .AddJwtBearer("JwtBearer", jwtBearerOptions =>
+                {
+                    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenOptions:SecurityKey"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.FromMinutes(5)
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
