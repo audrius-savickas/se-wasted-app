@@ -1,7 +1,5 @@
 ﻿using Domain.Entities;
 using Domain.Models;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
 using Services.Repositories;
 using System;
 using System.Collections.Generic;

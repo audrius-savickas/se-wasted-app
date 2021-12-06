@@ -1,19 +1,11 @@
 ﻿using Domain.Entities;
 using Domain.Models;
 using Domain.Models.QueryParameters;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
-using Persistence.Interfaces;
 using Services.Exceptions;
-using Services.Utils;
-using Services.Mappers;
 using Services.Repositories;
 using Services.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Services.Tests.ServicesUnitTests
@@ -27,7 +19,6 @@ namespace Services.Tests.ServicesUnitTests
         private Food _food { get; set; }
         private Restaurant _restaurant { get; set; }
         private RestaurantEntity _restaurantEntity { get; set; }
-        private TypeOfFood _typeOfFood { get; set; }
         private TypeOfFoodEntity _typeOfFoodEntity { get; set; }
 
         public FoodServiceUnitTests()
@@ -39,7 +30,6 @@ namespace Services.Tests.ServicesUnitTests
             _food = GetSampleFood();
             _restaurant = GetSampleRestaurant();
             _restaurantEntity = GetSampleRestaurantEntity();
-            _typeOfFood = GetSampleTypeOfFood();
             _typeOfFoodEntity = GetSampleTypeOfFoodEntity();
         }
 
@@ -167,7 +157,6 @@ namespace Services.Tests.ServicesUnitTests
 
             Assert.Throws<EntityNotFoundException>(() => sut.UpdateFood(food));
         }
-
 
         [Fact]
         public void GetRestaurantOfFood_FoodInDataBase_ReturnsRestaurant()
