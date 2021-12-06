@@ -11,6 +11,7 @@ import {NearRestaurantsProps} from "./interfaces"
 
 export const NearRestaurants = ({componentId, location}: NearRestaurantsProps) => {
   const [restaurants, setRestaurants] = useState([] as Restaurant[])
+  const [pageNumber, setPageNumber] = useState(1)
 
   const fetchRestaurants = async () => {
     setRestaurants(
@@ -32,6 +33,24 @@ export const NearRestaurants = ({componentId, location}: NearRestaurantsProps) =
     />
   )
 
+  const onEndReached = async () => {
+    const newRestaurants = await getAllRestaurants({
+      sortObject: {
+        sortType: RestaurantSortType.DIST,
+        coordinates: {longitude: location.longitude, latitude: location.latitude}
+      },
+      pagination: {
+        pageNumber: pageNumber + 1,
+        pageSize: 10
+      }
+    })
+
+    if (newRestaurants.length) {
+      setRestaurants(restaurants.concat(newRestaurants))
+      setPageNumber(pageNumber + 1)
+    }
+  }
+
   useEffect(() => {
     fetchRestaurants()
   }, [])
@@ -41,7 +60,7 @@ export const NearRestaurants = ({componentId, location}: NearRestaurantsProps) =
       <Text text50L marginB-s2>
         📍 Restaurants near you
       </Text>
-      <HorizontalList items={restaurants} renderItem={renderItem} />
+      <HorizontalList items={restaurants} renderItem={renderItem} onEndReached={onEndReached} />
     </View>
   )
 }

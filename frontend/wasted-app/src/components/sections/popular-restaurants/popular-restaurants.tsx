@@ -10,6 +10,7 @@ import {PopularRestaurantsProps} from "./interfaces"
 
 export const PopularRestaurants = ({componentId, location}: PopularRestaurantsProps) => {
   const [restaurants, setRestaurants] = useState([] as Restaurant[])
+  const [pageNumber, setPageNumber] = useState(1)
 
   const fetchRestaurants = async () => {
     setRestaurants(
@@ -30,6 +31,24 @@ export const PopularRestaurants = ({componentId, location}: PopularRestaurantsPr
     />
   )
 
+  const onEndReached = async () => {
+    const newRestaurants = await getAllRestaurants({
+      sortObject: {
+        sortType: RestaurantSortType.NAME,
+        coordinates: {longitude: location.longitude, latitude: location.latitude}
+      },
+      pagination: {
+        pageNumber: pageNumber + 1,
+        pageSize: 10
+      }
+    })
+
+    if (newRestaurants.length) {
+      setRestaurants(restaurants.concat(newRestaurants))
+      setPageNumber(pageNumber + 1)
+    }
+  }
+
   useEffect(() => {
     fetchRestaurants()
   }, [])
@@ -39,7 +58,7 @@ export const PopularRestaurants = ({componentId, location}: PopularRestaurantsPr
       <Text text50L marginB-s2>
         ⭐️ Popular restaurants
       </Text>
-      <HorizontalList items={restaurants} renderItem={renderItem} />
+      <HorizontalList items={restaurants} renderItem={renderItem} onEndReached={onEndReached} />
     </View>
   )
 }
