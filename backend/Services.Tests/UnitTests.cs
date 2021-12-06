@@ -1,4 +1,6 @@
-﻿using Domain.Entities;
+﻿using Contracts.DTOs;
+using Domain.Entities;
+using Domain.Helpers;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -21,8 +23,12 @@ namespace Services.Tests
         private const string typeOfFoodName = "TypeTestName";
         private const string restaurantName = "RestaurantTestName";
         private const string restaurantMail = "mail@mail.com";
+        protected const string restaurantPassword = "Password123!";
+        private string RestaurantPasswordHash { get; set; }
+        
         public UnitTests()
         {
+            RestaurantPasswordHash = PasswordHasher.Hash(restaurantPassword);
             DbContextOptionsBuilder<DatabaseContext> dbOptions = new DbContextOptionsBuilder<DatabaseContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
 
             _context = new DatabaseContext(dbOptions.Options);
@@ -74,7 +80,7 @@ namespace Services.Tests
                 Id = restaurantId.ToString(),
                 Name = restaurantName,
                 Coords = new Coords(0, 0),
-                Credentials = new Credentials(restaurantMail, "password")
+                Credentials = new Credentials(restaurantMail, RestaurantPasswordHash)
             };
             return restaurant;
         }
@@ -86,10 +92,22 @@ namespace Services.Tests
                 Id = restaurantId,
                 Name = restaurantName,
                 Mail = restaurantMail,
+                Password = RestaurantPasswordHash,
                 Longitude = 0,
                 Latitude = 0
             };
             return restaurantEntity;
+        }
+
+        protected RestaurantRegisterRequest GetSampleRestaurantRegisterRequest()
+        {
+            var restaurantRegisterRequest = new RestaurantRegisterRequest
+            (
+                restaurantName,
+                "adress",
+                new Coords(0, 0)
+            );
+            return restaurantRegisterRequest;
         }
 
         protected TypeOfFood GetSampleTypeOfFood()
