@@ -27,7 +27,7 @@ export const getAllFood = async ({
       queryString += "?"
     }
     if (sortObject) {
-      queryString += `${WASTED_SERVER_URL}/Food?sortOrder=${sortObject.sortType}`
+      queryString += `&sortOrder=${sortObject.sortType}`
     }
     if (pagination) {
       queryString += `&PageNumber=${pagination.pageNumber}&PageSize=${pagination.pageSize}`

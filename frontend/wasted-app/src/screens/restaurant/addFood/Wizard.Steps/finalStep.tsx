@@ -14,8 +14,8 @@ export const FinalStep = ({food}: Props) => {
     await addNewFood({
       ...food,
       startingPrice: food.currentPrice,
-      createdAt: moment().add(2, "hours").toISOString(),
-      startDecreasingAt: food.startDecreasingAt
+      createdAt: moment(new Date().toISOString()).add(2, "hours").toISOString(),
+      startDecreasingAt: moment(new Date(food.startDecreasingAt)).add(2, "hours").toISOString()
     })
     setLoading(false)
     Alert.alert("Food successfully added!", "Please refresh the food list to see it added.")

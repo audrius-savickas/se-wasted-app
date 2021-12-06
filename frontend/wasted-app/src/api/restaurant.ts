@@ -18,10 +18,10 @@ export const getAllRestaurants = async ({
     if (sortObject?.sortType) {
       queryString += `sortOrder=${sortObject.sortType}`
       if (sortObject.coordinates) {
-        queryString += `&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
+        queryString += `&Coords.Longitude=${sortObject.coordinates.longitude.toString()}&Coords.Latitude=${sortObject.coordinates.latitude.toString()}`
       }
     } else if (sortObject?.coordinates) {
-      queryString += `&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
+      queryString += `&Coords.Longitude=${sortObject.coordinates.longitude.toString()}&Coords.Latitude=${sortObject.coordinates.latitude.toString()}`
     }
     if (pagination) {
       queryString += `&PageNumber=${pagination.pageNumber}&PageSize=${pagination.pageSize}`

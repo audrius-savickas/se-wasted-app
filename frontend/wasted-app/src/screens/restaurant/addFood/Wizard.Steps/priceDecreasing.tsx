@@ -14,11 +14,9 @@ interface IPriceDecreasing {
 }
 
 export const PriceDecreasing = ({food, setFood}: Props) => {
-  const [minimumPrice, setMinimumPrice] = useState<number>(food.currentPrice)
   const [time, setTime] = useState<Date>(new Date())
   const [date, setDate] = useState<Date>(new Date())
   const [decreaseType, setDecreaseType] = useState<DecreaseType>(food.decreaseType)
-  const [decreaseStep, setDecreaseStep] = useState<number>(0)
 
   const [priceDecreasing, setPriceDecreasing] = useState<IPriceDecreasing>({
     startDecreasingAt: food.startDecreasingAt,
@@ -29,13 +27,7 @@ export const PriceDecreasing = ({food, setFood}: Props) => {
     decreaseType: food.decreaseType
   })
 
-  const onChangeStartDecreasingAt = (startDecreasingAt: Date) => {
-    setPriceDecreasing({...priceDecreasing, startDecreasingAt: startDecreasingAt.toDateString()})
-    setFood({...food, startDecreasingAt: startDecreasingAt.toDateString()})
-  }
-
   const onChangeMinimumPrice = (minimumPrice: number) => {
-    setMinimumPrice(minimumPrice)
     setPriceDecreasing({...priceDecreasing, minimumPrice})
     setFood({...food, minimumPrice})
   }
@@ -65,9 +57,10 @@ export const PriceDecreasing = ({food, setFood}: Props) => {
     newDate.setFullYear(date.getFullYear())
     newDate.setMonth(date.getMonth())
     newDate.setDate(date.getDate())
-    newDate.setTime(time.getTime())
+    newDate.setHours(time.getHours())
+    newDate.setMinutes(time.getMinutes())
 
-    const momentDate = moment(newDate).add(2, "hours")
+    const momentDate = moment(newDate)
 
     setPriceDecreasing({...priceDecreasing, startDecreasingAt: momentDate.toISOString()})
     setFood({...food, startDecreasingAt: momentDate.toISOString()})
@@ -111,7 +104,6 @@ export const PriceDecreasing = ({food, setFood}: Props) => {
             label="Amount"
             onValueChange={() => {
               onChangeDecreaseType(DecreaseType.AMOUNT)
-              setDecreaseStep(0)
             }}
           />
           <Checkbox
@@ -120,7 +112,6 @@ export const PriceDecreasing = ({food, setFood}: Props) => {
             label="Percent"
             onValueChange={() => {
               onChangeDecreaseType(DecreaseType.PERCENT)
-              setDecreaseStep(0)
             }}
           />
         </View>
@@ -138,7 +129,6 @@ export const PriceDecreasing = ({food, setFood}: Props) => {
             value={0}
             step={0.01}
             onValueChange={x => {
-              setDecreaseStep(x)
               decreaseType === DecreaseType.AMOUNT ? onChangeAmountPerInterval(x) : onChangePercentPerInterval(x)
             }}
           />
