@@ -9,5 +9,6 @@ namespace Domain.Models.QueryParameters
     public class RestaurantParameters : QueryStringParameters
     {
         public string SortOrder { get; set; } = "name";
+        public Coords Coords { get; set; } = new Coords { Longitude = 0, Latitude = 0 };
     }
 }

@@ -33,27 +33,26 @@ namespace WebApi.Controllers
         /// Retrieve all restaurants
         /// </summary>
         /// <param name="restaurantParameters"></param>
-        /// <param name="userCoordinates">Optional coordinates of the user</param>
         /// <returns></returns>
         [HttpGet(Name = nameof(GetAll))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<RestaurantDto>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public IActionResult GetAll([FromQuery] RestaurantParameters restaurantParameters, [FromQuery] Coords userCoordinates = null)
+        public IActionResult GetAll([FromQuery] RestaurantParameters restaurantParameters)
         {
             try
             {
-                InputValidator.ValidateRestaurantSortOrder(restaurantParameters.SortOrder, userCoordinates);
+                InputValidator.ValidateRestaurantSortOrder(restaurantParameters.SortOrder, restaurantParameters.Coords);
             }
             catch (ArgumentException e)
             {
                 return BadRequest(e.Message);
             }
 
-            if (userCoordinates != null)
+            if (restaurantParameters.Coords != null)
             {
                 try
                 {
-                    userCoordinates = new Coords(userCoordinates.Longitude, userCoordinates.Latitude);
+                    restaurantParameters.Coords = new Coords(restaurantParameters.Coords.Longitude, restaurantParameters.Coords.Latitude);
                 }
                 catch (ArgumentException e)
                 {
@@ -72,15 +71,16 @@ namespace WebApi.Controllers
         /// Retrieve a single restaurant
         /// </summary>
         /// <param name="id">Identifies uniquely the restaurant</param>
+        /// <param name="coords"></param>
         /// <returns></returns>
         [HttpGet("{id}", Name = nameof(GetById))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RestaurantDto))]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult GetById(string id)
+        public IActionResult GetById(string id, [FromQuery] Coords coords)
         {
             try
             {
-                var restaurant = _restaurantService.GetRestaurantById(id);
+                var restaurant = _restaurantService.GetRestaurantById(id, coords);
                 restaurant.FoodCount = _restaurantService.GetFoodCountFromRestaurant(id);
                 return Ok(restaurant);
             }

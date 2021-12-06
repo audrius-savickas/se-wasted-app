@@ -69,7 +69,7 @@ namespace Services.Services
             _foodRepository.Update(updatedFood);
         }
 
-        public RestaurantDto GetRestaurantOfFood(string idFood)
+        public RestaurantDto GetRestaurantOfFood(string idFood, Coords coords = null)
         {
             Food food = GetFoodById(idFood);
             if (food == null)
@@ -81,7 +81,7 @@ namespace Services.Services
                 string idRestaurant = food.IdRestaurant;
                 Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
 
-                return restaurant.ToDTO();
+                return restaurant.ToDTO(coords);
             }
         }
 
