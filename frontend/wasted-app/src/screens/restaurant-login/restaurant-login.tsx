@@ -1,12 +1,20 @@
+import {GoogleSignin, GoogleSigninButton, User, statusCodes} from "@react-native-google-signin/google-signin"
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
 import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
+import {useDispatch} from "react-redux"
+import {setUser} from "../../actions/authentication"
 import {loginRestaurant} from "../../api"
 import {PasswordInput} from "../../components/password-input"
 import {navigateToRestaurantRegistration, setRestaurantRoot} from "../../services/navigation"
 import {RestaurantLoginProps} from "./interfaces"
 
+GoogleSignin.configure({iosClientId: "834850407777-uv37m0m83itkc63p628t4hs52vabfrnh.apps.googleusercontent.com"})
+
 export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
+  const dispatch = useDispatch()
+  const [userInfo, setUserInfo] = useState({} as User)
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -28,6 +36,28 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
       }
     } else {
       setError("Please check your input fields.")
+    }
+  }
+
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices()
+      const userInfo = await GoogleSignin.signIn()
+
+      dispatch(setUser(userInfo))
+      setUserInfo(userInfo)
+      setEmail(userInfo.user.email)
+      setError("Please input password")
+    } catch (error: any) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
     }
   }
 
@@ -71,7 +101,23 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
             />
           </View>
         </View>
-        <Button bg-blue50 black label="Login" onPress={login} />
+        <GoogleSigninButton size={1} onPress={signIn} />
+        <Button
+          bg-blue50
+          marginT-s2
+          grey20
+          text70BO
+          bg-white
+          label="Sign in"
+          style={{
+            shadowColor: Colors.grey30,
+            borderRadius: 0,
+            shadowOpacity: 0.6,
+            shadowOffset: {width: 0, height: 2},
+            shadowRadius: 2
+          }}
+          onPress={login}
+        />
         <View marginT-s2 style={{opacity: error ? 100 : 0}}>
           <Text center text70L red10 style={styles.error}>
             {error}
