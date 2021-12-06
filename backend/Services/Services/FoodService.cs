@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Services.Utils;
+using Services.Mappers;
 
 namespace Services.Services
 {
@@ -80,7 +81,7 @@ namespace Services.Services
                 string idRestaurant = food.IdRestaurant;
                 Restaurant restaurant = _restaurantRepository.GetById(idRestaurant);
 
-                return RestaurantDto.FromEntity(restaurant);
+                return restaurant.ToDTO();
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Contracts.DTOs;
+using Domain.Entities;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,28 @@ namespace Services.Mappers
                 AmountPerInterval = from.AmountPerInterval,
                 PercentPerInterval = from.PercentPerInterval,
                 Description = from.Description,
+            };
+        }
+
+        public static FoodResponse ToFoodResponse(this Food from)
+        {
+            _ = from ?? throw new ArgumentNullException(nameof(from));
+
+            return new FoodResponse(from.Id, from.Name)
+            {
+                StartingPrice = from.StartingPrice,
+                MinimumPrice = from.MinimumPrice,
+                CurrentPrice = from.CalculateCurrentPrice(),
+                CreatedAt = from.CreatedAt,
+                IdRestaurant = from.IdRestaurant,
+                TypesOfFood = from.TypesOfFood,
+                StartDecreasingAt = from.StartDecreasingAt,
+                IntervalTimeInMinutes = from.IntervalTimeInMinutes,
+                AmountPerInterval = from.AmountPerInterval,
+                PercentPerInterval = from.PercentPerInterval,
+                DecreaseType = from.DecreaseType,
+                Description = from.Description,
+                ImageURL = from.ImageURL
             };
         }
     }

@@ -45,5 +45,11 @@ namespace Domain.Models
 
             return CoordsHelper.IsCloser(Coords, coords, distance);
         }
+
+        public double DistanceTo(Coords coords)
+        {
+            coords ??= new Coords { Longitude = 0, Latitude = 0 };
+            return CoordsHelper.HaversineDistanceKM(Coords, coords);
+        }
     }
 }
