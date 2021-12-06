@@ -18,9 +18,11 @@ namespace Services.Repositories
         {
             _context = context;
         }
+        
         public string Insert(Restaurant restaurant)
         {
             restaurant.Id = IdGenerator.GenerateUniqueId();
+
             _context.Restaurants.Add(restaurant.ToEntity());
             _context.SaveChanges();
             return restaurant.Id;
