@@ -81,11 +81,12 @@ namespace Services.Services
 
         public PagedList<RestaurantDto> GetAllRestaurants(RestaurantParameters restaurantParameters)
         {
+            var coords = new Coords { Longitude = restaurantParameters.Longitude, Latitude = restaurantParameters.Latitude };
             var restaurantPagedList = PagedList<Restaurant>.ToPagedList(
-                _restaurantRepository.GetAll().AsEnumerable().SortRestaurants(restaurantParameters.SortOrder, restaurantParameters.Coords),
+                _restaurantRepository.GetAll().AsEnumerable().SortRestaurants(restaurantParameters.SortOrder, coords),
                 restaurantParameters.PageNumber,
                 restaurantParameters.PageSize);
-            return restaurantPagedList.ConvertAllItems(r => r.ToDTO(restaurantParameters.Coords));
+            return restaurantPagedList.ConvertAllItems(r => r.ToDTO(coords));
         }
 
         public RestaurantDto GetRestaurantById(string idRestaurant, Coords coords = null)
@@ -101,12 +102,13 @@ namespace Services.Services
 
         public PagedList<RestaurantDto> GetRestaurantsNear(RestaurantParameters restaurantParameters)
         {
+            var coords = new Coords { Longitude = restaurantParameters.Longitude, Latitude = restaurantParameters.Latitude };
             var restaurantPagedList = PagedList<Restaurant>.ToPagedList(
-                _restaurantRepository.GetRestaurantsNear(restaurantParameters.Coords).AsEnumerable()
-                                     .SortRestaurants(restaurantParameters.SortOrder, restaurantParameters.Coords),
+                _restaurantRepository.GetRestaurantsNear(coords).AsEnumerable()
+                                     .SortRestaurants(restaurantParameters.SortOrder, coords),
                 restaurantParameters.PageNumber,
                 restaurantParameters.PageSize);
-            return restaurantPagedList.ConvertAllItems(r => r.ToDTO(restaurantParameters.Coords));
+            return restaurantPagedList.ConvertAllItems(r => r.ToDTO(coords));
         }
 
         public bool Login(Credentials creds)
@@ -169,12 +171,13 @@ namespace Services.Services
 
         public PagedList<RestaurantDto> GetAllRestaurantsCloserThan(RestaurantParameters restaurantParameters, Distances distance)
         {
+            var coords = new Coords { Longitude = restaurantParameters.Longitude, Latitude = restaurantParameters.Latitude };
             var restaurantPagedList = PagedList<Restaurant>.ToPagedList(
-                _restaurantRepository.GetAllRestaurantsCloserThan(restaurantParameters.Coords, distance).AsEnumerable()
-                                     .SortRestaurants(restaurantParameters.SortOrder, restaurantParameters.Coords),
+                _restaurantRepository.GetAllRestaurantsCloserThan(coords, distance).AsEnumerable()
+                                     .SortRestaurants(restaurantParameters.SortOrder, coords),
                 restaurantParameters.PageNumber,
                 restaurantParameters.PageSize);
-            return restaurantPagedList.ConvertAllItems(r => r.ToDTO(restaurantParameters.Coords));
+            return restaurantPagedList.ConvertAllItems(r => r.ToDTO(coords));
         }
 
         public PagedList<Food> GetAllFoodFromRestaurant(string idRestaurant, FoodParameters foodParameters)

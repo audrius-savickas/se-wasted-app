@@ -39,20 +39,21 @@ namespace WebApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult GetAll([FromQuery] RestaurantParameters restaurantParameters)
         {
+            var coords = new Coords { Latitude = restaurantParameters.Latitude, Longitude = restaurantParameters.Longitude };
             try
             {
-                InputValidator.ValidateRestaurantSortOrder(restaurantParameters.SortOrder, restaurantParameters.Coords);
+                InputValidator.ValidateRestaurantSortOrder(restaurantParameters.SortOrder, coords);
             }
             catch (ArgumentException e)
             {
                 return BadRequest(e.Message);
             }
 
-            if (restaurantParameters.Coords != null)
+            if (coords != null)
             {
                 try
                 {
-                    restaurantParameters.Coords = new Coords(restaurantParameters.Coords.Longitude, restaurantParameters.Coords.Latitude);
+                    coords = new Coords(coords.Longitude, coords.Latitude);
                 }
                 catch (ArgumentException e)
                 {

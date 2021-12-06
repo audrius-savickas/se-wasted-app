@@ -240,7 +240,9 @@ namespace Services.Tests.ServicesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
-            parameters.Coords = new Coords(10, 10);
+            var coords = new Coords(10, 10);
+            parameters.Longitude = coords.Longitude;
+            parameters.Latitude = coords.Latitude;
 
             var restaurantDto = sut.GetRestaurantsNear(parameters);
 
@@ -346,7 +348,9 @@ namespace Services.Tests.ServicesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
-            parameters.Coords = new Coords((decimal)0.0001, (decimal)0.0001);
+            var coords = new Coords((decimal)0.0001, (decimal)0.0001);
+            parameters.Longitude = coords.Longitude;
+            parameters.Latitude = coords.Latitude;
 
             var restaurants = sut.GetAllRestaurantsCloserThan(parameters, Distances.FAR);
 
@@ -365,7 +369,10 @@ namespace Services.Tests.ServicesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
-            parameters.Coords = new Coords((decimal)0.0001, (decimal)0.0001);
+            var coords = new Coords((decimal)0.0001, (decimal)0.0001);
+            parameters.Longitude = coords.Longitude;
+            parameters.Latitude = coords.Latitude;
+
 
             var restaurants = sut.GetAllRestaurantsCloserThan(parameters, Distances.FAR);
 
@@ -381,7 +388,9 @@ namespace Services.Tests.ServicesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
-            parameters.Coords = new Coords((decimal)1, (decimal)1);
+            var coords = new Coords(1, 1);
+            parameters.Longitude = coords.Longitude;
+            parameters.Latitude = coords.Latitude;
 
             var restaurants = sut.GetAllRestaurantsCloserThan(parameters, Distances.FAR);
 
@@ -401,7 +410,9 @@ namespace Services.Tests.ServicesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
-            parameters.Coords = new Coords((decimal)1.01, (decimal)1.01);
+            var coords = new Coords((decimal)1.01, (decimal)1.01);
+            parameters.Longitude = coords.Longitude;
+            parameters.Latitude = coords.Latitude;
 
             var restaurants = sut.GetAllRestaurantsCloserThan(parameters, Distances.MEDIUM);
 
@@ -422,7 +433,10 @@ namespace Services.Tests.ServicesUnitTests
             _context.SaveChanges();
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new RestaurantParameters();
-            parameters.Coords = new Coords((decimal)0.101, (decimal)0.101);
+            var coords = new Coords((decimal)0.101, (decimal)0.101);
+            parameters.Longitude = coords.Longitude;
+            parameters.Latitude = coords.Latitude;
+
 
             var restaurants = sut.GetAllRestaurantsCloserThan(parameters, Distances.NEAR);
 
