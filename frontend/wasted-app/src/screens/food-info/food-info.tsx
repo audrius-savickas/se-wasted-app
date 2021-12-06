@@ -15,6 +15,8 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
   const [restaurant, setRestaurant] = useState({} as Restaurant)
   const [descriptionExpanded, setDescriptionExpanded] = useState(true)
 
+  console.log(food)
+
   const {
     name,
     description,

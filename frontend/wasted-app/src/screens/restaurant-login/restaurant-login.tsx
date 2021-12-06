@@ -1,19 +1,22 @@
-import {GoogleSignin, GoogleSigninButton, statusCodes, User} from "@react-native-google-signin/google-signin"
+import {GoogleSignin, GoogleSigninButton, User, statusCodes} from "@react-native-google-signin/google-signin"
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
 import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
+import {useDispatch} from "react-redux"
+import {setUser} from "../../actions/authentication"
 import {loginRestaurant} from "../../api"
 import {PasswordInput} from "../../components/password-input"
 import {navigateToRestaurantRegistration, setRestaurantRoot} from "../../services/navigation"
 import {RestaurantLoginProps} from "./interfaces"
 
 GoogleSignin.configure({iosClientId: "834850407777-uv37m0m83itkc63p628t4hs52vabfrnh.apps.googleusercontent.com"})
-// GoogleSignin.configure({iosClientId: "com.googleusercontent.apps.834850407777-uv37m0m83itkc63p628t4hs52vabfrnh"})
 
 export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
+  const dispatch = useDispatch()
+  const [userInfo, setUserInfo] = useState({} as User)
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [userInfo, setUserInfo] = useState({} as User)
 
   const [emailValid, setEmailValid] = useState(true)
   const [passwordValid, setPasswordValid] = useState(true)
@@ -40,9 +43,12 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
     try {
       await GoogleSignin.hasPlayServices()
       const userInfo = await GoogleSignin.signIn()
-      console.log(userInfo)
+
+      dispatch(setUser(userInfo))
       setUserInfo(userInfo)
-    } catch (error) {
+      setEmail(userInfo.user.email)
+      setError("Please input password")
+    } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
@@ -71,7 +77,6 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
         <Text blue40 text20L marginB-s10>
           Restaurant login
         </Text>
-        <GoogleSigninButton onPress={signIn} />
         <View marginB-s4 width={320}>
           <Incubator.TextField
             validateOnChange
@@ -96,7 +101,23 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
             />
           </View>
         </View>
-        <Button bg-blue50 black label="Login" onPress={login} />
+        <GoogleSigninButton size={1} onPress={signIn} />
+        <Button
+          bg-blue50
+          marginT-s2
+          grey20
+          text70BO
+          bg-white
+          label="Sign in"
+          style={{
+            shadowColor: Colors.grey30,
+            borderRadius: 0,
+            shadowOpacity: 0.6,
+            shadowOffset: {width: 0, height: 2},
+            shadowRadius: 2
+          }}
+          onPress={login}
+        />
         <View marginT-s2 style={{opacity: error ? 100 : 0}}>
           <Text center text70L red10 style={styles.error}>
             {error}
