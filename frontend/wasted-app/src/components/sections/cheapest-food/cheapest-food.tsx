@@ -12,7 +12,7 @@ export const CheapestFood = ({componentId}: CheapestFoodProps) => {
   const [food, setFood] = useState([] as Food[])
 
   const fetchFood = async () => {
-    setFood(await getAllFood({sortType: FoodSortType.PRICE}))
+    setFood(await getAllFood({sortObject: {sortType: FoodSortType.PRICE}}))
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Food>) => (

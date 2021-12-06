@@ -17,10 +17,11 @@ export const Food = ({componentId}: FoodProps) => {
   const [sortVisible, setSortVisible] = useState(false)
   const [sortType, setSortType] = useState(FoodSortType.NAME)
   const [ascending, setAscending] = useState(true)
+  const [pageNumber, setPageNumber] = useState(1)
 
   const fetchFoods = async ({sortType}: FoodSortObject = {sortType: FoodSortType.NAME}) => {
     setLoading(true)
-    setFoods(await getAllFood({sortType: directionalSortType(sortType)}))
+    setFoods(await getAllFood({sortObject: {sortType: directionalSortType(sortType)}}))
     setLoading(false)
   }
 
@@ -29,6 +30,18 @@ export const Food = ({componentId}: FoodProps) => {
       return (sortType + "_desc") as FoodSortType
     }
     return sortType
+  }
+
+  const onEndReached = async () => {
+    const newFood = await getAllFood({
+      sortObject: {sortType: directionalSortType(sortType)},
+      pagination: {pageNumber: pageNumber + 1, pageSize: 10}
+    })
+
+    if (newFood.length) {
+      setFoods(foods.concat(newFood))
+      setPageNumber(pageNumber + 1)
+    }
   }
 
   useEffect(() => {
@@ -94,7 +107,7 @@ export const Food = ({componentId}: FoodProps) => {
       {loading ? (
         <LoaderScreen color={Colors.blue30} message="Loading..." />
       ) : (
-        <FoodsList foods={renderedFoods} componentId={componentId} />
+        <FoodsList foods={renderedFoods} componentId={componentId} onEndReached={onEndReached} />
       )}
       <View bg-white br30 padding-s2 paddingH-s4 style={{...styles.filter, ...{opacity: sortVisible ? 100 : 0}}}>
         <Text marginB-s2>Sort by</Text>

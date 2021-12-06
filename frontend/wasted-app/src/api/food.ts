@@ -1,4 +1,5 @@
 import {Food, FoodSortObject, FoodType} from "./interfaces"
+import {Pagination} from "./pagination"
 import {WASTED_SERVER_URL} from "./urls"
 
 export const getFoodTypeByFoodId = async (id: string): Promise<FoodType> => {
@@ -12,14 +13,27 @@ export const getFoodTypeByFoodId = async (id: string): Promise<FoodType> => {
   }
 }
 
-export const getAllFood = async (sortObject?: FoodSortObject): Promise<Food[]> => {
+export const getAllFood = async ({
+  sortObject,
+  pagination
+}: {
+  sortObject?: FoodSortObject
+  pagination?: Pagination
+}): Promise<Food[]> => {
   try {
-    let response
-    if (sortObject) {
-      response = await fetch(`${WASTED_SERVER_URL}/Food?sortOrder=${sortObject.sortType}`)
-    } else {
-      response = await fetch(`${WASTED_SERVER_URL}/Food`)
+    let queryString = `${WASTED_SERVER_URL}/Food`
+
+    if (sortObject || pagination) {
+      queryString += "?"
     }
+    if (sortObject) {
+      queryString += `${WASTED_SERVER_URL}/Food?sortOrder=${sortObject.sortType}`
+    }
+    if (pagination) {
+      queryString += `&PageNumber=${pagination.pageNumber}&PageSize=${pagination.pageSize}`
+    }
+
+    const response = await fetch(queryString)
     const data = await response.json()
     return data
   } catch (error) {

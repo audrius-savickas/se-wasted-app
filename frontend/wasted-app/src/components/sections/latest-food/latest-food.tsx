@@ -12,7 +12,7 @@ export const LatestFood = ({componentId}: LatestFoodProps) => {
   const [food, setFood] = useState([] as Food[])
 
   const fetchFood = async () => {
-    setFood(await getAllFood({sortType: FoodSortType.TIME}))
+    setFood(await getAllFood({sortObject: {sortType: FoodSortType.TIME}}))
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Food>) => (

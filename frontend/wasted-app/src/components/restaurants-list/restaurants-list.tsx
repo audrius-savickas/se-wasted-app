@@ -21,8 +21,8 @@ export const RestaurantsList = ({componentId, restaurants, onEndReached}: Restau
       renderItem={renderItem}
       data={restaurants}
       keyExtractor={item => item.id}
-      onEndReached={onEndReached}
       onEndReachedThreshold={0}
+      onEndReached={onEndReached}
     />
   )
 }

@@ -6,7 +6,7 @@ export const getAllRestaurants = async ({
   sortObject,
   pagination
 }: {
-  sortObject: RestaurantSortObject
+  sortObject?: RestaurantSortObject
   pagination?: Pagination
 }): Promise<Restaurant[]> => {
   try {
