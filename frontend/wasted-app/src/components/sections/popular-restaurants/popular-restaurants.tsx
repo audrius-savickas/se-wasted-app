@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
-import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import {Text, View} from "react-native-ui-lib"
 import {getAllRestaurants} from "../../../api"
 import {Restaurant, RestaurantSortType} from "../../../api/interfaces"
 import {navigateToRestaurantInfo} from "../../../services/navigation"
 import {HorizontalList} from "../../horizontal-list"
+import {HorizontalListItem} from "../horizontal-list-item"
 import {PopularRestaurantsProps} from "./interfaces"
 
 export const PopularRestaurants = ({componentId, location}: PopularRestaurantsProps) => {
@@ -22,28 +23,11 @@ export const PopularRestaurants = ({componentId, location}: PopularRestaurantsPr
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Restaurant>) => (
-    <TouchableOpacity
-      margin-s1
-      centerH
-      onPress={() =>
-        navigateToRestaurantInfo(componentId, {
-          componentId,
-          restaurant: item
-        })
-      }
-    >
-      <Image
-        source={{
-          uri: item.imageURL,
-          width: 100,
-          height: 100
-        }}
-        style={{width: 100, height: 100}}
-      />
-      <Text marginT-s1 center style={{width: 100}}>
-        {item.name}
-      </Text>
-    </TouchableOpacity>
+    <HorizontalListItem
+      name={item.name}
+      imageURL={item.imageURL}
+      onPress={() => navigateToRestaurantInfo(componentId, {componentId, restaurant: item})}
+    />
   )
 
   useEffect(() => {
