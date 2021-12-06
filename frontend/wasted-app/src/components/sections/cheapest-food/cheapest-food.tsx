@@ -11,6 +11,7 @@ import {CheapestFoodProps} from "./interfaces"
 
 export const CheapestFood = ({componentId}: CheapestFoodProps) => {
   const [food, setFood] = useState([] as Food[])
+  const [pageNumber, setPageNumber] = useState(1)
 
   const fetchFood = async () => {
     setFood(await getAllFood({sortObject: {sortType: FoodSortType.PRICE}}))
@@ -25,6 +26,18 @@ export const CheapestFood = ({componentId}: CheapestFoodProps) => {
     />
   )
 
+  const onEndReached = async () => {
+    const newFood = await getAllFood({
+      sortObject: {sortType: FoodSortType.PRICE},
+      pagination: {pageNumber: pageNumber + 1, pageSize: 10}
+    })
+
+    if (newFood.length) {
+      setFood(food.concat(newFood))
+      setPageNumber(pageNumber + 1)
+    }
+  }
+
   useEffect(() => {
     fetchFood()
   }, [])
@@ -34,7 +47,7 @@ export const CheapestFood = ({componentId}: CheapestFoodProps) => {
       <Text text50L marginB-s2>
         💵 Cheapest food
       </Text>
-      <HorizontalList items={food} renderItem={renderItem} />
+      <HorizontalList items={food} renderItem={renderItem} onEndReached={onEndReached} />
     </View>
   )
 }
