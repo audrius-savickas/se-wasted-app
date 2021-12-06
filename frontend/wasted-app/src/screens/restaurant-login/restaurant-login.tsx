@@ -3,13 +3,14 @@ import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
 import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
 import {useDispatch} from "react-redux"
+import {GOOGLE_IOS_CLIENT_ID} from "../../../credentials"
 import {setUser} from "../../actions/authentication"
 import {loginRestaurant} from "../../api"
 import {PasswordInput} from "../../components/password-input"
 import {navigateToRestaurantRegistration, setRestaurantRoot} from "../../services/navigation"
 import {RestaurantLoginProps} from "./interfaces"
 
-GoogleSignin.configure({iosClientId: "834850407777-uv37m0m83itkc63p628t4hs52vabfrnh.apps.googleusercontent.com"})
+GoogleSignin.configure({iosClientId: GOOGLE_IOS_CLIENT_ID})
 
 export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   const dispatch = useDispatch()
