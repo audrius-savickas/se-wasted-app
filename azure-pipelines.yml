@@ -47,7 +47,7 @@ steps:
   inputs:
     command: custom
     custom: ef
-    arguments: 'migrations script -i -p $(Build.SourcesDirectory)/backend/Persistence/Persistence.csproj -o $(Build.ArtifactStagingDirectory)/Migrations/migration.sql --context DatabaseContext'
+    arguments: 'migrations script -i -s $(Build.SourcesDirectory)/backend/WebApi/WebApi.csproj -p $(Build.SourcesDirectory)/backend/Persistence/Persistence.csproj -o $(Build.ArtifactStagingDirectory)/Migrations/migration.sql --context DatabaseContext'
 - task: DotNetCoreCLI@2
   displayName: "Publish"
   inputs:
