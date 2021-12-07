@@ -45,11 +45,11 @@ steps:
   inputs:
     command: 'custom'
     custom: 'ef'
-    arguments: 'migrations script --output $(Build.SourcesDirectory)/SQL/wasteddbscript.sql --idempotent --project $(Build.SourcesDirectory)/src/Persistence.csproj --context DatabaseContext'
+    arguments: 'migrations script --output $(Build.SourcesDirectory)/SQL/wasteddbscript.sql --idempotent --context DatabaseContext'
 - task: PublishBuildArtifacts@1
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)/SQL/tododbscript.sql'
+    PathtoPublish: '$(Build.SourcesDirectory)/SQL/wasteddbscript.sql'
     ArtifactName: 'SQLScripts'
     publishLocation: 'Container'
