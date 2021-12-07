@@ -16,7 +16,16 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
-
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    custom: 'new'
+    arguments: 'tool-manifest'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    custom: 'tool'
+    arguments: 'install dotnet-ef'
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
@@ -32,3 +41,32 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Create migration'
+  inputs:
+    command: custom
+    custom: ef
+    arguments: 'migrations script -i -s $(Build.SourcesDirectory)/backend/WebApi/WebApi.csproj -p $(Build.SourcesDirectory)/backend/Persistence/Persistence.csproj -o $(Build.ArtifactStagingDirectory)/Migrations/migration.sql --context DatabaseContext'
+- task: DotNetCoreCLI@2
+  displayName: "Publish"
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: false
+- task: PublishBuildArtifacts@1
+  displayName: "Upload Artifacts"
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+    artifactName: 'webapi-template-output'
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
+      Write-Host "Hello System.DefaultWorkingDirectory"
+      Write-Host '$(System.DefaultWorkingDirectory)'
+      Write-Host "Hello Build.ArtifactStagingDirectory"
+      Write-Host '$(Build.ArtifactStagingDirectory)'
+      Get-ChildItem -Recurse

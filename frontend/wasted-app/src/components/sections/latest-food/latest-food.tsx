@@ -1,38 +1,42 @@
 import React, {useEffect, useState} from "react"
 import {ListRenderItemInfo} from "react-native"
-import {Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import {Text, View} from "react-native-ui-lib"
 import {getAllFood} from "../../../api/food"
 import {Food, FoodSortType} from "../../../api/interfaces"
 import {navigateToFoodInfo} from "../../../services/navigation"
 import {timeAgo} from "../../../utils/date"
 import {HorizontalList} from "../../horizontal-list"
+import {HorizontalListItem} from "../horizontal-list-item"
 import {LatestFoodProps} from "./interfaces"
 
 export const LatestFood = ({componentId}: LatestFoodProps) => {
   const [food, setFood] = useState([] as Food[])
+  const [pageNumber, setPageNumber] = useState(1)
 
   const fetchFood = async () => {
-    setFood(await getAllFood({sortType: FoodSortType.TIME}))
+    setFood(await getAllFood({sortObject: {sortType: FoodSortType.TIME}}))
   }
 
   const renderItem = ({item}: ListRenderItemInfo<Food>) => (
-    <TouchableOpacity margin-s1 centerH onPress={() => navigateToFoodInfo(componentId, {food: item, componentId})}>
-      <Image
-        source={{
-          uri: item.imageURL,
-          width: 100,
-          height: 100
-        }}
-        style={{width: 100, height: 100}}
-      />
-      <Text marginT-s1>{item.name}</Text>
-      <View br20 bg-purple30 padding-s1 paddingH-s2 marginT-s1>
-        <Text white text90M>
-          {timeAgo(item.createdAt)}
-        </Text>
-      </View>
-    </TouchableOpacity>
+    <HorizontalListItem
+      name={item.name}
+      imageURL={item.imageURL}
+      tag={timeAgo(item.createdAt)}
+      onPress={() => navigateToFoodInfo(componentId, {componentId, food: item})}
+    />
   )
+
+  const onEndReached = async () => {
+    const newFood = await getAllFood({
+      sortObject: {sortType: FoodSortType.TIME},
+      pagination: {pageNumber: pageNumber + 1, pageSize: 10}
+    })
+
+    if (newFood.length) {
+      setFood(food.concat(newFood))
+      setPageNumber(pageNumber + 1)
+    }
+  }
 
   useEffect(() => {
     fetchFood()
@@ -43,7 +47,7 @@ export const LatestFood = ({componentId}: LatestFoodProps) => {
       <Text text50L marginB-s2>
         ⏰ Latest food
       </Text>
-      <HorizontalList items={food} renderItem={renderItem} />
+      <HorizontalList items={food} renderItem={renderItem} onEndReached={onEndReached} />
     </View>
   )
 }

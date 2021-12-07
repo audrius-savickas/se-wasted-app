@@ -79,7 +79,7 @@ export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) =
             paddingV-s2
             style={styles.shadowButton}
             onPress={() =>
-              navigateToFoodList(componentId, {restaurantId: restaurant.id, restaurantName: restaurant.name})
+              navigateToFoodList(componentId, {idRestaurant: restaurant.id, restaurantName: restaurant.name})
             }
           >
             <Text text60L white center>

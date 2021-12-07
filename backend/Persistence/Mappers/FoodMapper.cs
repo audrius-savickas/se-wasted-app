@@ -46,6 +46,7 @@ namespace Services.Mappers
                 IntervalTimeInMinutes = from.IntervalTimeInMinutes,
                 DecreaseType = from.DecreaseType == DecreaseType.AMOUNT ? "AMOUNT" : "PERCENT",
                 ImageURL = from.ImageURL,
+                CreatedOn = from.CreatedAt,
                 StartDecreasingAt = from.StartDecreasingAt,
                 AmountPerInterval = from.AmountPerInterval,
                 PercentPerInterval = from.PercentPerInterval,

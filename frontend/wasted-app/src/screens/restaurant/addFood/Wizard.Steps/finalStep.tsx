@@ -1,8 +1,7 @@
 import moment from "moment"
 import React, {useState} from "react"
 import {Alert} from "react-native"
-import {Navigation} from "react-native-navigation"
-import {View, Button, Text} from "react-native-ui-lib"
+import {Button, Text, View} from "react-native-ui-lib"
 import {addNewFood} from "../../../../api/food"
 import {Props} from "./interfaces"
 
@@ -15,7 +14,7 @@ export const FinalStep = ({food}: Props) => {
       ...food,
       startingPrice: food.currentPrice,
       createdAt: moment().add(2, "hours").toISOString(),
-      startDecreasingAt: food.startDecreasingAt
+      startDecreasingAt: moment(food.startDecreasingAt).add(2, "hours").toISOString()
     })
     setLoading(false)
     Alert.alert("Food successfully added!", "Please refresh the food list to see it added.")

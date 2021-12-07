@@ -2,7 +2,7 @@ import {NavigationComponentProps} from "react-native-navigation"
 
 export interface FoodListOwnProps {
   restaurantName: string
-  restaurantId: string
+  idRestaurant: string
   isRestaurant?: boolean
 }
 
