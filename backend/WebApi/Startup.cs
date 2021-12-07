@@ -20,6 +20,7 @@ using WebApi.Helpers;
 using Services.Repositories;
 using WebApi.Middleware;
 using Serilog;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApi
 {
@@ -137,6 +138,11 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.Run(async context =>
+            {
+                context.Response.ContentType = "text/plain";
+                await context.Response.WriteAsync($@"SecretName (Name in Key Vault: 'SecretName'){Environment.NewLine}Obtained from Configuration with Configuration[""SecretName""]{Environment.NewLine}Value: {Configuration["SecretName"]}{Environment.NewLine}{Environment.NewLine}Section:SecretName (Name in Key Vault: 'EmailOptions--Host'){Environment.NewLine}Obtained from Configuration with Configuration[""EmailOptions:Host""]{Environment.NewLine}Value: {Configuration["EmailOptions:Host"]}{Environment.NewLine}{Environment.NewLine}Section:SecretName (Name in Key Vault: 'Section--SecretName'){Environment.NewLine}Obtained from Configuration with Configuration.GetSection(""Section"")[""SecretName""]{Environment.NewLine}Value: {Configuration.GetSection("Section")["SecretName"]}");
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -165,6 +171,8 @@ namespace WebApi
             {
                 endpoints.MapControllers();
             });
+
+            
         }
     }
 }
