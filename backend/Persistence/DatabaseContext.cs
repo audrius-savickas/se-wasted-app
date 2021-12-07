@@ -58,7 +58,7 @@ namespace Persistence
         {
             if (!e.FromQuery && e.Entry.State == EntityState.Added && e.Entry.Entity is Entity entity)
             {
-                entity.CreatedOn = DateTime.UtcNow;
+                entity.CreatedOn ??= DateTime.UtcNow;
             }
         }
 
