@@ -42,12 +42,12 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-#- task: DotNetCoreCLI@2
-#  displayName: 'Create migration'
-#  inputs:
-#    command: custom
-#    custom: ef
-#    arguments: 'migrations script -i -p Persistence.csproj -o $(Build.ArtifactStagingDirectory)/Migrations/migration.sql'
+- task: DotNetCoreCLI@2
+  displayName: 'Create migration'
+  inputs:
+    command: custom
+    custom: ef
+    arguments: 'migrations script -i -p $(Build.SourcesDirectory)/backend/Persistence.csproj -o $(Build.ArtifactStagingDirectory)/Migrations/migration.sql'
 - task: DotNetCoreCLI@2
   displayName: "Publish"
   inputs:
