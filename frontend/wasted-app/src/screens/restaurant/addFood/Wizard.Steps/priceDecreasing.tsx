@@ -1,6 +1,6 @@
 import moment from "moment"
 import React, {useEffect, useState} from "react"
-import {Checkbox, DateTimePicker, Slider, Stepper, View, Text} from "react-native-ui-lib"
+import {Checkbox, DateTimePicker, Slider, Stepper, Text, View} from "react-native-ui-lib"
 import {DecreaseType} from "../../../../api/interfaces"
 import {Props} from "./interfaces"
 

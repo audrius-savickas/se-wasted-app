@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
-import {Colors, Incubator, LoaderScreen, Picker, Text, View} from "react-native-ui-lib"
+import {Colors, Incubator, LoaderScreen, Picker, View} from "react-native-ui-lib"
 import {FoodType} from "../../../../api/interfaces"
 import {getAllTypesOfFood} from "../../../../api/type-of-food"
 import {Props} from "./interfaces"

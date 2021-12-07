@@ -1,8 +1,7 @@
 import moment from "moment"
 import React, {useState} from "react"
 import {Alert} from "react-native"
-import {Navigation} from "react-native-navigation"
-import {View, Button, Text} from "react-native-ui-lib"
+import {Button, Text, View} from "react-native-ui-lib"
 import {addNewFood} from "../../../../api/food"
 import {Props} from "./interfaces"
 
