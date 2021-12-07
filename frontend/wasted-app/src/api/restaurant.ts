@@ -1,4 +1,4 @@
-import {Credentials, Food, Restaurant, RestaurantRegisterRequest, RestaurantSortObject} from "./interfaces"
+import {Coordinates, Credentials, Food, Restaurant, RestaurantRegisterRequest, RestaurantSortObject} from "./interfaces"
 import {Pagination} from "./pagination"
 import {WASTED_SERVER_URL} from "./urls"
 
@@ -18,10 +18,10 @@ export const getAllRestaurants = async ({
     if (sortObject?.sortType) {
       queryString += `sortOrder=${sortObject.sortType}`
       if (sortObject.coordinates) {
-        queryString += `&Coords.Longitude=${sortObject.coordinates.longitude.toString()}&Coords.Latitude=${sortObject.coordinates.latitude.toString()}`
+        queryString += `&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
       }
     } else if (sortObject?.coordinates) {
-      queryString += `&Coords.Longitude=${sortObject.coordinates.longitude.toString()}&Coords.Latitude=${sortObject.coordinates.latitude.toString()}`
+      queryString += `&Longitude=${sortObject.coordinates.longitude.toString()}&Latitude=${sortObject.coordinates.latitude.toString()}`
     }
     if (pagination) {
       queryString += `&PageNumber=${pagination.pageNumber}&PageSize=${pagination.pageSize}`
@@ -45,9 +45,20 @@ export const getAllFoodByRestaurantId = async (id: string): Promise<Food[]> => {
   }
 }
 
-export const getRestaurantById = async (id: string): Promise<Restaurant> => {
+export const getRestaurantById = async ({
+  idRestaurant,
+  coordinates
+}: {
+  idRestaurant: string
+  coordinates?: Coordinates
+}): Promise<Restaurant> => {
   try {
-    const response = await fetch(`${WASTED_SERVER_URL}/Restaurant/${id}`)
+    let queryString = `${WASTED_SERVER_URL}/Restaurant/${idRestaurant}`
+
+    if (coordinates) {
+      queryString += `?&Longitude=${coordinates.longitude.toString()}&Latitude=${coordinates.latitude.toString()}`
+    }
+    const response = await fetch(queryString)
     const data = await response.json()
     return data
   } catch (error) {

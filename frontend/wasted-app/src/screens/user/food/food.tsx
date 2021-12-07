@@ -54,6 +54,7 @@ export const Food = ({componentId}: FoodProps) => {
   }, [searchValue])
 
   useEffect(() => {
+    setPageNumber(1)
     fetchFoods({sortType})
   }, [ascending, sortType])
 

@@ -4,16 +4,23 @@ import {LoaderScreen} from "react-native-ui-lib"
 import {Colors} from "react-native/Libraries/NewAppScreen"
 import {getRestaurantById} from "../../../api"
 import {Restaurant} from "../../../api/interfaces"
+import {useLocation} from "../../../hooks/use-location"
 import {setHomeRoot} from "../../../services/navigation"
 import {FoodList} from "../../user/restaurants/food-list"
 import {FoodScreenProps} from "./interfaces"
 
-export const Food = ({componentId, restaurantId}: FoodScreenProps) => {
+export const Food = ({componentId, idRestaurant}: FoodScreenProps) => {
   const [restaurant, setRestaurant] = useState({} as Restaurant)
   const [loading, setLoading] = useState(true)
+  const {location} = useLocation()
 
   const fetchRestaurantById = async () => {
-    setRestaurant(await getRestaurantById(restaurantId))
+    setRestaurant(
+      await getRestaurantById({
+        idRestaurant: idRestaurant,
+        coordinates: {latitude: location.latitude, longitude: location.longitude}
+      })
+    )
     setLoading(false)
   }
 
@@ -32,7 +39,7 @@ export const Food = ({componentId, restaurantId}: FoodScreenProps) => {
       {loading ? (
         <LoaderScreen collapsable={Colors.blue30} message="Loading..." />
       ) : (
-        <FoodList isRestaurant componentId={componentId} restaurantId={restaurantId} restaurantName={restaurant.name} />
+        <FoodList isRestaurant componentId={componentId} idRestaurant={idRestaurant} restaurantName={restaurant.name} />
       )}
     </>
   )

@@ -93,8 +93,8 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
 
   useEffect(() => {
     if (location.longitude) {
-      fetchRestaurants()
       setPageNumber(1)
+      fetchRestaurants()
     }
   }, [ascending, sortType])
 

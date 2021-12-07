@@ -10,13 +10,13 @@ import {PriceDecreasing} from "./Wizard.Steps/priceDecreasing"
 
 const completedStepIndex = 3
 
-export const AddFood = ({restaurantId}: AddFoodScreenProps) => {
+export const AddFood = ({idRestaurant}: AddFoodScreenProps) => {
   const [activeIndex, setActiveIndex] = useState<number>(0)
   const [food, setFood] = useState<Food>({
     id: "0",
     name: "",
     description: "",
-    idRestaurant: restaurantId,
+    idRestaurant: idRestaurant,
     startingPrice: 0,
     minimumPrice: 0,
     currentPrice: 0.5,
