@@ -42,12 +42,12 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Create migration'
-  inputs:
-    command: custom
-    custom: ef
-    arguments: 'migrations script -i -p Persistence.csproj -o $(Build.ArtifactStagingDirectory)/Migrations/migration.sql'
+#- task: DotNetCoreCLI@2
+#  displayName: 'Create migration'
+#  inputs:
+#    command: custom
+#    custom: ef
+#    arguments: 'migrations script -i -p Persistence.csproj -o $(Build.ArtifactStagingDirectory)/Migrations/migration.sql'
 - task: DotNetCoreCLI@2
   displayName: "Publish"
   inputs:
@@ -60,3 +60,13 @@ steps:
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
     artifactName: 'webapi-template-output'
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
+      Write-Host "Hello System.DefaultWorkingDirectory"
+      Write-Host '$(System.DefaultWorkingDirectory)'
+      Write-Host "Hello Build.ArtifactStagingDirectory"
+      Write-Host '$(Build.ArtifactStagingDirectory)'
+      Get-ChildItem -Recurse
