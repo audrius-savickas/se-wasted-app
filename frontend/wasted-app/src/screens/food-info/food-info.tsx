@@ -6,6 +6,7 @@ import {Chip, Colors, ExpandableSection, Image, Text, TouchableOpacity, View} fr
 import {getRestaurantById} from "../../api"
 import {DecreaseType, Restaurant} from "../../api/interfaces"
 import {PriceIndicator} from "../../components/price-indicator"
+import {useLocation} from "../../hooks/use-location"
 import {navigateToRestaurantInfo} from "../../services/navigation"
 import {formatPrice} from "../../utils/currency"
 import {convertMinsToHrsMins, formatDate, formatTime, timeAgoFull} from "../../utils/date"
@@ -14,6 +15,7 @@ import {FoodInfoProps} from "./interfaces"
 export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInfoProps) => {
   const [restaurant, setRestaurant] = useState({} as Restaurant)
   const [descriptionExpanded, setDescriptionExpanded] = useState(true)
+  const {location} = useLocation()
 
   const {
     name,
@@ -33,7 +35,12 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
   } = food
 
   const fetchRestaurant = async () => {
-    setRestaurant((await getRestaurantById(idRestaurant)) as Restaurant)
+    setRestaurant(
+      (await getRestaurantById({
+        idRestaurant,
+        coordinates: {latitude: location.latitude, longitude: location.longitude}
+      })) as Restaurant
+    )
   }
 
   useEffect(() => {

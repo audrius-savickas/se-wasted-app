@@ -7,7 +7,7 @@ import {PriceIndicatorProps} from "./interfaces"
 export const PriceIndicator = ({currentPrice, minimumPrice, maximumPrice}: PriceIndicatorProps) => {
   const [containerWidth, setContainerWidth] = useState(100)
 
-  const progress = (currentPrice - minimumPrice) / (maximumPrice - minimumPrice)
+  const progress = currentPrice === minimumPrice ? 1 : (currentPrice - minimumPrice) / (maximumPrice - minimumPrice)
 
   const getContainerWidth = (event: LayoutChangeEvent) => {
     setContainerWidth(event.nativeEvent.layout.width)

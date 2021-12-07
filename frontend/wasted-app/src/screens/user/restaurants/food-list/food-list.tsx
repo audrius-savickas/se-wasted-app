@@ -8,13 +8,13 @@ import {EmptyList} from "../../../../components/empty-list"
 import {SimpleFoodsList} from "../../../../components/simple-foods-list"
 import {FoodListProps} from "./interfaces"
 
-export const FoodList = ({componentId, restaurantId, restaurantName, isRestaurant = false}: FoodListProps) => {
+export const FoodList = ({componentId, idRestaurant, restaurantName, isRestaurant = false}: FoodListProps) => {
   const [foods, setFoods] = useState([] as Food[])
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
 
   const fetchFoods = async () => {
-    const response = await getAllFoodByRestaurantId(restaurantId)
+    const response = await getAllFoodByRestaurantId(idRestaurant)
     setFoods(response)
     setRefreshing(false)
     setLoading(false)

@@ -1,19 +1,19 @@
-import {GoogleSignin, GoogleSigninButton, User, statusCodes} from "@react-native-google-signin/google-signin"
+import {GoogleSignin, GoogleSigninButton, statusCodes} from "@react-native-google-signin/google-signin"
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
 import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
 import {useDispatch} from "react-redux"
+import {GOOGLE_IOS_CLIENT_ID} from "../../../credentials"
 import {setUser} from "../../actions/authentication"
 import {loginRestaurant} from "../../api"
 import {PasswordInput} from "../../components/password-input"
 import {navigateToRestaurantRegistration, setRestaurantRoot} from "../../services/navigation"
 import {RestaurantLoginProps} from "./interfaces"
 
-GoogleSignin.configure({iosClientId: "834850407777-uv37m0m83itkc63p628t4hs52vabfrnh.apps.googleusercontent.com"})
+GoogleSignin.configure({iosClientId: GOOGLE_IOS_CLIENT_ID})
 
 export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   const dispatch = useDispatch()
-  const [userInfo, setUserInfo] = useState({} as User)
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -29,7 +29,7 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
     const restaurantId = await loginRestaurant({email, password})
     if (valid) {
       if (restaurantId) {
-        setRestaurantRoot({restaurantId})
+        setRestaurantRoot({idRestaurant: restaurantId})
         setError("")
       } else {
         setError("Login failed. We haven't found a registered account with these credentials.")
@@ -45,7 +45,6 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
       const userInfo = await GoogleSignin.signIn()
 
       dispatch(setUser(userInfo))
-      setUserInfo(userInfo)
       setEmail(userInfo.user.email)
       setError("Please input password")
     } catch (error: any) {

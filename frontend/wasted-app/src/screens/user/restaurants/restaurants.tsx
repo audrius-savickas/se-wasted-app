@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
-import GetLocation, {Location} from "react-native-get-location"
 import {Navigation} from "react-native-navigation"
 import {Button, Colors, Incubator, LoaderScreen, RadioButton, RadioGroup, Text, View} from "react-native-ui-lib"
 import {getAllRestaurants} from "../../../api"
 import {Restaurant, RestaurantSortType} from "../../../api/interfaces"
 import {RestaurantsList} from "../../../components/restaurants-list"
+import {useLocation} from "../../../hooks/use-location"
 import {setHomeRoot} from "../../../services/navigation"
 import {HOME_BUTTON} from "../home-button"
 import {RestaurantListProps} from "./interfaces"
 
 export const RestaurantList = ({componentId}: RestaurantListProps) => {
-  const [location, setLocation] = useState({} as Location)
+  const {location} = useLocation()
   const [restaurants, setRestaurants] = useState([] as Restaurant[])
   const [renderedRestaurants, setRenderedRestaurants] = useState([] as Restaurant[])
   const [loading, setLoading] = useState(true)
@@ -19,22 +19,16 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
   const [sortVisible, setSortVisible] = useState(false)
   const [sortType, setSortType] = useState(RestaurantSortType.DIST)
   const [ascending, setAscending] = useState(true)
-
-  const fetchLocation = async () => {
-    setLocation(
-      await GetLocation.getCurrentPosition({
-        enableHighAccuracy: true,
-        timeout: 15000
-      })
-    )
-  }
+  const [pageNumber, setPageNumber] = useState(1)
 
   const fetchRestaurants = async () => {
     setLoading(true)
     setRestaurants(
       await getAllRestaurants({
-        sortType: directionalSortType(),
-        coordinates: {longitude: location.longitude, latitude: location.latitude}
+        sortObject: {
+          sortType: directionalSortType(),
+          coordinates: {longitude: location.longitude, latitude: location.latitude}
+        }
       })
     )
     setLoading(false)
@@ -56,8 +50,25 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
     return sortType
   }
 
+  const onEndReached = async () => {
+    const newRestaurants = await getAllRestaurants({
+      sortObject: {
+        sortType: directionalSortType(),
+        coordinates: {longitude: location.longitude, latitude: location.latitude}
+      },
+      pagination: {
+        pageNumber: pageNumber + 1,
+        pageSize: 10
+      }
+    })
+
+    if (newRestaurants.length) {
+      setRestaurants(restaurants.concat(newRestaurants))
+      setPageNumber(pageNumber + 1)
+    }
+  }
+
   useEffect(() => {
-    fetchLocation()
     Navigation.mergeOptions(componentId, {topBar: {leftButtons: [HOME_BUTTON]}})
     const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
       if (buttonId === "GO_BACK") {
@@ -67,12 +78,6 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
 
     return () => listener.remove()
   }, [])
-
-  useEffect(() => {
-    if (location.longitude) {
-      fetchRestaurants()
-    }
-  }, [location])
 
   useEffect(() => {
     if (restaurants.length) {
@@ -88,6 +93,7 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
 
   useEffect(() => {
     if (location.longitude) {
+      setPageNumber(1)
       fetchRestaurants()
     }
   }, [ascending, sortType])
@@ -131,7 +137,7 @@ export const RestaurantList = ({componentId}: RestaurantListProps) => {
       {loading ? (
         <LoaderScreen color={Colors.blue30} message="Loading..." />
       ) : (
-        <RestaurantsList componentId={componentId} restaurants={renderedRestaurants} />
+        <RestaurantsList componentId={componentId} restaurants={renderedRestaurants} onEndReached={onEndReached} />
       )}
       <View bg-white br30 padding-s2 paddingH-s4 style={{...styles.filter, ...{opacity: sortVisible ? 100 : 0}}}>
         <Text marginB-s2>Sort by</Text>

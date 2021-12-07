@@ -5,7 +5,7 @@ import {navigateToFoodInfo} from "../../services/navigation"
 import {FoodItem} from "../food-item"
 import {FoodsListProps} from "./interfaces"
 
-export const FoodsList = ({componentId, foods}: FoodsListProps) => {
+export const FoodsList = ({componentId, foods, onEndReached}: FoodsListProps) => {
   const renderItem = ({item}: ListRenderItemInfo<Food>) => {
     return (
       <FoodItem
@@ -17,5 +17,14 @@ export const FoodsList = ({componentId, foods}: FoodsListProps) => {
     )
   }
 
-  return <FlatList style={{marginBottom: 8}} renderItem={renderItem} data={foods} keyExtractor={item => item.id} />
+  return (
+    <FlatList
+      style={{marginBottom: 8}}
+      renderItem={renderItem}
+      data={foods}
+      keyExtractor={item => item.id}
+      onEndReachedThreshold={0}
+      onEndReached={onEndReached}
+    />
+  )
 }

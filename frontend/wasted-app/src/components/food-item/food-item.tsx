@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react"
 import {Colors, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
 import {Restaurant} from "../../api/interfaces"
+import {useLocation} from "../../hooks/use-location"
 import {formatPrice} from "../../utils/currency"
 import {timeAgoFull} from "../../utils/date"
 import {FoodItemProps} from "./interfaces"
@@ -9,9 +10,12 @@ import {FoodItemProps} from "./interfaces"
 export const FoodItem = ({food, onPress}: FoodItemProps) => {
   const {name, idRestaurant, currentPrice, startingPrice, imageURL, createdAt} = food
   const [restaurant, setRestaurant] = useState({} as Restaurant)
+  const {location} = useLocation()
 
   const fetchRestaurant = async () => {
-    setRestaurant(await getRestaurantById(idRestaurant))
+    setRestaurant(
+      await getRestaurantById({idRestaurant, coordinates: {latitude: location.latitude, longitude: location.longitude}})
+    )
   }
 
   useEffect(() => {
