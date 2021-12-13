@@ -3,6 +3,7 @@ using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Interfaces;
 using Persistence.Mappers;
+using Persistence.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,14 +41,29 @@ namespace Persistence.Repositories
             return _context.Customers.Include(x => x.Reservations).FirstOrDefault(x => x.Mail == mail.Value)?.ToDomain();
         }
 
-        public string Insert(Customer model)
+        public string Insert(Customer customer)
         {
-            throw new NotImplementedException();
+            customer.Id = IdGenerator.GenerateUniqueId();
+
+            _context.Customers.Add(customer.ToEntity());
+            _context.SaveChanges();
+            return customer.Id;
         }
 
-        public void Update(Customer model)
+        public void Update(Customer customer)
         {
-            throw new NotImplementedException();
+            if (GetByIdString(customer.Id) == null) return;
+
+            var local = _context.Customers.Local.FirstOrDefault(x => x.Id == Guid.Parse(customer.Id));
+
+            if (local != null)
+            {
+                _context.Entry(local).State = EntityState.Detached;
+            }
+
+            _context.Customers.Update(customer.ToEntity());
+
+            _context.SaveChanges();
         }
 
         private CustomerEntity GetByIdString(string id)
