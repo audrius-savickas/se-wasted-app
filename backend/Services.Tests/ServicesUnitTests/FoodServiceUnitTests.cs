@@ -7,13 +7,13 @@ using Persistence.Interfaces;
 using Services.Exceptions;
 using Services.Utils;
 using Services.Mappers;
-using Services.Repositories;
 using Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Tests;
 using Xunit;
+using Persistence.Repositories;
 
 namespace Services.Tests.ServicesUnitTests
 {

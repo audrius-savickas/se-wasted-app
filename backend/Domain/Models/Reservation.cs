@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Reservation
+    public class Reservation // fix
     {
         public string Id { get; set; }
         public DateTime ReservedAt { get; set; }
+        public bool IsCancelled { get; set; }
         public decimal Price { get; set; }
         public Food Food { get; set; }
         public Restaurant Restaurant { get; set; }
