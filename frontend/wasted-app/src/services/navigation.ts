@@ -80,6 +80,9 @@ export const navigateToRestaurantRegistration = (componentId: string, props: Res
 export const navigateToFoodList = (componentId: string, props: FoodListOwnProps) =>
   navigateTo(componentId, screenNames.USER_FOOD_LIST, props, "Food List")
 
+export const navigateToUserLogin = (componentId: string) =>
+  navigateTo(componentId, screenNames.USER_LOGIN, undefined, "User Login")
+
 export const setRestaurantRoot = (props: FoodScreenOwnProps) =>
   Navigation.setRoot({
     root: {
