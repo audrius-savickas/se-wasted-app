@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Reservation
+    public class Reservation : BaseModel
     {
-        public string Id { get; set; }
         public DateTime ReservedAt { get; set; }
         public bool IsCancelled { get; set; }
         public decimal Price { get; set; }
@@ -20,7 +19,7 @@ namespace Domain.Models
             bool isCancelled,
             Food food,
             Restaurant restaurant, 
-            Customer customer)
+            Customer customer) : base(id, null)
         {
             Id = id;
             IsCancelled = isCancelled;

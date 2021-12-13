@@ -73,6 +73,7 @@ namespace WebApi
             services.AddScoped<IRestaurantRepository, RestaurantEFRepository>();
             services.AddScoped<ITypeOfFoodRepository, TypeOfFoodEFRepository>();
             services.AddScoped<ICustomerRepository, CustomerEFRepository>();
+            services.AddScoped<IReservationRepository, ReservationEFRepository>();
         }
 
         private void ConfigureLogger(IServiceCollection services)
