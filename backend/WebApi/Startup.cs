@@ -15,9 +15,9 @@ using System;
 using System.IO;
 using System.Reflection;
 using WebApi.Helpers;
-using Services.Repositories;
 using WebApi.Middleware;
 using Serilog;
+using Persistence.Repositories;
 
 namespace WebApi
 {
@@ -72,6 +72,7 @@ namespace WebApi
             services.AddScoped<IFoodRepository, FoodEFRepository>();
             services.AddScoped<IRestaurantRepository, RestaurantEFRepository>();
             services.AddScoped<ITypeOfFoodRepository, TypeOfFoodEFRepository>();
+            services.AddScoped<ICustomerRepository, CustomerEFRepository>();
         }
 
         private void ConfigureLogger(IServiceCollection services)

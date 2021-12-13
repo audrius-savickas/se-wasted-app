@@ -16,8 +16,6 @@ namespace Services.Services
     {
         private readonly ICustomerRepository _customerRepository;
 
-        public event EventHandler<RestaurantEventArgs> RestaurantRegistered;
-
         public CustomerService
         (
             ICustomerRepository customerRepository

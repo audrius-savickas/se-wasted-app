@@ -1,15 +1,13 @@
 ﻿using Domain.Entities;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Persistence;
 using Persistence.Interfaces;
 using Persistence.Utils;
 using Services.Mappers;
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 
-namespace Services.Repositories
+namespace Persistence.Repositories
 {
     public class FoodEFRepository : IFoodRepository
     {

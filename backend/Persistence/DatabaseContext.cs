@@ -51,6 +51,15 @@ namespace Persistence
                 x.Property(p => p.Name).IsRequired();
             });
 
+            modelBuilder.Entity<CustomerEntity>(x =>
+            {
+                x.HasKey(k => k.Id);
+                x.Property(p => p.LastName).IsRequired();
+                x.Property(p => p.FirstName).IsRequired();
+                x.Property(p => p.Mail).IsRequired();
+                x.Property(p => p.Password).IsRequired();
+            });
+
             base.OnModelCreating(modelBuilder);
         }
 
