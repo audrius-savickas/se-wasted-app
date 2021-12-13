@@ -96,6 +96,8 @@ namespace WebApi
             services.AddScoped<IFoodService, FoodService>();
             services.AddScoped<ITypeOfFoodService, TypeOfFoodService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
             services.AddSwaggerGen(c =>
             {
