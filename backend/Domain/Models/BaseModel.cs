@@ -5,7 +5,7 @@ namespace Domain.Models
     public abstract class BaseModel : IEquatable<BaseModel>
     {
         public string Id { get; set; }
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         public BaseModel() { }
 
