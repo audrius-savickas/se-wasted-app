@@ -1,22 +1,46 @@
 import {GoogleSigninButton} from "@react-native-google-signin/google-signin"
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
 import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
 import {PasswordInput} from "../../components/password-input"
+import {useUser} from "../../hooks/use-user"
+import {setUserRoot} from "../../services/navigation"
 import {UserLoginProps} from "./interfaces"
 
 export const UserLogin = ({componentId}: UserLoginProps) => {
+  const {setUserId} = useUser()
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const [emailValid, setEmailValid] = useState(true)
-  const [passwordValid, setPasswordValid] = useState(true)
+  const [emailValid, setEmailValid] = useState(false)
+  const [passwordValid, setPasswordValid] = useState(false)
   const [error, setError] = useState("")
   const [showPassword, setShowPassword] = useState(false)
 
+  const valid = passwordValid && emailValid
+
   const loginGoogle = () => {}
 
-  const loginEmail = () => {}
+  const loginEmail = () => {
+    if (valid) {
+      const userId = "asd123"
+      if (userId) {
+        setUserId({userId})
+        setUserRoot()
+      } else {
+        setError("Login failed. We haven't found a registered user account with these credentials.")
+      }
+    } else {
+      setError("Please check your input fields.")
+    }
+  }
+
+  useEffect(() => {
+    if (valid) {
+      setError("")
+    }
+  }, [valid])
 
   return (
     <>
