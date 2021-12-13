@@ -1,14 +1,16 @@
-import {GoogleSigninButton} from "@react-native-google-signin/google-signin"
+import {GoogleSignin, GoogleSigninButton, statusCodes} from "@react-native-google-signin/google-signin"
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
 import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
 import {PasswordInput} from "../../components/password-input"
+import {useAuthentication} from "../../hooks/use-authentication"
 import {useUser} from "../../hooks/use-user"
 import {setUserRoot} from "../../services/navigation"
 import {UserLoginProps} from "./interfaces"
 
 export const UserLogin = ({componentId}: UserLoginProps) => {
   const {setUserId} = useUser()
+  const {setUser} = useAuthentication()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -20,7 +22,28 @@ export const UserLogin = ({componentId}: UserLoginProps) => {
 
   const valid = passwordValid && emailValid
 
-  const loginGoogle = () => {}
+  const loginGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices()
+      const userInfo = await GoogleSignin.signIn()
+
+      setUser(userInfo)
+      setEmail(userInfo.user.email)
+      setError("Please input password")
+      setEmailValid(true)
+      // setPasswordValid(false)
+    } catch (error: any) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  }
 
   const loginEmail = () => {
     if (valid) {
@@ -36,11 +59,21 @@ export const UserLogin = ({componentId}: UserLoginProps) => {
     }
   }
 
+  const navigateToRegistration = () => {}
+
   useEffect(() => {
     if (valid) {
       setError("")
     }
   }, [valid])
+
+  useEffect(() => {
+    if (password) {
+      setPasswordValid(true)
+    } else {
+      setPasswordValid(false)
+    }
+  }, [password])
 
   return (
     <>
@@ -79,7 +112,7 @@ export const UserLogin = ({componentId}: UserLoginProps) => {
           grey20
           text70BO
           bg-white
-          label="Sign in with email"
+          label="Sign in"
           style={{
             shadowColor: Colors.grey30,
             borderRadius: 0,
@@ -99,7 +132,7 @@ export const UserLogin = ({componentId}: UserLoginProps) => {
         <Text margin-s2 grey20>
           Not registered yet? Do it now!
         </Text>
-        <Button bg-grey50 black label="Register" onPress={() => {}} />
+        <Button bg-grey50 black label="Register" onPress={navigateToRegistration} />
       </View>
     </>
   )
