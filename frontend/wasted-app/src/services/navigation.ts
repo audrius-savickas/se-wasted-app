@@ -190,112 +190,128 @@ export const setRestaurantRoot = (props: FoodScreenOwnProps) =>
 export const setUserRoot = () =>
   Navigation.setRoot({
     root: {
-      bottomTabs: {
-        id: "USER_BOTTOM_TABS",
-        options: {
-          bottomTabs: {
-            tabsAttachMode: "onSwitchToTab"
+      sideMenu: {
+        left: {
+          component: {
+            name: screenNames.USER_DRAWER
           }
         },
-        children: [
-          {
-            stack: {
-              id: "USER_HOME_TAB",
-              children: [
-                {
-                  component: {
-                    name: screenNames.USER_HOME
+        center: {
+          bottomTabs: {
+            id: "USER_BOTTOM_TABS",
+            options: {
+              bottomTabs: {
+                tabsAttachMode: "onSwitchToTab"
+              },
+              topBar: {
+                leftButtons: [
+                  {
+                    icon: require("../../assets/menu-26x26.png"),
+                    disableIconTint: true,
+                    id: "SIDE_MENU"
+                  }
+                ]
+              },
+              sideMenu: {
+                openGestureMode: "entireScreen"
+              }
+            },
+            children: [
+              {
+                stack: {
+                  id: "USER_HOME_TAB",
+                  children: [
+                    {
+                      component: {
+                        name: screenNames.USER_HOME
+                      }
+                    }
+                  ],
+                  options: {
+                    bottomTab: {
+                      icon: require("../../assets/home-25x25.png"),
+                      text: "Home",
+                      fontSize: 13,
+                      selectedIconColor: Colors.black,
+                      iconColor: Colors.grey30,
+                      selectedTextColor: Colors.black,
+                      textColor: Colors.grey30
+                    }
                   }
                 }
-              ],
-              options: {
-                bottomTab: {
-                  icon: require("../../assets/home-25x25.png"),
-                  text: "Home",
-                  fontSize: 13,
-                  selectedIconColor: Colors.black,
-                  iconColor: Colors.grey30,
-                  selectedTextColor: Colors.black,
-                  textColor: Colors.grey30
+              },
+              {
+                stack: {
+                  id: "USER_FOOD_TAB",
+                  children: [
+                    {
+                      component: {
+                        name: screenNames.USER_FOOD
+                      }
+                    }
+                  ],
+                  options: {
+                    bottomTab: {
+                      icon: require("../../assets/food-30x30.png"),
+                      text: "Food",
+                      fontSize: 13,
+                      selectedIconColor: Colors.black,
+                      iconColor: Colors.grey30,
+                      selectedTextColor: Colors.black,
+                      textColor: Colors.grey30
+                    }
+                  }
+                }
+              },
+              {
+                stack: {
+                  id: "USER_RESTAURANTS_TAB",
+                  children: [
+                    {
+                      component: {
+                        name: screenNames.USER_RESTAURANTS
+                      }
+                    }
+                  ],
+                  options: {
+                    bottomTab: {
+                      icon: require("../../assets/restaurant-25x25.png"),
+                      text: "Restaurants",
+                      fontSize: 13,
+                      selectedIconColor: Colors.black,
+                      iconColor: Colors.grey30,
+                      selectedTextColor: Colors.black,
+                      textColor: Colors.grey30
+                    }
+                  }
+                }
+              },
+              {
+                stack: {
+                  id: "USER_RESERVATIONS_TAB",
+                  children: [
+                    {
+                      component: {
+                        name: screenNames.USER_RESERVATIONS
+                      }
+                    }
+                  ],
+                  options: {
+                    bottomTab: {
+                      icon: require("../../assets/time-left-25x25.png"),
+                      text: "Reservations",
+                      fontSize: 13,
+                      selectedIconColor: Colors.black,
+                      iconColor: Colors.grey30,
+                      selectedTextColor: Colors.black,
+                      textColor: Colors.grey30
+                    }
+                  }
                 }
               }
-            }
-          },
-          {
-            stack: {
-              id: "USER_FOOD_TAB",
-              children: [
-                {
-                  component: {
-                    name: screenNames.USER_FOOD
-                  }
-                }
-              ],
-              options: {
-                bottomTab: {
-                  icon: require("../../assets/food-30x30.png"),
-                  text: "Food",
-                  fontSize: 13,
-                  selectedIconColor: Colors.black,
-                  iconColor: Colors.grey30,
-                  selectedTextColor: Colors.black,
-                  textColor: Colors.grey30
-                }
-              }
-            }
-          },
-          {
-            stack: {
-              id: "USER_RESTAURANTS_TAB",
-              children: [
-                {
-                  component: {
-                    name: screenNames.USER_RESTAURANTS
-                  }
-                }
-              ],
-              options: {
-                bottomTab: {
-                  icon: require("../../assets/restaurant-25x25.png"),
-                  text: "Restaurants",
-                  fontSize: 13,
-                  selectedIconColor: Colors.black,
-                  iconColor: Colors.grey30,
-                  selectedTextColor: Colors.black,
-                  textColor: Colors.grey30
-                }
-              }
-            }
-          },
-          {
-            stack: {
-              id: "USER_RESERVATIONS_TAB",
-              children: [
-                {
-                  component: {
-                    name: screenNames.USER_RESERVATIONS
-                  }
-                }
-              ],
-              options: {
-                bottomTab: {
-                  icon: require("../../assets/time-left-25x25.png"),
-                  text: "Reservations",
-                  fontSize: 13,
-                  selectedIconColor: Colors.black,
-                  iconColor: Colors.grey30,
-                  selectedTextColor: Colors.black,
-                  textColor: Colors.grey30,
-                  dotIndicator: {
-                    color: Colors.blue30,
-                    size: 100
-                    // visible: true
-                  }
-                }
-              }
-            }
+            ]
           }
-        ]
+        }
       }
     }
   })
