@@ -3,6 +3,7 @@ using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Interfaces;
 using Persistence.Mappers;
+using Persistence.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,14 +37,29 @@ namespace Persistence.Repositories
             return GetByIdString(id)?.ToDomain();
         }
 
-        public string Insert(Reservation model)
+        public string Insert(Reservation reservation)
         {
-            throw new NotImplementedException();
+            reservation.Id = IdGenerator.GenerateUniqueId();
+
+            _context.Reservations.Add(reservation.ToEntity());
+            _context.SaveChanges();
+            return reservation.Id;
         }
 
-        public void Update(Reservation model)
+        public void Update(Reservation reservation)
         {
-            throw new NotImplementedException();
+            if (GetByIdString(reservation.Id) == null) return;
+
+            var local = _context.Reservations.Local.FirstOrDefault(x => x.Id == Guid.Parse(reservation.Id));
+
+            if (local != null)
+            {
+                _context.Entry(local).State = EntityState.Detached;
+            }
+
+            _context.Reservations.Update(reservation.ToEntity());
+
+            _context.SaveChanges();
         }
 
         private ReservationEntity GetByIdString(string id)
