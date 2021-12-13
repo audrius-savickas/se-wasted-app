@@ -8,5 +8,6 @@ namespace Services.Interfaces
 {
     public interface IReservationService
     {
+        string MakeReservation(string foodId, string customerId);
     }
 }
