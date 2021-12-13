@@ -32,17 +32,8 @@ namespace Services.Services
         }
         public string MakeReservation(string foodId, string customerId)
         {
-            Food food = _foodRepository.GetById(foodId);
-            Customer customer = _cutomerRepository.GetById(customerId);
-
-            if (food == null)
-            {
-                throw new EntityNotFoundException("Food with given id was not found.");
-            } 
-            else if (customer == null)
-            {
-                throw new EntityNotFoundException("Customer with given id was not found.");
-            }
+            Food food = ValidateFoodExistense(foodId);
+            Customer customer = ValidateCustomerExistense(customerId);
 
             if (IsFoodReserved(foodId))
             {
@@ -53,6 +44,32 @@ namespace Services.Services
 
             Reservation reservation = new Reservation(null, false, food, restaurant, customer);
             return _reservationRepository.Insert(reservation);
+        }
+
+        public void CancelReservation(string foodId, string customerId)
+        {
+            ValidateFoodExistense(foodId);
+            ValidateCustomerExistense(customerId);
+
+            Reservation reservation = _reservationRepository.GetByFoodAndCustomer(foodId, customerId);
+            _ = reservation ?? throw new EntityNotFoundException("No reservation was found.");
+            
+            reservation.IsCancelled = true;
+            _reservationRepository.Update(reservation);
+        }
+
+        private Food ValidateFoodExistense(string foodId)
+        {
+            Food food = _foodRepository.GetById(foodId);
+            _ = food ?? throw new EntityNotFoundException("Food with given id was not found.");
+            return food;
+        }
+
+        private Customer ValidateCustomerExistense(string customerId)
+        {
+            Customer customer = _cutomerRepository.GetById(customerId);
+            _ = customer ?? throw new EntityNotFoundException("Customer with given id was not found.");
+            return customer;
         }
 
         public bool IsFoodReserved(string foodId)

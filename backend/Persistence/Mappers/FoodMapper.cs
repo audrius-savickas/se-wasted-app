@@ -72,7 +72,7 @@ namespace Services.Mappers
                 PercentPerInterval = from.PercentPerInterval,
                 DecreaseType = from.DecreaseType,
                 Description = from.Description,
-                ImageURL = from.ImageURL
+                ImageURL = from.ImageURL,
             };
         }
     }
