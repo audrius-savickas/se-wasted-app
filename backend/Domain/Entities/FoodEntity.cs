@@ -25,6 +25,7 @@ namespace Domain.Entities
         public string ImageURL { get; set; }
 
         public virtual RestaurantEntity Restaurant { get; set; }
+        public virtual ReservationEntity Reservation { get; set; }
         public virtual ICollection<TypeOfFoodEntity> TypesOfFood { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace Persistence
         public DbSet<FoodEntity> Foods { get; set; }
         public DbSet<TypeOfFoodEntity> TypesOfFood { get; set; }
         public DbSet<CustomerEntity> Customers { get; set; }
+        public DbSet<ReservationEntity> Reservations { get; set; }
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
             ChangeTracker.Tracked += OnEntityTracked;
@@ -41,6 +42,7 @@ namespace Persistence
             {
                 x.HasKey(k => k.Id);
                 x.HasOne(p => p.Restaurant).WithMany(p => p.Foods);
+                x.HasOne(p => p.Reservation).WithOne(p => p.Food);
                 x.HasMany(p => p.TypesOfFood).WithMany(p => p.Foods);
                 x.Property(p => p.RestaurantId).IsRequired();
                 x.Property(p => p.Name).IsRequired();
@@ -59,6 +61,14 @@ namespace Persistence
                 x.Property(p => p.FirstName).IsRequired();
                 x.Property(p => p.Mail).IsRequired();
                 x.Property(p => p.Password).IsRequired();
+            });
+
+            modelBuilder.Entity<ReservationEntity>(x =>
+            {
+                x.HasKey(k => k.Id);
+                x.HasOne(p => p.Customer).WithMany(p => p.Reservations);
+                x.Property(p => p.Price).IsRequired();
+                x.Property(p => p.ReservedAt).IsRequired();
             });
 
             base.OnModelCreating(modelBuilder);

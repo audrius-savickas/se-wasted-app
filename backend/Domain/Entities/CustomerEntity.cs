@@ -12,5 +12,6 @@ namespace Domain.Entities
         public string LastName { get; set; }
         public string Mail { get; set; }
         public string Password { get; set; }
+        public virtual ICollection<ReservationEntity> Reservations { get; set; }
     }
 }

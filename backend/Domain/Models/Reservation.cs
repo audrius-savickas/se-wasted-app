@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Reservation // fix
+    public class Reservation
     {
         public string Id { get; set; }
         public DateTime ReservedAt { get; set; }
@@ -17,11 +17,13 @@ namespace Domain.Models
         public Customer Customer { get; set; }
         public Reservation(
             string id,
+            bool isCancelled,
             Food food,
             Restaurant restaurant, 
             Customer customer)
         {
             Id = id;
+            IsCancelled = isCancelled;
             ReservedAt = DateTime.Now;
             Food = food;
             Restaurant = restaurant;
