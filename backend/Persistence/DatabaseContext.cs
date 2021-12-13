@@ -15,6 +15,7 @@ namespace Persistence
         public DbSet<RestaurantEntity> Restaurants { get; set; }
         public DbSet<FoodEntity> Foods { get; set; }
         public DbSet<TypeOfFoodEntity> TypesOfFood { get; set; }
+        public DbSet<CustomerEntity> Customers { get; set; }
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
             ChangeTracker.Tracked += OnEntityTracked;
