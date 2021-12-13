@@ -266,6 +266,34 @@ export const setUserRoot = () =>
                 }
               }
             }
+          },
+          {
+            stack: {
+              id: "USER_RESERVATIONS_TAB",
+              children: [
+                {
+                  component: {
+                    name: screenNames.USER_RESERVATIONS
+                  }
+                }
+              ],
+              options: {
+                bottomTab: {
+                  icon: require("../../assets/time-left-25x25.png"),
+                  text: "Reservations",
+                  fontSize: 13,
+                  selectedIconColor: Colors.black,
+                  iconColor: Colors.grey30,
+                  selectedTextColor: Colors.black,
+                  textColor: Colors.grey30,
+                  dotIndicator: {
+                    color: Colors.blue30,
+                    size: 100
+                    // visible: true
+                  }
+                }
+              }
+            }
           }
         ]
       }
