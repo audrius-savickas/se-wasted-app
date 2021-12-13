@@ -21,7 +21,8 @@ namespace Persistence.Mappers
                 from.IsCancelled,
                 from.Food.ToDomain(),
                 from.Food.Restaurant.ToDomain(),
-                from.Customer.ToDomain());
+                from.Customer.ToDomain(),
+                from.ReservedAt);
         }
 
         public static ReservationEntity ToEntity(this Reservation from)

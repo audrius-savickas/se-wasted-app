@@ -1,6 +1,7 @@
 ﻿using Contracts.DTOs;
 using Domain.Entities;
 using Domain.Models;
+using Persistence.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Services.Mappers
             DecreaseType decreaseType = string.Equals(from.DecreaseType, "AMOUNT") ? DecreaseType.AMOUNT : DecreaseType.PERCENT;
             string foodId = from.Id.ToString();
             string restaurantId = from.RestaurantId.ToString();
+            Reservation reservation = from.Reservation?.ToDomain();
 
             return new Food(
                 foodId,
@@ -29,7 +31,8 @@ namespace Services.Mappers
                 from.StartDecreasingAt,
                 from.AmountPerInterval,
                 from.PercentPerInterval,
-                from.Description);
+                from.Description,
+                reservation);
         }
 
         public static FoodEntity ToEntity(this Food from)

@@ -11,6 +11,7 @@ namespace Domain.Models
         public DateTime CreatedAt { get; set; }
         public string IdRestaurant { get; set; }
         public string ImageURL { get; set; }
+        public virtual Reservation Reservation { get; set; }
         public virtual IEnumerable<TypeOfFood> TypesOfFood { get; set; }
         public DateTime StartDecreasingAt { get; set; }
         public DecreaseType DecreaseType { get; set; }
@@ -37,10 +38,12 @@ namespace Domain.Models
             DateTime? startDecreasingAt = null,
             decimal? amountPerInterval = null,
             double? percentPerInterval = null,
-            string description = ""
+            string description = "",
+            Reservation reservation = null
         )
             : base(id, name)
         {
+            Reservation = reservation;
             StartingPrice = startingPrice;
             MinimumPrice = minimumPrice >= 0 ? minimumPrice : 0;
             CreatedAt = createdAt ?? DateTime.Now;

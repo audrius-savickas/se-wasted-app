@@ -18,12 +18,13 @@ namespace Domain.Models
             string id,
             bool isCancelled,
             Food food,
-            Restaurant restaurant, 
-            Customer customer) : base(id, null)
+            Restaurant restaurant,
+            Customer customer,
+            DateTime? reservedAt = null) : base(id, null)
         {
             Id = id;
             IsCancelled = isCancelled;
-            ReservedAt = DateTime.Now;
+            ReservedAt = reservedAt ?? DateTime.Now;
             Food = food;
             Restaurant = restaurant;
             Price = food.CalculateCurrentPrice();
