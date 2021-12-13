@@ -24,7 +24,7 @@ namespace Persistence.Mappers
                 from.Id.ToString(),
                 from.FirstName,
                 from.LastName,
-                null,
+                from.Reservations.Select(x => x.ToDomain()),
                 credentials);
         }
 

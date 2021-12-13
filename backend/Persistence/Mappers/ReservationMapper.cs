@@ -14,6 +14,8 @@ namespace Persistence.Mappers
     {
         public static Reservation ToDomain(this ReservationEntity from)
         {
+            _ = from ?? throw new ArgumentNullException(nameof(from));
+
             return new Reservation(
                 from.Id.ToString(),
                 from.IsCancelled,
@@ -24,6 +26,8 @@ namespace Persistence.Mappers
 
         public static ReservationEntity ToEntity(this Reservation from)
         {
+            _ = from ?? throw new ArgumentNullException(nameof(from));
+
             return new ReservationEntity
             {
                 FoodId = Guid.Parse(from.Food.Id),
