@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Persistence.Interfaces;
+using Services.Exceptions;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,16 @@ namespace Services.Services
         {
             Food food = _foodRepository.GetById(foodId);
             Customer customer = _cutomerRepository.GetById(customerId);
+
+            if (food == null)
+            {
+                throw new EntityNotFoundException("Food with given id was not found.");
+            } 
+            else if (customer == null)
+            {
+                throw new EntityNotFoundException("Customer with given id was not found.");
+            }
+
             Restaurant restaurant = _restaurantRepository.GetById(food.IdRestaurant);
 
             Reservation reservation = new Reservation(null, false, food, restaurant, customer);
