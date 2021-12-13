@@ -44,10 +44,20 @@ namespace Services.Services
                 throw new EntityNotFoundException("Customer with given id was not found.");
             }
 
+            if (IsFoodReserved(foodId))
+            {
+                throw new AuthorizationException("Food item is already reserved.");
+            }
+
             Restaurant restaurant = _restaurantRepository.GetById(food.IdRestaurant);
 
             Reservation reservation = new Reservation(null, false, food, restaurant, customer);
             return _reservationRepository.Insert(reservation);
+        }
+
+        public bool IsFoodReserved(string foodId)
+        {
+            return _reservationRepository.GetAll().ToList().Where(x => x.Food.Id == foodId).Count() > 0;
         }
     }
 }

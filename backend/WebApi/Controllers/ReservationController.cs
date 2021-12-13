@@ -35,7 +35,7 @@ namespace WebApi.Controllers
                 string id = _reservationService.MakeReservation(foodId, customerId);
                 return CreatedAtAction(nameof(MakeReservation), new { id });
             }
-            catch (Exception exception) when (exception is EntityNotFoundException || exception is ArgumentException)
+            catch (Exception exception) when (exception is EntityNotFoundException || exception is AuthorizationException)
             {
                 return BadRequest(exception.Message);
             }
