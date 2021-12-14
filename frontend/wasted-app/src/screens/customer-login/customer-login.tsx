@@ -2,6 +2,7 @@ import {GoogleSignin, GoogleSigninButton, statusCodes} from "@react-native-googl
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
 import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
+import {loginUser} from "../../api/customer"
 import {PasswordInput} from "../../components/password-input"
 import {useAuthentication} from "../../hooks/use-authentication"
 import {useUser} from "../../hooks/use-user"
@@ -31,7 +32,6 @@ export const CustomerLogin = ({componentId}: CustomerLoginProps) => {
       setEmail(userInfo.user.email)
       setError("Please input password")
       setEmailValid(true)
-      // setPasswordValid(false)
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
@@ -45,9 +45,9 @@ export const CustomerLogin = ({componentId}: CustomerLoginProps) => {
     }
   }
 
-  const loginEmail = () => {
+  const loginEmail = async () => {
     if (valid) {
-      const userId = "asd123"
+      const userId = await loginUser({credentials: {email, password}})
       if (userId) {
         setUserId({userId})
         setUserRoot()
