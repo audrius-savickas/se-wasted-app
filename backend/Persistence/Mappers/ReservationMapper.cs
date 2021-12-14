@@ -19,9 +19,10 @@ namespace Persistence.Mappers
             return new Reservation(
                 from.Id.ToString(),
                 from.IsCancelled,
-                from.Food.ToDomain(),
-                from.Food.Restaurant.ToDomain(),
-                from.Customer.ToDomain(),
+                from.FoodId.ToString(),
+                from.Food.RestaurantId.ToString(),
+                from.CustomerId.ToString(),
+                from.Price,
                 from.ReservedAt);
         }
 
@@ -31,8 +32,8 @@ namespace Persistence.Mappers
 
             return new ReservationEntity
             {
-                FoodId = Guid.Parse(from.Food.Id),
-                CustomerId = Guid.Parse(from.Customer.Id),
+                FoodId = Guid.Parse(from.FoodId),
+                CustomerId = Guid.Parse(from.CustomerId),
                 Id = Guid.Parse(from.Id),
                 IsCancelled = from.IsCancelled,
                 Price = from.Price,
@@ -44,8 +45,8 @@ namespace Persistence.Mappers
             _ = from ?? throw new ArgumentNullException(nameof(from));
 
             return new ReservationDto(
-                from.Food.Id,
-                from.Customer.Id,
+                from.FoodId,
+                from.CustomerId,
                 from.ReservedAt,
                 from.Price);
         }

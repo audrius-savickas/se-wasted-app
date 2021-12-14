@@ -11,24 +11,25 @@ namespace Domain.Models
         public DateTime ReservedAt { get; set; }
         public bool IsCancelled { get; set; }
         public decimal Price { get; set; }
-        public Food Food { get; set; }
-        public Restaurant Restaurant { get; set; }
-        public Customer Customer { get; set; }
+        public string FoodId { get; set; }
+        public string RestaurantId { get; set; }
+        public string CustomerId { get; set; }
         public Reservation(
             string id,
             bool isCancelled,
-            Food food,
-            Restaurant restaurant,
-            Customer customer,
+            string foodId,
+            string restaurantId,
+            string customerId,
+            decimal price,
             DateTime? reservedAt = null) : base(id, null)
         {
             Id = id;
             IsCancelled = isCancelled;
             ReservedAt = reservedAt ?? DateTime.Now;
-            Food = food;
-            Restaurant = restaurant;
-            Price = food.CalculateCurrentPrice();
-            Customer = customer;
+            FoodId = foodId;
+            RestaurantId = restaurantId;
+            Price = price;
+            CustomerId = customerId;
         }
     }
 }

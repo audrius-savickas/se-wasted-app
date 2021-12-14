@@ -42,7 +42,7 @@ namespace Services.Services
 
             Restaurant restaurant = _restaurantRepository.GetById(food.IdRestaurant);
 
-            Reservation reservation = new Reservation(null, false, food, restaurant, customer);
+            Reservation reservation = new Reservation(null, false, food.Id, restaurant.Id, customer.Id, food.CalculateCurrentPrice());
             return _reservationRepository.Insert(reservation);
         }
 
@@ -74,7 +74,7 @@ namespace Services.Services
 
         public bool IsFoodReserved(string foodId)
         {
-            return _reservationRepository.GetAll().ToList().Where(x => x.Food.Id == foodId).Count() > 0;
+            return _reservationRepository.GetAll().ToList().Where(x => x.FoodId == foodId).Count() > 0;
         }
     }
 }

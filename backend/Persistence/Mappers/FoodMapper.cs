@@ -76,6 +76,7 @@ namespace Services.Mappers
                 DecreaseType = from.DecreaseType,
                 Description = from.Description,
                 ImageURL = from.ImageURL,
+                Reservation = from.Reservation?.ToDTO(),
             };
         }
     }
