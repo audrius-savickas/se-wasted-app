@@ -5,6 +5,7 @@ using Persistence.Interfaces;
 using Persistence.Mappers;
 using Services.Exceptions;
 using Services.Interfaces;
+using Services.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +17,19 @@ namespace Services.Services
     public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository _customerRepository;
+        private readonly IFoodRepository _foodRepository;
+        private readonly IReservationRepository _reservationRepository;
 
         public CustomerService
         (
-            ICustomerRepository customerRepository
+            ICustomerRepository customerRepository,
+            IFoodRepository foodRepository,
+            IReservationRepository reservationRepository
         )
         {
             _customerRepository = customerRepository;
+            _foodRepository = foodRepository;
+            _reservationRepository = reservationRepository;
         }
 
         public void ChangePass(Mail mail, Password newPassword)
@@ -102,7 +109,11 @@ namespace Services.Services
 
         public IEnumerable<FoodResponse> GetReservedFoodFromCustomerId(string customerId)
         {
-            throw new NotImplementedException();
+            var reservations = _reservationRepository.GetAll().ToList();
+            var customerReservations = reservations.Where(x => string.Equals(x.CustomerId, customerId, StringComparison.OrdinalIgnoreCase));
+            var foodIds = customerReservations.Select(x => x.FoodId);
+
+            return _foodRepository.GetAll().ToList().Where(x => foodIds.Contains(x.Id)).Select(x => x.ToFoodResponse());
         }
 
         public CustomerDto GetCustomerDtoById(string id)
