@@ -103,5 +103,10 @@ namespace Services.Services
         {
             throw new NotImplementedException();
         }
+
+        public CustomerDto GetCustomerDtoById(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

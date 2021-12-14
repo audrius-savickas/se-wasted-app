@@ -113,6 +113,25 @@ namespace WebApi.Controllers
             }
         }
 
-        // get user GET /customer/{id}
+        /// <summary>
+        /// Retrieve customer by id.
+        /// </summary>
+        /// <param name="customerId">Customer identification</param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public IActionResult GetCustomerById([FromQuery] string customerId)
+        {
+            try
+            {
+                return Ok(_customerService.GetCustomerDtoById(customerId));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
     }
 }

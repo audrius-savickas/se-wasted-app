@@ -12,5 +12,6 @@ namespace Services.Interfaces
     {
         string GetCustomerIdFromMail(Mail mail);
         IEnumerable<FoodResponse> GetReservedFoodFromCustomerId(string customerId);
+        CustomerDto GetCustomerDtoById(string id);
     }
 }
