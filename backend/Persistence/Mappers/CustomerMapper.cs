@@ -45,7 +45,7 @@ namespace Persistence.Mappers
 
         public static CustomerDto ToDTO(this Customer from)
         {
-            return new CustomerDto(from.Id, from.FirstName, from.LastName);
+            return new CustomerDto(from.Id, from.FirstName, from.LastName, from.Credentials.Mail.Value);
         }
     }
 }
