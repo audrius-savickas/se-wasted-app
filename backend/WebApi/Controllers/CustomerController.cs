@@ -96,16 +96,16 @@ namespace WebApi.Controllers
         /// <summary>
         /// Retrieve all food items that are reserved by customer.
         /// </summary>
-        /// <param name="customerId">Customer identification</param>
+        /// <param name="id">Customer identification</param>
         /// <returns></returns>
         [HttpGet("{id}/food")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public IActionResult GetAllReservedFoods([FromQuery] string customerId)
+        public IActionResult GetAllReservedFoods(string id)
         {
             try
             {
-                return Ok(_customerService.GetReservedFoodFromCustomerId(customerId));
+                return Ok(_customerService.GetReservedFoodFromCustomerId(id));
             }
             catch(Exception e)
             {
@@ -121,11 +121,11 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public IActionResult GetCustomerById([FromQuery] string customerId)
+        public IActionResult GetCustomerById(string id)
         {
             try
             {
-                return Ok(_customerService.GetCustomerDtoById(customerId));
+                return Ok(_customerService.GetCustomerDtoById(id));
             }
             catch (Exception e)
             {
