@@ -1,3 +1,3 @@
 import {State} from "../typings/redux"
 
-export const getUserId = (state: State) => state.user.userId
+export const getCustomerId = (state: State) => state.customer.customerId

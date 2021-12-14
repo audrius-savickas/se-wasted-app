@@ -1,16 +1,16 @@
 import {createReducer} from "@reduxjs/toolkit"
-import {setUserId} from "../actions/user"
+import {setCustomerId} from "../actions/customer"
 
 interface State {
-  userId: string
+  customerId: string
 }
 
 export const initialState: State = {
-  userId: ""
+  customerId: ""
 }
 
-export const user = createReducer(initialState, builder => {
-  builder.addCase(setUserId, (state, {payload}) => {
-    state.userId = payload.userId
+export const customer = createReducer(initialState, builder => {
+  builder.addCase(setCustomerId, (state, {payload}) => {
+    state.customerId = payload.customerId
   })
 })

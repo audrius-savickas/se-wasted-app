@@ -5,12 +5,12 @@ import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
 import {loginUser} from "../../api/customer"
 import {PasswordInput} from "../../components/password-input"
 import {useAuthentication} from "../../hooks/use-authentication"
-import {useUser} from "../../hooks/use-user"
+import {useCustomer} from "../../hooks/use-customer"
 import {navigateToCustomerRegistration, setUserRoot} from "../../services/navigation"
 import {CustomerLoginProps} from "./interfaces"
 
 export const CustomerLogin = ({componentId}: CustomerLoginProps) => {
-  const {setUserId} = useUser()
+  const {setCustomerId} = useCustomer()
   const {setUser} = useAuthentication()
 
   const [email, setEmail] = useState("")
@@ -47,9 +47,9 @@ export const CustomerLogin = ({componentId}: CustomerLoginProps) => {
 
   const loginEmail = async () => {
     if (valid) {
-      const userId = await loginUser({credentials: {email, password}})
-      if (userId) {
-        setUserId({userId})
+      const customerId = await loginUser({credentials: {email, password}})
+      if (customerId) {
+        setCustomerId({customerId})
         setUserRoot()
       } else {
         setError("Login failed. We haven't found a registered user account with these credentials.")
