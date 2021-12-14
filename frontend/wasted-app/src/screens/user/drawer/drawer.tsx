@@ -1,16 +1,44 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
 import {Avatar, Colors, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import {getCustomerById} from "../../../api/customer"
+import {Customer} from "../../../api/interfaces"
+import {useCustomer} from "../../../hooks/use-customer"
+import {setHomeRoot} from "../../../services/navigation"
 
-export const Drawer = ({componentId}) => {
+export const Drawer = () => {
+  const {customerId, logOutCustomer} = useCustomer()
+
+  const [customer, setCustomer] = useState({} as Customer)
+
+  const fetchCustomer = async () => {
+    try {
+      const customer = await getCustomerById({customerId})
+      if (customer) {
+        setCustomer(customer)
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const logOut = () => {
+    logOutCustomer()
+    setHomeRoot()
+  }
+
+  useEffect(() => {
+    fetchCustomer()
+  }, [])
+
   return (
     <View useSafeArea flex>
       <View marginL-s4 marginR-s4>
         <View centerV row>
           <Avatar size={50} backgroundColor={Colors.purple40} name={"Audrius Savickas"} />
           <View flex marginL-s2 marginR-s2 right>
-            <Text text60L>Audrius Savickas</Text>
-            <Text text90L>umarasss@gmail.com</Text>
+            <Text text60L>{`${customer.firstName} ${customer.lastName}`}</Text>
+            <Text text90L>{customer.mail}</Text>
           </View>
         </View>
         <View marginT-s2></View>
@@ -27,7 +55,7 @@ export const Drawer = ({componentId}) => {
       </View>
       <View style={[styles.bottomBorder]}>
         <View marginL-s4 marginR-s4 marginV-s4 centerV>
-          <TouchableOpacity row marginL-s2 marginR-s2 center>
+          <TouchableOpacity row marginL-s2 marginR-s2 center onPress={logOut}>
             <Image tintColor={Colors.red10} source={require("../../../../assets/log-out-30x30.png")} />
             <Text marginL-s2 text60L red10>
               Log out

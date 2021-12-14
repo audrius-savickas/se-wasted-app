@@ -69,7 +69,7 @@ export const navigateToRestaurantInfo = (componentId: string, props: RestaurantI
   navigateTo(componentId, screenNames.RESTAURANT_INFO, props, "Restaurant Info")
 
 export const navigateToRestaurantList = (componentId: string, props: RestaurantListOwnProps) =>
-  navigateTo(componentId, screenNames.USER_RESTAURANTS, props, "Restaurant List")
+  navigateTo(componentId, screenNames.CUSTOMER_RESTAURANTS, props, "Restaurant List")
 
 export const navigateToRestaurantLogin = (componentId: string, props: RestaurantLoginOwnProps) =>
   navigateTo(componentId, screenNames.RESTAURANT_LOGIN, props, "Login")
@@ -78,7 +78,7 @@ export const navigateToRestaurantRegistration = (componentId: string, props: Res
   navigateTo(componentId, screenNames.RESTAURANT_REGISTRATION, props, "Registration")
 
 export const navigateToFoodList = (componentId: string, props: FoodListOwnProps) =>
-  navigateTo(componentId, screenNames.USER_FOOD_LIST, props, "Food List")
+  navigateTo(componentId, screenNames.CUSTOMER_FOOD, props, "Food List")
 
 export const navigateToCustomerLogin = (componentId: string) =>
   navigateTo(componentId, screenNames.CUSTOMER_LOGIN, undefined, "User Login")
@@ -199,7 +199,7 @@ export const setUserRoot = () =>
       sideMenu: {
         left: {
           component: {
-            name: screenNames.USER_DRAWER
+            name: screenNames.CUSTOMER_DRAWER
           }
         },
         center: {
@@ -229,7 +229,7 @@ export const setUserRoot = () =>
                   children: [
                     {
                       component: {
-                        name: screenNames.USER_HOME
+                        name: screenNames.CUSTOMER_HOME
                       }
                     }
                   ],
@@ -252,7 +252,7 @@ export const setUserRoot = () =>
                   children: [
                     {
                       component: {
-                        name: screenNames.USER_FOOD
+                        name: screenNames.CUSTOMER_FOOD
                       }
                     }
                   ],
@@ -275,7 +275,7 @@ export const setUserRoot = () =>
                   children: [
                     {
                       component: {
-                        name: screenNames.USER_RESTAURANTS
+                        name: screenNames.CUSTOMER_RESTAURANTS
                       }
                     }
                   ],
@@ -298,7 +298,7 @@ export const setUserRoot = () =>
                   children: [
                     {
                       component: {
-                        name: screenNames.USER_RESERVATIONS
+                        name: screenNames.CUSTOMER_RESERVATIONS
                       }
                     }
                   ],

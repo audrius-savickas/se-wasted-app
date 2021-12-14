@@ -1,7 +1,11 @@
-import {Credentials} from "./interfaces"
+import {Credentials, Customer} from "./interfaces"
 import {WASTED_SERVER_URL} from "./urls"
 
-export const loginUser = async ({credentials}: {credentials: Credentials}) => {
+export const loginCustomer = async ({
+  credentials
+}: {
+  credentials: Credentials
+}): Promise<{customerId: string} | null> => {
   try {
     const response = await fetch(`${WASTED_SERVER_URL}/Customer/Login`, {
       method: "POST",
@@ -18,7 +22,7 @@ export const loginUser = async ({credentials}: {credentials: Credentials}) => {
   }
 }
 
-export const registerUser = async ({
+export const registerCustomer = async ({
   credentials,
   firstName,
   lastName
@@ -26,7 +30,7 @@ export const registerUser = async ({
   credentials: Credentials
   firstName: string
   lastName: string
-}) => {
+}): Promise<{customerId: string} | null> => {
   try {
     const response = await fetch(
       `${WASTED_SERVER_URL}/Customer?Mail.Value=${encodeURIComponent(
@@ -45,5 +49,15 @@ export const registerUser = async ({
     return data
   } catch (error) {
     return null
+  }
+}
+
+export const getCustomerById = async ({customerId}: {customerId: string}): Promise<Customer> => {
+  try {
+    const response = await fetch(`${WASTED_SERVER_URL}/Customer/${customerId}`)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    throw new Error("Customer not found")
   }
 }

@@ -1,12 +1,13 @@
 import {useDispatch, useSelector} from "react-redux"
-import {setCustomerId} from "../actions/customer"
-import {getCustomerId} from "../selectors/user"
+import {logOutCustomer, setCustomerId} from "../actions/customer"
+import {getCustomerId} from "../selectors/customer"
 
 export const useCustomer = () => {
   const dispatch = useDispatch()
 
   return {
     customerId: useSelector(getCustomerId),
-    setCustomerId: ({customerId}: {customerId: string}) => dispatch(setCustomerId({customerId}))
+    setCustomerId: ({customerId}: {customerId: string}) => dispatch(setCustomerId({customerId})),
+    logOutCustomer: () => dispatch(logOutCustomer())
   }
 }

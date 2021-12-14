@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import {Alert, ScrollView, StyleSheet} from "react-native"
 import {Navigation} from "react-native-navigation"
 import {Button, Card, Colors, Incubator, Text, View} from "react-native-ui-lib"
-import {registerUser} from "../../../api/customer"
+import {registerCustomer} from "../../../api/customer"
 import {PasswordInput} from "../../../components/password-input"
 import {CustomerRegistrationProps} from "./interfaces"
 
@@ -30,7 +30,7 @@ export const CustomerRegistration = ({componentId}: CustomerRegistrationProps) =
       if (password !== confirmPassword) {
         setError("Passwords don't match")
       } else {
-        const userId = await registerUser({credentials: {email, password}, firstName, lastName})
+        const userId = await registerCustomer({credentials: {email, password}, firstName, lastName})
         if (userId) {
           setError("")
           Alert.alert("Registered succesfully!", "Please check your inbox for confirmation email.", [{text: "OK"}])

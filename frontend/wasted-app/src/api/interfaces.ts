@@ -27,6 +27,14 @@ export interface Food {
   imageURL: string
 }
 
+export interface Customer {
+  firstName: string
+  lastName: string
+  id: string
+  mail: string
+  phoneNumber: string
+}
+
 export interface FoodType {
   id: string
   name: string

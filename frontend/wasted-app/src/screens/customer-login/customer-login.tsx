@@ -2,7 +2,7 @@ import {GoogleSignin, GoogleSigninButton, statusCodes} from "@react-native-googl
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
 import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
-import {loginUser} from "../../api/customer"
+import {loginCustomer} from "../../api/customer"
 import {PasswordInput} from "../../components/password-input"
 import {useAuthentication} from "../../hooks/use-authentication"
 import {useCustomer} from "../../hooks/use-customer"
@@ -46,10 +46,14 @@ export const CustomerLogin = ({componentId}: CustomerLoginProps) => {
   }
 
   const loginEmail = async () => {
+    if (__DEV__ && email === "DEV") {
+      setCustomerId({customerId: "7714624a-dc5b-4bbc-9290-53718129a962"})
+      setUserRoot()
+    }
     if (valid) {
-      const customerId = await loginUser({credentials: {email, password}})
-      if (customerId) {
-        setCustomerId({customerId})
+      const response = await loginCustomer({credentials: {email, password}})
+      if (response) {
+        setCustomerId({customerId: response.customerId})
         setUserRoot()
       } else {
         setError("Login failed. We haven't found a registered user account with these credentials.")
