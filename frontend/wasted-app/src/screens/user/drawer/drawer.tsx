@@ -29,7 +29,7 @@ export const Drawer = ({componentId}: DrawerProps) => {
   }
 
   const openProfile = () => {
-    showCustomerProfileModal({componentId})
+    showCustomerProfileModal({componentId, customer})
   }
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export const Drawer = ({componentId}: DrawerProps) => {
     <View useSafeArea flex>
       <View marginL-s4 marginR-s4>
         <View centerV row>
-          <Avatar size={50} backgroundColor={Colors.purple40} name={"Audrius Savickas"} />
+          <Avatar size={50} backgroundColor={Colors.purple40} name={`${customer.firstName} ${customer.lastName}`} />
           <View flex marginL-s2 marginR-s2 right>
             <Text text60L>{`${customer.firstName} ${customer.lastName}`}</Text>
             <Text text90L>{customer.mail}</Text>

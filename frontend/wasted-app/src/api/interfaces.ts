@@ -32,7 +32,7 @@ export interface Customer {
   lastName: string
   id: string
   mail: string
-  phoneNumber: string
+  phone: string
 }
 
 export interface FoodType {

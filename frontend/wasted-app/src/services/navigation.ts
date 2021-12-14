@@ -64,7 +64,7 @@ export const addOptions = <Props>(component: ComponentType<Props>, options: (pro
 export const showFoodInfoModal = (props: FoodInfoProps) => showModal(screenNames.FOOD_INFO, props, "Food Info")
 
 export const showCustomerProfileModal = (props: CustomerProfileProps) =>
-  showModal(screenNames.CUSTOMER_PROFILE, props, "Food Info")
+  showModal(screenNames.CUSTOMER_PROFILE, props, "Your Profile")
 
 export const navigateToFoodInfo = (componentId: string, props: FoodInfoProps) =>
   navigateTo(componentId, screenNames.FOOD_INFO, props, "Food Info")
