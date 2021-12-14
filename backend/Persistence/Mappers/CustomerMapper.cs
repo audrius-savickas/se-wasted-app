@@ -26,7 +26,8 @@ namespace Persistence.Mappers
                 from.FirstName,
                 from.LastName,
                 from.Reservations.Select(x => x.ToDomain()),
-                credentials);
+                credentials,
+                from.Phone);
         }
 
         public static CustomerEntity ToEntity(this Customer from)
@@ -40,12 +41,13 @@ namespace Persistence.Mappers
                 LastName = from.LastName,
                 Mail = from.Credentials.Mail.Value,
                 Password = from.Credentials.Password.Value,
+                Phone = from.Phone,
             };
         }
 
         public static CustomerDto ToDTO(this Customer from)
         {
-            return new CustomerDto(from.Id, from.FirstName, from.LastName, from.Credentials.Mail.Value);
+            return new CustomerDto(from.Id, from.FirstName, from.LastName, from.Credentials.Mail.Value, from.Phone);
         }
     }
 }

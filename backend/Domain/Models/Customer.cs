@@ -20,6 +20,7 @@ namespace Domain.Models
         public string LastName { get; set; }
         public IEnumerable<Reservation> Reservations { get; set; }
         public Credentials Credentials { get; set; }
+        public string Phone { get; set; }
 
         public Customer() { }
         public Customer(
@@ -27,8 +28,10 @@ namespace Domain.Models
             string firstName,
             string lastName,
             IEnumerable<Reservation> reservations,
-            Credentials credentials) : base(id, firstName + " " + lastName)
+            Credentials credentials,
+            string phone) : base(id, firstName + " " + lastName)
         {
+            Phone = phone;
             Id = id;
             FirstName = firstName;
             LastName = lastName;

@@ -62,6 +62,7 @@ namespace Persistence
                 x.Property(p => p.FirstName).IsRequired();
                 x.Property(p => p.Mail).IsRequired();
                 x.Property(p => p.Password).IsRequired();
+                x.Property(p => p.Phone).IsRequired();
             });
 
             modelBuilder.Entity<ReservationEntity>(x =>

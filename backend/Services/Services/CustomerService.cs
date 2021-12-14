@@ -96,6 +96,7 @@ namespace Services.Services
                 FirstName = customerRegisterRequest.FirstName,
                 LastName = customerRegisterRequest.LastName,
                 Credentials = new Credentials(creds.Mail.Value, PasswordHasher.Hash(creds.Password.Value)),
+                Phone = customerRegisterRequest.Phone,
             };
 
             string id = _customerRepository.Insert(customer);
