@@ -93,14 +93,25 @@ namespace WebApi.Controllers
             return Unauthorized("Invalid credentials.");
         }
 
-
-
-
-
-
-
-
-        // get all reserved foods GET customer/{id}/food
+        /// <summary>
+        /// Retrieve all food items that are reserved by customer.
+        /// </summary>
+        /// <param name="customerId">Customer identification</param>
+        /// <returns></returns>
+        [HttpGet("{id}/food")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public IActionResult GetAllReservedFoods([FromQuery] string customerId)
+        {
+            try
+            {
+                return Ok(_customerService.GetReservedFoodFromCustomerId(customerId));
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
         // get user GET /customer/{id}
     }

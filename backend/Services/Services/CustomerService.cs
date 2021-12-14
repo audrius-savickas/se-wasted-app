@@ -97,5 +97,10 @@ namespace Services.Services
         {
             return _customerRepository.GetByMail(mail).Id;
         }
+
+        public IEnumerable<FoodResponse> GetReservedFoodFromCustomerId(string customerId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

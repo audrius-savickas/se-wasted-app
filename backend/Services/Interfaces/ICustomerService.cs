@@ -11,5 +11,6 @@ namespace Services.Interfaces
     public interface ICustomerService : IAuthService<CustomerRegisterRequest>
     {
         string GetCustomerIdFromMail(Mail mail);
+        IEnumerable<FoodResponse> GetReservedFoodFromCustomerId(string customerId);
     }
 }
