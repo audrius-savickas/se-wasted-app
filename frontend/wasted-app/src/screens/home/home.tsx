@@ -1,6 +1,6 @@
 import React from "react"
 import {Button, Colors, Image, Text, View} from "react-native-ui-lib"
-import {navigateToRestaurantLogin, navigateToUserLogin} from "../../services/navigation"
+import {navigateToCustomerLogin, navigateToRestaurantLogin} from "../../services/navigation"
 import {HomeProps} from "./interfaces"
 
 export const Home = ({componentId}: HomeProps) => {
@@ -23,7 +23,7 @@ export const Home = ({componentId}: HomeProps) => {
           iconSource={require("../../../assets/profile-30x30.png")}
           label={"User"}
           outlineColor={Colors.black}
-          onPress={() => navigateToUserLogin(componentId)}
+          onPress={() => navigateToCustomerLogin(componentId)}
         />
         <Button
           marginB-s10

@@ -80,11 +80,11 @@ export const navigateToRestaurantRegistration = (componentId: string, props: Res
 export const navigateToFoodList = (componentId: string, props: FoodListOwnProps) =>
   navigateTo(componentId, screenNames.USER_FOOD_LIST, props, "Food List")
 
-export const navigateToUserLogin = (componentId: string) =>
-  navigateTo(componentId, screenNames.USER_LOGIN, undefined, "User Login")
+export const navigateToCustomerLogin = (componentId: string) =>
+  navigateTo(componentId, screenNames.CUSTOMER_LOGIN, undefined, "User Login")
 
-export const navigateToUserRegistration = (componentId: string) =>
-  navigateTo(componentId, screenNames.USER_REGISTRATION, undefined, "User Registration")
+export const navigateToCustomerRegistration = (componentId: string) =>
+  navigateTo(componentId, screenNames.CUSTOMER_REGISTRATION, undefined, "User Registration")
 
 export const setRestaurantRoot = (props: FoodScreenOwnProps) =>
   Navigation.setRoot({

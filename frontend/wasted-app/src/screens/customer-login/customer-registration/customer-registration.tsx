@@ -3,9 +3,9 @@ import {ScrollView, StyleSheet} from "react-native"
 import {Navigation} from "react-native-navigation"
 import {Button, Card, Colors, Incubator, Text, View} from "react-native-ui-lib"
 import {PasswordInput} from "../../../components/password-input"
-import {UserRegistrationProps} from "./interfaces"
+import {CustomerRegistrationProps} from "./interfaces"
 
-export const UserRegistration = ({componentId}: UserRegistrationProps) => {
+export const CustomerRegistration = ({componentId}: CustomerRegistrationProps) => {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")

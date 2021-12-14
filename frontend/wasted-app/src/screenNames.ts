@@ -11,6 +11,6 @@ export const screenNames = {
   FOOD_INFO: "wasted-app.FoodInfo",
   RESTAURANT_INFO: "wasted-app.RestaurantInfo",
   RESTAURANT_ADD_FOOD: "wasted-app.RestaurantAddFood",
-  USER_LOGIN: "wasted-app.UserLogin",
-  USER_REGISTRATION: "wasted-app.UserRegistration"
+  CUSTOMER_LOGIN: "wasted-app.CustomerLogin",
+  CUSTOMER_REGISTRATION: "wasted-app.CustomerRegistration"
 }

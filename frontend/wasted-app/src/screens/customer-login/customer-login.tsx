@@ -5,10 +5,10 @@ import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
 import {PasswordInput} from "../../components/password-input"
 import {useAuthentication} from "../../hooks/use-authentication"
 import {useUser} from "../../hooks/use-user"
-import {navigateToUserRegistration, setUserRoot} from "../../services/navigation"
-import {UserLoginProps} from "./interfaces"
+import {navigateToCustomerRegistration, setUserRoot} from "../../services/navigation"
+import {CustomerLoginProps} from "./interfaces"
 
-export const UserLogin = ({componentId}: UserLoginProps) => {
+export const CustomerLogin = ({componentId}: CustomerLoginProps) => {
   const {setUserId} = useUser()
   const {setUser} = useAuthentication()
 
@@ -60,7 +60,7 @@ export const UserLogin = ({componentId}: UserLoginProps) => {
   }
 
   const navigateToRegistration = () => {
-    navigateToUserRegistration(componentId)
+    navigateToCustomerRegistration(componentId)
   }
 
   useEffect(() => {
