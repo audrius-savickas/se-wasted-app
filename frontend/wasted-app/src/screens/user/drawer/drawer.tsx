@@ -4,9 +4,10 @@ import {Avatar, Colors, Image, Text, TouchableOpacity, View} from "react-native-
 import {getCustomerById} from "../../../api/customer"
 import {Customer} from "../../../api/interfaces"
 import {useCustomer} from "../../../hooks/use-customer"
-import {setHomeRoot} from "../../../services/navigation"
+import {setHomeRoot, showCustomerProfileModal} from "../../../services/navigation"
+import {DrawerProps} from "./interfaces"
 
-export const Drawer = () => {
+export const Drawer = ({componentId}: DrawerProps) => {
   const {customerId, logOutCustomer} = useCustomer()
 
   const [customer, setCustomer] = useState({} as Customer)
@@ -27,6 +28,10 @@ export const Drawer = () => {
     setHomeRoot()
   }
 
+  const openProfile = () => {
+    showCustomerProfileModal({componentId})
+  }
+
   useEffect(() => {
     fetchCustomer()
   }, [])
@@ -45,7 +50,7 @@ export const Drawer = () => {
       </View>
       <View style={[styles.topBorder, styles.bottomBorder]}>
         <View marginL-s4 marginR-s4 marginV-s4 centerV>
-          <TouchableOpacity row marginL-s2 marginR-s2 center>
+          <TouchableOpacity row marginL-s2 marginR-s2 center onPress={openProfile}>
             <Image source={require("../../../../assets/profile-30x30.png")} />
             <Text marginL-s2 text60L>
               Edit profile
