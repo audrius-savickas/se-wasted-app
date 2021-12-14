@@ -3,6 +3,8 @@ import {Navigation} from "react-native-navigation"
 import {GOOGLE_MAPS_API_KEY} from "./credentials"
 import {screenNames} from "./src/screenNames"
 import {withProvider} from "./src/screens"
+import {CustomerLogin} from "./src/screens/customer-login"
+import {CustomerRegistration} from "./src/screens/customer-login/customer-registration"
 import {FoodInfo} from "./src/screens/food-info"
 import {Home} from "./src/screens/home"
 import {RestaurantInfo} from "./src/screens/restaurant-info"
@@ -30,6 +32,8 @@ Navigation.registerComponent(screenNames.RESTAURANT_PROFILE, () => withProvider(
 Navigation.registerComponent(screenNames.FOOD_INFO, () => withProvider(FoodInfo))
 Navigation.registerComponent(screenNames.RESTAURANT_INFO, () => withProvider(RestaurantInfo))
 Navigation.registerComponent(screenNames.RESTAURANT_ADD_FOOD, () => withProvider(AddFood))
+Navigation.registerComponent(screenNames.CUSTOMER_LOGIN, () => withProvider(CustomerLogin))
+Navigation.registerComponent(screenNames.CUSTOMER_REGISTRATION, () => withProvider(CustomerRegistration))
 
 Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setRoot({
