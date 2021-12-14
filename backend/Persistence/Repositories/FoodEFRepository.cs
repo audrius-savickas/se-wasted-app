@@ -41,7 +41,7 @@ namespace Persistence.Repositories
 
         public IQueryable<Food> GetAll()
         {
-            return _context.Foods.Include(x => x.TypesOfFood).Select(x => x.ToDomain());
+            return _context.Foods.Include(x => x.TypesOfFood).Include(x => x.Reservation).Select(x => x.ToDomain());
         }
 
         public Food GetById(string id)
@@ -69,14 +69,14 @@ namespace Persistence.Repositories
 
         public IQueryable<Food> GetFoodFromRestaurant(string idRestaurant)
         {
-            return _context.Foods.Include(x => x.TypesOfFood)
+            return _context.Foods.Include(x => x.TypesOfFood).Include(x => x.Reservation)
                                  .Where(food => food.RestaurantId == Guid.Parse(idRestaurant))
                                  .Select(x => x.ToDomain());
         }
 
         private FoodEntity GetByIdString(string id)
         {
-            return _context.Foods.Include(x => x.TypesOfFood)
+            return _context.Foods.Include(x => x.TypesOfFood).Include(x => x.Reservation)
                                  .FirstOrDefault(x => x.Id == Guid.Parse(id));
         }
     }
