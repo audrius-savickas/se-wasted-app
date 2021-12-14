@@ -8,6 +8,10 @@ namespace Domain.Entities
 {
     public class CustomerEntity : Entity
     {
+        public CustomerEntity()
+        {
+            Reservations = new HashSet<ReservationEntity>();
+        }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Mail { get; set; }

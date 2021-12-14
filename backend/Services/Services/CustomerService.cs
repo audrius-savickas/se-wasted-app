@@ -2,6 +2,7 @@
 using Domain.Helpers;
 using Domain.Models;
 using Persistence.Interfaces;
+using Persistence.Mappers;
 using Services.Exceptions;
 using Services.Interfaces;
 using System;
@@ -106,7 +107,13 @@ namespace Services.Services
 
         public CustomerDto GetCustomerDtoById(string id)
         {
-            throw new NotImplementedException();
+            Customer customer = _customerRepository.GetById(id);
+            if (customer == null)
+            {
+                throw new EntityNotFoundException("Invalid customer id.");
+            }
+
+            return customer.ToDTO();
         }
     }
 }

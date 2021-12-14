@@ -20,13 +20,11 @@ namespace Contracts.DTOs
         }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public IEnumerable<Reservation> Reservations { get; set; }
 
-        public CustomerDto(string id, string firstName, string lastName, IEnumerable<Reservation> reservations) : base(id, firstName + " " + lastName)
+        public CustomerDto(string id, string firstName, string lastName) : base(id, firstName + " " + lastName)
         {
             FirstName = firstName;
             LastName = lastName;
-            Reservations = reservations;
         }
     }
 }

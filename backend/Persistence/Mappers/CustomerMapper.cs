@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Contracts.DTOs;
+using Domain.Entities;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,11 @@ namespace Persistence.Mappers
                 Mail = from.Credentials.Mail.Value,
                 Password = from.Credentials.Password.Value,
             };
+        }
+
+        public static CustomerDto ToDTO(this Customer from)
+        {
+            return new CustomerDto(from.Id, from.FirstName, from.LastName);
         }
     }
 }
