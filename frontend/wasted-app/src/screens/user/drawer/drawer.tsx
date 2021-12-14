@@ -14,6 +14,7 @@ export const Drawer = ({componentId}: DrawerProps) => {
 
   const fetchCustomer = async () => {
     try {
+      console.log(customerId)
       const customer = await getCustomerById({customerId})
       if (customer) {
         setCustomer(customer)

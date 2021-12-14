@@ -51,9 +51,9 @@ export const CustomerLogin = ({componentId}: CustomerLoginProps) => {
       setUserRoot()
     }
     if (valid) {
-      const response = await loginCustomer({credentials: {email, password}})
-      if (response) {
-        setCustomerId({customerId: response.customerId})
+      const customerId = await loginCustomer({credentials: {email, password}})
+      if (customerId) {
+        setCustomerId({customerId})
         setUserRoot()
       } else {
         setError("Login failed. We haven't found a registered user account with these credentials.")

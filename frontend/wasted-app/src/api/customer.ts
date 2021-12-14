@@ -1,11 +1,7 @@
 import {Credentials, Customer} from "./interfaces"
 import {WASTED_SERVER_URL} from "./urls"
 
-export const loginCustomer = async ({
-  credentials
-}: {
-  credentials: Credentials
-}): Promise<{customerId: string} | null> => {
+export const loginCustomer = async ({credentials}: {credentials: Credentials}): Promise<string | null> => {
   try {
     const response = await fetch(`${WASTED_SERVER_URL}/Customer/Login`, {
       method: "POST",
@@ -16,6 +12,7 @@ export const loginCustomer = async ({
     })
     if (response.status === 401) throw new Error("Invalid credentials.")
     const data = await response.json()
+    console.log(data)
     return data
   } catch (error) {
     return null
@@ -59,5 +56,21 @@ export const getCustomerById = async ({customerId}: {customerId: string}): Promi
     return data
   } catch (error) {
     throw new Error("Customer not found")
+  }
+}
+
+export const updateCustomerPassword = async ({credentials}: {credentials: Credentials}): Promise<boolean> => {
+  try {
+    const response = await fetch(`${WASTED_SERVER_URL}/Customer/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({mail: {value: credentials.email}, password: {value: credentials.password}})
+    })
+    if (response.status === 401) throw new Error("Invalid email.")
+    return true
+  } catch (error) {
+    return false
   }
 }

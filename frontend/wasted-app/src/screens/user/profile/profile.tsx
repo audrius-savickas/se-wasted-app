@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react"
-import {ScrollView, StyleSheet} from "react-native"
+import {Alert, ScrollView, StyleSheet} from "react-native"
 import {Navigation} from "react-native-navigation"
 import {Avatar, Button, Card, Colors, Image, Text, View} from "react-native-ui-lib"
+import {updateCustomerPassword} from "../../../api/customer"
 import {PasswordInput} from "../../../components/password-input"
 import {CustomerProfileProps} from "./interfaces"
 
@@ -18,6 +19,10 @@ export const Profile = ({componentId, customer}: CustomerProfileProps) => {
   const changePassword = async () => {
     if (password === confirmPassword) {
       setError("")
+      const response = await updateCustomerPassword({credentials: {email: customer.mail, password}})
+      if (response) {
+        Alert.alert("Password changed successfully!", "You may login with your new password now.", [{text: "OK"}])
+      }
     } else {
       setError("The passwords don't match.")
       setTimeout(() => {
