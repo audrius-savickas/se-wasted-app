@@ -116,7 +116,7 @@ namespace WebApi.Controllers
         /// <summary>
         /// Retrieve customer by id.
         /// </summary>
-        /// <param name="customerId">Customer identification</param>
+        /// <param name="id">Customer identification</param>
         /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
