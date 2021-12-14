@@ -1,13 +1,104 @@
-﻿using System;
+﻿using Contracts.DTOs;
+using Domain.Models;
+using Microsoft.AspNetCore.Mvc;
+using Services.Exceptions;
+using Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
-    public class CustomerController
+    [Produces("application/json")]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CustomerController : ControllerBase
     {
-        // register / change creds / login
+        private readonly ICustomerService _customerService;
+       
+        public CustomerController(ICustomerService customerService)
+        {
+            _customerService = customerService;
+        }
+
+        /// <summary>
+        /// Register a new customer in the application
+        /// </summary>
+        /// <param name="creds">Credentials of the customer</param>
+        /// <param name="customerRegisterRequest">Representation of the customer</param>
+        /// <returns>id, which is the Identifier for the new customer</returns>
+        [HttpPost(Name = nameof(RegisterCustomer))]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Conflict)]
+        public IActionResult RegisterCustomer([FromQuery] Credentials creds, [FromBody] CustomerRegisterRequest customerRegisterRequest)
+        {
+            try
+            {
+                string id = _customerService.Register(creds, customerRegisterRequest);
+                return CreatedAtAction(nameof(RegisterCustomer), new { id });
+            }
+            catch (AuthorizationException exception)
+            {
+                return Conflict(exception.Message);
+            }
+            catch (ArgumentException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+
+        /// <summary>
+        /// Update a customers password.
+        /// </summary>
+        /// <param name="credentials">New credentials of the customer</param>
+        /// <returns></returns>
+        [HttpPut(Name = nameof(ChangeCustomerPass))]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult ChangeCustomerPass([FromBody] Credentials credentials)
+        {
+            try
+            {
+                _customerService.ChangePass(credentials.Mail, credentials.Password);
+                return Ok();
+            }
+            catch (EntityNotFoundException exception)
+            {
+                return NotFound(exception.Message);
+            }
+            catch (ArgumentException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+
+        /// <summary>
+        /// Check if the log in credentials of a customer are correct
+        /// </summary>
+        /// <param name="creds">Credentials of the customer</param>
+        /// <returns>Id of the customer that logged in</returns>
+        [HttpPost("Login", Name = nameof(LoginCustomer))]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        public IActionResult LoginCustomer([FromBody] Credentials creds)
+        {
+            if (_customerService.Login(creds))
+            {
+                return Ok(_customerService.GetCustomerIdFromMail(creds.Mail));
+            }
+            return Unauthorized("Invalid credentials.");
+        }
+
+
+
+
+
+
+
 
         // get all reserved foods GET customer/{id}/food
 

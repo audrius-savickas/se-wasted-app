@@ -1,4 +1,5 @@
 ﻿using Contracts.DTOs;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace Services.Interfaces
 {
     public interface ICustomerService : IAuthService<CustomerRegisterRequest>
     {
+        string GetCustomerIdFromMail(Mail mail);
     }
 }

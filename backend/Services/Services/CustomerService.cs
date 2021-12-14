@@ -92,5 +92,10 @@ namespace Services.Services
             string id = _customerRepository.Insert(customer);
             return id;
         }
+
+        public string GetCustomerIdFromMail(Mail mail)
+        {
+            return _customerRepository.GetByMail(mail).Id;
+        }
     }
 }
