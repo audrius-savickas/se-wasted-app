@@ -36,6 +36,7 @@ namespace Persistence
                 x.Property(p => p.Address).IsRequired();
                 x.Property(p => p.Mail).IsRequired();
                 x.Property(p => p.Password).IsRequired();
+                x.Property(p => p.Phone).IsRequired();
             });
 
             modelBuilder.Entity<FoodEntity>(x =>

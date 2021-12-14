@@ -12,6 +12,7 @@ namespace Contracts.DTOs
 
         private const string DEFAULT_IMAGE_URL = "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg";
 
+        public string Phone { get; set; }
         public double DistanceToUser { get; set; }
 
         public int FoodCount { get; set; }
@@ -24,11 +25,13 @@ namespace Contracts.DTOs
             Coords coords,
             double distanceToUser,
             int foodCount,
+            string phone,
             string description = "",
             string imageURL = ""
         )
             : base(id, name)
         {
+            Phone = phone;
             FoodCount = foodCount;
             DistanceToUser = distanceToUser;
             Description = description;

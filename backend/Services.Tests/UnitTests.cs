@@ -105,7 +105,8 @@ namespace Services.Tests
             (
                 restaurantName,
                 "adress",
-                new Coords(0, 0)
+                new Coords(0, 0),
+                "861234567"
             );
             return restaurantRegisterRequest;
         }

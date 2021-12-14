@@ -10,6 +10,7 @@ namespace Domain.Models
         public Coords Coords { get; set; }
         public string Address { get; set; }
         public Credentials Credentials { get; set; }
+        public string Phone { get; set; }
         public string Description { get; set; }
         public string ImageURL { get; set; }
 
@@ -17,9 +18,10 @@ namespace Domain.Models
 
         public Restaurant() : base() { }
 
-        public Restaurant(string id, string name, string address, Coords coords, Credentials credentials, IEnumerable<Food> foods, string description = "", string imageURL = "")
+        public Restaurant(string id, string name, string address, Coords coords, Credentials credentials, IEnumerable<Food> foods, string phone, string description = "", string imageURL = "")
             : base(id, name)
         {
+            Phone = phone;
             Foods = foods;
             Description = description;
             Address = address;

@@ -135,6 +135,7 @@ namespace Services.Services
 
             Restaurant restaurant = new Restaurant
             {
+                Phone = restaurantRegisterRequest.Phone,
                 Name = restaurantRegisterRequest.Name,
                 Address = restaurantRegisterRequest.Address,
                 Coords = restaurantRegisterRequest.Coords,
