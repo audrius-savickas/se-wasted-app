@@ -14,10 +14,7 @@ export const SimpleFoodsList = ({
 }: SimpleFoodsListProps) => {
   const renderItem = ({item}: ListRenderItemInfo<Food>) => {
     return (
-      <SimpleFoodItem
-        food={item}
-        onPress={() => showFoodInfoModal({componentId, food: item, showRestaurantLink: false})}
-      />
+      <SimpleFoodItem food={item} onPress={() => showFoodInfoModal({componentId, food: item, isCustomer: false})} />
     )
   }
 

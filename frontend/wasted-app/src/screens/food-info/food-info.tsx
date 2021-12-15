@@ -1,11 +1,14 @@
+import moment from "moment"
 import React, {useEffect, useState} from "react"
-import {StyleSheet} from "react-native"
+import {Alert, StyleSheet} from "react-native"
 import {ScrollView} from "react-native-gesture-handler"
 import {Navigation} from "react-native-navigation"
-import {Chip, Colors, ExpandableSection, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
+import {Button, Chip, Colors, ExpandableSection, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
 import {DecreaseType, Restaurant} from "../../api/interfaces"
+import {cancelFoodReservation, reserveFood} from "../../api/reservation"
 import {PriceIndicator} from "../../components/price-indicator"
+import {useCustomer} from "../../hooks/use-customer"
 import {useLocation} from "../../hooks/use-location"
 import {navigateToRestaurantInfo} from "../../services/navigation"
 import {formatPrice} from "../../utils/currency"
@@ -15,7 +18,10 @@ import {FoodInfoProps} from "./interfaces"
 export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInfoProps) => {
   const [restaurant, setRestaurant] = useState({} as Restaurant)
   const [descriptionExpanded, setDescriptionExpanded] = useState(true)
+  const [reservation, setReservation] = useState(food.reservation)
+  const [timeLeft, setTimeLeft] = useState(0)
   const {location} = useLocation()
+  const {customerId} = useCustomer()
 
   const {
     name,
@@ -31,7 +37,8 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
     amountPerInterval,
     percentPerInterval,
     startDecreasingAt,
-    imageURL
+    imageURL,
+    id
   } = food
 
   const fetchRestaurant = async () => {
@@ -42,6 +49,53 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
       })) as Restaurant
     )
   }
+
+  const makeReservation = async () => {
+    const response = await reserveFood({foodId: id, customerId})
+    if (response) {
+      console.log("reservation made")
+      setReservation({reservedAt: new Date(), foodId: food.id, customerId, price: currentPrice})
+    } else {
+      console.log("reservation failed")
+    }
+  }
+
+  const cancelReservation = async () => {
+    const response = await cancelFoodReservation({foodId: id, customerId})
+    if (response) {
+      console.log("reservation cancelled")
+      setReservation(null)
+    } else {
+      console.log("reservation cancellation failed")
+    }
+  }
+
+  const makeReservationAlert = () => {
+    Alert.alert(
+      "Make reservation?",
+      "If you don't pick it up in 30 minutes, you will receive penalty points to your account.",
+      [{text: "OK", onPress: makeReservation}, {text: "Cancel"}]
+    )
+  }
+
+  const cancelReservationAlert = () => {
+    Alert.alert(
+      "Cancel reservation?",
+      "If you cancel this reservation, you won't be able to pick up this food unless reserved again.",
+      [{text: "OK", onPress: cancelReservation}, {text: "Cancel"}]
+    )
+  }
+
+  useEffect(() => {
+    if (reservation) {
+      setTimeLeft(Math.round(moment(reservation.reservedAt).add(30, "minutes").diff(moment()) / 1000 / 60))
+      const interval = setInterval(() => {
+        setTimeLeft(Math.round(moment(reservation.reservedAt).add(30, "minutes").diff(moment()) / 1000 / 60))
+      }, 60000)
+
+      return () => clearInterval(interval)
+    }
+  }, [reservation])
 
   useEffect(() => {
     fetchRestaurant()
@@ -58,7 +112,7 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
 
   return (
     <ScrollView>
-      <View margin-s4>
+      <View margin-s4 marginB-s2>
         <View centerH>
           <Text text30M purple20 marginT-s2 marginB-s1>
             {name}
@@ -135,6 +189,7 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
           </View>
           <View centerV marginT-s4>
             <ExpandableSection
+              marginB-s10
               sectionHeader={
                 <View row>
                   <Text text60L purple20 marginR-s2>
@@ -159,6 +214,38 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
               </Text>
             </ExpandableSection>
           </View>
+          <View centerV marginT-s4>
+            <Text marginB-s2 text60L purple20 style={{width: 120}}>
+              Reservation
+            </Text>
+            {reservation ? (
+              <>
+                <Text center text70L>
+                  You have reserved this food at:
+                </Text>
+                <Text center text70M>
+                  {formatDate(reservation.reservedAt.toString())}, {formatTime(reservation.reservedAt.toString())}.
+                </Text>
+                <Text center marginT-s2 text70L>
+                  Time left to pick up your reservation:
+                </Text>
+                <Text center text70M>
+                  {timeLeft} minutes.
+                </Text>
+                <Text center marginT-s2 text70L>
+                  You may cancel your reservation at any time with the button below.
+                </Text>
+                <Button marginV-s3 label="Cancel Reservation" style={styles.button} onPress={cancelReservationAlert} />
+              </>
+            ) : (
+              <>
+                <Text center text70L>
+                  This food is not reserved yet. Press the button below to reserve it for 30 minutes.
+                </Text>
+                <Button marginV-s3 label="Reserve" style={styles.button} onPress={makeReservationAlert} />
+              </>
+            )}
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -170,5 +257,10 @@ const styles = StyleSheet.create({
     shadowColor: Colors.black,
     shadowOpacity: 0.4,
     shadowOffset: {height: 0, width: 0}
+  },
+  button: {
+    // position: "absolute",
+    alignSelf: "center"
+    // bottom: 0
   }
 })

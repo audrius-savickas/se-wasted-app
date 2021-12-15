@@ -25,6 +25,7 @@ export interface Food {
   amountPerInterval: number
   percentPerInterval: number
   imageURL: string
+  reservation: Reservation | null
 }
 
 export interface Customer {
@@ -33,6 +34,13 @@ export interface Customer {
   id: string
   mail: string
   phone: string
+}
+
+export interface Reservation {
+  reservedAt: Date
+  foodId: string
+  customerId: string
+  price: number
 }
 
 export interface FoodType {
