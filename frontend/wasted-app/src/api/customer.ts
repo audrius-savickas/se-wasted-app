@@ -1,4 +1,4 @@
-import {Credentials, Customer} from "./interfaces"
+import {Credentials, Customer, Food} from "./interfaces"
 import {WASTED_SERVER_URL} from "./urls"
 
 export const loginCustomer = async ({credentials}: {credentials: Credentials}): Promise<string | null> => {
@@ -12,7 +12,6 @@ export const loginCustomer = async ({credentials}: {credentials: Credentials}): 
     })
     if (response.status === 401) throw new Error("Invalid credentials.")
     const data = await response.json()
-    console.log(data)
     return data
   } catch (error) {
     return null
@@ -72,5 +71,20 @@ export const updateCustomerPassword = async ({credentials}: {credentials: Creden
     return true
   } catch (error) {
     return false
+  }
+}
+
+export const getCustomerReservedFoods = async ({customerId}: {customerId: string}): Promise<Food[] | null> => {
+  try {
+    const response = await fetch(`${WASTED_SERVER_URL}/Customer/${customerId}/food`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    const data = await response.json()
+    return data
+  } catch (error) {
+    return null
   }
 }

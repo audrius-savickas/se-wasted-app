@@ -1,16 +1,18 @@
+import moment from "moment"
 import React, {useEffect, useState} from "react"
 import {Colors, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
 import {Restaurant} from "../../api/interfaces"
 import {useLocation} from "../../hooks/use-location"
 import {formatPrice} from "../../utils/currency"
-import {timeAgoFull} from "../../utils/date"
-import {FoodItemProps} from "./interfaces"
+import {ReservationItemProps} from "./interfaces"
 
-export const FoodItem = ({food, onPress}: FoodItemProps) => {
-  const {name, idRestaurant, currentPrice, startingPrice, imageURL, createdAt} = food
+export const ReservationItem = ({food, onPress}: ReservationItemProps) => {
   const [restaurant, setRestaurant] = useState({} as Restaurant)
+  const [timeLeft, setTimeLeft] = useState(0)
   const {location} = useLocation()
+
+  const {name, idRestaurant, imageURL, reservation} = food
 
   const fetchRestaurant = async () => {
     setRestaurant(
@@ -20,6 +22,13 @@ export const FoodItem = ({food, onPress}: FoodItemProps) => {
 
   useEffect(() => {
     fetchRestaurant()
+
+    setTimeLeft(Math.round(moment(reservation?.reservedAt).add(30, "minutes").diff(moment()) / 1000 / 60))
+    const interval = setInterval(() => {
+      setTimeLeft(Math.round(moment(reservation?.reservedAt).add(30, "minutes").diff(moment()) / 1000 / 60))
+    }, 60000)
+
+    return () => clearInterval(interval)
   }, [])
 
   return (
@@ -39,16 +48,11 @@ export const FoodItem = ({food, onPress}: FoodItemProps) => {
       <Image source={{uri: imageURL}} style={{height: 130}} />
       <View row margin-s4 centerV>
         <View flex row centerV>
-          <Text text60L>{formatPrice(currentPrice)}</Text>
-          {currentPrice < startingPrice ? (
-            <Image
-              source={require("../../../assets/low-price.png")}
-              style={{height: 25, resizeMode: "contain", left: -15}}
-            />
-          ) : null}
+          <Text text60L>{formatPrice(reservation?.price as number)}</Text>
         </View>
-        <View marginR-s6>
-          <Text>{timeAgoFull(createdAt)}</Text>
+        <View center row marginR-s4>
+          <Image source={require("../../../assets/time-left-25x25.png")} style={{width: 20, height: 20}} />
+          <Text marginL-s1>{timeLeft} mins left</Text>
         </View>
         <TouchableOpacity onPress={onPress}>
           <Text text60R purple30>

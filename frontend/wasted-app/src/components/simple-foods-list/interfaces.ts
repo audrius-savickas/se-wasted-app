@@ -1,9 +1,10 @@
-import {NavigationComponentProps} from "react-native-navigation"
+import {ListRenderItemInfo} from "react-native"
 import {Food} from "../../api/interfaces"
 
-export interface SimpleFoodsListProps extends NavigationComponentProps {
+export interface SimpleFoodsListProps {
   foods: Food[]
   emptyListComponent: JSX.Element
   refreshing: boolean
   onRefresh: () => void
+  renderItem: ({item}: ListRenderItemInfo<any>) => JSX.Element
 }

@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from "react"
+import {ListRenderItemInfo} from "react-native"
 import {Navigation} from "react-native-navigation"
 import {LoaderScreen, Text, View} from "react-native-ui-lib"
 import {Colors} from "react-native/Libraries/NewAppScreen"
 import {getAllFoodByRestaurantId} from "../../../../api"
 import {Food} from "../../../../api/interfaces"
 import {EmptyList} from "../../../../components/empty-list"
+import {SimpleFoodItem} from "../../../../components/simple-food-item"
 import {SimpleFoodsList} from "../../../../components/simple-foods-list"
+import {showFoodInfoModal} from "../../../../services/navigation"
 import {FoodListProps} from "./interfaces"
 
 export const FoodList = ({componentId, idRestaurant, restaurantName, isRestaurant = false}: FoodListProps) => {
@@ -18,6 +21,15 @@ export const FoodList = ({componentId, idRestaurant, restaurantName, isRestauran
     setFoods(response)
     setRefreshing(false)
     setLoading(false)
+  }
+
+  const renderItem = ({item}: ListRenderItemInfo<Food>) => {
+    return (
+      <SimpleFoodItem
+        food={item}
+        onPress={() => showFoodInfoModal({componentId, food: item, showRestaurantLink: false})}
+      />
+    )
   }
 
   useEffect(() => {
@@ -64,7 +76,7 @@ export const FoodList = ({componentId, idRestaurant, restaurantName, isRestauran
               }
               refreshing={refreshing}
               foods={foods}
-              componentId={componentId}
+              renderItem={renderItem}
               onRefresh={() => setRefreshing(true)}
             />
           </View>
