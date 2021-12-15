@@ -34,6 +34,15 @@ export const Home = ({componentId}: HomeProps) => {
           visible: false,
           width: 260
         }
+      },
+      topBar: {
+        leftButtons: [
+          {
+            icon: require("../../../../assets/menu-26x26.png"),
+            disableIconTint: true,
+            id: "SIDE_MENU"
+          }
+        ]
       }
     })
     const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {

@@ -60,7 +60,23 @@ export const Food = ({componentId}: FoodProps) => {
 
   useEffect(() => {
     fetchFoods()
-    Navigation.mergeOptions(componentId, {topBar: {leftButtons: [HOME_BUTTON]}})
+    Navigation.mergeOptions(componentId, {
+      sideMenu: {
+        left: {
+          visible: false,
+          width: 260
+        }
+      },
+      topBar: {
+        leftButtons: [
+          {
+            icon: require("../../../../assets/menu-26x26.png"),
+            disableIconTint: true,
+            id: "SIDE_MENU"
+          }
+        ]
+      }
+    })
     const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
       if (buttonId === "GO_BACK") {
         setHomeRoot()

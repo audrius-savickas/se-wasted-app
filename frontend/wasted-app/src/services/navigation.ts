@@ -213,15 +213,6 @@ export const setUserRoot = () =>
               bottomTabs: {
                 tabsAttachMode: "onSwitchToTab"
               },
-              topBar: {
-                leftButtons: [
-                  {
-                    icon: require("../../assets/menu-26x26.png"),
-                    disableIconTint: true,
-                    id: "SIDE_MENU"
-                  }
-                ]
-              },
               sideMenu: {
                 openGestureMode: "entireScreen"
               }
