@@ -187,6 +187,37 @@ export const setRestaurantRoot = () =>
                 }
               }
             }
+          },
+          {
+            stack: {
+              id: "RESTAURANT_RESERVATIONS_TAB",
+              children: [
+                {
+                  component: {
+                    name: screenNames.RESTAURANT_RESERVATIONS
+                  }
+                }
+              ],
+              options: {
+                bottomTab: {
+                  icon: require("../../assets/time-left-25x25.png"),
+                  text: "Reservations",
+                  fontSize: 13,
+                  selectedIconColor: Colors.black,
+                  iconColor: Colors.grey30,
+                  selectedTextColor: Colors.black,
+                  textColor: Colors.grey30
+                },
+                topBar: {
+                  leftButtons: [
+                    {
+                      id: "LOG_OUT",
+                      text: "Log out"
+                    }
+                  ]
+                }
+              }
+            }
           }
         ]
       }

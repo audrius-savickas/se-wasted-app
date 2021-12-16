@@ -13,6 +13,7 @@ import {RestaurantRegistration} from "./src/screens/restaurant-login/restaurant-
 import {AddFood} from "./src/screens/restaurant/addFood"
 import {Food} from "./src/screens/restaurant/food"
 import {Profile} from "./src/screens/restaurant/profile"
+import {Reservations} from "./src/screens/restaurant/reservations"
 import {Drawer as CustomerDrawer} from "./src/screens/user/drawer/drawer"
 import {Food as CustomerFood} from "./src/screens/user/food"
 import {Home as CustomerHome} from "./src/screens/user/home"
@@ -40,6 +41,7 @@ Navigation.registerComponent(screenNames.CUSTOMER_DRAWER, () => withProvider(Cus
 Navigation.registerComponent(screenNames.CUSTOMER_LOGIN, () => withProvider(CustomerLogin))
 Navigation.registerComponent(screenNames.CUSTOMER_REGISTRATION, () => withProvider(CustomerRegistration))
 Navigation.registerComponent(screenNames.CUSTOMER_PROFILE, () => withProvider(CustomerProfile))
+Navigation.registerComponent(screenNames.RESTAURANT_RESERVATIONS, () => withProvider(Reservations))
 
 Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setRoot({
