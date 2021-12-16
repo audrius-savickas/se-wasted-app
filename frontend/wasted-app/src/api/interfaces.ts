@@ -37,7 +37,7 @@ export interface Customer {
 }
 
 export interface Reservation {
-  reservedAt: Date
+  reservedAt: string
   foodId: string
   customerId: string
   price: number

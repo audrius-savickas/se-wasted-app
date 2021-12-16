@@ -2,7 +2,7 @@ import React from "react"
 import {FlatList, ListRenderItemInfo} from "react-native"
 import {Restaurant} from "../../api/interfaces"
 import {navigateToRestaurantInfo} from "../../services/navigation"
-import {RestaurantItem} from "../restaurant-item/"
+import {RestaurantItem} from "../restaurant-item"
 import {RestaurantsListProps} from "./interfaces"
 
 export const RestaurantsList = ({componentId, restaurants, onEndReached}: RestaurantsListProps) => {

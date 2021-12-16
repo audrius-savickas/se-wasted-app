@@ -3,7 +3,7 @@ import {Navigation} from "react-native-navigation"
 import {Colors, LoaderScreen, Text, View} from "react-native-ui-lib"
 import {getCustomerReservedFoods} from "../../../api/customer"
 import {Food} from "../../../api/interfaces"
-import {ReservationsList} from "../../../components/reservations-list"
+import {CustomerReservationsList} from "../../../components/customer-reservations-list"
 import {useCustomer} from "../../../hooks/use-customer"
 import {ReservationsProps} from "./interfaces"
 
@@ -54,7 +54,7 @@ export const Reservations = ({componentId}: ReservationsProps) => {
       {loading ? (
         <LoaderScreen loaderColor={Colors.blue30} message="Loading..." />
       ) : (
-        <ReservationsList foods={foods} componentId={componentId} />
+        <CustomerReservationsList foods={foods} componentId={componentId} />
       )}
     </View>
   )
