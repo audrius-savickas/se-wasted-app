@@ -4,23 +4,12 @@ import {Button, Colors, Image, LoaderScreen, Text, TextField, View} from "react-
 import {getRestaurantById, updateRestaurant as updateRestaurantCall} from "../../../api"
 import {Restaurant} from "../../../api/interfaces"
 import {useLocation} from "../../../hooks/use-location"
+import {useRestaurant} from "../../../hooks/use-restaurant"
 import {setHomeRoot} from "../../../services/navigation"
-import {ProfileProps} from "./interfaces"
 
-export const Profile = ({idRestaurant}: ProfileProps) => {
-  const [restaurant, setRestaurant] = useState<Restaurant>({
-    id: idRestaurant,
-    name: "",
-    coords: {
-      latitude: 0.0,
-      longitude: 0.0
-    },
-    address: "",
-    imageURL: "",
-    distanceToUser: 0.0,
-    description: "",
-    foodCount: 0
-  })
+export const Profile = () => {
+  const {restaurantId} = useRestaurant()
+  const [restaurant, setRestaurant] = useState<Restaurant>({} as Restaurant)
   const [updatedRestaurant, setUpdatedRestaurant] = useState<Restaurant>(restaurant)
   const [loading, setLoading] = useState(true)
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
@@ -39,7 +28,7 @@ export const Profile = ({idRestaurant}: ProfileProps) => {
 
   const fetchRestaurantInfo = async () => {
     const response = await getRestaurantById({
-      idRestaurant,
+      idRestaurant: restaurantId,
       coordinates: {latitude: location.latitude, longitude: location.longitude}
     })
 

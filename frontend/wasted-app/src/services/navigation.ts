@@ -6,7 +6,6 @@ import {FoodInfoProps} from "../screens/food-info/interfaces"
 import {RestaurantInfoProps} from "../screens/restaurant-info/interfaces"
 import {RestaurantLoginOwnProps} from "../screens/restaurant-login/interfaces"
 import {RestaurantRegistrationOwnProps} from "../screens/restaurant-login/restaurant-registration/interfaces"
-import {FoodScreenOwnProps} from "../screens/restaurant/food/interfaces"
 import {CustomerProfileProps} from "../screens/user/profile/interfaces"
 import {FoodListOwnProps} from "../screens/user/restaurants/food-list/interfaces"
 import {RestaurantListOwnProps} from "../screens/user/restaurants/interfaces"
@@ -90,7 +89,7 @@ export const navigateToCustomerLogin = (componentId: string) =>
 export const navigateToCustomerRegistration = (componentId: string) =>
   navigateTo(componentId, screenNames.CUSTOMER_REGISTRATION, undefined, "User Registration")
 
-export const setRestaurantRoot = (props: FoodScreenOwnProps) =>
+export const setRestaurantRoot = () =>
   Navigation.setRoot({
     root: {
       bottomTabs: {
@@ -102,8 +101,7 @@ export const setRestaurantRoot = (props: FoodScreenOwnProps) =>
               children: [
                 {
                   component: {
-                    name: screenNames.RESTAURANT_FOOD,
-                    passProps: {...props}
+                    name: screenNames.RESTAURANT_FOOD
                   }
                 }
               ],
@@ -134,8 +132,7 @@ export const setRestaurantRoot = (props: FoodScreenOwnProps) =>
               children: [
                 {
                   component: {
-                    name: screenNames.RESTAURANT_ADD_FOOD,
-                    passProps: {...props}
+                    name: screenNames.RESTAURANT_ADD_FOOD
                   }
                 }
               ],
@@ -166,8 +163,7 @@ export const setRestaurantRoot = (props: FoodScreenOwnProps) =>
               children: [
                 {
                   component: {
-                    name: screenNames.RESTAURANT_PROFILE,
-                    passProps: {...props}
+                    name: screenNames.RESTAURANT_PROFILE
                   }
                 }
               ],

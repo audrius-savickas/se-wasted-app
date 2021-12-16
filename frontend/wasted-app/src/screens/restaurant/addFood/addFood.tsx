@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react"
 import {Navigation} from "react-native-navigation"
 import {Button, Colors, Text, View, Wizard} from "react-native-ui-lib"
 import {DecreaseType, Food} from "../../../api/interfaces"
+import {useRestaurant} from "../../../hooks/use-restaurant"
 import {setHomeRoot} from "../../../services/navigation"
 import {AddFoodScreenProps} from "./interfaces"
 import {BaseInfo} from "./Wizard.Steps/baseInfo"
@@ -10,25 +11,29 @@ import {PriceDecreasing} from "./Wizard.Steps/priceDecreasing"
 
 const completedStepIndex = 3
 
-export const AddFood = ({idRestaurant}: AddFoodScreenProps) => {
+export const AddFood = ({existingFood}: AddFoodScreenProps) => {
+  const {restaurantId} = useRestaurant()
   const [activeIndex, setActiveIndex] = useState<number>(0)
-  const [food, setFood] = useState<Food>({
-    id: "0",
-    name: "",
-    description: "",
-    idRestaurant: idRestaurant,
-    startingPrice: 0,
-    minimumPrice: 0,
-    currentPrice: 0.5,
-    createdAt: new Date().toDateString(),
-    typesOfFood: [],
-    startDecreasingAt: new Date().toDateString(),
-    decreaseType: DecreaseType.AMOUNT,
-    intervalTimeInMinutes: 0,
-    amountPerInterval: 0,
-    percentPerInterval: 0,
-    imageURL: ""
-  })
+  const [food, setFood] = useState<Food>(
+    existingFood || {
+      id: "0",
+      name: "",
+      description: "",
+      idRestaurant: restaurantId,
+      startingPrice: 0,
+      minimumPrice: 0,
+      currentPrice: 0.5,
+      createdAt: new Date().toDateString(),
+      typesOfFood: [],
+      startDecreasingAt: new Date().toDateString(),
+      decreaseType: DecreaseType.AMOUNT,
+      intervalTimeInMinutes: 0,
+      amountPerInterval: 0,
+      percentPerInterval: 0,
+      imageURL: "",
+      reservation: null
+    }
+  )
 
   useEffect(() => {
     const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
