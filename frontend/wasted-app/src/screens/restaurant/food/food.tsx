@@ -2,30 +2,19 @@ import React, {useEffect, useRef, useState} from "react"
 import {Navigation} from "react-native-navigation"
 import {LoaderScreen} from "react-native-ui-lib"
 import {Colors} from "react-native/Libraries/NewAppScreen"
-import {getRestaurantById} from "../../../api"
-import {Restaurant} from "../../../api/interfaces"
-import {useLocation} from "../../../hooks/use-location"
 import {useRestaurant} from "../../../hooks/use-restaurant"
 import {FoodList} from "../../user/restaurants/food-list"
 import {FoodScreenProps} from "./interfaces"
 
 export const Food = ({componentId}: FoodScreenProps) => {
-  const [restaurant, setRestaurant] = useState({} as Restaurant)
   const [loading, setLoading] = useState(true)
   const [sideMenuOpen, setSideMenuOpen] = useState(false)
-  const {location} = useLocation()
-  const {restaurantId} = useRestaurant()
+  const {restaurantId, restaurant, getRestaurantFromId} = useRestaurant()
   const isMounted = useRef(false)
 
   const fetchRestaurantById = async () => {
-    console.log(restaurantId)
-    setRestaurant(
-      await getRestaurantById({
-        idRestaurant: restaurantId,
-        coordinates: {latitude: location.latitude, longitude: location.longitude}
-      })
-    )
-    setLoading(false)
+    setLoading(true)
+    getRestaurantFromId({restaurantId})
   }
 
   useEffect(() => {
@@ -71,6 +60,12 @@ export const Food = ({componentId}: FoodScreenProps) => {
       isMounted.current = true
     }
   }, [sideMenuOpen])
+
+  useEffect(() => {
+    if (restaurant.name) {
+      setLoading(false)
+    }
+  }, [restaurant])
 
   return (
     <>

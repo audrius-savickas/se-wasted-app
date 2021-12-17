@@ -1,27 +1,12 @@
-import React, {useEffect, useState} from "react"
+import React from "react"
 import {StyleSheet} from "react-native"
 import {Avatar, Colors, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
-import {getRestaurantById} from "../../../api"
-import {Restaurant} from "../../../api/interfaces"
 import {useRestaurant} from "../../../hooks/use-restaurant"
 import {setHomeRoot, showRestaurantProfileModal} from "../../../services/navigation"
 import {DrawerProps} from "./interfaces"
 
 export const Drawer = ({componentId}: DrawerProps) => {
-  const {restaurantId, logOutRestaurant} = useRestaurant()
-
-  const [restaurant, setRestaurant] = useState({} as Restaurant)
-
-  const fetchCustomer = async () => {
-    try {
-      const restaurant = await getRestaurantById({idRestaurant: restaurantId})
-      if (restaurant) {
-        setRestaurant(restaurant)
-      }
-    } catch (e) {
-      console.error(e)
-    }
-  }
+  const {restaurant, logOutRestaurant} = useRestaurant()
 
   const logOut = () => {
     logOutRestaurant()
@@ -31,10 +16,6 @@ export const Drawer = ({componentId}: DrawerProps) => {
   const openProfile = () => {
     showRestaurantProfileModal({componentId})
   }
-
-  useEffect(() => {
-    fetchCustomer()
-  }, [])
 
   return (
     <View useSafeArea flex>

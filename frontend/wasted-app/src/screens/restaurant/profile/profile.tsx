@@ -5,17 +5,16 @@ import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete"
 import {Navigation} from "react-native-navigation"
 import {Avatar, Button, Card, Colors, Image, Incubator, Text, View} from "react-native-ui-lib"
 import {GOOGLE_MAPS_API_KEY} from "../../../../credentials"
-import {getRestaurantById, updateRestaurant, updateRestaurantPassword} from "../../../api"
-import {Coordinates, Restaurant} from "../../../api/interfaces"
+import {updateRestaurantPassword} from "../../../api"
+import {Coordinates} from "../../../api/interfaces"
 import {Map} from "../../../components/map"
 import {PasswordInput} from "../../../components/password-input"
 import {useRestaurant} from "../../../hooks/use-restaurant"
 import {RestaurantProfileProps} from "./interfaces"
 
 export const Profile = ({componentId}: RestaurantProfileProps) => {
-  const [restaurant, setRestaurant] = useState({} as Restaurant)
+  const {restaurant, updateRestaurant} = useRestaurant()
   const [error, setError] = useState("")
-  const {restaurantId} = useRestaurant()
 
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
@@ -31,21 +30,10 @@ export const Profile = ({componentId}: RestaurantProfileProps) => {
   } as Coordinates)
   const [coordinatesDelta, setCoordinatesDelta] = useState({latitudeDelta: 0.0922, longitudeDelta: 0.0421})
   const [address, setAddress] = useState("")
-  const [coordinatesLoading, setCoordinatesLoading] = useState(false)
   const [addressInput, setAddressInput] = useState("")
   const [infoSaveEnabled, setInfoSaveEnabled] = useState(false)
 
   const [addressValid, setAddressValid] = useState(true)
-  const [infoError, setInfoError] = useState("")
-
-  const getRestaurant = async () => {
-    const response = await getRestaurantById({idRestaurant: restaurantId})
-    if (response) {
-      setRestaurant(response)
-    } else {
-      console.error("fail")
-    }
-  }
 
   const changePassword = async () => {
     if (password === confirmPassword) {
@@ -63,13 +51,10 @@ export const Profile = ({componentId}: RestaurantProfileProps) => {
   }
 
   const fetchCoordinates = async () => {
-    setCoordinatesLoading(true)
     const response = await Geocoder.from(address)
     const coords = response.results[0].geometry.location
-    // setAddress(response.results[0].formatted_address)
     setCoordinates({latitude: coords.lat, longitude: coords.lng})
     setCoordinatesDelta({latitudeDelta: 0.003, longitudeDelta: 0.003})
-    setCoordinatesLoading(false)
   }
 
   const onAddressChange = async (data: any, details: any) => {
@@ -79,14 +64,23 @@ export const Profile = ({componentId}: RestaurantProfileProps) => {
   }
 
   const changeInfo = async () => {
-    const resp = await updateRestaurant({...restaurant, address, imageURL: imageUrl, coords: coordinates, description})
+    const resp = await updateRestaurant({
+      ...restaurant,
+      address,
+      imageURL: imageUrl,
+      coords: coordinates,
+      description
+    })
     if (resp) {
       Alert.alert(
         "Your information has been updated successfully!",
         "It will take a few minutes for the information to update",
         [{text: "OK"}]
       )
+      updateRestaurant({address, imageURL: imageUrl, coords: coordinates, description})
       setInfoSaveEnabled(false)
+    } else {
+      console.error("Update failed")
     }
   }
 
@@ -128,8 +122,6 @@ export const Profile = ({componentId}: RestaurantProfileProps) => {
   }, [address, imageUrl, description, restaurant])
 
   useEffect(() => {
-    getRestaurant()
-
     const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
       if (buttonId === "DISMISS") {
         Navigation.dismissModal(componentId)
@@ -281,11 +273,6 @@ export const Profile = ({componentId}: RestaurantProfileProps) => {
             disabled={!infoSaveEnabled}
             onPress={changeInfo}
           />
-          <View marginT-s2 style={{opacity: error ? 100 : 0}}>
-            <Text center text70L red10 style={styles.error}>
-              {infoError}
-            </Text>
-          </View>
         </View>
       </View>
     </ScrollView>
