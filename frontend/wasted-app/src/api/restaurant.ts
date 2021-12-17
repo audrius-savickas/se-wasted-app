@@ -66,7 +66,7 @@ export const getRestaurantById = async ({
   }
 }
 
-export const updateRestaurant = async (updatedRestaurant: Restaurant) => {
+export const updateRestaurantApi = async (updatedRestaurant: Restaurant) => {
   const resp = await fetch(`${WASTED_SERVER_URL}/Restaurant/${updatedRestaurant.id}`, {
     method: "PUT",
     headers: {

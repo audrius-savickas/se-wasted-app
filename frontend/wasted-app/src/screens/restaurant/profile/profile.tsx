@@ -5,7 +5,7 @@ import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete"
 import {Navigation} from "react-native-navigation"
 import {Avatar, Button, Card, Colors, Image, Incubator, Text, View} from "react-native-ui-lib"
 import {GOOGLE_MAPS_API_KEY} from "../../../../credentials"
-import {updateRestaurantPassword} from "../../../api"
+import {updateRestaurantApi, updateRestaurantPassword} from "../../../api"
 import {Coordinates} from "../../../api/interfaces"
 import {Map} from "../../../components/map"
 import {PasswordInput} from "../../../components/password-input"
@@ -64,7 +64,7 @@ export const Profile = ({componentId}: RestaurantProfileProps) => {
   }
 
   const changeInfo = async () => {
-    const resp = await updateRestaurant({
+    const resp = await updateRestaurantApi({
       ...restaurant,
       address,
       imageURL: imageUrl,
