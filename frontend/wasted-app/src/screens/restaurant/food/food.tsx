@@ -14,6 +14,8 @@ export const Food = ({componentId}: FoodScreenProps) => {
 
   const fetchRestaurantById = async () => {
     setLoading(true)
+    console.log("restaurant Id")
+    console.log(restaurantId)
     getRestaurantFromId({restaurantId})
   }
 

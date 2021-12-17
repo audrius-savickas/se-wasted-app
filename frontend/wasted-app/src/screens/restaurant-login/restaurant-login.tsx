@@ -36,6 +36,7 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
     const restaurantId = await loginRestaurant({email, password})
     if (valid) {
       if (restaurantId) {
+        setRestaurantId(restaurantId)
         setRestaurantRoot()
         setError("")
       } else {
