@@ -92,134 +92,88 @@ export const navigateToCustomerRegistration = (componentId: string) =>
 export const setRestaurantRoot = () =>
   Navigation.setRoot({
     root: {
-      bottomTabs: {
-        id: "RESTAURANT_BOTTOM_TABS",
-        children: [
-          {
-            stack: {
-              id: "RESTAURANT_FOOD_TAB",
-              children: [
-                {
-                  component: {
-                    name: screenNames.RESTAURANT_FOOD
-                  }
-                }
-              ],
-              options: {
-                bottomTab: {
-                  icon: require("../../assets/food-30x30.png"),
-                  text: "Food",
-                  fontSize: 13,
-                  selectedIconColor: Colors.black,
-                  iconColor: Colors.grey30,
-                  selectedTextColor: Colors.black,
-                  textColor: Colors.grey30
-                },
-                topBar: {
-                  leftButtons: [
-                    {
-                      id: "LOG_OUT",
-                      text: "Log out"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          {
-            stack: {
-              id: "RESTAURANT_ADD_FOOD",
-              children: [
-                {
-                  component: {
-                    name: screenNames.RESTAURANT_ADD_FOOD
-                  }
-                }
-              ],
-              options: {
-                bottomTab: {
-                  icon: require("../../assets/add.png"),
-                  text: "New meal",
-                  fontSize: 13,
-                  selectedIconColor: Colors.black,
-                  iconColor: Colors.grey30,
-                  selectedTextColor: Colors.black,
-                  textColor: Colors.grey30
-                },
-                topBar: {
-                  leftButtons: [
-                    {
-                      id: "LOG_OUT",
-                      text: "Log out"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          {
-            stack: {
-              id: "RESTAURANT_PROFILE_TAB",
-              children: [
-                {
-                  component: {
-                    name: screenNames.RESTAURANT_PROFILE
-                  }
-                }
-              ],
-              options: {
-                bottomTab: {
-                  icon: require("../../assets/profile-30x30.png"),
-                  text: "Profile",
-                  fontSize: 13,
-                  selectedIconColor: Colors.black,
-                  iconColor: Colors.grey30,
-                  selectedTextColor: Colors.black,
-                  textColor: Colors.grey30
-                },
-                topBar: {
-                  leftButtons: [
-                    {
-                      id: "LOG_OUT",
-                      text: "Log out"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          {
-            stack: {
-              id: "RESTAURANT_RESERVATIONS_TAB",
-              children: [
-                {
-                  component: {
-                    name: screenNames.RESTAURANT_RESERVATIONS
-                  }
-                }
-              ],
-              options: {
-                bottomTab: {
-                  icon: require("../../assets/time-left-25x25.png"),
-                  text: "Reservations",
-                  fontSize: 13,
-                  selectedIconColor: Colors.black,
-                  iconColor: Colors.grey30,
-                  selectedTextColor: Colors.black,
-                  textColor: Colors.grey30
-                },
-                topBar: {
-                  leftButtons: [
-                    {
-                      id: "LOG_OUT",
-                      text: "Log out"
-                    }
-                  ]
-                }
-              }
-            }
+      sideMenu: {
+        left: {
+          component: {
+            name: screenNames.RESTAURANT_DRAWER
           }
-        ]
+        },
+        center: {
+          bottomTabs: {
+            id: "RESTAURANT_BOTTOM_TABS",
+            children: [
+              {
+                stack: {
+                  id: "RESTAURANT_FOOD_TAB",
+                  children: [
+                    {
+                      component: {
+                        name: screenNames.RESTAURANT_FOOD
+                      }
+                    }
+                  ],
+                  options: {
+                    bottomTab: {
+                      icon: require("../../assets/food-30x30.png"),
+                      text: "Food",
+                      fontSize: 13,
+                      selectedIconColor: Colors.black,
+                      iconColor: Colors.grey30,
+                      selectedTextColor: Colors.black,
+                      textColor: Colors.grey30
+                    }
+                  }
+                }
+              },
+              {
+                stack: {
+                  id: "RESTAURANT_ADD_FOOD",
+                  children: [
+                    {
+                      component: {
+                        name: screenNames.RESTAURANT_ADD_FOOD
+                      }
+                    }
+                  ],
+                  options: {
+                    bottomTab: {
+                      icon: require("../../assets/add.png"),
+                      text: "New meal",
+                      fontSize: 13,
+                      selectedIconColor: Colors.black,
+                      iconColor: Colors.grey30,
+                      selectedTextColor: Colors.black,
+                      textColor: Colors.grey30
+                    }
+                  }
+                }
+              },
+              {
+                stack: {
+                  id: "RESTAURANT_RESERVATIONS_TAB",
+                  children: [
+                    {
+                      component: {
+                        name: screenNames.RESTAURANT_RESERVATIONS
+                      }
+                    }
+                  ],
+                  options: {
+                    bottomTab: {
+                      icon: require("../../assets/time-left-25x25.png"),
+                      text: "Reservations",
+                      fontSize: 13,
+                      selectedIconColor: Colors.black,
+                      iconColor: Colors.grey30,
+                      selectedTextColor: Colors.black,
+                      textColor: Colors.grey30
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
       }
     }
   })

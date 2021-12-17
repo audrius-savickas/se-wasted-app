@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux"
-import {setRestaurantId} from "../actions/restaurant"
+import {logOutRestaurant, setRestaurantId} from "../actions/restaurant"
 import {getRestaurantId} from "../selectors/restaurant"
 
 export const useRestaurant = () => {
@@ -7,6 +7,7 @@ export const useRestaurant = () => {
 
   return {
     restaurantId: useSelector(getRestaurantId),
-    setRestaurantId: (restaurantId: string) => dispatch(setRestaurantId({id: restaurantId}))
+    setRestaurantId: (restaurantId: string) => dispatch(setRestaurantId({id: restaurantId})),
+    logOutRestaurant: () => dispatch(logOutRestaurant())
   }
 }

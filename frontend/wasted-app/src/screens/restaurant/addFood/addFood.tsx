@@ -3,7 +3,6 @@ import {Navigation} from "react-native-navigation"
 import {Button, Colors, Text, View, Wizard} from "react-native-ui-lib"
 import {DecreaseType, Food} from "../../../api/interfaces"
 import {useRestaurant} from "../../../hooks/use-restaurant"
-import {setHomeRoot} from "../../../services/navigation"
 import {AddFoodScreenProps} from "./interfaces"
 import {BaseInfo} from "./Wizard.Steps/baseInfo"
 import {FinalStep} from "./Wizard.Steps/finalStep"
@@ -11,7 +10,7 @@ import {PriceDecreasing} from "./Wizard.Steps/priceDecreasing"
 
 const completedStepIndex = 3
 
-export const AddFood = ({existingFood}: AddFoodScreenProps) => {
+export const AddFood = ({componentId, existingFood}: AddFoodScreenProps) => {
   const {restaurantId} = useRestaurant()
   const [activeIndex, setActiveIndex] = useState<number>(0)
   const [food, setFood] = useState<Food>(
@@ -36,12 +35,23 @@ export const AddFood = ({existingFood}: AddFoodScreenProps) => {
   )
 
   useEffect(() => {
-    const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
-      if (buttonId === "LOG_OUT") {
-        setHomeRoot()
+    Navigation.mergeOptions(componentId, {
+      sideMenu: {
+        left: {
+          visible: false,
+          width: 260
+        }
+      },
+      topBar: {
+        leftButtons: [
+          {
+            icon: require("../../../../assets/menu-26x26.png"),
+            disableIconTint: true,
+            id: "SIDE_MENU"
+          }
+        ]
       }
     })
-    return () => listener.remove()
   }, [])
 
   const getStepState = (n: Number) => {

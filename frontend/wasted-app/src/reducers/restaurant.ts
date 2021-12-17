@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit"
-import {setRestaurantId} from "../actions/restaurant"
+import {logOutRestaurant, setRestaurantId} from "../actions/restaurant"
 
 interface State {
   id: string
@@ -12,5 +12,8 @@ export const initialState: State = {
 export const restaurant = createReducer(initialState, builder => {
   builder.addCase(setRestaurantId, (state, {payload}) => {
     state.id = payload.id
+  })
+  builder.addCase(logOutRestaurant, state => {
+    state.id = initialState.id
   })
 })

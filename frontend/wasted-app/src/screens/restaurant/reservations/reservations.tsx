@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react"
+import {Navigation} from "react-native-navigation"
 import {Colors, LoaderScreen, Text, View} from "react-native-ui-lib"
 import {getRestaurantReservedFoods} from "../../../api"
 import {Food} from "../../../api/interfaces"
@@ -26,6 +27,24 @@ export const Reservations = ({componentId}: ReservationsProps) => {
 
   useEffect(() => {
     getReservations()
+
+    Navigation.mergeOptions(componentId, {
+      sideMenu: {
+        left: {
+          visible: false,
+          width: 260
+        }
+      },
+      topBar: {
+        leftButtons: [
+          {
+            icon: require("../../../../assets/menu-26x26.png"),
+            disableIconTint: true,
+            id: "SIDE_MENU"
+          }
+        ]
+      }
+    })
   }, [])
 
   return (
