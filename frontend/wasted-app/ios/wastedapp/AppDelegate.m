@@ -8,7 +8,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [GMSServices provideAPIKey:@"AIzaSyCsu0wfN2swYn0Y68XONg3wCLS8COAkb7E"]; // add this line using the api key obtained from Google Console
+  [GMSServices provideAPIKey:@""]; // add this line using the api key obtained from Google Console
   [ReactNativeNavigation bootstrapWithDelegate:self launchOptions:launchOptions];
 
   return YES;

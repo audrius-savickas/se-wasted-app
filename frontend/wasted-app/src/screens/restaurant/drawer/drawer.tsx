@@ -4,7 +4,7 @@ import {Avatar, Colors, Image, Text, TouchableOpacity, View} from "react-native-
 import {getRestaurantById} from "../../../api"
 import {Restaurant} from "../../../api/interfaces"
 import {useRestaurant} from "../../../hooks/use-restaurant"
-import {setHomeRoot} from "../../../services/navigation"
+import {setHomeRoot, showRestaurantProfileModal} from "../../../services/navigation"
 import {DrawerProps} from "./interfaces"
 
 export const Drawer = ({componentId}: DrawerProps) => {
@@ -29,7 +29,7 @@ export const Drawer = ({componentId}: DrawerProps) => {
   }
 
   const openProfile = () => {
-    // showCustomerProfileModal({componentId, customer})
+    showRestaurantProfileModal({componentId})
   }
 
   useEffect(() => {

@@ -14,7 +14,7 @@
     <meta-data android:name="expo.modules.updates.EXPO_UPDATE_URL" android:value="https://exp.host/@anonymous/wasted-app"/>
     <!-- You will only need to add this meta-data tag, but make sure it's a child of application -->
     <meta-data
-     android:name="AIzaSyCsu0wfN2swYn0Y68XONg3wCLS8COAkb7E"
+     android:name="com.google.android.geo.API_KEY"
      android:value=""/> <!--Add API key here-->
     <!-- You will also only need to add this uses-library tag -->
     <uses-library android:name="org.apache.http.legacy" android:required="false"/>

@@ -67,13 +67,17 @@ export const getRestaurantById = async ({
 }
 
 export const updateRestaurant = async (updatedRestaurant: Restaurant) => {
-  await fetch(`${WASTED_SERVER_URL}/Restaurant/${updatedRestaurant.id}`, {
+  const resp = await fetch(`${WASTED_SERVER_URL}/Restaurant/${updatedRestaurant.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(updatedRestaurant)
   })
+  if (resp.status !== 200) {
+    return null
+  }
+  return true
 }
 
 export const loginRestaurant = async (credentials: Credentials) => {
@@ -119,6 +123,22 @@ export const registerRestaurant = async ({
     return data
   } catch (error) {
     return null
+  }
+}
+
+export const updateRestaurantPassword = async ({credentials}: {credentials: Credentials}): Promise<boolean> => {
+  try {
+    const response = await fetch(`${WASTED_SERVER_URL}/Restaurant/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({mail: {value: credentials.email}, password: {value: credentials.password}})
+    })
+    if (response.status === 401) throw new Error("Invalid email.")
+    return true
+  } catch (error) {
+    return false
   }
 }
 

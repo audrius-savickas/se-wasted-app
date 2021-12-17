@@ -7,6 +7,8 @@ export interface Restaurant {
   distanceToUser: number
   description: string
   foodCount: number
+  phone: string
+  email: string
 }
 
 export interface Food {
