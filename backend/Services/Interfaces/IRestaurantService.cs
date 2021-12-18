@@ -17,6 +17,7 @@ namespace Services.Interfaces
         RestaurantDto GetRestaurantDtoFromMail(Mail mail, Coords coords = null);
         PagedList<RestaurantDto> GetAllRestaurantsCloserThan(RestaurantParameters restaurantParameters, Distances distance);
         PagedList<Food> GetAllFoodFromRestaurant(string idRestaurant, FoodParameters foodParameters);
+        PagedList<Food> GetAllReservedFoodFromRestaurant(string idRestaurant, FoodParameters foodParameters);
         int GetFoodCountFromRestaurant(string idRestaurant);
     }
 }

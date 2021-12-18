@@ -189,6 +189,14 @@ namespace Services.Services
                 foodParameters.PageSize);
         }
 
+        public PagedList<Food> GetAllReservedFoodFromRestaurant(string idRestaurant, FoodParameters foodParameters)
+        {
+            return PagedList<Food>.ToPagedList(
+                _foodRepository.GetFoodFromRestaurant(idRestaurant).AsEnumerable().Where(x => x.Reservation != null).SortFood(foodParameters.SortOrder),
+                foodParameters.PageNumber,
+                foodParameters.PageSize);
+        }
+
         public int GetFoodCountFromRestaurant(string idRestaurant)
         {
             return _foodRepository.GetFoodFromRestaurant(idRestaurant).Count();

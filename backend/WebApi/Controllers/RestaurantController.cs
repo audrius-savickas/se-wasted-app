@@ -230,6 +230,35 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
+        /// Retrieves the reserved food served by a restaurant
+        /// </summary>
+        /// <param name="id">Identifies the restaurant</param>
+        /// <param name="foodParameters"></param>
+        /// <returns></returns>
+        [HttpGet("{id}/food/reserved", Name = nameof(GetAllReservedFoodFromRestaurant))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
+
+        public IActionResult GetAllReservedFoodFromRestaurant(string id, [FromQuery] FoodParameters foodParameters)
+        {
+            try
+            {
+                InputValidator.ValidateFoodSortOrder(foodParameters.SortOrder);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+
+            var pagedFoodList = _restaurantService.GetAllReservedFoodFromRestaurant(id, foodParameters);
+
+            this.AddPaginationMetadata(pagedFoodList);
+
+            var foodsResp = pagedFoodList.Select(food => food.ToFoodResponse());
+
+            return Ok(foodsResp);
+        }
+
+        /// <summary>
         /// Check if the log in credentials are correct
         /// </summary>
         /// <param name="creds">Credentials of the restaurant</param>
