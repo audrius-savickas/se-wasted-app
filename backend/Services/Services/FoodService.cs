@@ -46,11 +46,11 @@ namespace Services.Services
         public PagedList<Food> GetAllFood(FoodParameters foodParameters)
         {
             var foodItems = _foodRepository.GetAll().AsEnumerable();
-            if (foodParameters.Reserved)
+            if (foodParameters.Reserved == true)
             {
                 foodItems = foodItems.Where(x => x.Reservation != null);
             }
-            else
+            else if (foodParameters.Reserved == false)
             {
                 foodItems = foodItems.Where(x => x.Reservation == null);
             }
