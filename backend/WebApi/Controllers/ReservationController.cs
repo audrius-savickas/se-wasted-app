@@ -45,7 +45,7 @@ namespace WebApi.Controllers
         /// Cancel reservation of food.
         /// </summary>
         [HttpPut(Name = nameof(CancelReservation))]
-        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult CancelReservation([FromQuery] string foodId, [FromQuery] string customerId)
         {
