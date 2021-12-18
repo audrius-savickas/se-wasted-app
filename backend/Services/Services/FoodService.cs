@@ -50,6 +50,10 @@ namespace Services.Services
             {
                 foodItems = foodItems.Where(x => x.Reservation != null);
             }
+            else
+            {
+                foodItems = foodItems.Where(x => x.Reservation == null);
+            }
             return PagedList<Food>.ToPagedList(
                 foodItems.SortFood(foodParameters.SortOrder), 
                 foodParameters.PageNumber, 
