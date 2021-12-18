@@ -14,7 +14,6 @@ export const customer = createReducer(initialState, builder => {
     state.customerId = payload.customerId
   })
   builder.addCase(logOutCustomer, state => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    state = initialState
+    state.customerId = initialState.customerId
   })
 })

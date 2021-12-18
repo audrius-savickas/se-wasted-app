@@ -149,7 +149,7 @@ export const Profile = ({componentId}: RestaurantProfileProps) => {
           <View bg-white row centerV marginT-s2 paddingV-s2 paddingH-s6 style={styles.contact}>
             <Image source={require("../../../../assets/mail-30x30.png")} />
             <Text marginL-s4 text70R>{`Email: `}</Text>
-            <Text text70L>{`${restaurant.email}`}</Text>
+            <Text text70L>{`${restaurant.mail}`}</Text>
           </View>
           <View bg-white row centerV marginT-s2 paddingV-s2 paddingH-s6 style={styles.contact}>
             <Image source={require("../../../../assets/phone-30x30.png")} />

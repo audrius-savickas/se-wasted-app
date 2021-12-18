@@ -168,7 +168,11 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
             <Text marginB-s2 text60L purple20 style={{width: 120}}>
               Reservation
             </Text>
-            {customerId ? <CustomerReservationInfo food={food} /> : <RestaurantReservationInfo food={food} />}
+            {customerId ? (
+              <CustomerReservationInfo componentId={componentId} food={food} />
+            ) : (
+              <RestaurantReservationInfo componentId={componentId} food={food} />
+            )}
           </View>
         </View>
       </View>

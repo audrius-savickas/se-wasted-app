@@ -20,6 +20,12 @@
 	<string>1.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>LSApplicationQueriesSchemes</key> 
+	<array> 
+  	<string>tel</string> 
+  	<string>telprompt</string> 
+		<string>mailto</string>
+	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

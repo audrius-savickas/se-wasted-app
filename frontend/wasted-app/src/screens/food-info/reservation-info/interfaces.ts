@@ -1,5 +1,6 @@
+import {NavigationComponentProps} from "react-native-navigation"
 import {Food} from "../../../api/interfaces"
 
-export interface ReservationInfoProps {
+export interface ReservationInfoProps extends NavigationComponentProps {
   food: Food
 }

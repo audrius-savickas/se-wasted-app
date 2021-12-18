@@ -6,6 +6,7 @@ import {FoodInfoProps} from "../screens/food-info/interfaces"
 import {RestaurantInfoProps} from "../screens/restaurant-info/interfaces"
 import {RestaurantLoginOwnProps} from "../screens/restaurant-login/interfaces"
 import {RestaurantRegistrationOwnProps} from "../screens/restaurant-login/restaurant-registration/interfaces"
+import {CustomerInfoProps} from "../screens/restaurant/customer-info/interfaces"
 import {RestaurantProfileProps} from "../screens/restaurant/profile/interfaces"
 import {CustomerProfileProps} from "../screens/user/profile/interfaces"
 import {FoodListOwnProps} from "../screens/user/restaurants/food-list/interfaces"
@@ -65,6 +66,9 @@ export const showFoodInfoModal = (props: FoodInfoProps) => showModal(screenNames
 
 export const showCustomerProfileModal = (props: CustomerProfileProps) =>
   showModal(screenNames.CUSTOMER_PROFILE, props, "Your Profile")
+
+export const showCustomerInfoModal = (props: CustomerInfoProps) =>
+  showModal(screenNames.RESTAURANT_CUSTOMER_INFO, props, "Customer Info")
 
 export const showRestaurantProfileModal = (props: RestaurantProfileProps) =>
   showModal(screenNames.RESTAURANT_PROFILE, props, "Your Restaurant")

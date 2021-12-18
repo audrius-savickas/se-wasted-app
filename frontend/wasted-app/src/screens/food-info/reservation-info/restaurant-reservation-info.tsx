@@ -1,13 +1,14 @@
 import moment from "moment"
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
-import {BorderRadiuses, Colors, Text} from "react-native-ui-lib"
+import {BorderRadiuses, Button, Colors, Text} from "react-native-ui-lib"
 import {getCustomerById} from "../../../api/customer"
 import {Customer} from "../../../api/interfaces"
+import {showCustomerInfoModal} from "../../../services/navigation"
 import {formatDate, formatTime} from "../../../utils/date"
 import {ReservationInfoProps} from "./interfaces"
 
-export const RestaurantReservationInfo = ({food}: ReservationInfoProps) => {
+export const RestaurantReservationInfo = ({componentId, food}: ReservationInfoProps) => {
   const {reservation} = food
 
   const [timeLeft, setTimeLeft] = useState(0)
@@ -22,6 +23,10 @@ export const RestaurantReservationInfo = ({food}: ReservationInfoProps) => {
         console.error("fetch customer failed")
       }
     }
+  }
+
+  const goToCustomerProfile = () => {
+    showCustomerInfoModal({componentId, customer})
   }
 
   useEffect(() => {
@@ -39,17 +44,18 @@ export const RestaurantReservationInfo = ({food}: ReservationInfoProps) => {
   return reservation ? (
     <>
       <Text left text70L>
-        Customer {`${customer.firstName} ${customer.lastName}`} has reserved this meal on
+        Customer <Text text70M>{`${customer.firstName} ${customer.lastName}`}</Text> has reserved this meal on
       </Text>
       <Text center text70M style={styles.greyed}>
         {formatDate(reservation.reservedAt.toString())}, {formatTime(reservation.reservedAt.toString())}.
       </Text>
-      <Text left marginT-s2 text70L>
+      <Text left marginT-s3 text70L>
         Time left for the customer to pick up their reservation:
       </Text>
       <Text center text70M style={styles.greyed}>
         {timeLeft} minutes.
       </Text>
+      <Button marginT-s4 label="Customer's info" style={styles.button} onPress={goToCustomerProfile} />
     </>
   ) : (
     <>
@@ -66,5 +72,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.grey60,
     borderColor: Colors.grey50,
     borderWidth: 1
+  },
+  button: {
+    alignSelf: "center"
   }
 })
