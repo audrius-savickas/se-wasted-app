@@ -44,7 +44,6 @@ export const FoodList = ({componentId, idRestaurant, isRestaurant = false}: Food
   }
 
   useEffect(() => {
-    console.log(isRestaurant)
     fetchRestaurant()
     fetchFoods()
   }, [])
@@ -66,7 +65,7 @@ export const FoodList = ({componentId, idRestaurant, isRestaurant = false}: Food
             <Text text60L>Foods</Text>
           </View>
           <View flex>
-            {!isRestaurant && otherReserved && (
+            {!isRestaurant && Boolean(otherReserved) && (
               <Text marginB-s2 text80 grey30 center>
                 Other food ({otherReserved}) is not shown because it is reserved by customers.
               </Text>

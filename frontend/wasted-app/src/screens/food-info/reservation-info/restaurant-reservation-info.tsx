@@ -1,9 +1,11 @@
 import moment from "moment"
 import React, {useEffect, useState} from "react"
-import {StyleSheet} from "react-native"
+import {Alert, StyleSheet} from "react-native"
+import {Navigation} from "react-native-navigation"
 import {BorderRadiuses, Button, Colors, Text} from "react-native-ui-lib"
 import {getCustomerById} from "../../../api/customer"
 import {Customer} from "../../../api/interfaces"
+import {finishFoodReservation} from "../../../api/reservation"
 import {showCustomerInfoModal} from "../../../services/navigation"
 import {formatPrice} from "../../../utils/currency"
 import {formatDate, formatTime} from "../../../utils/date"
@@ -23,6 +25,16 @@ export const RestaurantReservationInfo = ({componentId, food}: ReservationInfoPr
       } else {
         console.error("fetch customer failed")
       }
+    }
+  }
+
+  const finishReservation = async () => {
+    const response = await finishFoodReservation({foodId: food.id, customerId: customer.id})
+    if (response) {
+      Alert.alert("Reservation finished successfuly!", "You may refresh the list to update it now.")
+      Navigation.pop(componentId)
+    } else {
+      console.error("Failed finish reservation")
     }
   }
 
@@ -79,7 +91,7 @@ export const RestaurantReservationInfo = ({componentId, food}: ReservationInfoPr
         marginT-s2
         label="Finish reservation"
         style={styles.button}
-        onPress={goToCustomerProfile}
+        onPress={finishReservation}
       />
     </>
   ) : (

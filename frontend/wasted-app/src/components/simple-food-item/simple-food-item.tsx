@@ -27,8 +27,6 @@ export const SimpleFoodItem = ({food, isRestaurant = false, onPress}: SimpleFood
     )
   }
 
-  console.log(isRestaurant)
-
   return (
     <ListItem height="auto">
       <TouchableOpacity

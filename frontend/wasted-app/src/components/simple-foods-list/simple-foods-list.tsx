@@ -1,5 +1,6 @@
 import React from "react"
 import {FlatList} from "react-native"
+import {Colors} from "react-native-ui-lib"
 import {SimpleFoodsListProps} from "./interfaces"
 
 export const SimpleFoodsList = ({
