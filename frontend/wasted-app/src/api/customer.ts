@@ -21,11 +21,13 @@ export const loginCustomer = async ({credentials}: {credentials: Credentials}): 
 export const registerCustomer = async ({
   credentials,
   firstName,
-  lastName
+  lastName,
+  phone
 }: {
   credentials: Credentials
   firstName: string
   lastName: string
+  phone: string
 }): Promise<{customerId: string} | null> => {
   try {
     const response = await fetch(
@@ -37,7 +39,7 @@ export const registerCustomer = async ({
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({firstName, lastName})
+        body: JSON.stringify({firstName, lastName, phone})
       }
     )
     if (response.status === 401) throw new Error("Invalid credentials.")
