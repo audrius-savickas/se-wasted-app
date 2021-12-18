@@ -112,7 +112,8 @@ namespace Services.Services
         {
             var reservations = _reservationRepository.GetAll().ToList();
             var customerReservations = reservations.Where(x => string.Equals(x.CustomerId, customerId, StringComparison.OrdinalIgnoreCase));
-            var foodIds = customerReservations.Select(x => x.FoodId);
+            var customerCurrentReservations = customerReservations.Where(x => _foodRepository.GetById(x.FoodId).Reservation != null);
+            var foodIds = customerCurrentReservations.Select(x => x.FoodId);
 
             return _foodRepository.GetAll().ToList().Where(x => foodIds.Contains(x.Id)).Select(x => x.ToFoodResponse());
         }
