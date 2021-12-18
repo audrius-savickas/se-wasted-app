@@ -85,7 +85,7 @@ export const navigateToRestaurantRegistration = (componentId: string, props: Res
   navigateTo(componentId, screenNames.RESTAURANT_REGISTRATION, props, "Registration")
 
 export const navigateToFoodList = (componentId: string, props: FoodListOwnProps) =>
-  navigateTo(componentId, screenNames.CUSTOMER_FOOD, props, "Food List")
+  navigateTo(componentId, screenNames.CUSTOMER_FOOD_LIST, props, "Food List")
 
 export const navigateToCustomerLogin = (componentId: string) =>
   navigateTo(componentId, screenNames.CUSTOMER_LOGIN, undefined, "User Login")

@@ -27,7 +27,7 @@ Geocoder.init(GOOGLE_MAPS_API_KEY)
 
 Navigation.registerComponent(screenNames.HOME_SCREEN, () => withProvider(Home))
 Navigation.registerComponent(screenNames.CUSTOMER_RESTAURANTS, () => withProvider(RestaurantList))
-Navigation.registerComponent(screenNames.CUSTOMER_FOOD, () => withProvider(FoodList))
+Navigation.registerComponent(screenNames.CUSTOMER_FOOD_LIST, () => withProvider(FoodList))
 Navigation.registerComponent(screenNames.CUSTOMER_HOME, () => withProvider(CustomerHome))
 Navigation.registerComponent(screenNames.CUSTOMER_FOOD, () => withProvider(CustomerFood))
 Navigation.registerComponent(screenNames.RESTAURANT_LOGIN, () => withProvider(RestaurantLogin))
