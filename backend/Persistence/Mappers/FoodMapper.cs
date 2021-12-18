@@ -15,7 +15,7 @@ namespace Services.Mappers
             DecreaseType decreaseType = string.Equals(from.DecreaseType, "AMOUNT") ? DecreaseType.AMOUNT : DecreaseType.PERCENT;
             string foodId = from.Id.ToString();
             string restaurantId = from.RestaurantId.ToString();
-            Reservation reservation = from.Reservation?.ToDomain();
+            var reservations = from.Reservations.Select(x => x.ToDomain());
 
             return new Food(
                 foodId,
@@ -32,12 +32,11 @@ namespace Services.Mappers
                 from.AmountPerInterval,
                 from.PercentPerInterval,
                 from.Description,
-                reservation);
+                reservations);
         }
 
         public static FoodEntity ToEntity(this Food from)
         {
-            // FIX: restaurant is not set
             return new FoodEntity
             {
                 Id = Guid.Parse(from.Id),

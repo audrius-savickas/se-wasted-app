@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Models
 {
@@ -39,11 +40,11 @@ namespace Domain.Models
             decimal? amountPerInterval = null,
             double? percentPerInterval = null,
             string description = "",
-            Reservation reservation = null
+            IEnumerable<Reservation> reservations = null
         )
             : base(id, name)
         {
-            Reservation = reservation;
+            Reservation = GetCurrentReservation(reservations);
             StartingPrice = startingPrice;
             MinimumPrice = minimumPrice >= 0 ? minimumPrice : 0;
             CreatedAt = createdAt ?? DateTime.Now;
@@ -68,6 +69,11 @@ namespace Domain.Models
                     AmountPerInterval = CalculateAmountPerInterval();
                     break;
             }
+        }
+
+        private static Reservation GetCurrentReservation(IEnumerable<Reservation> reservations)
+        {
+            return reservations.FirstOrDefault();
         }
 
         public void CheckIfImageUrlIsSet()

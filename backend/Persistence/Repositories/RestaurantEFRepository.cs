@@ -35,7 +35,7 @@ namespace Persistence.Repositories
 
         public IQueryable<Restaurant> GetAll()
         {
-            return _context.Restaurants.Include(x => x.Foods).ThenInclude(x => x.Reservation).Select(x => x.ToDomain());
+            return _context.Restaurants.Include(x => x.Foods).ThenInclude(x => x.Reservations).Select(x => x.ToDomain());
         }
 
         public IQueryable<Restaurant> GetAllRestaurantsCloserThan(Coords coords, Distances distance)
@@ -50,7 +50,7 @@ namespace Persistence.Repositories
 
         public Restaurant GetByMail(Mail mail)
         {
-            return _context.Restaurants.Include(x => x.Foods).ThenInclude(x => x.Reservation).FirstOrDefault(x => x.Mail == mail.Value)?.ToDomain();
+            return _context.Restaurants.Include(x => x.Foods).ThenInclude(x => x.Reservations).FirstOrDefault(x => x.Mail == mail.Value)?.ToDomain();
         }
 
         public IQueryable<Restaurant> GetRestaurantsNear(Coords coords)
@@ -76,7 +76,7 @@ namespace Persistence.Repositories
 
         private RestaurantEntity GetByIdString(string id)
         {
-            return _context.Restaurants.Include(x => x.Foods).ThenInclude(x => x.Reservation).FirstOrDefault(x => x.Id == Guid.Parse(id));
+            return _context.Restaurants.Include(x => x.Foods).ThenInclude(x => x.Reservations).FirstOrDefault(x => x.Id == Guid.Parse(id));
         }
     }
 }
