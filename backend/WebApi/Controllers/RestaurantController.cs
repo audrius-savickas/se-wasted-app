@@ -210,7 +210,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}/food", Name = nameof(GetAllFoodFromRestaurant))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]
 
-        public IActionResult GetAllFoodFromRestaurant(string id, [FromQuery] FoodParameters foodParameters, [FromQuery] bool reserved = false)
+        public IActionResult GetAllFoodFromRestaurant(string id, [FromQuery] FoodParameters foodParameters)
         {
             try
             {
@@ -221,7 +221,7 @@ namespace WebApi.Controllers
                 return BadRequest(e.Message);
             }
 
-            var pagedFoodList = _restaurantService.GetAllFoodFromRestaurant(id, foodParameters, reserved);
+            var pagedFoodList = _restaurantService.GetAllFoodFromRestaurant(id, foodParameters);
 
             this.AddPaginationMetadata(pagedFoodList);
 
