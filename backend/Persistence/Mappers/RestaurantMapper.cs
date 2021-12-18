@@ -67,6 +67,7 @@ namespace Services.Mappers
                 from.DistanceTo(coords),
                 from.Foods.Count(),
                 from.Phone,
+                from.Credentials.Mail.Value,
                 from.Description,
                 from.ImageURL
             );
