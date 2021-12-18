@@ -453,7 +453,7 @@ namespace Services.Tests.ServicesUnitTests
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new FoodParameters();
 
-            var foods = sut.GetAllFoodFromRestaurant(_restaurantEntity.Id.ToString(), parameters);
+            var foods = sut.GetAllFoodFromRestaurant(_restaurantEntity.Id.ToString(), parameters, false);
 
             Assert.Single(foods);
             Assert.Equal(_restaurantEntity.Id.ToString(), foods.First().IdRestaurant);
@@ -467,7 +467,7 @@ namespace Services.Tests.ServicesUnitTests
             var sut = new RestaurantService(_restaurantRepository, _foodRepository);
             var parameters = new FoodParameters();
 
-            var foods = sut.GetAllFoodFromRestaurant(_restaurantEntity.Id.ToString(), parameters);
+            var foods = sut.GetAllFoodFromRestaurant(_restaurantEntity.Id.ToString(), parameters, false);
 
             Assert.Empty(foods);
         }

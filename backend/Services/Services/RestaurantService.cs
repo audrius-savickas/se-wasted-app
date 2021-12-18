@@ -181,10 +181,15 @@ namespace Services.Services
             return restaurantPagedList.ConvertAllItems(r => r.ToDTO(coords));
         }
 
-        public PagedList<Food> GetAllFoodFromRestaurant(string idRestaurant, FoodParameters foodParameters)
+        public PagedList<Food> GetAllFoodFromRestaurant(string idRestaurant, FoodParameters foodParameters, bool reserved)
         {
+            var foodItems = _foodRepository.GetFoodFromRestaurant(idRestaurant).AsEnumerable();
+            if (reserved)
+            {
+                foodItems = foodItems.Where(x => x.Reservation != null);
+            }
             return PagedList<Food>.ToPagedList(
-                _foodRepository.GetFoodFromRestaurant(idRestaurant).AsEnumerable().SortFood(foodParameters.SortOrder),
+                foodItems.SortFood(foodParameters.SortOrder),
                 foodParameters.PageNumber,
                 foodParameters.PageSize);
         }
