@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react"
-import {StyleSheet} from "react-native"
+import {RefreshControl, StyleSheet} from "react-native"
 import {ScrollView} from "react-native-gesture-handler"
 import {Navigation} from "react-native-navigation"
 import {Chip, Colors, ExpandableSection, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
+import {getFoodById} from "../../api/food"
 import {DecreaseType, Restaurant} from "../../api/interfaces"
 import {PriceIndicator} from "../../components/price-indicator"
 import {useCustomer} from "../../hooks/use-customer"
@@ -17,7 +18,9 @@ import {RestaurantReservationInfo} from "./reservation-info/restaurant-reservati
 
 export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInfoProps) => {
   const [restaurant, setRestaurant] = useState({} as Restaurant)
+  const [updatedFood, setUpdatedFood] = useState(food)
   const [descriptionExpanded, setDescriptionExpanded] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
   const {location} = useLocation()
   const {customerId} = useCustomer()
 
@@ -36,7 +39,17 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
     percentPerInterval,
     startDecreasingAt,
     imageURL
-  } = food
+  } = updatedFood
+
+  const onRefresh = () => {
+    setRefreshing(true)
+    fetchFood()
+  }
+
+  const fetchFood = async () => {
+    setUpdatedFood(await getFoodById({id: food.id}))
+    setRefreshing(false)
+  }
 
   const fetchRestaurant = async () => {
     setRestaurant(
@@ -61,7 +74,7 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
   }, [])
 
   return (
-    <ScrollView>
+    <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
       <View margin-s4 marginB-s2>
         <View centerH>
           <Text text30M purple20 marginT-s2 marginB-s1>

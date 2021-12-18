@@ -4,6 +4,7 @@ import {Alert, StyleSheet} from "react-native"
 import {BorderRadiuses, Button, Colors, Text} from "react-native-ui-lib"
 import {cancelFoodReservation, reserveFood} from "../../../api/reservation"
 import {useCustomer} from "../../../hooks/use-customer"
+import {formatPrice} from "../../../utils/currency"
 import {formatDate, formatTime} from "../../../utils/date"
 import {ReservationInfoProps} from "./interfaces"
 
@@ -55,7 +56,10 @@ export const CustomerReservationInfo = ({food}: ReservationInfoProps) => {
     if (reservation) {
       setTimeLeft(Math.round(moment(reservation.reservedAt).add(30, "minutes").diff(moment()) / 1000 / 60))
       const interval = setInterval(() => {
-        setTimeLeft(Math.round(moment(reservation.reservedAt).add(30, "minutes").diff(moment()) / 1000 / 60))
+        const newMinutes = Math.round(moment(reservation.reservedAt).add(30, "minutes").diff(moment()) / 1000 / 60)
+        if (newMinutes > 0) {
+          setTimeLeft(newMinutes)
+        }
       }, 60000)
 
       return () => clearInterval(interval)
@@ -65,7 +69,7 @@ export const CustomerReservationInfo = ({food}: ReservationInfoProps) => {
   return reservation ? (
     <>
       <Text left text70L>
-        You have reserved this food at:
+        You have reserved this food for <Text text70M>{formatPrice(reservation.price)}</Text> at:
       </Text>
       <Text center text70M style={styles.greyed}>
         {formatDate(reservation.reservedAt.toString())}, {formatTime(reservation.reservedAt.toString())}.

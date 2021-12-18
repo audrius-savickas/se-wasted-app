@@ -5,6 +5,7 @@ import {BorderRadiuses, Button, Colors, Text} from "react-native-ui-lib"
 import {getCustomerById} from "../../../api/customer"
 import {Customer} from "../../../api/interfaces"
 import {showCustomerInfoModal} from "../../../services/navigation"
+import {formatPrice} from "../../../utils/currency"
 import {formatDate, formatTime} from "../../../utils/date"
 import {ReservationInfoProps} from "./interfaces"
 
@@ -34,7 +35,10 @@ export const RestaurantReservationInfo = ({componentId, food}: ReservationInfoPr
       fetchCustomer()
       setTimeLeft(Math.round(moment(reservation.reservedAt).add(30, "minutes").diff(moment()) / 1000 / 60))
       const interval = setInterval(() => {
-        setTimeLeft(Math.round(moment(reservation.reservedAt).add(30, "minutes").diff(moment()) / 1000 / 60))
+        const newMinutes = Math.round(moment(reservation.reservedAt).add(30, "minutes").diff(moment()) / 1000 / 60)
+        if (newMinutes > 0) {
+          setTimeLeft(newMinutes)
+        }
       }, 60000)
 
       return () => clearInterval(interval)
@@ -44,7 +48,8 @@ export const RestaurantReservationInfo = ({componentId, food}: ReservationInfoPr
   return reservation ? (
     <>
       <Text left text70L>
-        Customer <Text text70M>{`${customer.firstName} ${customer.lastName}`}</Text> has reserved this meal on
+        Customer <Text text70M>{`${customer.firstName} ${customer.lastName}`}</Text> has reserved this food for{" "}
+        <Text text70M>{formatPrice(reservation.price)}</Text> on
       </Text>
       <Text center text70M style={styles.greyed}>
         {formatDate(reservation.reservedAt.toString())}, {formatTime(reservation.reservedAt.toString())}.
@@ -55,7 +60,27 @@ export const RestaurantReservationInfo = ({componentId, food}: ReservationInfoPr
       <Text center text70M style={styles.greyed}>
         {timeLeft} minutes.
       </Text>
-      <Button marginT-s4 label="Customer's info" style={styles.button} onPress={goToCustomerProfile} />
+      <Button
+        marginT-s2
+        bg-grey60
+        purple20
+        //@ts-ignore
+        size={"small"}
+        label={`${customer.firstName} ${customer.lastName} Info`}
+        style={styles.button}
+        onPress={goToCustomerProfile}
+      />
+      <Text left marginT-s4 text70L>
+        Customer has picked up the food? Press the button below to finish the reservation!
+      </Text>
+      <Button
+        bg-purple20
+        text70M
+        marginT-s2
+        label="Finish reservation"
+        style={styles.button}
+        onPress={goToCustomerProfile}
+      />
     </>
   ) : (
     <>

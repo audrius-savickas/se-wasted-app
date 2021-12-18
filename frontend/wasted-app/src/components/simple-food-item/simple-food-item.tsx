@@ -4,8 +4,8 @@ import {Chip, Colors, Image, ListItem, Text, TouchableOpacity, View} from "react
 import {formatPrice} from "../../utils/currency"
 import {SimpleFoodItemProps} from "./interfaces"
 
-export const SimpleFoodItem = ({food, onPress}: SimpleFoodItemProps) => {
-  const {name, currentPrice, startingPrice, typesOfFood, imageURL} = food
+export const SimpleFoodItem = ({food, isRestaurant = false, onPress}: SimpleFoodItemProps) => {
+  const {name, currentPrice, startingPrice, typesOfFood, imageURL, reservation} = food
 
   const renderPrice = () => {
     if (startingPrice === currentPrice) {
@@ -26,6 +26,8 @@ export const SimpleFoodItem = ({food, onPress}: SimpleFoodItemProps) => {
       </View>
     )
   }
+
+  console.log(isRestaurant)
 
   return (
     <ListItem height="auto">
@@ -65,6 +67,16 @@ export const SimpleFoodItem = ({food, onPress}: SimpleFoodItemProps) => {
             <View center>{renderPrice()}</View>
           </ListItem.Part>
         </View>
+        {isRestaurant &&
+          (reservation ? (
+            <Text text60M green10 center>
+              Reserved
+            </Text>
+          ) : (
+            <Text text60M red10 center>
+              Not reserved
+            </Text>
+          ))}
       </TouchableOpacity>
     </ListItem>
   )

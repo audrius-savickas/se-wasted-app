@@ -35,9 +35,13 @@ export const getAllRestaurants = async ({
   }
 }
 
-export const getAllFoodByRestaurantId = async (id: string): Promise<Food[]> => {
+export const getAllFoodByRestaurantId = async (id: string, reserved?: boolean): Promise<Food[]> => {
   try {
-    const response = await fetch(`${WASTED_SERVER_URL}/Restaurant/${id}/food`)
+    let queryString = `${WASTED_SERVER_URL}/Restaurant/${id}/food`
+    if (reserved !== undefined) {
+      queryString += `?reserved=${reserved}`
+    }
+    const response = await fetch(queryString)
     const data = await response.json()
     return data
   } catch (error) {
