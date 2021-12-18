@@ -9,6 +9,6 @@ namespace Persistence.Interfaces
 {
     public interface IReservationRepository : IBaseRepository<Reservation>
     {
-        Reservation GetByFoodAndCustomer(string foodId, string customerId);
+        IQueryable<Reservation> GetByFoodAndCustomer(string foodId, string customerId);
     }
 }

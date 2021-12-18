@@ -21,6 +21,7 @@ namespace Domain.Models
         public double PercentPerInterval { get; set; }
 
         private const string DEFAULT_IMAGE_URL = "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg";
+        private const int MAX_RESERVATION_DURATION_IN_MINUTES = 30;
 
         public Food() : base() { }
 
@@ -71,9 +72,17 @@ namespace Domain.Models
             }
         }
 
-        private static Reservation GetCurrentReservation(IEnumerable<Reservation> reservations)
+        private Reservation GetCurrentReservation(IEnumerable<Reservation> reservations)
         {
-            return reservations.FirstOrDefault();
+            var valid = reservations.Where(x => x.FoodId == Id && x.IsCancelled == false);
+            var notExpired = valid.Where(x => x.ReservedAt.AddMinutes(MAX_RESERVATION_DURATION_IN_MINUTES) >= DateTime.Now);
+
+            if (notExpired.Count() > 1)
+            {
+                throw new Exception("Multiple reservations of a single food.");
+            }
+
+            return notExpired.SingleOrDefault();
         }
 
         public void CheckIfImageUrlIsSet()

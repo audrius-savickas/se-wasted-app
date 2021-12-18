@@ -15,45 +15,45 @@ namespace Services.Services
         private readonly IFoodRepository _foodRepository;
         private readonly IReservationRepository _reservationRepository;
         private readonly ICustomerRepository _cutomerRepository;
-        private readonly IRestaurantRepository _restaurantRepository;
 
         public ReservationService
         (
             IFoodRepository foodRepository,
             IReservationRepository reservationRepository,
-            ICustomerRepository customerRepository,
-            IRestaurantRepository restaurantRepository
+            ICustomerRepository customerRepository
         )
         {
             _foodRepository = foodRepository;
             _reservationRepository = reservationRepository;
             _cutomerRepository = customerRepository;
-            _restaurantRepository = restaurantRepository;
         }
         public string MakeReservation(string foodId, string customerId)
         {
             Food food = ValidateFoodExistense(foodId);
             Customer customer = ValidateCustomerExistense(customerId);
 
-            if (IsFoodReserved(foodId))
+            if (food.Reservation != null)
             {
                 throw new AuthorizationException("Food item is already reserved.");
             }
 
-            Restaurant restaurant = _restaurantRepository.GetById(food.IdRestaurant);
-
-            Reservation reservation = new Reservation(null, false, food.Id, restaurant.Id, customer.Id, food.CalculateCurrentPrice());
+            Reservation reservation = new Reservation(null, false, food.Id, food.IdRestaurant, customer.Id, food.CalculateCurrentPrice());
             return _reservationRepository.Insert(reservation);
         }
 
         public void CancelReservation(string foodId, string customerId)
         {
-            ValidateFoodExistense(foodId);
+            Food food = ValidateFoodExistense(foodId);
             ValidateCustomerExistense(customerId);
+            Reservation reservation = food.Reservation;
 
-            Reservation reservation = _reservationRepository.GetByFoodAndCustomer(foodId, customerId);
             _ = reservation ?? throw new EntityNotFoundException("No reservation was found.");
             
+            if (!string.Equals(reservation.CustomerId, customerId, StringComparison.OrdinalIgnoreCase))
+            {
+                throw new AuthorizationException("Food is reserved by a different customer.");
+            }
+
             reservation.IsCancelled = true;
             _reservationRepository.Update(reservation);
         }
@@ -70,11 +70,6 @@ namespace Services.Services
             Customer customer = _cutomerRepository.GetById(customerId);
             _ = customer ?? throw new EntityNotFoundException("Customer with given id was not found.");
             return customer;
-        }
-
-        public bool IsFoodReserved(string foodId)
-        {
-            return _reservationRepository.GetAll().ToList().Where(x => x.FoodId == foodId).Count() > 0;
         }
     }
 }

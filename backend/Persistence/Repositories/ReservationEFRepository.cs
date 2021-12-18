@@ -32,12 +32,11 @@ namespace Persistence.Repositories
                 .Select(x => x.ToDomain());
         }
 
-        public Reservation GetByFoodAndCustomer(string foodId, string customerId)
+        public IQueryable<Reservation> GetByFoodAndCustomer(string foodId, string customerId)
         {
             return _context.Reservations.Include(x => x.Customer)
                 .Include(x => x.Food)
-                .ThenInclude(x => x.Restaurant)
-                .FirstOrDefault(x => x.FoodId == Guid.Parse(foodId) && x.CustomerId == Guid.Parse(customerId))?.ToDomain();
+                .Where(x => x.FoodId == Guid.Parse(foodId) && x.CustomerId == Guid.Parse(customerId)).Select(x => x.ToDomain());
         }
 
         public Reservation GetById(string id)
