@@ -10,5 +10,6 @@ namespace Services.Interfaces
     {
         string MakeReservation(string foodId, string customerId);
         void CancelReservation(string foodId, string customerId);
+        void FinishReservation(string foodId, string customerId);
     }
 }

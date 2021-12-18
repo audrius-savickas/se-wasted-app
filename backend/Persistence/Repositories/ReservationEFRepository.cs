@@ -21,7 +21,9 @@ namespace Persistence.Repositories
         }
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            var entity = GetByIdString(id);
+            _context.Reservations.Remove(entity);
+            _context.SaveChanges();
         }
 
         public IQueryable<Reservation> GetAll()

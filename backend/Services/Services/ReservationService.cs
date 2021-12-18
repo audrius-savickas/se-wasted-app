@@ -58,6 +58,22 @@ namespace Services.Services
             _reservationRepository.Update(reservation);
         }
 
+        public void FinishReservation(string foodId, string customerId)
+        {
+            Food food = ValidateFoodExistense(foodId);
+            ValidateCustomerExistense(customerId);
+            Reservation reservation = food.Reservation;
+
+            _ = reservation ?? throw new EntityNotFoundException("No reservation was found.");
+
+            if (!string.Equals(reservation.CustomerId, customerId, StringComparison.OrdinalIgnoreCase))
+            {
+                throw new AuthorizationException("Food is reserved by a different customer.");
+            }
+
+            _reservationRepository.Delete(reservation.Id);
+        }
+
         private Food ValidateFoodExistense(string foodId)
         {
             Food food = _foodRepository.GetById(foodId);

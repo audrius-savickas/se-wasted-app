@@ -59,5 +59,24 @@ namespace WebApi.Controllers
                 return BadRequest(exception.Message);
             }
         }
+
+        /// <summary>
+        /// Finish reservation of food.
+        /// </summary>
+        [HttpDelete(Name = nameof(FinishReservation))]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public IActionResult FinishReservation([FromQuery] string foodId, [FromQuery] string customerId)
+        {
+            try
+            {
+                _reservationService.FinishReservation(foodId, customerId);
+                return Ok();
+            }
+            catch (Exception exception) when (exception is EntityNotFoundException || exception is AuthorizationException)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
     }
 }
