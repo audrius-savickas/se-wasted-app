@@ -1,16 +1,18 @@
 import React, {useState} from "react"
 import {ListRenderItemInfo} from "react-native"
 import {Text, View} from "react-native-ui-lib"
+import {getRestaurantReservedFoods} from "../../api"
 import {getCustomerReservedFoods} from "../../api/customer"
 import {Food} from "../../api/interfaces"
 import {useCustomer} from "../../hooks/use-customer"
+import {useRestaurant} from "../../hooks/use-restaurant"
 import {navigateToFoodInfo} from "../../services/navigation"
 import {RestaurantReservationItem} from "../restaurant-reservation-item"
 import {SimpleFoodsList} from "../simple-foods-list"
 import {ReservationsListProps} from "./interfaces"
 
 export const ReservationsList = ({componentId, foods}: ReservationsListProps) => {
-  const {customerId} = useCustomer()
+  const {restaurantId} = useRestaurant()
   const [reservations, setReservations] = useState(foods)
   const [refreshing, setRefreshing] = useState(false)
 
@@ -29,7 +31,7 @@ export const ReservationsList = ({componentId, foods}: ReservationsListProps) =>
   }
 
   const fetchReservations = async () => {
-    const response = await getCustomerReservedFoods({customerId})
+    const response = await getRestaurantReservedFoods({restaurantId})
     if (response) {
       console.log("success")
       setReservations(response)

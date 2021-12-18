@@ -144,7 +144,7 @@ export const updateRestaurantPassword = async ({credentials}: {credentials: Cred
 
 export const getRestaurantReservedFoods = async ({restaurantId}: {restaurantId: string}): Promise<Food[] | null> => {
   try {
-    const response = await fetch(`${WASTED_SERVER_URL}/Restaurant/${restaurantId}/food/reserved`, {
+    const response = await fetch(`${WASTED_SERVER_URL}/Restaurant/${restaurantId}/food/?reserved=true`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"

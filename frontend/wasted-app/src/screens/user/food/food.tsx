@@ -6,7 +6,6 @@ import {getAllFood} from "../../../api/food"
 import {FoodSortObject, FoodSortType, Food as IFood} from "../../../api/interfaces"
 import {FoodsList} from "../../../components/foods-list"
 import {setHomeRoot} from "../../../services/navigation"
-import {HOME_BUTTON} from "../home-button"
 import {FoodProps} from "./interfaces"
 
 export const Food = ({componentId}: FoodProps) => {
