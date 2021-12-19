@@ -76,6 +76,7 @@ export interface RestaurantRegisterRequest {
   coords: Coordinates
   address: string
   imageUrl: string
+  phone: string
   description?: string
 }
 

@@ -16,6 +16,7 @@ LogBox.ignoreLogs(["VirtualizedLists should never be nested"])
 export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProps) => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [address, setAddress] = useState("")
@@ -34,6 +35,7 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
 
   const [nameValid, setNameValid] = useState(true)
   const [emailValid, setEmailValid] = useState(true)
+  const [phoneValid, setPhoneValid] = useState(true)
   const [passwordValid, setPasswordValid] = useState(true)
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(true)
   const [addressValid, setAddressValid] = useState(true)
@@ -52,6 +54,7 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
     confirmPasswordValid &&
     confirmPassword &&
     addressValid &&
+    phoneValid &&
     !coordinatesLoading
 
   const finishRegistration = async () => {
@@ -65,7 +68,8 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
           credentials: {email, password},
           address,
           imageUrl,
-          description
+          description,
+          phone
         })
         if (!restaurantId) {
           setError("There is already an account registered on this email.")
@@ -142,11 +146,24 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
           <Incubator.TextField
             validateOnChange
             enableErrors
+            autoCapitalize="none"
+            hint="Your restaurant's email"
+            fieldStyle={styles.withUnderline}
+            label="Phone number*"
+            validate={["required"]}
+            validationMessage={["Phone number is required"]}
+            value={phone}
+            onChangeText={setPhone}
+            onChangeValidity={setPhoneValid}
+          />
+          <Incubator.TextField
+            validateOnChange
+            enableErrors
             marginB-s6
             autoCapitalize="none"
             hint="Your restaurant's email"
             fieldStyle={styles.withUnderline}
-            label="Email*"
+            label="Email address*"
             validate={["required", "email"]}
             validationMessage={["Email is required", "Email is invalid"]}
             value={email}

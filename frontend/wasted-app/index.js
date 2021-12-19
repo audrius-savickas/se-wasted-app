@@ -1,3 +1,4 @@
+import {LogBox} from "react-native"
 import Geocoder from "react-native-geocoding"
 import {Navigation} from "react-native-navigation"
 import {GOOGLE_MAPS_API_KEY} from "./credentials"
@@ -23,6 +24,8 @@ import {Profile as CustomerProfile} from "./src/screens/user/profile"
 import {Reservations as CustomerReservations} from "./src/screens/user/reservations"
 import {RestaurantList} from "./src/screens/user/restaurants"
 import {FoodList} from "./src/screens/user/restaurants/food-list"
+
+LogBox.ignoreAllLogs()
 
 Geocoder.init(GOOGLE_MAPS_API_KEY)
 

@@ -47,7 +47,7 @@ export const CustomerLogin = ({componentId}: CustomerLoginProps) => {
 
   const loginEmail = async () => {
     if (__DEV__ && email === "DEV") {
-      setCustomerId({customerId: "7714624a-dc5b-4bbc-9290-53718129a962"})
+      setCustomerId({customerId: "171636d1-6fc4-4818-b76c-30a05e137ff2"})
       setUserRoot()
     }
     if (valid) {
