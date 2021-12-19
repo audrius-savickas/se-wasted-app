@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using MimeKit;
 using Services.Interfaces;
 using Services.Options;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Services.Services
@@ -34,14 +35,15 @@ namespace Services.Services
 
         private MimeMessage CreateRegistrationConfirmationEmail(RestaurantEventArgs e)
         {
-            var mailMessage = new MimeMessage();
+            MimeMessage mailMessage = new MimeMessage();
             mailMessage.From.Add(new MailboxAddress("Wasted App Team", _emailOptions.UserName));
             mailMessage.To.Add(MailboxAddress.Parse(e.Restaurant.Credentials.Mail.Value));
             mailMessage.Subject = "Registration confirmation";
-            mailMessage.Body = new TextPart("plain")
-            {
-                Text = "Welcome, " + e.Restaurant.Name + "!"
-            };
+
+            BodyBuilder bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = File.ReadAllText("../Services/Utils/welcome.html");
+
+            mailMessage.Body = bodyBuilder.ToMessageBody();
             return mailMessage;
         }
     }
