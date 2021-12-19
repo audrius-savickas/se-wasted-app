@@ -35,6 +35,8 @@ export const Profile = ({componentId}: RestaurantProfileProps) => {
 
   const [addressValid, setAddressValid] = useState(true)
 
+  const [loadImage, setLoadImage] = useState(true)
+
   const changePassword = async () => {
     if (password === confirmPassword) {
       setError("")
@@ -208,7 +210,7 @@ export const Profile = ({componentId}: RestaurantProfileProps) => {
           <Text marginB-s4 text60L>
             Change your info
           </Text>
-          <View marginB-s6 marginT-s4>
+          <View marginB-s7>
             <Text grey10>Address*</Text>
             <GooglePlacesAutocomplete
               suppressDefaultStyles
@@ -244,7 +246,6 @@ export const Profile = ({componentId}: RestaurantProfileProps) => {
             </View>
           </View>
           <Incubator.TextField
-            marginB-s2
             validateOnChange
             enableErrors
             autoCapitalize="none"
@@ -252,9 +253,25 @@ export const Profile = ({componentId}: RestaurantProfileProps) => {
             label="Image URL (optional)"
             hint="Your restaurant's image's URL"
             value={imageUrl}
-            onChangeText={setImageUrl}
+            onChangeText={(text: string) => {
+              setLoadImage(false)
+              setImageUrl(text)
+            }}
+            onBlur={() => setLoadImage(true)}
           />
+          {loadImage && (
+            <View style={styles.shadow}>
+              <Image
+                source={{uri: imageUrl, height: 200}}
+                style={{
+                  height: 200,
+                  width: "100%"
+                }}
+              />
+            </View>
+          )}
           <Incubator.TextField
+            marginT-s6
             paddingT-s2
             paddingH-s2
             multiline
@@ -301,5 +318,11 @@ const styles = StyleSheet.create({
   },
   map: {
     height: 200
+  },
+  shadow: {
+    shadowColor: Colors.black,
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 3,
+    shadowOpacity: 0.7
   }
 })

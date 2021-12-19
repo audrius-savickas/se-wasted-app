@@ -3,7 +3,7 @@ import {Alert, LogBox, ScrollView, StyleSheet} from "react-native"
 import Geocoder from "react-native-geocoding"
 import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete"
 import {Navigation} from "react-native-navigation"
-import {Button, Card, Colors, Incubator, Text, View} from "react-native-ui-lib"
+import {Button, Card, Colors, Image, Incubator, Text, View} from "react-native-ui-lib"
 import {GOOGLE_MAPS_API_KEY} from "../../../../credentials"
 import {registerRestaurant} from "../../../api"
 import {Coordinates} from "../../../api/interfaces"
@@ -39,6 +39,8 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
   const [addressValid, setAddressValid] = useState(true)
 
   const [error, setError] = useState("")
+
+  const [loadImage, setLoadImage] = useState(false)
 
   const valid =
     nameValid &&
@@ -208,7 +210,6 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
             </View>
           </View>
           <Incubator.TextField
-            marginB-s2
             validateOnChange
             enableErrors
             autoCapitalize="none"
@@ -216,10 +217,26 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
             label="Image URL (optional)"
             hint="Your restaurant's image's URL"
             value={imageUrl}
-            onChangeText={setImageUrl}
+            onChangeText={(text: string) => {
+              setLoadImage(false)
+              setImageUrl(text)
+            }}
+            onBlur={() => setLoadImage(true)}
           />
+          {loadImage && (
+            <View style={styles.shadow}>
+              <Image
+                source={{uri: imageUrl, height: 200}}
+                style={{
+                  height: 200,
+                  width: "100%"
+                }}
+              />
+            </View>
+          )}
           <Incubator.TextField
             marginB-s6
+            marginT-s2
             paddingT-s2
             paddingH-s2
             multiline
@@ -250,5 +267,11 @@ const styles = StyleSheet.create({
   error: {position: "absolute", alignSelf: "center", width: "85%"},
   map: {
     height: 200
+  },
+  shadow: {
+    shadowColor: Colors.black,
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 3,
+    shadowOpacity: 0.7
   }
 })

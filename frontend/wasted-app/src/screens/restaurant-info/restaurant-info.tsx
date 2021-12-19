@@ -78,9 +78,7 @@ export const RestaurantInfo = ({componentId, restaurant}: RestaurantInfoProps) =
             paddingH-s4
             paddingV-s2
             style={styles.shadowButton}
-            onPress={() =>
-              navigateToFoodList(componentId, {idRestaurant: restaurant.id, restaurantName: restaurant.name})
-            }
+            onPress={() => navigateToFoodList(componentId, {idRestaurant: restaurant.id})}
           >
             <Text text60L white center>
               See restaurant's list of food ↗️{"\n"}({foodCount} {foodCount === 1 ? "item" : "items"})
