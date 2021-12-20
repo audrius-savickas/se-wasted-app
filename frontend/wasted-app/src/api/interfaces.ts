@@ -7,6 +7,8 @@ export interface Restaurant {
   distanceToUser: number
   description: string
   foodCount: number
+  phone: string
+  mail: string
 }
 
 export interface Food {
@@ -25,6 +27,22 @@ export interface Food {
   amountPerInterval: number
   percentPerInterval: number
   imageURL: string
+  reservation: Reservation | null
+}
+
+export interface Customer {
+  firstName: string
+  lastName: string
+  id: string
+  mail: string
+  phone: string
+}
+
+export interface Reservation {
+  reservedAt: string
+  foodId: string
+  customerId: string
+  price: number
 }
 
 export interface FoodType {
@@ -58,6 +76,7 @@ export interface RestaurantRegisterRequest {
   coords: Coordinates
   address: string
   imageUrl: string
+  phone: string
   description?: string
 }
 

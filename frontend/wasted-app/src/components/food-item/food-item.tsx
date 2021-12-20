@@ -52,7 +52,7 @@ export const FoodItem = ({food, onPress}: FoodItemProps) => {
         </View>
         <TouchableOpacity onPress={onPress}>
           <Text text60R purple30>
-            SEE MORE
+            SEE DETAILS
           </Text>
         </TouchableOpacity>
       </View>

@@ -3,7 +3,7 @@ import {Alert, LogBox, ScrollView, StyleSheet} from "react-native"
 import Geocoder from "react-native-geocoding"
 import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete"
 import {Navigation} from "react-native-navigation"
-import {Button, Card, Colors, Incubator, Text, View} from "react-native-ui-lib"
+import {Button, Card, Colors, Image, Incubator, Text, View} from "react-native-ui-lib"
 import {GOOGLE_MAPS_API_KEY} from "../../../../credentials"
 import {registerRestaurant} from "../../../api"
 import {Coordinates} from "../../../api/interfaces"
@@ -16,6 +16,7 @@ LogBox.ignoreLogs(["VirtualizedLists should never be nested"])
 export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProps) => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [address, setAddress] = useState("")
@@ -34,11 +35,14 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
 
   const [nameValid, setNameValid] = useState(true)
   const [emailValid, setEmailValid] = useState(true)
+  const [phoneValid, setPhoneValid] = useState(true)
   const [passwordValid, setPasswordValid] = useState(true)
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(true)
   const [addressValid, setAddressValid] = useState(true)
 
   const [error, setError] = useState("")
+
+  const [loadImage, setLoadImage] = useState(false)
 
   const valid =
     nameValid &&
@@ -50,6 +54,7 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
     confirmPasswordValid &&
     confirmPassword &&
     addressValid &&
+    phoneValid &&
     !coordinatesLoading
 
   const finishRegistration = async () => {
@@ -63,7 +68,8 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
           credentials: {email, password},
           address,
           imageUrl,
-          description
+          description,
+          phone
         })
         if (!restaurantId) {
           setError("There is already an account registered on this email.")
@@ -140,11 +146,24 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
           <Incubator.TextField
             validateOnChange
             enableErrors
+            autoCapitalize="none"
+            hint="Your restaurant's email"
+            fieldStyle={styles.withUnderline}
+            label="Phone number*"
+            validate={["required"]}
+            validationMessage={["Phone number is required"]}
+            value={phone}
+            onChangeText={setPhone}
+            onChangeValidity={setPhoneValid}
+          />
+          <Incubator.TextField
+            validateOnChange
+            enableErrors
             marginB-s6
             autoCapitalize="none"
             hint="Your restaurant's email"
             fieldStyle={styles.withUnderline}
-            label="Email*"
+            label="Email address*"
             validate={["required", "email"]}
             validationMessage={["Email is required", "Email is invalid"]}
             value={email}
@@ -208,7 +227,6 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
             </View>
           </View>
           <Incubator.TextField
-            marginB-s2
             validateOnChange
             enableErrors
             autoCapitalize="none"
@@ -216,10 +234,26 @@ export const RestaurantRegistration = ({componentId}: RestaurantRegistrationProp
             label="Image URL (optional)"
             hint="Your restaurant's image's URL"
             value={imageUrl}
-            onChangeText={setImageUrl}
+            onChangeText={(text: string) => {
+              setLoadImage(false)
+              setImageUrl(text)
+            }}
+            onBlur={() => setLoadImage(true)}
           />
+          {loadImage && (
+            <View style={styles.shadow}>
+              <Image
+                source={{uri: imageUrl, height: 200}}
+                style={{
+                  height: 200,
+                  width: "100%"
+                }}
+              />
+            </View>
+          )}
           <Incubator.TextField
             marginB-s6
+            marginT-s2
             paddingT-s2
             paddingH-s2
             multiline
@@ -250,5 +284,11 @@ const styles = StyleSheet.create({
   error: {position: "absolute", alignSelf: "center", width: "85%"},
   map: {
     height: 200
+  },
+  shadow: {
+    shadowColor: Colors.black,
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 3,
+    shadowOpacity: 0.7
   }
 })

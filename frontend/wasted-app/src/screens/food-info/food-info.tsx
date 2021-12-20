@@ -1,21 +1,28 @@
 import React, {useEffect, useState} from "react"
-import {StyleSheet} from "react-native"
+import {RefreshControl, StyleSheet} from "react-native"
 import {ScrollView} from "react-native-gesture-handler"
 import {Navigation} from "react-native-navigation"
 import {Chip, Colors, ExpandableSection, Image, Text, TouchableOpacity, View} from "react-native-ui-lib"
 import {getRestaurantById} from "../../api"
+import {getFoodById} from "../../api/food"
 import {DecreaseType, Restaurant} from "../../api/interfaces"
 import {PriceIndicator} from "../../components/price-indicator"
+import {useCustomer} from "../../hooks/use-customer"
 import {useLocation} from "../../hooks/use-location"
 import {navigateToRestaurantInfo} from "../../services/navigation"
 import {formatPrice} from "../../utils/currency"
 import {convertMinsToHrsMins, formatDate, formatTime, timeAgoFull} from "../../utils/date"
 import {FoodInfoProps} from "./interfaces"
+import {CustomerReservationInfo} from "./reservation-info"
+import {RestaurantReservationInfo} from "./reservation-info/restaurant-reservation-info"
 
 export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInfoProps) => {
   const [restaurant, setRestaurant] = useState({} as Restaurant)
+  const [updatedFood, setUpdatedFood] = useState(food)
   const [descriptionExpanded, setDescriptionExpanded] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
   const {location} = useLocation()
+  const {customerId} = useCustomer()
 
   const {
     name,
@@ -32,7 +39,17 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
     percentPerInterval,
     startDecreasingAt,
     imageURL
-  } = food
+  } = updatedFood
+
+  const onRefresh = () => {
+    setRefreshing(true)
+    fetchFood()
+  }
+
+  const fetchFood = async () => {
+    setUpdatedFood(await getFoodById({id: food.id}))
+    setRefreshing(false)
+  }
 
   const fetchRestaurant = async () => {
     setRestaurant(
@@ -57,8 +74,8 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
   }, [])
 
   return (
-    <ScrollView>
-      <View margin-s4>
+    <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+      <View margin-s4 marginB-s2>
         <View centerH>
           <Text text30M purple20 marginT-s2 marginB-s1>
             {name}
@@ -135,6 +152,7 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
           </View>
           <View centerV marginT-s4>
             <ExpandableSection
+              marginB-s10
               sectionHeader={
                 <View row>
                   <Text text60L purple20 marginR-s2>
@@ -159,6 +177,16 @@ export const FoodInfo = ({componentId, food, showRestaurantLink = true}: FoodInf
               </Text>
             </ExpandableSection>
           </View>
+          <View centerV marginT-s4>
+            <Text marginB-s2 text60L purple20 style={{width: 120}}>
+              Reservation
+            </Text>
+            {customerId ? (
+              <CustomerReservationInfo componentId={componentId} food={food} />
+            ) : (
+              <RestaurantReservationInfo componentId={componentId} food={food} />
+            )}
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -170,5 +198,8 @@ const styles = StyleSheet.create({
     shadowColor: Colors.black,
     shadowOpacity: 0.4,
     shadowOffset: {height: 0, width: 0}
+  },
+  button: {
+    alignSelf: "center"
   }
 })

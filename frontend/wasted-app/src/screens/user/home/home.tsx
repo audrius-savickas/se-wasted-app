@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import {ScrollView} from "react-native"
 import {Navigation} from "react-native-navigation"
 import {Colors, LoaderScreen, View} from "react-native-ui-lib"
@@ -7,14 +7,14 @@ import {LatestFood} from "../../../components/sections/latest-food"
 import {NearRestaurants} from "../../../components/sections/near-restaurants"
 import {PopularRestaurants} from "../../../components/sections/popular-restaurants"
 import {useLocation} from "../../../hooks/use-location"
-import {setHomeRoot} from "../../../services/navigation"
-import {HOME_BUTTON} from "../home-button"
 import {HomeProps} from "./interfaces"
 
 export const Home = ({componentId}: HomeProps) => {
   const [loading, setLoading] = useState(true)
   const [loaderMessage, setLoaderMessage] = useState("Loading...")
+  const [sideMenuOpen, setSideMenuOpen] = useState(false)
   const {location, locationAllowed, locationLoaded, fetchLocation} = useLocation()
+  const isMounted = useRef(false)
 
   useEffect(() => {
     if (locationLoaded) {
@@ -28,14 +28,44 @@ export const Home = ({componentId}: HomeProps) => {
 
   useEffect(() => {
     fetchLocation()
-    Navigation.mergeOptions(componentId, {topBar: {leftButtons: [HOME_BUTTON]}})
+    Navigation.mergeOptions(componentId, {
+      sideMenu: {
+        left: {
+          visible: false,
+          width: 260
+        }
+      },
+      topBar: {
+        leftButtons: [
+          {
+            icon: require("../../../../assets/menu-26x26.png"),
+            disableIconTint: true,
+            id: "SIDE_MENU"
+          }
+        ]
+      }
+    })
     const listener = Navigation.events().registerNavigationButtonPressedListener(({buttonId}) => {
-      if (buttonId === "GO_BACK") {
-        setHomeRoot()
+      if (buttonId === "SIDE_MENU") {
+        setSideMenuOpen(open => !open)
       }
     })
     return () => listener.remove()
   }, [])
+
+  useEffect(() => {
+    if (isMounted.current) {
+      Navigation.mergeOptions(componentId, {
+        sideMenu: {
+          left: {
+            visible: sideMenuOpen
+          }
+        }
+      })
+    } else {
+      isMounted.current = true
+    }
+  }, [sideMenuOpen])
 
   return (
     <>

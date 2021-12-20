@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import {Alert, ScrollView, StyleSheet} from "react-native"
 import {Navigation} from "react-native-navigation"
 import {Button, Card, Colors, Incubator, Text, View} from "react-native-ui-lib"
-import {registerUser} from "../../../api/customer"
+import {registerCustomer} from "../../../api/customer"
 import {PasswordInput} from "../../../components/password-input"
 import {CustomerRegistrationProps} from "./interfaces"
 
@@ -10,6 +10,7 @@ export const CustomerRegistration = ({componentId}: CustomerRegistrationProps) =
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState("")
@@ -19,18 +20,19 @@ export const CustomerRegistration = ({componentId}: CustomerRegistrationProps) =
   const [emailValid, setEmailValid] = useState(true)
   const [passwordValid, setPasswordValid] = useState(true)
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(true)
+  const [phoneValid, setPhoneValid] = useState(true)
 
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  const valid = firstNameValid && lastNameValid && emailValid && passwordValid && confirmPasswordValid
+  const valid = firstNameValid && lastNameValid && emailValid && passwordValid && confirmPasswordValid && phoneValid
 
   const finishRegistration = async () => {
     if (valid) {
       if (password !== confirmPassword) {
         setError("Passwords don't match")
       } else {
-        const userId = await registerUser({credentials: {email, password}, firstName, lastName})
+        const userId = await registerCustomer({credentials: {email, password}, firstName, lastName, phone})
         if (userId) {
           setError("")
           Alert.alert("Registered succesfully!", "Please check your inbox for confirmation email.", [{text: "OK"}])
@@ -88,7 +90,6 @@ export const CustomerRegistration = ({componentId}: CustomerRegistrationProps) =
           <Incubator.TextField
             validateOnChange
             enableErrors
-            marginB-s6
             autoCapitalize="none"
             hint="Your account's email"
             fieldStyle={styles.withUnderline}
@@ -98,6 +99,20 @@ export const CustomerRegistration = ({componentId}: CustomerRegistrationProps) =
             value={email}
             onChangeText={setEmail}
             onChangeValidity={setEmailValid}
+          />
+          <Incubator.TextField
+            validateOnChange
+            enableErrors
+            marginB-s6
+            autoCapitalize="none"
+            hint="Your phone number"
+            fieldStyle={styles.withUnderline}
+            label="Phone number*"
+            validate={["required"]}
+            validationMessage={["Phone number is required"]}
+            value={phone}
+            onChangeText={setPhone}
+            onChangeValidity={setPhoneValid}
           />
           <PasswordInput
             label="Password*"

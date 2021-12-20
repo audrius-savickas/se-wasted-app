@@ -2,7 +2,7 @@ import {GoogleSignin, GoogleSigninButton, statusCodes} from "@react-native-googl
 import React, {useEffect, useState} from "react"
 import {StyleSheet} from "react-native"
 import {Button, Colors, Incubator, Text, View} from "react-native-ui-lib"
-import {loginUser} from "../../api/customer"
+import {loginCustomer} from "../../api/customer"
 import {PasswordInput} from "../../components/password-input"
 import {useAuthentication} from "../../hooks/use-authentication"
 import {useCustomer} from "../../hooks/use-customer"
@@ -46,8 +46,12 @@ export const CustomerLogin = ({componentId}: CustomerLoginProps) => {
   }
 
   const loginEmail = async () => {
+    if (__DEV__ && email === "DEV") {
+      setCustomerId({customerId: "171636d1-6fc4-4818-b76c-30a05e137ff2"})
+      setUserRoot()
+    }
     if (valid) {
-      const customerId = await loginUser({credentials: {email, password}})
+      const customerId = await loginCustomer({credentials: {email, password}})
       if (customerId) {
         setCustomerId({customerId})
         setUserRoot()

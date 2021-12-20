@@ -7,6 +7,7 @@ import {GOOGLE_IOS_CLIENT_ID} from "../../../credentials"
 import {setUser} from "../../actions/authentication"
 import {loginRestaurant} from "../../api"
 import {PasswordInput} from "../../components/password-input"
+import {useRestaurant} from "../../hooks/use-restaurant"
 import {navigateToRestaurantRegistration, setRestaurantRoot} from "../../services/navigation"
 import {RestaurantLoginProps} from "./interfaces"
 
@@ -14,6 +15,7 @@ GoogleSignin.configure({iosClientId: GOOGLE_IOS_CLIENT_ID})
 
 export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
   const dispatch = useDispatch()
+  const {setRestaurantId} = useRestaurant()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -25,11 +27,17 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
 
   const valid = passwordValid && emailValid
 
-  const login = async () => {
+  const loginEmail = async () => {
+    if (__DEV__ && email === "DEV") {
+      setRestaurantId("ef001f32-8864-4209-9c25-4c045db0ba11")
+      setRestaurantRoot()
+    }
+
     const restaurantId = await loginRestaurant({email, password})
     if (valid) {
       if (restaurantId) {
-        setRestaurantRoot({idRestaurant: restaurantId})
+        setRestaurantId(restaurantId)
+        setRestaurantRoot()
         setError("")
       } else {
         setError("Login failed. We haven't found a registered account with these credentials.")
@@ -39,7 +47,7 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
     }
   }
 
-  const signIn = async () => {
+  const loginGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices()
       const userInfo = await GoogleSignin.signIn()
@@ -100,7 +108,7 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
             />
           </View>
         </View>
-        <GoogleSigninButton size={1} onPress={signIn} />
+        <GoogleSigninButton size={1} onPress={loginGoogle} />
         <Button
           bg-blue50
           marginT-s2
@@ -115,7 +123,7 @@ export const RestaurantLogin = ({componentId}: RestaurantLoginProps) => {
             shadowOffset: {width: 0, height: 2},
             shadowRadius: 2
           }}
-          onPress={login}
+          onPress={loginEmail}
         />
         <View marginT-s2 style={{opacity: error ? 100 : 0}}>
           <Text center text70L red10 style={styles.error}>

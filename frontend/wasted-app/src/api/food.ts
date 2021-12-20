@@ -15,17 +15,16 @@ export const getFoodTypeByFoodId = async (id: string): Promise<FoodType> => {
 
 export const getAllFood = async ({
   sortObject,
-  pagination
+  pagination,
+  reserved = "false"
 }: {
   sortObject?: FoodSortObject
   pagination?: Pagination
+  reserved?: string
 }): Promise<Food[]> => {
   try {
-    let queryString = `${WASTED_SERVER_URL}/Food`
+    let queryString = `${WASTED_SERVER_URL}/Food?reserved=${reserved}`
 
-    if (sortObject || pagination) {
-      queryString += "?"
-    }
     if (sortObject) {
       queryString += `&sortOrder=${sortObject.sortType}`
     }
@@ -39,6 +38,17 @@ export const getAllFood = async ({
   } catch (error) {
     console.error(error)
     return []
+  }
+}
+
+export const getFoodById = async ({id}: {id: string}) => {
+  try {
+    const response = await fetch(`${WASTED_SERVER_URL}/Food/${id}`)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error(error)
+    return Promise.resolve({id: "-1", name: "not found"})
   }
 }
 

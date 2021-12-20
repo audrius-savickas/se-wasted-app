@@ -1,7 +1,6 @@
 import {NavigationComponentProps} from "react-native-navigation"
+import {Food} from "../../../api/interfaces"
 
-export interface AddFoodScreenOwnProps {
-  idRestaurant: string
+export interface AddFoodScreenProps extends NavigationComponentProps {
+  existingFood?: Food
 }
-
-export interface AddFoodScreenProps extends NavigationComponentProps, AddFoodScreenOwnProps {}

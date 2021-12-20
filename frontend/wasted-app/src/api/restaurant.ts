@@ -35,9 +35,13 @@ export const getAllRestaurants = async ({
   }
 }
 
-export const getAllFoodByRestaurantId = async (id: string): Promise<Food[]> => {
+export const getAllFoodByRestaurantId = async (id: string, reserved?: boolean): Promise<Food[]> => {
   try {
-    const response = await fetch(`${WASTED_SERVER_URL}/Restaurant/${id}/food`)
+    let queryString = `${WASTED_SERVER_URL}/Restaurant/${id}/food`
+    if (reserved !== undefined) {
+      queryString += `?reserved=${reserved}`
+    }
+    const response = await fetch(queryString)
     const data = await response.json()
     return data
   } catch (error) {
@@ -66,14 +70,18 @@ export const getRestaurantById = async ({
   }
 }
 
-export const updateRestaurant = async (updatedRestaurant: Restaurant) => {
-  await fetch(`${WASTED_SERVER_URL}/Restaurant/${updatedRestaurant.id}`, {
+export const updateRestaurantApi = async (updatedRestaurant: Restaurant) => {
+  const resp = await fetch(`${WASTED_SERVER_URL}/Restaurant/${updatedRestaurant.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(updatedRestaurant)
   })
+  if (resp.status !== 200) {
+    return null
+  }
+  return true
 }
 
 export const loginRestaurant = async (credentials: Credentials) => {
@@ -97,11 +105,13 @@ export const registerRestaurant = async ({
   name,
   coords,
   credentials: {email, password},
+  phone,
   address,
   description = "",
   imageUrl
 }: RestaurantRegisterRequest) => {
   try {
+    console.log(JSON.stringify({name, coords, address, imageUrl, description, phone}))
     const response = await fetch(
       `${WASTED_SERVER_URL}/Restaurant?Mail.Value=${encodeURIComponent(email)}&Password.Value=${encodeURIComponent(
         password
@@ -111,10 +121,41 @@ export const registerRestaurant = async ({
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({name, coords, address, imageUrl, description})
+        body: JSON.stringify({name, coords, address, imageUrl, description, phone})
       }
     )
     if (response.status !== 201) throw new Error("There is already a restaurant registered on this email.")
+    const data = await response.json()
+    return data
+  } catch (error) {
+    return null
+  }
+}
+
+export const updateRestaurantPassword = async ({credentials}: {credentials: Credentials}): Promise<boolean> => {
+  try {
+    const response = await fetch(`${WASTED_SERVER_URL}/Restaurant/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({mail: {value: credentials.email}, password: {value: credentials.password}})
+    })
+    if (response.status === 401) throw new Error("Invalid email.")
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
+export const getRestaurantReservedFoods = async ({restaurantId}: {restaurantId: string}): Promise<Food[] | null> => {
+  try {
+    const response = await fetch(`${WASTED_SERVER_URL}/Restaurant/${restaurantId}/food/?reserved=true`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
     const data = await response.json()
     return data
   } catch (error) {
