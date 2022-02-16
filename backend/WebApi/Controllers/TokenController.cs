@@ -50,13 +50,12 @@ namespace WebApi.Controllers
 
             // Change this to your google client ID
             settings.Audience = new List<string>() { _googleOptions.ClientId };
-
             try
             {
                 GoogleJsonWebSignature.Payload payload = GoogleJsonWebSignature.ValidateAsync(idToken, settings).Result;
                 return new ObjectResult(_tokenHelper.GenerateToken(new Mail(payload.Email)));
             }
-            catch(Exception e)
+            catch (Exception)
             {
                 return BadRequest();
             }

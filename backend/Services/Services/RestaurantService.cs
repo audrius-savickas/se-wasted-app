@@ -135,6 +135,7 @@ namespace Services.Services
 
             Restaurant restaurant = new Restaurant
             {
+                Phone = restaurantRegisterRequest.Phone,
                 Name = restaurantRegisterRequest.Name,
                 Address = restaurantRegisterRequest.Address,
                 Coords = restaurantRegisterRequest.Coords,
@@ -182,8 +183,17 @@ namespace Services.Services
 
         public PagedList<Food> GetAllFoodFromRestaurant(string idRestaurant, FoodParameters foodParameters)
         {
+            var foodItems = _foodRepository.GetFoodFromRestaurant(idRestaurant).AsEnumerable();
+            if (foodParameters.Reserved == true)
+            {
+                foodItems = foodItems.Where(x => x.Reservation != null);
+            }
+            else if (foodParameters.Reserved == false)
+            {
+                foodItems = foodItems.Where(x => x.Reservation == null);
+            }
             return PagedList<Food>.ToPagedList(
-                _foodRepository.GetFoodFromRestaurant(idRestaurant).AsEnumerable().SortFood(foodParameters.SortOrder),
+                foodItems.SortFood(foodParameters.SortOrder),
                 foodParameters.PageNumber,
                 foodParameters.PageSize);
         }

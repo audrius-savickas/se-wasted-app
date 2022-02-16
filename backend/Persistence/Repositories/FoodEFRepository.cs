@@ -1,15 +1,13 @@
 ﻿using Domain.Entities;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Persistence;
 using Persistence.Interfaces;
 using Persistence.Utils;
 using Services.Mappers;
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 
-namespace Services.Repositories
+namespace Persistence.Repositories
 {
     public class FoodEFRepository : IFoodRepository
     {
@@ -43,7 +41,7 @@ namespace Services.Repositories
 
         public IQueryable<Food> GetAll()
         {
-            return _context.Foods.Include(x => x.TypesOfFood).Select(x => x.ToDomain());
+            return _context.Foods.Include(x => x.TypesOfFood).Include(x => x.Reservations).Select(x => x.ToDomain());
         }
 
         public Food GetById(string id)
@@ -71,14 +69,14 @@ namespace Services.Repositories
 
         public IQueryable<Food> GetFoodFromRestaurant(string idRestaurant)
         {
-            return _context.Foods.Include(x => x.TypesOfFood)
+            return _context.Foods.Include(x => x.TypesOfFood).Include(x => x.Reservations)
                                  .Where(food => food.RestaurantId == Guid.Parse(idRestaurant))
                                  .Select(x => x.ToDomain());
         }
 
         private FoodEntity GetByIdString(string id)
         {
-            return _context.Foods.Include(x => x.TypesOfFood)
+            return _context.Foods.Include(x => x.TypesOfFood).Include(x => x.Reservations)
                                  .FirstOrDefault(x => x.Id == Guid.Parse(id));
         }
     }

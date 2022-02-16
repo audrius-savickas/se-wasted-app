@@ -15,9 +15,9 @@ using System;
 using System.IO;
 using System.Reflection;
 using WebApi.Helpers;
-using Services.Repositories;
 using WebApi.Middleware;
 using Serilog;
+using Persistence.Repositories;
 
 namespace WebApi
 {
@@ -72,6 +72,8 @@ namespace WebApi
             services.AddScoped<IFoodRepository, FoodEFRepository>();
             services.AddScoped<IRestaurantRepository, RestaurantEFRepository>();
             services.AddScoped<ITypeOfFoodRepository, TypeOfFoodEFRepository>();
+            services.AddScoped<ICustomerRepository, CustomerEFRepository>();
+            services.AddScoped<IReservationRepository, ReservationEFRepository>();
         }
 
         private void ConfigureLogger(IServiceCollection services)
@@ -96,6 +98,8 @@ namespace WebApi
             services.AddScoped<IFoodService, FoodService>();
             services.AddScoped<ITypeOfFoodService, TypeOfFoodService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
             services.AddSwaggerGen(c =>
             {

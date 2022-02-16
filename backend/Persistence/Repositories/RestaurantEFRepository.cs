@@ -1,15 +1,13 @@
 ﻿using Domain.Entities;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Persistence;
 using Persistence.Interfaces;
 using Persistence.Utils;
 using Services.Mappers;
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 
-namespace Services.Repositories
+namespace Persistence.Repositories
 {
     public class RestaurantEFRepository : IRestaurantRepository
     {
@@ -37,7 +35,7 @@ namespace Services.Repositories
 
         public IQueryable<Restaurant> GetAll()
         {
-            return _context.Restaurants.Include(x => x.Foods).Select(x => x.ToDomain());
+            return _context.Restaurants.Include(x => x.Foods).ThenInclude(x => x.Reservations).Select(x => x.ToDomain());
         }
 
         public IQueryable<Restaurant> GetAllRestaurantsCloserThan(Coords coords, Distances distance)
@@ -52,7 +50,7 @@ namespace Services.Repositories
 
         public Restaurant GetByMail(Mail mail)
         {
-            return _context.Restaurants.Include(x => x.Foods).FirstOrDefault(x => x.Mail == mail.Value)?.ToDomain();
+            return _context.Restaurants.Include(x => x.Foods).ThenInclude(x => x.Reservations).FirstOrDefault(x => x.Mail == mail.Value)?.ToDomain();
         }
 
         public IQueryable<Restaurant> GetRestaurantsNear(Coords coords)
@@ -78,7 +76,7 @@ namespace Services.Repositories
 
         private RestaurantEntity GetByIdString(string id)
         {
-            return _context.Restaurants.Include(x => x.Foods).FirstOrDefault(x => x.Id == Guid.Parse(id));
+            return _context.Restaurants.Include(x => x.Foods).ThenInclude(x => x.Reservations).FirstOrDefault(x => x.Id == Guid.Parse(id));
         }
     }
 }

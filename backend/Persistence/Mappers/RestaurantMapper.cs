@@ -30,6 +30,7 @@ namespace Services.Mappers
                 coords,
                 credentials,
                 from.Foods.Select(x => x.ToDomain()),
+                from.Phone,
                 from.Description,
                 from.ImageURL);
         }
@@ -49,6 +50,7 @@ namespace Services.Mappers
                 Password = from.Credentials.Password.Value,
                 Description = from.Description,
                 ImageURL = from.ImageURL,
+                Phone = from.Phone,
             };
         }
 
@@ -64,6 +66,8 @@ namespace Services.Mappers
                 from.Coords,
                 from.DistanceTo(coords),
                 from.Foods.Count(),
+                from.Phone,
+                from.Credentials.Mail.Value,
                 from.Description,
                 from.ImageURL
             );

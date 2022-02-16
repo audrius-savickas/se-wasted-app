@@ -139,6 +139,7 @@ namespace WebApi.Controllers
                     Credentials = new Credentials(),
                     Description = restaurantDto.Description,
                     ImageURL = restaurantDto.ImageURL,
+                    Phone = restaurantDto.Phone,
                 };
 
                 _restaurantService.UpdateRestaurant(restaurant);
@@ -204,6 +205,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="id">Identifies the restaurant</param>
         /// <param name="foodParameters"></param>
+        /// <param name="reserved"></param>
         /// <returns></returns>
         [HttpGet("{id}/food", Name = nameof(GetAllFoodFromRestaurant))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<FoodResponse>))]

@@ -23,5 +23,6 @@ namespace Contracts.DTOs
         public decimal AmountPerInterval { get; set; }
         public double PercentPerInterval { get; set; }
         public string ImageURL { get; set; }
+        public ReservationDto Reservation { get; set; }
     }
 }

@@ -45,8 +45,17 @@ namespace Services.Services
 
         public PagedList<Food> GetAllFood(FoodParameters foodParameters)
         {
+            var foodItems = _foodRepository.GetAll().AsEnumerable();
+            if (foodParameters.Reserved == true)
+            {
+                foodItems = foodItems.Where(x => x.Reservation != null);
+            }
+            else if (foodParameters.Reserved == false)
+            {
+                foodItems = foodItems.Where(x => x.Reservation == null);
+            }
             return PagedList<Food>.ToPagedList(
-                _foodRepository.GetAll().AsEnumerable().SortFood(foodParameters.SortOrder), 
+                foodItems.SortFood(foodParameters.SortOrder), 
                 foodParameters.PageNumber, 
                 foodParameters.PageSize);
         }

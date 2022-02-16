@@ -2,7 +2,7 @@
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
-using Services.Repositories;
+using Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

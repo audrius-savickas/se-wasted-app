@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Models
 {
@@ -11,6 +12,7 @@ namespace Domain.Models
         public DateTime CreatedAt { get; set; }
         public string IdRestaurant { get; set; }
         public string ImageURL { get; set; }
+        public virtual Reservation Reservation { get; set; }
         public virtual IEnumerable<TypeOfFood> TypesOfFood { get; set; }
         public DateTime StartDecreasingAt { get; set; }
         public DecreaseType DecreaseType { get; set; }
@@ -19,6 +21,7 @@ namespace Domain.Models
         public double PercentPerInterval { get; set; }
 
         private const string DEFAULT_IMAGE_URL = "https://genesisairway.com/wp-content/uploads/2019/05/no-image.jpg";
+        private const int MAX_RESERVATION_DURATION_IN_MINUTES = 30;
 
         public Food() : base() { }
 
@@ -37,10 +40,12 @@ namespace Domain.Models
             DateTime? startDecreasingAt = null,
             decimal? amountPerInterval = null,
             double? percentPerInterval = null,
-            string description = ""
+            string description = "",
+            IEnumerable<Reservation> reservations = null
         )
             : base(id, name)
         {
+            Reservation = GetCurrentReservation(reservations);
             StartingPrice = startingPrice;
             MinimumPrice = minimumPrice >= 0 ? minimumPrice : 0;
             CreatedAt = createdAt ?? DateTime.Now;
@@ -65,6 +70,19 @@ namespace Domain.Models
                     AmountPerInterval = CalculateAmountPerInterval();
                     break;
             }
+        }
+
+        private Reservation GetCurrentReservation(IEnumerable<Reservation> reservations)
+        {
+            var valid = reservations.Where(x => x.FoodId == Id && x.IsCancelled == false);
+            var notExpired = valid.Where(x => x.ReservedAt.AddMinutes(MAX_RESERVATION_DURATION_IN_MINUTES) >= DateTime.Now);
+
+            if (notExpired.Count() > 1)
+            {
+                throw new Exception("Multiple reservations of a single food.");
+            }
+
+            return notExpired.SingleOrDefault();
         }
 
         public void CheckIfImageUrlIsSet()

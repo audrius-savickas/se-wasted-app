@@ -1,13 +1,12 @@
 ﻿using Domain.Entities;
 using Domain.Models;
-using Persistence;
 using Persistence.Interfaces;
 using Persistence.Utils;
 using Services.Mappers;
 using System;
 using System.Linq;
 
-namespace Services.Repositories
+namespace Persistence.Repositories
 {
     public class TypeOfFoodEFRepository : ITypeOfFoodRepository
     {
